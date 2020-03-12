@@ -1,0 +1,235 @@
+<?php 
+
+
+
+ ?>
+
+
+
+ <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Kapella Bootstrap Admin Dashboard Template</title>
+    <!-- base:css -->
+    <link rel="stylesheet" href="../../Resourse/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../Resourse/vendors/base/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../../Resourse/vendors/fontawesome-free/css/all.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../Resourse/css2/style.css">
+    <link rel="stylesheet" href="../../Resourse/CSS/DL.css">
+    <link rel="stylesheet" href="../../Resourse/CSS/bootstrap.min.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="../../Resourse/images/favicon.png" />
+  </head>
+
+  
+  <style type="text/css">
+       .lblack{
+      width: 70px;
+	  height: 16px;
+	  margin-bottom:4px
+      
+    }
+</style>
+  <body>
+    <div class="container-scroller">
+		<!-- partial:partials/_horizontal-navbar.html -->
+		<div class="horizontal-menu">
+      <nav class="navbar top-navbar col-lg-12 col-12 p-0">
+        <div class="container-fluid">
+          <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between">
+          
+             
+              
+   
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo" href="dash.html"><img src="../../Resourse/images/logo-1.png" alt="logo"/></a>
+            </div>
+            <ul class="navbar-nav navbar-nav-right">
+               
+              
+             
+                <li class="nav-item nav-profile dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                    <span class="nav-profile-name">Johnson</span>
+                    <span class="online-status"></span>
+                    <img src="../../Resourse/images/dashboard/face29.png" alt="profile"/>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                      <a class="dropdown-item">
+                        <i class="mdi mdi-settings text-primary"></i>
+                        Settings
+                      </a>
+                      <a class="dropdown-item">
+                        <i class="mdi mdi-logout text-primary"></i>
+                        Logout
+                      </a>
+                  </div>
+                </li>
+            </ul>
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="horizontal-menu-toggle">
+              <span class="mdi mdi-menu"></span>
+            </button>
+          </div>
+        </div>
+      </nav>
+      <nav class="bottom-navbar navL">
+        <div class="container">
+            <ul class="nav page-navigation">
+
+              <li class="nav-item">
+                <a class="nav-link" href="dash.php">
+                  <i class="mdi mdi-file-document-box menu-icon"></i>
+                  <span class="menu-title">Dashboard</span>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                  <a class="nav-link" href="#" >
+                    <i class="mdi mdi-cube-outline menu-icon"></i>
+                    <span class="menu-title">Ajouter</span>
+                    <i class="menu-arrow"></i>
+                  </a>
+                  <div class="submenu">
+                      <ul>
+                          <li class="nav-item"><a class="nav-link" href="Addform.php">Une location</a></li>
+                          <li class="nav-item"><a class="nav-link" href="#">Un user</a></li>
+                      </ul>
+                  </div>
+              </li>
+            
+				  <li class="nav-item">
+                  <a href="../pages/forms/basic_elements.html" class="nav-link">
+                    <i class="mdi mdi-chart-areaspline menu-icon"></i>
+                    <span class="menu-title">Form Elements</span>
+                    <i class="menu-arrow"></i>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a href="../pages/charts/chartjs.html" class="nav-link">
+                    <i class="mdi mdi-finance menu-icon"></i>
+                    <span class="menu-title">Charts</span>
+                    <i class="menu-arrow"></i>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a href="../pages/tables/basic-table.html" class="nav-link">
+                    <i class="mdi mdi-grid menu-icon"></i>
+                    <span class="menu-title">Tables</span>
+                    <i class="menu-arrow"></i>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a href="pages/icons/mdi.html" class="nav-link">
+                    <i class="mdi mdi-emoticon menu-icon"></i>
+                    <span class="menu-title">Icons</span>
+                    <i class="menu-arrow"></i>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="mdi mdi-codepen menu-icon"></i>
+                    <span class="menu-title">Sample Pages</span>
+                    <i class="menu-arrow"></i>
+                  </a>
+                  <div class="submenu">
+                      <ul class="submenu-item">
+                          <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+                        
+                      </ul>
+                  </div>
+              </li>
+              <li class="nav-item">
+                  <a href="DemandeLoc" class="nav-link">
+                 <i class="fas fa-hand-pointer menu-icon"></i>   
+          <!--   <i class="mdi mdi-file-document-box-outline menu-icon"></i>-->
+                    <span class="menu-title">Demandes</span></a>
+              </li>
+	
+            </ul>
+        </div>
+      </nav>
+    </div>
+	
+	
+
+           <!--PAGE content-->
+                <div class="container ">
+
+
+                	<div class="card mb-3 Lcard">
+                     <div class="row no-gutters">
+                     <div class="col-md-4"><!--image-->
+                     <img src="..." class="card-img" alt="...">
+                     </div>
+                     <div class="col-md-8">
+                     <div class="card-body">
+                     <h5 class="card-title">Titre Logement</h5>
+                     <div class="card-body">
+        <h5 class="card-title"></h5>
+        <p class="card-text"> 
+        	<i class="fas fa-tags CA">300DH  </i> 
+        	<i class="fas fa-male CA">5  </i>  
+        	<i class="fas fa-warehouse CA">100m²  </i>
+        </p>
+        <p class="card-text"> 
+         <i class="fas fa-map-marker-alt CA"> Adresse du logement</i> 
+        </p>
+          <br>
+        <p class="cpara">Description</p> <br>
+                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small> </p>
+                     <div>   <button type="button " class="btn btn-primary btnL" >Voir Plus</button> </div>
+                     </div>
+                     </div>
+                     </div>
+                     </div>
+
+
+
+
+
+	
+                </div>
+
+
+
+
+
+				<!-- partial:partials/_footer.html -->
+				<footer class="footer">
+          <div class="footer-wrap">
+              <div class="w-100 clearfix">
+                <span class="d-block text-center text-sm-left d-sm-inline-block"> &nbsp; <span> <img src="../../Resourse/images/logoBlack.png" class="lblack" /></span> &nbsp;Copyright © ESRENT. All rights reserved</span>
+                
+              </div>
+          </div>
+        </footer>
+				<!-- partial -->
+			</div>
+			<!-- main-panel ends -->
+		</div>
+		<!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- base:js -->
+    <script src="../../Resourse/vendors/base/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="../../Resourse/js2/template.js"></script>
+    <!-- endinject -->
+    <!-- plugin js for this page -->
+    <!-- End plugin js for this page -->
+ 
+    <!-- Custom js for this page-->
+    <script src="../../Resourse/js2/dashboard.js"></script>
+    <!-- End custom js for this page-->
+  </body>
+</html>
