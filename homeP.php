@@ -83,7 +83,7 @@ if(isset($_POST['connect']))
     <div class="ui container">
       <div class="right menu">
        <a href="/PropPges/LoginHote.php" class="active item">Devenez hôte</a>
-        <a class="item">Aide</a>
+        <a href="pages/samples/Aide.html" class="item">Aide</a>
         <a href="pages/samples/register.php" class="item">Inscription</a>
         <a href="pages/samples/login.php" class="item">Connexion</a>
       </div>
@@ -123,22 +123,23 @@ if(isset($_POST['connect']))
         <h1 class="ui inverted header">
         <img src="Resourse/images/logoHome.png" class="lwhite" />
         </h1>
-        <h2>Do whatever you want when you want to.</h2>
+        <h2>Faites ce que vous voulez quand vous le souhaitez..</h2>
        
       </div>
   <!--filter div-->
       <form class="ui card" action="pages/samples/searshResult.php" methode="POST">
         <div class="ui fluid icon input">
-            <input type="text" name="rech" placeholder="Search a very wide input..." required>
-            
-            <i class="fas fa-search "></i>
+        
+        <input type="text" name="rech" placeholder="Search a very wide input..." required >
+        <i class="fas fa-search"></i> 
+               
         </div>
       </div>
 
   </form>
    
-  <div class="textSEP">We have the most listings and constant updates.
-    So you’ll never miss out.</div>
+  <div class="textSEP">Nous avons le plus d'annonces et de mises à jour constantes. <br>     
+           Vous ne manquerez donc jamais rien..</div>
 
     
           
@@ -150,21 +151,21 @@ if(isset($_POST['connect']))
                 <img src="Resourse/imgs/matthew.png">
               </div>
               <div class="content">
-                <div class="header">Matt Giampietro</div>
+                <div class="header">Appartement1</div>
                 <div class="meta">
-                  <a>Friends</a>
+                  <a>Mr Alami dodo</a>
                 </div>
                 <div class="description">
-                  Matthew is an interior designer living in New York.
+                  Description de l'appartement
                 </div>
               </div>
               <div class="extra content">
                 <span class="right floated">
-                  Joined in 2013
+                 2100 dh
                 </span>
                 <span>
-                  <i class="user icon"></i>
-                  75 Friends
+                <i class="fab fa-gratipay"></i> 
+                  75 Like
                 </span>
               </div>
             </div>
@@ -173,21 +174,21 @@ if(isset($_POST['connect']))
                 <img src="Resourse/imgs/matthew.png">
               </div>
               <div class="content">
-                <div class="header">Molly</div>
+                <div class="header">Appartement2</div>
                 <div class="meta">
-                  <span class="date">Coworker</span>
+                  <a>Mr semsawi fofo</a>
                 </div>
                 <div class="description">
-                  Molly is a personal assistant living in Paris.
+                  Description de l'appartement
                 </div>
               </div>
               <div class="extra content">
                 <span class="right floated">
-                  Joined in 2011
+                  1500 dh
                 </span>
                 <span>
-                  <i class="user icon"></i>
-                  35 Friends
+                <i class="fab fa-gratipay"></i> 
+                  35 Like
                 </span>
               </div>
             </div>
@@ -196,21 +197,21 @@ if(isset($_POST['connect']))
                 <img src="Resourse/imgs/matthew.png">
               </div>
               <div class="content">
-                <div class="header">Elyse</div>
+                <div class="header">Appartement3</div>
                 <div class="meta">
-                  <a>Coworker</a>
+                  <a>Mr tertawi toto</a>
                 </div>
                 <div class="description">
-                  Elyse is a copywriter working in New York.
+                  Description de l'appartement
                 </div>
               </div>
               <div class="extra content">
                 <span class="right floated">
-                  Joined in 2014
+                 5000 dh
                 </span>
                 <span>
-                  <i class="user icon"></i>
-                  151 Friends
+                <i class="fab fa-gratipay"></i> 
+                  175 Like
                 </span>
               </div>
             </div>
