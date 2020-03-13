@@ -241,7 +241,8 @@ while ($rowL = mysqli_fetch_array($resL))
                   <a class="dropdown-toggle show-dropdown-arrow btn btn-inverse-primary btn-sm" id="nreportDropdown" href="#" data-toggle="dropdown">
                   Price
                   </a>
-                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" id="PM" aria-labelledby="nreportDropdown">
+                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"  aria-labelledby="nreportDropdown">
+                     <div id="PM">
                       <p class="mb-0 font-weight-medium float-left dropdown-header">Price</p> <br><br>
 
                         <a class="dropdown-item">
@@ -255,6 +256,7 @@ while ($rowL = mysqli_fetch_array($resL))
 
                       </a>
                       <br>
+                      </div>
                       <div class="footer">
                       <button type="button" class="btn btn-dark">Done</button>
                   </div>
@@ -268,10 +270,11 @@ while ($rowL = mysqli_fetch_array($resL))
                   Nombre de personne
                   </a>
                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="nreportDropdown">
+                 <div id="NPM" class="switch-field">
                       <p class="mb-0 font-weight-medium float-left dropdown-header">Nombre de personne</p> <br><br>
 
                         <a class="dropdown-item">
-                        <div id="NPM" class="switch-field">
+                        
                         <input type="radio" id="radio-O" name="switch-two" value="All" checked/>
 	                         	<label for="radio-O">All</label>
 	                        	<input type="radio" id="radio-one" name="switch-two" value="1" />
@@ -284,12 +287,14 @@ while ($rowL = mysqli_fetch_array($resL))
 	                          	<label for="radio-four">4</label>
 	                         	<input type="radio" id="radio-five" name="switch-two" value="5" />
 	                        	<label for="radio-five">5</label>
-                     	</div>
+                     
                     
 
                       </a>
+                      
                      
                       <br>
+                      </div>
                       <div class="footer">
                       <button type="button" class="btn btn-dark">Done</button>
                   </div>
@@ -304,22 +309,24 @@ while ($rowL = mysqli_fetch_array($resL))
             Nombre de Chambres
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="nreportDropdown">
+            <div id="NCM" class="switch-field">
                 <p class="mb-0 font-weight-medium float-left dropdown-header">Nombre de Chambres</p> <br><br>
 
                   <a class="dropdown-item">
-                  <div id="NCM" class="switch-field">
+                 
                   <input type="radio" id="rad0" name="switchs-two3" value="All" checked/> <label for="rad0">All</label>
                   <input type="radio" id="rad1" name="switchs-two3" value="1" /> <label for="rad1">1</label>
                   <input type="radio" id="rad2" name="switchs-two3" value="2" /> <label for="rad2">2</label>
                   <input type="radio" id="rad3" name="switchs-two3" value="3" /> <label for="rad3">3</label>
                   <input type="radio" id="rad4" name="switchs-two3" value="4" /> <label for="rad4">4</label>
                   <input type="radio" id="rad5" name="switchs-two3" value="5" /> <label for="rad5">5</label>
-                 </div>
+               
 
 
                 </a>
                
                 <br>
+                </div>
                 <div class="footer">
                 <button type="button" class="btn btn-dark">Done</button>
             </div>
@@ -334,9 +341,10 @@ while ($rowL = mysqli_fetch_array($resL))
             Type de Logemnt
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="nreportDropdown">
+            <div id="TM" class="switch-field">
                 <p class="mb-0 font-weight-medium float-left dropdown-header">Type de Logemnt</p> <br><br>
                   <a class="dropdown-item">
-                  <div id="TM" class="switch-field">
+                
                   <input type="radio" id="radio-Oee" name="switch-two4" value="All" checked/>
                        <label for="radio-Oee">All</label>
                   <input type="radio" id="radio-Oe" name="switch-two4" value="studio"/>
@@ -344,12 +352,13 @@ while ($rowL = mysqli_fetch_array($resL))
                       <input type="radio" id="radio-fin" name="switch-two4" value="Apartement" />
                        <label for="radio-fin">Apartement</label>
                       
-                 </div>
+              
 
 
                 </a>
                
                 <br>
+                </div>
                 <div class="footer">
                 <button type="button" class="btn btn-dark">Done</button>
             </div>
@@ -363,21 +372,23 @@ while ($rowL = mysqli_fetch_array($resL))
             Plus
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="nreportDropdown">
+            <div id="MrM" class="switch-field">
                 <p class="mb-0 font-weight-medium float-left dropdown-header">Price</p> <br><br>
 
                   <a class="dropdown-item">
-                  <div id="MrM" class="switch-field">
+               
                   <input type="radio" id="radio-O" name="switch-twoM" value="yes"/>
                        <label for="radio-l">Studio</label>
                       <input type="radio" id="radio-three" name="switch-twoM" value="no"  />
                        <label for="radio-l">Apartement</label>
                       
-                 </div>
+                 
 
 
                 </a>
                
                 <br>
+                </div>
                 <div class="footer">
                 <button type="button" class="btn btn-dark">Done</button>
             </div>
