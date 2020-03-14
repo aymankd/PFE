@@ -63,7 +63,7 @@ if(isset($_POST['connect']))
   <link href="Resourse/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
   <link rel="stylesheet" type="text/css" href="Resourse/CSS/Style.css">
-  <link rel="stylesheet" type="text/css" href="Resourse/CSS/StyleLogin.css">
+
 
 </head>
 <style type="text/css">
