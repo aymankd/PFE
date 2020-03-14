@@ -111,7 +111,7 @@ if(isset($_POST['connect']))
      
         <img src="Resourse/images/logoBlack.png" class="lwhite" />
         <div class="right item">
-        <a href="pages/AdminPages/LoginHote.php" class="active item">Devenez hôte</a>
+        <a href="pages/AdminPages/LoginHote.php" class="active header item">Devenez hôte</a>
         <a href="pages/samples/Aide.html" class="item">Aide</a>
         <a href="pages/samples/register.php" class="item">Inscription</a>
         <a href="pages/samples/login.php" class="item">Connexion</a>
