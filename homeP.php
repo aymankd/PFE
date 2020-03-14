@@ -82,7 +82,7 @@ if(isset($_POST['connect']))
   <div class="ui inverted secondary menu">
     <div class="ui container">
       <div class="right menu">
-       <a href="/PropPges/LoginHote.php" class="active item">Devenez hôte</a>
+        <a href="pages/AdminPages/LoginHote.php" class="active item">Devenez hôte</a>
         <a href="pages/samples/Aide.html" class="item">Aide</a>
         <a href="pages/samples/register.php" class="item">Inscription</a>
         <a href="pages/samples/login.php" class="item">Connexion</a>
@@ -109,21 +109,20 @@ if(isset($_POST['connect']))
     <div class="ui container">
       <div class="ui large secondary pointing inverted menu">
      
-        <img src="Resourse/images/logoWhite.png" class="lwhite" />
+        <img src="Resourse/images/logoBlack.png" class="lwhite" />
         <div class="right item">
-            <a class="active item">Devenez hôte</a>
-            <a class="item">Aide</a>
-            <a href="pages/samples/register.php" class="item">Inscription</a>
-            <a href="pages/samples/login.php"  class="item" >Connexion</a>
-
+        <a href="pages/AdminPages/LoginHote.php" class="active item">Devenez hôte</a>
+        <a href="pages/samples/Aide.html" class="item">Aide</a>
+        <a href="pages/samples/register.php" class="item">Inscription</a>
+        <a href="pages/samples/login.php" class="item">Connexion</a>
         </div>
       </div>
     </div>
     <div class="ui text container">
         <h1 class="ui inverted header">
-        <img src="Resourse/images/logoHome.png" class="lwhite" />
+        <img src="Resourse/images/logoBlack.png" class="lwhite" />
         </h1>
-        <h2>Faites ce que vous voulez quand vous le souhaitez..</h2>
+        <h2>Nous vous aiderons à trouver un endroit que vous aimerez.</h2>
        
       </div>
   <!--filter div-->

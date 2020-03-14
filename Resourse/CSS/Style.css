@@ -28,6 +28,7 @@
       .masthead h2 {
         font-size: 1.7em;
         font-weight: normal;
+        color: black;
       }
   
       .ui.vertical.stripe {
@@ -167,7 +168,7 @@
       }
       
       .masthead{
-        background-image: url(../images/lockscreen-bg.jpg) !important;
+        background-image: url(../images/back2.jpg) !important;
         background-size: cover !important;
       }
 
@@ -175,7 +176,10 @@
 
       .fas{
                  margin-top: 25px;
-                 width: 40px;
+                 width: 50px;
+                 background-size: 100% 100%;
+                 color:blueviolet;
+                 font-size: 18px;
       }
  
 

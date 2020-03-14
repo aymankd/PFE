@@ -17777,13 +17777,13 @@ ol.ui.horizontal.list li:before {
 }
 .ui.secondary.inverted.menu .link.item,
 .ui.secondary.inverted.menu a.item {
- color:rgba(255,255,255,.7)!important
+ color:rgb(0, 0, 0) !important;
 }
 .ui.secondary.inverted.menu .dropdown.item:hover,
 .ui.secondary.inverted.menu .link.item:hover,
 .ui.secondary.inverted.menu a.item:hover {
- background:rgba(255,255,255,.08);
- color:#fff!important
+ background:rgba(12, 3, 3, 0.11);
+ color:#fff !important;
 }
 .ui.secondary.inverted.menu .active.item {
  background:rgba(255,255,255,.15);
@@ -17827,7 +17827,7 @@ ol.ui.horizontal.list li:before {
  border-bottom:2px solid rgba(34,36,38,.15)
 }
 .ui.secondary.pointing.menu .item {
- border-bottom-color:transparent;
+ border-bottom-color:#0000;
  border-bottom-style:solid;
  border-radius:0;
  -ms-flex-item-align:end;
@@ -17851,7 +17851,7 @@ ol.ui.horizontal.list li:before {
 .ui.secondary.pointing.menu .dropdown.item:hover,
 .ui.secondary.pointing.menu .link.item:hover,
 .ui.secondary.pointing.menu a.item:hover {
- background-color:transparent;
+ background-color:#0045dacb;
  color:rgba(0,0,0,.87)
 }
 .ui.secondary.pointing.menu .dropdown.item:active,
@@ -17861,7 +17861,7 @@ ol.ui.horizontal.list li:before {
  border-color:rgba(34,36,38,.15)
 }
 .ui.secondary.pointing.menu .active.item {
- background-color:transparent;
+ background-color:#0000;
  -webkit-box-shadow:none;
  box-shadow:none;
  border-color:#1b1c1d;
@@ -17910,8 +17910,8 @@ ol.ui.horizontal.list li:before {
  color:rgba(0,0,0,.95)
 }
 .ui.secondary.inverted.pointing.menu .active.item {
- border-color:#fff;
- color:#fff
+ border-color:#000;
+
 }
 .ui.text.menu {
  background:none transparent;
