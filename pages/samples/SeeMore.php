@@ -19,6 +19,8 @@
       <link rel="stylesheet" href="../../Resourse/cssSm/select2.min.css">
       <!--responsive css-->
       <link rel="stylesheet" href="../../Resourse/cssSm/responsive.css">
+
+      <link href="../../Resourse/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
    </head>
    <body>
       <header id="header" class="top-head">
@@ -38,7 +40,7 @@
                      </div>
                      <form class="navbar-form navbar-left web-sh">
                         <div class="form">
-                           <input type="text" class="form-control" placeholder="Search for products or companies">
+                           <input type="text" class="form-control" placeholder="Rechercher">
                         </div>
                      </form>
                   </div>
@@ -55,26 +57,13 @@
       <!-- Modal -->
      
     
-      <div class="terms-conditions product-page">
-         <div class="terms-title">
-            <div class="container">
-               <div class="row">
-                  <ol class="breadcrumb">
-                     <li><a href="#">page1 </a></li>
-                     <li class="active">page 2</li>
-                     <li class="active">page active</li>
-                     <li><a href="#">Titre hna</a></li>
-                  </ol>
-               </div>
-            </div>
-         </div>
-      </div>
+     
       <div class="product-page-main">
          <div class="container">
             <div class="row">
                <div class="col-md-12">
                   <div class="prod-page-title">
-                     <h2>Titre locaion</h2>
+                     <h2 class="titreOne">TITRE DE LOCATION</h2>
                      <p>By <span>propritaire</span></p>
                   </div>
                </div>
@@ -108,8 +97,8 @@
                         <div class="btn-dit-list clearfix">
                            <div class="left-dit-p">
                               <div class="prod-btn">
-                                 <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
-                                 <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
+                              
+                                 <a href="#"><i class="fas fa-heart"></i> Like this</a>
                                  <p>23 likes</p>
                               </div>
                            </div>
@@ -241,7 +230,7 @@
                                  <a href="#" tabindex="0">$1220</a>
                               </div>
                               <div class="prod-btn">
-                                 <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
+                                
                                  <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
                                  <p>23 likes</p>
                               </div>
@@ -260,7 +249,7 @@
                                  <a href="#" tabindex="0">$1220</a>
                               </div>
                               <div class="prod-btn">
-                                 <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
+                                
                                  <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
                                  <p>23 likes</p>
                               </div>
@@ -281,7 +270,7 @@
                                  <a href="#" tabindex="0">$1220</a>
                               </div>
                               <div class="prod-btn">
-                                 <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
+                                 
                                  <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
                                  <p>23 likes</p>
                               </div>
@@ -300,7 +289,7 @@
                                  <a href="#" tabindex="0">$1220</a>
                               </div>
                               <div class="prod-btn">
-                                 <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
+                                 
                                  <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
                                  <p>23 likes</p>
                               </div>
@@ -313,9 +302,9 @@
                   <div class="price-box-right">
                      <h4>Prix</h4>
                      <h3>1.320 Dh</h3>
-                     <p>Option</p>
+              
                     
-                     <a href="#">Reserver</a>
+                     <a href="#" class="badge badge-primary">Reserver</a>
                   </div>
                </div>
             </div>

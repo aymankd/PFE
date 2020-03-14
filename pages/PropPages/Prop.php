@@ -194,13 +194,14 @@
        <!-- The slideshow -->
        <div class="carousel-inner">
    <div class="carousel-item active">
-     <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
+   
+     <img src="../../Resourse/images/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item">
-  <img src="../../images/auth/login-bg.jpg" class="d-block w-100">
+  <img src="../../Resourse/images/auth/login-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item">
-   <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
+   <img src="../../Resourse/images/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 </div>
 
@@ -238,13 +239,13 @@
        <!-- The slideshow -->
        <div class="carousel-inner">
    <div class="carousel-item active">
-     <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
+     <img src="../../Resourse/images/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item">
-  <img src="../../images/auth/login-bg.jpg" class="d-block w-100">
+  <img src="../../Resourse/images/auth/login-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item">
-   <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
+   <img src="../../Resourse/images/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 </div>
 
@@ -282,13 +283,13 @@
        <!-- The slideshow -->
        <div class="carousel-inner">
    <div class="carousel-item">
-     <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
+     <img src="../../Resourse/images/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item">
-  <img src="../../images/auth/login-bg.jpg" class="d-block w-100">
+  <img src="../../Resourse/images/auth/login-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item active">
-   <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
+   <img src="../../Resourse/images/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 </div>
 
@@ -326,13 +327,13 @@
        <!-- The slideshow -->
        <div class="carousel-inner">
    <div class="carousel-item">
-     <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
+     <img src="../../Resourse/images/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item">
-  <img src="../../images/auth/login-bg.jpg" class="d-block w-100">
+  <img src="../../Resourse/images/auth/login-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item active">
-   <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
+   <img src="../../Resourse/images/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 </div>
 
@@ -370,13 +371,13 @@
        <!-- The slideshow -->
        <div class="carousel-inner">
    <div class="carousel-item">
-     <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
+     <img src="../../Resourse/images/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item">
-  <img src="../../images/auth/login-bg.jpg" class="d-block w-100">
+  <img src="../../Resourse/images/auth/login-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item active">
-   <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
+   <img src="../../Resourse/images/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 </div>
 
@@ -414,13 +415,13 @@
        <!-- The slideshow -->
        <div class="carousel-inner">
    <div class="carousel-item">
-     <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
+     <img src="../../Resourse/images/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item">
-  <img src="../../images/auth/login-bg.jpg" class="d-block w-100">
+  <img src="../../Resourse/images/auth/login-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item active">
-   <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
+   <img src="../../Resourse/images/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 </div>
 
@@ -458,13 +459,13 @@
        <!-- The slideshow -->
        <div class="carousel-inner">
    <div class="carousel-item">
-     <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
+     <img src="../../Resourse/images/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item">
-  <img src="../../images/auth/login-bg.jpg" class="d-block w-100">
+  <img src="../../Resourse/images/auth/login-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item active">
-   <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
+   <img src="../../Resourseimages/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 </div>
 
@@ -503,13 +504,13 @@
        <!-- The slideshow -->
        <div class="carousel-inner">
    <div class="carousel-item">
-     <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
+     <img src="../../Resourse/images/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item">
-  <img src="../../images/auth/login-bg.jpg" class="d-block w-100">
+  <img src="../../Resourse/images/auth/login-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item active">
-   <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
+   <img src="../../Resourse/images/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 </div>
 
