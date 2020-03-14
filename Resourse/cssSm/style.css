@@ -53,7 +53,8 @@ h2,
 h3,
 h4,
 h5 {
-	margin: 0
+	margin: 0;
+	
 }
 
 h1,
@@ -2434,19 +2435,23 @@ html .ui-button.ui-state-disabled:active {
 
 .prod-btn a {
 	background: #ffffff;
-	border: 1px solid #ccd4da;
+	border: 1px solid #fd1c3c;
 	border-radius: 2px;
-	color: #a5a5a5;
+	color: #3c3c3c;
 	font-size: 12px;
 	font-family: 'Raleway', sans-serif;
 	font-weight: 500;
 	padding: 6px 12px;
 	display: inline-block;
 	margin-right: 8px;
+	/*! border-radius: 10px; */
 }
 
 .prod-btn a:hover {
-	color: #1c95fd;
+	color: #fd1c3c;
+	border-color: #fd1c3c;
+	border-radius: 10px;
+	border-block-width: 2px;
 }
 
 .prod-btn p {
@@ -2510,7 +2515,7 @@ html .ui-button.ui-state-disabled:active {
 }
 
 .im-b i {
-	color: #c5c6ce;
+	color: #464dee;
 }
 
 .like-list ul li:last-child .im-b {
@@ -3049,8 +3054,8 @@ html .ui-button.ui-state-disabled:active {
 
 .prod-page-title h2 {
 	font-size: 25px;
-	font-weight: 400;
-	color: #333333;
+	font-weight: bold;
+	color: #3b40cc;
 	padding-bottom: 12px;
 }
 
@@ -3058,10 +3063,12 @@ html .ui-button.ui-state-disabled:active {
 	margin: 0px;
 	font-size: 13px;
 	color: #ababab;
+	font-weight: bold;
 }
 
 .prod-page-title p span {
-	color: #3ba2ff;
+	color: #272727;
+	font-weight: 400;
 }
 
 .prod-page {
@@ -3163,7 +3170,7 @@ html .ui-button.ui-state-disabled:active {
 }
 
 .preview-thumbnail.nav-tabs li.active a {
-	border: 3px solid #01b888;
+	border: 3px solid #464dee;
 }
 
 .btn-dit-list {
@@ -3181,8 +3188,8 @@ html .ui-button.ui-state-disabled:active {
 .left-dit-p p {
 	font-size: 11px;
 	font-family: 'Raleway', sans-serif;
-	font-weight: 300;
-	color: #acacac;
+	font-weight: 600;
+	color: #464dee;
 	margin: 0px;
 }
 
@@ -3321,26 +3328,29 @@ html .ui-button.ui-state-disabled:active {
 
 .price-box-right a {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#00cb96+0,00be8e+100 */
-	background: #00cb96;
+	background: #0058cb;
 	/* Old browsers */
-	background: -moz-linear-gradient(top, #00cb96 0%, #00be8e 100%);
+	background: -moz-linear-gradient(top, #0058cb 0%, #034baa 100%);
 	/* FF3.6-15 */
-	background: -webkit-linear-gradient(top, #00cb96 0%, #00be8e 100%);
+	background: -webkit-linear-gradient(top, #015dd6 0%, #0058cb 100%);
 	/* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to bottom, #00cb96 0%, #00be8e 100%);
+	background: linear-gradient(to bottom, #0058cb 0%, #014db1 100%);
 	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00cb96', endColorstr='#00be8e', GradientType=0);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0058cb', endColorstr='#014db1', GradientType=0);
 	/* IE6-9 */
 	color: #fff;
 	font-size: 15px;
 	font-weight: 700;
-	border: 1px solid #01b888;
+	border: 1px solid #0058cb;
 	padding: 12px 0px;
 	display: block;
 	margin-top: 18px;
 	border-radius: 3px;
 	text-align: center;
 }
+.price-box-right a:hover{
+	background: #013170;
+} 
 
 .price-box-right h5 {
 	color: #5a5a5a;
@@ -3398,4 +3408,12 @@ html .ui-button.ui-state-disabled:active {
 .bg_img_right img {
 	width: 100%;
 }
+
+
+
+
+
+
+/*my shit */
+
 
