@@ -22,11 +22,12 @@
   <body>
     <div class="container-scroller">
 		<!-- partial:partials/_horizontal-navbar.html -->
-    <div class="horizontal-menu">
+		<div class="horizontal-menu">
       <nav class="navbar top-navbar col-lg-12 col-12 p-0">
         <div class="container-fluid">
           <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between">
-            <ul class="navbar-nav navbar-nav-left">
+          
+          <ul class="navbar-nav navbar-nav-left">
               <li class="nav-item ml-0 mr-5 d-lg-flex d-none">
                 <a href="#" class="nav-link horizontal-nav-left-menu"><i class="mdi mdi-format-list-bulleted"></i></a>
               </li>
@@ -137,38 +138,21 @@
                 </div>
               </li>	
             </ul>
+ 
+              
+   
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo" href="index.html"><img src="images/logo.svg" alt="logo"></a>
-                <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"></a>
+                <a class="navbar-brand brand-logo" href="dash.html"><img src="../../Resourse/images/logo-1.png" alt="logo"/></a>
             </div>
             <ul class="navbar-nav navbar-nav-right">
-                <li class="nav-item dropdown  d-lg-flex d-none">
-                  <button type="button" class="btn btn-inverse-primary btn-sm">Product </button>
-                </li>
-                <li class="nav-item dropdown d-lg-flex d-none">
-                  <a class="dropdown-toggle show-dropdown-arrow btn btn-inverse-primary btn-sm" id="nreportDropdown" href="#" data-toggle="dropdown">
-                  Reports
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="nreportDropdown">
-                      <p class="mb-0 font-weight-medium float-left dropdown-header">Reports</p>
-                      <a class="dropdown-item">
-                        <i class="mdi mdi-file-pdf text-primary"></i>
-                        Pdf
-                      </a>
-                      <a class="dropdown-item">
-                        <i class="mdi mdi-file-excel text-primary"></i>
-                        Exel
-                      </a>
-                  </div>
-                </li>
-                <li class="nav-item dropdown d-lg-flex d-none">
-                  <button type="button" class="btn btn-inverse-primary btn-sm">Settings</button>
-                </li>
+               
+              
+             
                 <li class="nav-item nav-profile dropdown">
                   <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                     <span class="nav-profile-name">Johnson</span>
                     <span class="online-status"></span>
-                    <img src="images/faces/face28.png" alt="profile">
+                    <img src="../../Resourse/images/dashboard/face29.png" alt="profile"/>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                       <a class="dropdown-item">
@@ -192,7 +176,7 @@
         <div class="container">
             <ul class="nav page-navigation">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="dash.php">
                   <i class="mdi mdi-file-document-box menu-icon"></i>
                   <span class="menu-title">Dashboard</span>
                 </a>
@@ -200,32 +184,33 @@
               <li class="nav-item">
                   <a href="#" class="nav-link">
                     <i class="mdi mdi-cube-outline menu-icon"></i>
-                    <span class="menu-title">UI Elements</span>
+                    <span class="menu-title">Ajouter</span>
                     <i class="menu-arrow"></i>
                   </a>
                   <div class="submenu">
                       <ul>
-                          <li class="nav-item"><a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                          <li class="nav-item"><a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                          <li class="nav-item"><a class="nav-link" href="Addform.php">Une location</a></li>
+                          <li class="nav-item"><a class="nav-link" href="#">Un user</a></li>
                       </ul>
                   </div>
               </li>
-              <li class="nav-item">
-                  <a href="pages/forms/basic_elements.html" class="nav-link">
+            
+				  <li class="nav-item">
+                  <a href="../pages/forms/basic_elements.html" class="nav-link">
                     <i class="mdi mdi-chart-areaspline menu-icon"></i>
                     <span class="menu-title">Form Elements</span>
                     <i class="menu-arrow"></i>
                   </a>
               </li>
               <li class="nav-item">
-                  <a href="pages/charts/chartjs.html" class="nav-link">
+                  <a href="../pages/charts/chartjs.html" class="nav-link">
                     <i class="mdi mdi-finance menu-icon"></i>
                     <span class="menu-title">Charts</span>
                     <i class="menu-arrow"></i>
                   </a>
               </li>
               <li class="nav-item">
-                  <a href="pages/tables/basic-table.html" class="nav-link">
+                  <a href="../pages/tables/basic-table.html" class="nav-link">
                     <i class="mdi mdi-grid menu-icon"></i>
                     <span class="menu-title">Tables</span>
                     <i class="menu-arrow"></i>
@@ -246,23 +231,23 @@
                   </a>
                   <div class="submenu">
                       <ul class="submenu-item">
-                          <li class="nav-item"><a class="nav-link" href="pages/samples/login.html">Login</a></li>
-                          <li class="nav-item"><a class="nav-link" href="pages/samples/login-2.html">Login 2</a></li>
-                          <li class="nav-item"><a class="nav-link" href="pages/samples/register.html">Register</a></li>
-                          <li class="nav-item"><a class="nav-link" href="pages/samples/register-2.html">Register 2</a></li>
-                          <li class="nav-item"><a class="nav-link" href="pages/samples/lock-screen.html">Lockscreen</a></li>
+                          <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+                        
                       </ul>
                   </div>
               </li>
               <li class="nav-item">
-                  <a href="docs/documentation.html" class="nav-link">
-                    <i class="mdi mdi-file-document-box-outline menu-icon"></i>
-                    <span class="menu-title">Documentation</span></a>
+                  <a href="DemandeLoc" class="nav-link">
+                 <i class="fas fa-hand-pointer menu-icon"></i>   
+          <!--   <i class="mdi mdi-file-document-box-outline menu-icon"></i>-->
+                    <span class="menu-title">Demandes</span></a>
               </li>
+	
             </ul>
         </div>
       </nav>
     </div>
+
     <!-- partial -->
 		<div class="container-fluid page-body-wrapper">
 			<div class="main-panel">
@@ -430,6 +415,8 @@
 		</div>
 		<!-- page-body-wrapper ends -->
     </div>
+
+
     <!-- container-scroller -->
     <!-- base:js -->
     <script src="../../Resourse/vendors/base/vendor.bundle.base.js"></script>
