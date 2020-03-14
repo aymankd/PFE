@@ -126,7 +126,10 @@ if(isset($_POST['connect']))
        
       </div>
   <!--filter div-->
-      <form class="ui card" action="pages/samples/searshResult.php" methode="POST">
+  <div class="ui equal width center aligned padded grid">
+  
+  <div class="row search" >
+  <form class="ui card" action="pages/samples/searshResult.php" methode="POST">
         <div class="ui fluid icon input">
         
         <input type="text" name="rech" placeholder="Search a very wide input..." required >
@@ -136,7 +139,17 @@ if(isset($_POST['connect']))
       </div>
 
   </form>
-   
+  </div>
+ 
+</div>
+
+ 
+ 
+
+
+
+
+
   <div class="textSEP">Nous avons le plus d'annonces et de mises à jour constantes. <br>     
            Vous ne manquerez donc jamais rien..</div>
 
@@ -219,7 +232,7 @@ if(isset($_POST['connect']))
 
 
 
-  <div class="ui inverted vertical footer segment">
+  <div class="ui inverted vertical  footer segment">
     <div class="ui container">
       <div class="ui stackable inverted divided equal height stackable grid">
         <div class="three wide column">

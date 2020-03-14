@@ -170,7 +170,7 @@ if(isset($_POST['EnrFrm']))
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <title>Devenir Hote</title>
         
-        <link rel="stylesheet" href="../../Resourse/css2/style.css">
+
         <link href="../../vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
         <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css' rel='stylesheet'>
         <link href='../../Resourse/CSS/bootstrap.min.css' rel='stylesheet'>

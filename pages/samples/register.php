@@ -91,7 +91,7 @@ if(isset($_POST['Sign']))
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="../../Resourse/css2/style.css">
+  <link rel="stylesheet" href="../../Resourse/css2/register.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="../../Resourse/images/favicon.png" />
 </head>
