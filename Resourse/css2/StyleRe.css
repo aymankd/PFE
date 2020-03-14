@@ -23194,3 +23194,13 @@ h2 {
   .rightSh{
     margin-right: 60px;
   }
+
+  .btn.btn-info{
+    margin-top: 3px;
+    margin-left: -350px;
+    border-radius: 10px;
+    color: white;
+    background-color: #464dee;
+    border-color: #464dee;
+    box-shadow: transparent;
+  }

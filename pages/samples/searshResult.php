@@ -113,7 +113,7 @@ while ($rowL = mysqli_fetch_array($resL))
         <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> '.$adress.' </p>
           <br>
         <p class="cpara">'.$description.'</p> <br>
-          <a href="#" class="btn btn-primary">Voir plus</a>
+          <a href="SeeMore.php" class="btn btn-primary">Voir plus</a>
       </div>
   </article>';
     
@@ -217,7 +217,7 @@ while ($rowL = mysqli_fetch_array($resL))
             <a href="pages/samples/register.php" class="itemXE">Aide</a>
             <a href="pages/samples/register.php" class="itemXE">Inscription</a>
             <a href="pages/samples/login.php"  class="itemXE" >Connexion</a>
-
+           
             </div>
                  
                 </li>
@@ -400,8 +400,7 @@ while ($rowL = mysqli_fetch_array($resL))
        </ul>
          <li class="nav-item">
         
-           <button  id="rf" class="btn btn-dark">Rechercher</button>
-
+           <button  id="rf" class="btn btn-info">Rechercher</button>
          </li>
         </div>
 
