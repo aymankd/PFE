@@ -155,11 +155,11 @@
                   </a>
                   <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                   <a class="dropdown-item">
-                        <i class="mdi mdi-settings text-primary"></i>
+                        <i class="mdi mdi-account text-primary"></i>
                         Mon Compte
                       </a>
                       <a class="dropdown-item">
-                        <i class="mdi mdi-settings text-primary"></i>
+                        <i class="mdi mdi-home-modern text-primary"></i>
                         Les Logement
                       </a>
                       <a class="dropdown-item">
