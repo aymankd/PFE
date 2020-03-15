@@ -21,9 +21,11 @@
     <!-- plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
+   
     <link rel="stylesheet" href="../../Resourse/css2/style.css">
     <link rel="stylesheet" href="../../Resourse/CSS/DL.css">
     <link rel="stylesheet" href="../../Resourse/CSS/bootstrap.min.css">
+
     <!-- endinject -->
     <link rel="shortcut icon" href="../../Resourse/images/favicon.png" />
   </head>
@@ -132,7 +134,7 @@
                     <i class="menu-arrow"></i>
                   </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item ">
                   <a href="#" class="nav-link">
                     <i class="mdi mdi-codepen menu-icon"></i>
                     <span class="menu-title">Sample Pages</span>
@@ -145,8 +147,8 @@
                       </ul>
                   </div>
               </li>
-              <li class="nav-item">
-                  <a href="DemandeLoc" class="nav-link">
+              <li class="nav-item ">
+                  <a href="DemandeLoc.php" class="nav-link ">
                  <i class="fas fa-hand-pointer menu-icon"></i>   
           <!--   <i class="mdi mdi-file-document-box-outline menu-icon"></i>-->
                     <span class="menu-title">Demandes</span></a>
@@ -170,8 +172,8 @@
         <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> Adresse </p>
           <br>
         <p class="cpara">Description</p> <br>
-
-        <a href="#" class="btn btn-primary">Consulter</a>
+           
+        <a href="#" class="btn btn-primary btn_cnslt">Consulter</a>
 
     <div class='ribbon-wrapper-1'>
       <div class='ribbon-1'>Tkhrbi9a</div>
