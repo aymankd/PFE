@@ -182,7 +182,7 @@
 
 
                   <div class="similar-box">
-                     <h2>Similiar products from Morgan Mobilya</h2>
+                     <h2>Similiar results</h2>
                      <div class="row cat-pd">
                         <div class="col-md-6">
                            <div class="small-box-c">
@@ -285,17 +285,50 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h5 class="modal-title _26piifo">Équipements</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style="height: 16px; width: 16px; display: block; fill: rgb(118, 118, 118);"><path d="m23.25 24c-.19 0-.38-.07-.53-.22l-10.72-10.72-10.72 10.72c-.29.29-.77.29-1.06 0s-.29-.77 0-1.06l10.72-10.72-10.72-10.72c-.29-.29-.29-.77 0-1.06s.77-.29 1.06 0l10.72 10.72 10.72-10.72c.29-.29.77-.29 1.06 0s .29.77 0 1.06l-10.72 10.72 10.72 10.72c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22" fill-rule="evenodd"></path></svg></span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Modal body text goes here.</p>
+        <div class="_1p0spma2">Standard</div>
+        <div class="_1lhxpmp">
+           <div class="_czm8crp"> Wi-Fi</div>
+           <div style="margin-top: 8px;">
+              <div class="_1jlnvra2">Accès permanent dans le logement</div> 
+              <hr>
+              <div class="_czm8crp">Television</div> 
+              <hr>
+              <div class="_czm8crp">Fer à repasser</div> 
+              <hr>
+              <div class="_czm8crp">Équipements de base</div> 
+              <div class="_1jlnvra2">Serviettes, draps, savon et papier toilette</div> 
+              <hr>
+              <div class="_czm8crp">Chauffage</div> 
+              <div class="_1jlnvra2">Chauffage central ou radiateur électrique</div> 
+              <hr>
+              <div class="_czm8crp">Climatisation</div> 
+              
+              <hr>
+              <div class="_czm8crp">Eau chaude</div> 
+              <hr>
+              <div class="_czm8crp">Detecteur de fumée</div> 
+              <hr>
+              <div class="_czm8crp">Kit de premiers secours</div> 
+              <hr>
+              <div class="_czm8crp">gg</div> 
+              <hr>
+              <div class="_czm8crp">gg</div> 
+              <hr>
+              <div class="_czm8crp">gg</div> 
+            </div>
+         </div>
+         <hr>
+         
+
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!--just for the color -->
       </div>
     </div>
   </div>
