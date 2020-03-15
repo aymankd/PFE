@@ -173,7 +173,7 @@
                                  </div>
                               </li><br>
                               <div class="col-md-12">
-                                    <button type="button" href="#" aria-busy="false" class="equipment" data-target="#modalEquip">Afficher les 24 équipements</button>
+                                    <a type="button" href="#" aria-busy="false" class="equipment" data-toggle="modal" data-target="#modalEquip">Afficher les 24 équipements</a>
                                  </div>
                            </ul>
                         </div>
@@ -281,7 +281,7 @@
 
 <!--Modal-->
 
-<div class="modal" id="modalEquip" tabindex="-1" role="dialog">
+<div class="modal fade" id="modalEquip"  tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -426,6 +426,7 @@
       <!--main js--> 
       <script src="../../Resourse/js3/jquery-1.12.4.min.js"></script> 
       <!--bootstrap js--> 
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <script src="../../Resourse/js3/bootstrap.min.js"></script> 
       <script src="../../Resourse/js3/bootstrap-select.min.js"></script>
       <script src="../../Resourse/js3/slick.min.js"></script> 
