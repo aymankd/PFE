@@ -180,7 +180,7 @@
       <nav class="bottom-navbar">
         <div class="container">
             <ul class="nav page-navigation">
-              <li class="nav-item">
+              <li class="nav-item active">
                 <a class="nav-link" href="dash.php">
                   <i class="mdi mdi-file-document-box menu-icon"></i>
                   <span class="menu-title">Dashboard</span>
