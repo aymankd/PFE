@@ -357,10 +357,7 @@ if(isset($_POST['EnrFrm']))
                 <a class="navbar-brand brand-logo" href="dash.html"><img src="../../Resourse/images/logo.svg" alt="logo"/></a>
                 <a class="navbar-brand brand-logo-mini" href="dash.html"><img src="../../Resourse/images/logo-mini.svg" alt="logo"/></a>
             </div>
-            <ul class="navbar-nav navbar-nav-right">
-               
-              
-             
+            <ul class="navbar-nav navbar-nav-right">             
                 <li class="nav-item nav-profile dropdown">
                   <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                     <span class="nav-profile-name">Johnson</span>
@@ -409,52 +406,46 @@ if(isset($_POST['EnrFrm']))
               </li>
             
 				  <li class="nav-item">
-                  <a href="pages/forms/basic_elements.html" class="nav-link">
+                  <a href="../pages/forms/basic_elements.html" class="nav-link">
+                    <i class="mdi mdi-settings-box menu-icon"></i>
+                    <span class="menu-title">Gestion</span>
+                    <i class="menu-arrow"></i>
+                  </a>
+                  <div class="submenu">
+                      <ul>
+                          <li class="nav-item"><a class="nav-link" href="Addform.php">Comptes</a></li>
+                          <li class="nav-item"><a class="nav-link" href="#">Location</a></li>
+                      </ul>
+                  </div>
+              </li>
+              <li class="nav-item">
+                  <a href="../pages/charts/chartjs.html" class="nav-link">
                     <i class="mdi mdi-chart-areaspline menu-icon"></i>
-                    <span class="menu-title">Form Elements</span>
+                    <span class="menu-title">Statestique</span>
                     <i class="menu-arrow"></i>
                   </a>
               </li>
               <li class="nav-item">
-                  <a href="pages/charts/chartjs.html" class="nav-link">
-                    <i class="mdi mdi-finance menu-icon"></i>
-                    <span class="menu-title">Charts</span>
-                    <i class="menu-arrow"></i>
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a href="pages/tables/basic-table.html" class="nav-link">
-                    <i class="mdi mdi-grid menu-icon"></i>
-                    <span class="menu-title">Tables</span>
+                  <a href="../pages/tables/basic-table.html" class="nav-link">
+                    <i class="mdi mdi-checkbox-multiple-marked menu-icon"></i>
+                    <span class="menu-title">Demandes</span>
                     <i class="menu-arrow"></i>
                   </a>
               </li>
               <li class="nav-item">
                   <a href="pages/icons/mdi.html" class="nav-link">
-                    <i class="mdi mdi-emoticon menu-icon"></i>
-                    <span class="menu-title">Icons</span>
+                    <i class="mdi mdi-help-circle menu-icon"></i>
+                    <span class="menu-title">Support</span>
                     <i class="menu-arrow"></i>
                   </a>
               </li>
               <li class="nav-item">
                   <a href="#" class="nav-link">
-                    <i class="mdi mdi-codepen menu-icon"></i>
-                    <span class="menu-title">Sample Pages</span>
+                    <i class="mdi mdi-finance menu-icon"></i>
+                    <span class="menu-title">traffic</span>
                     <i class="menu-arrow"></i>
                   </a>
-                  <div class="submenu">
-                      <ul class="submenu-item">
-                          <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
-                        
-                      </ul>
-                  </div>
               </li>
-              <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="mdi mdi-file-document-box-outline menu-icon"></i>
-                    <span class="menu-title">Documentation</span></a>
-              </li>
-	
             </ul>
         </div>
       </nav>
