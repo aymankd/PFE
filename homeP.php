@@ -1,5 +1,27 @@
   <?php
 session_start();
+
+//sessions
+/*
+if( !isset($_SESSION['username']) )
+{
+  header("location:page.php");
+}else
+*/
+
+if( isset($_SESSION['username']) )
+{
+  if($_SESSION['type'] == "admin")
+  header("Location:pages/AdminPages/dash.php");
+  else if($_SESSION['type'] == "normal")
+    header("Location:pages/UserPages/User.php");
+  else if($_SESSION['type'] == "pro")
+    header("Location:pages/PropPages/Prop.php");  
+}
+
+
+
+
   $servername = "localhost";
   $userservername = "root";
   $database = "pfe";
@@ -35,6 +57,7 @@ if(isset($_POST['connect']))
     $_SESSION['username']=$row['username'];
     $_SESSION['type']=$row['type'];
     session_write_close();
+    
       if($_SESSION['type'] == "admin")
       header("Location:AdminPages/dash.php");
       else if($_SESSION['type'] == "normal")

@@ -1,6 +1,7 @@
 <?php
 session_start();
-$servername = "localhost";
+
+  $servername = "localhost";
   $userservername = "root";
   $database = "pfe";
   $msg="";
