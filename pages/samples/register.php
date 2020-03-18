@@ -3,7 +3,7 @@
 session_start();
 if( isset($_SESSION['username']))
 {
-  header("location:../..homeP.php");
+  header("location:../../homeP.php");
 }
   $servername = "localhost";
   $userservername = "root";
