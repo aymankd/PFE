@@ -1,6 +1,10 @@
 <?php 
 session_start();
-$servername = "localhost";
+if( !isset($_SESSION['username']) || $_SESSION['type'] != "admin" )
+{
+  header("location:../../homeP.php");
+}
+  $servername = "localhost";
   $userservername = "root";
   $database = "pfe";
   $msg="";

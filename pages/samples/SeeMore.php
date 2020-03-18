@@ -1,6 +1,10 @@
 <?php
 
 session_start();
+if( isset($_SESSION['username']))
+{
+  header("location:../../homeP.php");
+}
 $servername = "localhost";
   $userservername = "root";
   $database = "pfe";
@@ -68,6 +72,8 @@ $rowP=$resP->fetch_assoc();
 
 $Pnom=$rowP["nom"];
 $Pprenom=$rowP["prenom"];
+
+
 
 
 ?>
