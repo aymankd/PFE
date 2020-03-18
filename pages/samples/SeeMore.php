@@ -1,3 +1,76 @@
+<?php
+
+session_start();
+$servername = "localhost";
+  $userservername = "root";
+  $database = "pfe";
+  $msg="";
+
+// Create connection
+$conn = new mysqli($servername, $userservername,"", $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+//recuperation du code du logement
+$CodeL=$_GET["smr"];
+//recuperation des données du logement a travers son code
+$reqL = "SELECT * from logement where CodeL=?";
+$statementL=$conn->prepare($reqL);
+$statementL->bind_param("i",$CodeL);
+$statementL->execute();
+$resL=$statementL->get_result();
+$rowL=$resL->fetch_assoc();
+$Titre=$rowL["nom"];
+$adresse=$rowL["adress"];
+$desc=$rowL["description"];
+$regl=$rowL["reglement"];
+$prix=$rowL["prix"];
+$sup=$rowL["superficie"];
+
+//recuperation des images du logement
+$reqI="SELECT * FROM image where CodeL=?";
+$statementI=$conn->prepare($reqI);
+$statementI->bind_param("i",$CodeL);
+$statementI->execute();
+$resI=$statementI->get_result();
+$img="";
+$imgs="";
+$i=1;
+while ( ($rowI = mysqli_fetch_array($resI)) && ($i < 4) ) 
+{
+  $id=$rowI['CodeImg'];
+  $src="genere_image.php?id=$id";
+  if($i==1)
+    {
+      $img.="<div class='tab-pane active' id='pic-1'><img src='".$src."' alt='#' /></div>";
+      $imgs.="<li class='active'><a data-target='#pic-1' data-toggle='tab'><img src='".$src."' alt='#' /></a></li>";
+    }
+  else
+    {
+      $img.="<div class='tab-pane' id='pic-".$i."'><img src='".$src."' alt='#' /></div>";
+      $imgs.=" <li><a data-target='#pic-".$i."' data-toggle='tab'><img src='".$src."' alt='#' /></a></li>";
+    }  
+
+
+  $i = $i + 1;
+}
+
+
+//recuperation des données du prop 
+$reqP="SELECT * from proprietaire where CodeP=?";
+$statementP=$conn->prepare($reqP);
+$statementP->bind_param("i",$rowL["CodeP"]);
+$statementP->execute();
+$resP=$statementP->get_result();
+$rowP=$resP->fetch_assoc();
+
+$Pnom=$rowP["nom"];
+$Pprenom=$rowP["prenom"];
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -63,8 +136,8 @@
             <div class="row">
                <div class="col-md-12">
                   <div class="prod-page-title">
-                     <h2 class="titreOne">TITRE DE LOCATION</h2>
-                     <p>By <span>propritaire</span></p>
+                     <h2 class="titreOne"><?=$Titre?></h2>
+                     <p>By <span><?=$Pnom?> <?=$Pprenom?></span></p>
                   </div>
                </div>
             </div>
@@ -75,22 +148,30 @@
                      <div class="md-prod-page-in">
                         <div class="page-preview">
                            <div class="preview">
-                              <div class="preview-pic tab-content">
-                                 <div class="tab-pane active" id="pic-1"><img src="../../Resourse/images/lag-60.png" alt="#" /></div>
-                                 
-                                 <div class="tab-pane" id="pic-5"><img src="../../Resourse/images/lag-60.png" alt="#" /></div>
 
+                              <div class="preview-pic tab-content">
+                                 <?=$img?>
+                                 <!--
+                                 <div class="tab-pane active" id="pic-1"><img src="../../Resourse/images/lag-60.png" alt="#" /></div>
                                  <div class="tab-pane" id="pic-2"><img src="../../Resourse/images/lag-61.png" alt="#" /></div>
                                  <div class="tab-pane" id="pic-3"><img src="../../Resourse/images/lag-60.png" alt="#" /></div>
+                                 
                                  <div class="tab-pane" id="pic-4"><img src="../../Resourse/images/lag-61.png" alt="#" /></div>
-                              </div>
-                              <ul class="preview-thumbnail nav nav-tabs">
-                                 <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="../../Resourse/images/lag-60.png" alt="#" /></a></li>
-                                 <li><a data-target="#pic-5" data-toggle="tab"><img src="../../Resourse/images/lag-61.png" alt="#" /></a></li>
+                                 <div class="tab-pane" id="pic-5"><img src="../../Resourse/images/lag-61.png" alt="#" /></div>-->
 
+                              </div>
+
+                              <ul class="preview-thumbnail nav nav-tabs">
+
+                                <?=$imgs?>
+                                 <!--
+                                 <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="../../Resourse/images/lag-60.png" alt="#" /></a></li>
                                  <li><a data-target="#pic-2" data-toggle="tab"><img src="../../Resourse/images/lag-61.png" alt="#" /></a></li>
                                  <li><a data-target="#pic-3" data-toggle="tab"><img src="../../Resourse/images/lag-60.png" alt="#" /></a></li>
+                                 
                                  <li><a data-target="#pic-4" data-toggle="tab"><img src="../../Resourse/images/lag-61.png" alt="#" /></a></li>
+                                 <li><a data-target="#pic-5" data-toggle="tab"><img src="../../Resourse/images/lag-61.png" alt="#" /></a></li>
+                                 -->
                               </ul>
                            </div>
                         </div>
@@ -134,14 +215,11 @@
                      <div class="description-box">
                         <div class="dex-a">
                            <h4>Description</h4>
-                           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                              lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                              when an unknown printer took a galley of type and scrambled it to make a 
-                              type specimen book..
+                           <p>
+                           <?=$desc?>
                            </p>
                            <br>
-                           <p>Small: H 25 cm / &Oslash; 12 cm</p>
-                           <p>Large H 24 cm / &Oslash; 25 cm</p>
+                           <p>Superficie: <?=$sup?> m²</p>
                         </div>
                         <hr>
                         <div class="spe-a">
@@ -183,6 +261,7 @@
 
                   <div class="similar-box">
                      <h2>Similiar results</h2>
+                     
                      <div class="row cat-pd">
                         <div class="col-md-6">
                            <div class="small-box-c">
@@ -223,6 +302,7 @@
                            </div>
                         </div>
                      </div>
+
                      <div class="row cat-pd">
                         <div class="col-md-6">
                            <div class="small-box-c">
@@ -242,6 +322,7 @@
                                  <p>23 likes</p>
                               </div>
                            </div>
+                           
                         </div>
                         <div class="col-md-6">
                            <div class="small-box-c">
@@ -268,7 +349,7 @@
                <div class="col-md-3 col-sm-12">
                   <div class="price-box-right">
                      <h4>Prix</h4>
-                     <h3>1.320 Dh</h3><hr>
+                     <h3><?=$prix?> Dh</h3><hr>
                   
                     
                      
