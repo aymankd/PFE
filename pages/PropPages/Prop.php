@@ -26,6 +26,12 @@ if( !isset($_SESSION['username']) || $_SESSION['type'] != "pro" )
   <link rel="shortcut icon" href="../../Resourse/images/favicon.png" />
 
 
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
+  <link rel="stylesheet" href="../../Resourse/css3/chatbox.css">
+
+
 
   </head>
   <body>
@@ -555,6 +561,110 @@ if( !isset($_SESSION['username']) || $_SESSION['type'] != "pro" )
     </div>
 
 
+    <section class="avenue-messenger">
+    <div class="menu">
+      <div class="button" title="End Chat">&#10005;</div> 
+    </div>
+    <div class="agent-face">
+      <div class="half">
+        <img class="agent circle" src="http://askavenue.com/img/17.jpg" alt="Jesse Tino">
+      </div>
+    </div>
+    <div class="chat">
+      <div class="chat-title">
+        <h1>Jesse Tino</h1>
+        <h2>RE/MAX</h2>
+      </div>
+      <div class="messages">
+        <div class="messages-content mCustomScrollbar _mCS_1 mCS_no_scrollbar">
+          <div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" style="max-height: none;" tabindex="0">
+            <div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
+              <div class="message new">
+                <figure class="avatar"><img src="http://askavenue.com/img/17.jpg"></figure>
+                Hi there, I'm Jesse and you?
+                <div class="timestamp">14:50</div>
+                <div class="checkmark-sent-delivered">✓</div>
+                <div class="checkmark-read">✓</div>
+              </div>
+              <div class="message message-personal new">
+                i'm Mike
+                <div class="timestamp">14:50</div>
+                <div class="checkmark-sent-delivered">✓</div>
+                <div class="checkmark-read">✓</div>
+              </div>
+              <div class="message new">
+                <figure class="avatar"><img src="http://askavenue.com/img/17.jpg"></figure>
+                Hi there, I'm Jesse and you?
+                <div class="timestamp">14:50</div>
+                <div class="checkmark-sent-delivered">✓</div>
+                <div class="checkmark-read">✓</div>
+              </div>
+              <div class="message message-personal new">
+                i'm Mike
+                <div class="timestamp">14:50</div>
+                <div class="checkmark-sent-delivered">✓</div>
+                <div class="checkmark-read">✓</div>
+              </div>
+              <div class="message new">
+                <figure class="avatar"><img src="http://askavenue.com/img/17.jpg"></figure>
+                Hi there, I'm Jesse and you?
+                <div class="timestamp">14:50</div>
+                <div class="checkmark-sent-delivered">✓</div>
+                <div class="checkmark-read">✓</div>
+              </div>
+              <div class="message message-personal new">
+                i'm Mike
+                <div class="timestamp">14:50</div>
+                <div class="checkmark-sent-delivered">✓</div>
+                <div class="checkmark-read">✓</div>
+              </div>
+              <div class="message new">
+                <figure class="avatar"><img src="http://askavenue.com/img/17.jpg"></figure>
+                Hi there, I'm Jesse and you?
+                <div class="timestamp">14:50</div>
+                <div class="checkmark-sent-delivered">✓</div>
+                <div class="checkmark-read">✓</div>
+              </div>
+              <div class="message message-personal new">
+                i'm Mike
+                <div class="timestamp">14:50</div>
+                <div class="checkmark-sent-delivered">✓</div>
+                <div class="checkmark-read">✓</div>
+              </div>
+              <div class="message new">
+                <figure class="avatar"><img src="http://askavenue.com/img/17.jpg"></figure>
+                Hi there, I'm Jesse and you?
+                <div class="timestamp">14:50</div>
+                <div class="checkmark-sent-delivered">✓</div>
+                <div class="checkmark-read">✓</div>
+              </div>
+              <div class="message message-personal new">
+                i'm Mike
+                <div class="timestamp">14:50</div>
+                <div class="checkmark-sent-delivered">✓</div>
+                <div class="checkmark-read">✓</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="message-box">
+          <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
+          <button type="submit" class="message-submit">Send</button>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+    <!-- chat-box -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js'></script>
     <!-- container-scroller -->
     <!-- base:js -->
     <script src="../../Resourse/vendors/base/vendor.bundle.base.js"></script>

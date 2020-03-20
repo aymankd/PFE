@@ -54,7 +54,7 @@ if(isset($_POST['Sign']))
 	        $_SESSION['username']=$inUsername;
 	        $_SESSION['type']='normal';
 	        session_write_close();
-          header("Location:../../UserPages/User.php");
+          header("Location:../../Pages/UserPages/User.php");
         }
         else{
           echo"You didnt agree to the terms";
