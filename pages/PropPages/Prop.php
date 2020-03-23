@@ -1,11 +1,84 @@
 <?php
-
 session_start();
 if( !isset($_SESSION['username']) || $_SESSION['type'] != "pro" )
 {
   header("location:../../homeP.php");
 }
 
+$servername = "localhost";
+$userservername = "root";
+$database = "pfe";
+$msg="";
+
+// Create connection
+$conn = new mysqli($servername, $userservername,"", $database);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+$codeU = $_SESSION['usercode'];
+$ntMsg = "";
+
+$req="SELECT idMsg, Codesender, Msg FROM messages 
+WHERE Codereciever=? AND vue=0 
+GROUP BY Codesender  ORDER BY idMsg DESC LIMIT 3";
+$statement=$conn->prepare($req);
+$statement->bind_param("i",$codeU);
+$statement->execute();
+$res=$statement->get_result();
+while ( $row = mysqli_fetch_array($res) )
+{
+  $sender=$row['Codesender'];
+  $sms=$row['Msg'];
+      $reqP="SELECT * from utilisateur where CodeU=?";
+      $statementP=$conn->prepare($reqP);
+      $statementP->bind_param("i",$sender);
+      $statementP->execute();
+      $resP=$statementP->get_result();
+      $rowP=$resP->fetch_assoc();
+      $Pusername=$rowP["username"];
+
+
+  $ntMsg = $ntMsg.
+  '
+  <a class="dropdown-item preview-item">
+    <div class="preview-thumbnail">
+        <img src="Proprofile.php?id='.$sender.'" alt="image" class="profile-pic">
+    </div>
+    <div class="preview-item-content flex-grow">
+        <h6 class="preview-subject ellipsis font-weight-normal">'.$Pusername.'
+        </h6>
+        <p class="font-weight-light small-text text-muted mb-0">
+          '.$sms.'
+        </p>
+    </div>
+  </a>
+  ';
+}
+
+
+
+
+
+/*
+
+                  <a class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                        <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
+                    </div>
+                    <div class="preview-item-content flex-grow">
+                        <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
+                        </h6>
+                        <p class="font-weight-light small-text text-muted mb-0">
+                          New product launch
+                        </p>
+                    </div>
+                  </a>
+
+
+*/
 
 ?>
 
@@ -101,42 +174,10 @@ if( !isset($_SESSION['username']) || $_SESSION['type'] != "pro" )
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
                   <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
-                    </div>
-                    <div class="preview-item-content flex-grow">
-                        <h6 class="preview-subject ellipsis font-weight-normal">David Grey
-                        </h6>
-                        <p class="font-weight-light small-text text-muted mb-0">
-                          The meeting is cancelled
-                        </p>
-                    </div>
-                  </a>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
-                    </div>
-                    <div class="preview-item-content flex-grow">
-                        <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
-                        </h6>
-                        <p class="font-weight-light small-text text-muted mb-0">
-                          New product launch
-                        </p>
-                    </div>
-                  </a>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
-                    </div>
-                    <div class="preview-item-content flex-grow">
-                        <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
-                        </h6>
-                        <p class="font-weight-light small-text text-muted mb-0">
-                          Upcoming board meeting
-                        </p>
-                    </div>
-                  </a>
+
+                  <?=$ntMsg;?>
+                  
+
                 </div>
               </li>
               <li class="nav-item dropdown">
