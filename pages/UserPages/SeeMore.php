@@ -76,7 +76,11 @@ $Pprenom=$rowP["prenom"];
 
 
 ///////////////////////////////////////////// Messagrie /////////////////////////////////////////////
-$msg="";
+
+$msg = "";
+$userCode = $_SESSION['usercode'];
+
+
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -598,36 +602,75 @@ $msg="";
 
 <script>
 chat = document.getElementById('Chat'); 
-
-
 var $messages = $('.messages-content'),
-    d, h, m,
-    i = 0;
-
-function updateScrollbar() {
-  $messages .mCustomScrollbar('scrollTo', 'bottom');
-}
+d, h, m,
+i = 0;
 
 
-function insertMessage() {
-  msg = $('.message-input').val();
 
-  $('<div class="message message-personal">' + msg + '</div>').appendTo('.mCSB_container');
-  $('.message-input').val(null);
-  updateScrollbar();
-}
 
-$('.message-submit').click(function() {
-  insertMessage();
-});
+   function updateScrollbar() {
+   $messages .mCustomScrollbar('scrollTo', 'bottom');
+   }
 
-$('#ChatPro').click(function(){
-  chat.style="display:block";
-  updateScrollbar();
-});
-$('#CloseChat').click(function(){
-  chat.style="display:none";
-});
+
+   function insertMessage() {
+   $('<div class="message message-personal">' + msg + '</div>').appendTo('.mCSB_container');
+   $('.message-input').val(null);
+   updateScrollbar();
+   }
+
+   $(window).on('keydown', function(e) {
+      if (e.which == 13) {
+         msg = $('.message-input').val();
+         insertMessage();
+         $.ajax({  
+               url:"chatbox.php",  
+               method:"GET",  
+               data:{message:msg,sender:<?=$userCode; ?>,reciever:<?=$Codepro; ?>}
+               });
+      }
+   })
+
+   $('.message-submit').click(function() {
+      msg = $('.message-input').val();
+      insertMessage();
+      $.ajax({  
+            url:"chatbox.php",  
+            method:"GET",  
+            data:{message:msg,sender:<?=$userCode; ?>,reciever:<?=$Codepro; ?>}
+            });
+   });
+
+   setInterval(function() {
+      showdata="";
+      $.ajax({  
+                url:"chatmsg.php",  
+                method:"GET",  
+                data:{sender:<?=$userCode; ?>,reciever:<?=$Codepro; ?>},  
+                success:function(data){
+                   if(showdata!=data)
+                   {
+                     showdata=data;
+                     $('.mCSB_container').html(data);
+                   }
+                }  
+           });  
+   }, 1000);
+
+
+
+   
+
+
+
+   $('#ChatPro').click(function(){
+   chat.style="display:block";
+   updateScrollbar();
+   });
+   $('#CloseChat').click(function(){
+   chat.style="display:none";
+   });
 
 </script>
 

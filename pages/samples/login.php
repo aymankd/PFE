@@ -37,7 +37,8 @@ if(isset($_POST['connect']))
   {
     $CodeU=$row['CodeU'];
     session_regenerate_id();
-    $_SESSION['username']=$row['username'];
+    $_SESSION['usercode'] = $CodeU; 
+    $_SESSION['username'] = $row['username'];
     $_SESSION['type']=$row['type'];
     session_write_close();
       if($_SESSION['type'] == "admin")
