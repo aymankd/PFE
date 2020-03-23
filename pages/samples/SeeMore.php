@@ -83,6 +83,18 @@ while ( ($rowI = mysqli_fetch_array($resI)) && ($i < 4) )
   $i = $i + 1;
 }
 
+
+
+//recuperation des données du prop 
+$reqP="SELECT * from proprietaire where CodeP=?";
+$statementP=$conn->prepare($reqP);
+$statementP->bind_param("i",$rowL["CodeP"]);
+$statementP->execute();
+$resP=$statementP->get_result();
+$rowP=$resP->fetch_assoc();
+
+$Pnom=$rowP["nom"];
+$Pprenom=$rowP["prenom"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
