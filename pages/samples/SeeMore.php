@@ -32,7 +32,29 @@ $desc=$rowL["description"];
 $regl=$rowL["reglement"];
 $prix=$rowL["prix"];
 $sup=$rowL["superficie"];
+$type=$rowL["type"];
 
+if($type=="Appartement")
+{
+   $reqAp="SELECT * from appartement where Codeapp=?";
+   $statementAp=$conn->prepare($reqAp);
+   $statementAp->bind_param("i",$CodeL);
+   $statementAp->execute();
+   $resAp=$statementAp->get_result();
+   $rowAp=$resAp->fetch_assoc();
+   $nbrC=$rowAp["nbrC"];
+   $nbrP=$rowAp["nbrP"];
+}
+else
+{
+   $reqAp="SELECT * from studio where CodeP=?";
+   $statementAp=$conn->prepare($reqAp);
+   $statementAp->bind_param("i",$CodeL);
+   $statementAp->execute();
+   $resAp=$statementAp->get_result();
+   $rowAp=$resAp->fetch_assoc();
+   $nbrP=$rowAp["nbrP"];
+}
 //recuperation des images du logement
 $reqI="SELECT * FROM image where CodeL=?";
 $statementI=$conn->prepare($reqI);
@@ -60,21 +82,6 @@ while ( ($rowI = mysqli_fetch_array($resI)) && ($i < 4) )
 
   $i = $i + 1;
 }
-
-
-//recuperation des données du prop 
-$reqP="SELECT * from proprietaire where CodeP=?";
-$statementP=$conn->prepare($reqP);
-$statementP->bind_param("i",$rowL["CodeP"]);
-$statementP->execute();
-$resP=$statementP->get_result();
-$rowP=$resP->fetch_assoc();
-
-$Pnom=$rowP["nom"];
-$Pprenom=$rowP["prenom"];
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -270,22 +277,21 @@ $Pprenom=$rowP["prenom"];
                      
                      <div class="row cat-pd">
                         <div class="col-md-6">
-                           <div class="small-box-c">
-                              <div class="small-img-b">
-                                 <img class="img-responsive" src="../../Resourse/images/tr1.png" alt="#" />
-                              </div>
-                              <div class="dit-t clearfix">
-                                 <div class="left-ti">
-                                    <h4>Product</h4>
-                                    <p>By <span>Beko</span> under <span>Lights</span></p>
-                                 </div>
-                                 <a href="#" tabindex="0">$1220</a>
-                              </div>
-                              <div class="prod-btn">
-                                
-                                 <a href="#"><svg style="height: 16px; width: 16px; display: block; overflow: visible;" viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg>Like this</a>
-                                 <p>23 likes</p>
-                              </div>
+                          <div class='small-box-c'>
+                               <div class='small-img-b'>
+                                 <img class='img-responsive' src='../../Resourse/images/tr1.png' alt='#' />
+                               </div> 
+                               <div class='dit-t clearfix'>
+                                    <div class='left-ti'>
+                                     <h4>Product</h4>
+                                     <p>By <span>Beko</span> under <span>Lights</span></p>
+                                    </div>
+                                    <a href='#' tabindex='0'>$1220</a>
+                               </div>
+                               <div class='prod-btn'>   
+                                <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                                <p>23 likes</p>
+                               </div>
                            </div>
                         </div>
                         <div class="col-md-6">
