@@ -9,7 +9,24 @@ if( !isset($_SESSION['username']) || $_SESSION['type'] != "admin" )
   $database = "pfe";
   $msg="";
   $alert="";
-
+//remplisage des données d'utilisateur courrant
+$src="";
+$USN=$_SESSION['username'];
+$reqIU="SELECT * FROM utilisateur WHERE username=?";
+$statementIU=$conn->prepare($reqIU);
+$statementIU->bind_param("s",$USN);
+$statementIU->execute();
+$resIU=$statementIU->get_result();
+if($rowIU=$resIU->fetch_assoc())
+{
+	$src="genere_image.php?UN=$USN";
+	$img="<img src='".$src."' alt='profile'/>"
+}
+else
+{
+	$src="../../Resourse/imgs/ProfileHolder.jpg";
+	$img="<img src='".$src."' alt='profile'/>"
+}
 
 // Create connection
 $conn = new mysqli($servername, $userservername,"", $database);
@@ -364,9 +381,9 @@ if(isset($_POST['EnrFrm']))
             <ul class="navbar-nav navbar-nav-right">             
                 <li class="nav-item nav-profile dropdown">
                   <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                    <span class="nav-profile-name">Johnson</span>
+                    <span class="nav-profile-name"><?=$USN?></span>
                     <span class="online-status"></span>
-                    <img src="../../Resourse/images/dashboard/face29.png" alt="profile"/>
+                    <?=$img?>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                       <a class="dropdown-item">
