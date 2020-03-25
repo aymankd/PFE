@@ -85,12 +85,17 @@ if(isset($_POST['connect']))
   <link rel="stylesheet" type="text/css" href="Resourse/CSS/semantic.min.css">
   <link href="Resourse/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-  <link rel="stylesheet" type="text/css" href="Resourse/CSS/Style.css">
-
+  <link rel="stylesheet" type="text/css" href="Resourse/CSS/Style.css">  
+  <link rel="stylesheet" type="text/css" href="Resourse\Responsive\home\HomeRespo.css">
 
 </head>
 <style type="text/css">
        .lwhite{
+      width: 100px;
+      height: 25px;
+      margin-top: 20px;
+    }
+    .lwhite2{
       width: 100px;
       height: 25px;
       margin-top: 20px;
@@ -131,7 +136,7 @@ if(isset($_POST['connect']))
   
     <div class="ui container">
       <div class="ui large secondary pointing inverted menu">
-     
+        
         <img src="Resourse/images/logoBlack.png" class="lwhite" />
         <div class="right item">
         <a href="pages/AdminPages/LoginHote.php" class="active header item">Devenez hôte</a>
@@ -143,7 +148,7 @@ if(isset($_POST['connect']))
     </div>
     <div class="ui text container">
         <h1 class="ui inverted header">
-        <img src="Resourse/images/logoBlack.png" class="lwhite" />
+        <img src="Resourse/images/logoBlack.png" class="lwhite2" />
         </h1>
         <h2>Nous vous aiderons à trouver un endroit que vous aimerez.</h2>
        

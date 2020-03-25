@@ -13903,6 +13903,7 @@ ol.ui.horizontal.list li:before {
 .ui.primary.inverted.segment {
  background:#0046da;
  color:rgb(0, 0, 0);
+ background-image: url('../../Resourse/images/footerBack.jpg');
 }
 .ui.inverted.segment .segment {
  color:rgba(0,0,0,.87)
