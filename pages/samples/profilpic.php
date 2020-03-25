@@ -13,10 +13,9 @@ if ($conn->connect_error) {
 }
 
 $UN=$_GET['UN'];
-
 $req = "SELECT * FROM utilisateur where username=?";
 $statement=$conn->prepare($req);
-$statement->bind_param("i",$UN);
+$statement->bind_param("s",$UN);
 $statement->execute();
 $res=$statement->get_result();
 $row=$res->fetch_assoc();

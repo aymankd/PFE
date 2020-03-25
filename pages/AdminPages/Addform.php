@@ -31,7 +31,7 @@ $resIU=$statementIU->get_result();
 $rowIU=$resIU->fetch_assoc();
 if($rowIU['imageP']!=NULL)
 {
-  	$src="profilpic.php?UN=$USN";
+  	$src="../Samples/profilpic.php?UN=$USN";
 	$ProfileP="<img src='".$src."' alt='profile'/>";
 }
 else
