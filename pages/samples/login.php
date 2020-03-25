@@ -1,6 +1,10 @@
 <?php
 session_start();
-$servername = "localhost";
+if( isset($_SESSION['username']))
+{
+  header("location:../../homeP.php");
+}
+  $servername = "localhost";
   $userservername = "root";
   $database = "pfe";
   $msg="";
@@ -33,16 +37,16 @@ if(isset($_POST['connect']))
   {
     $CodeU=$row['CodeU'];
     session_regenerate_id();
-    $_SESSION['username']=$row['username'];
+    $_SESSION['usercode'] = $CodeU; 
+    $_SESSION['username'] = $row['username'];
     $_SESSION['type']=$row['type'];
     session_write_close();
       if($_SESSION['type'] == "admin")
-      header("Location:../../AdminPages/dash.php");
+      header("Location:../AdminPages/dash.php");
       else if($_SESSION['type'] == "normal")
         header("Location:../UserPages/User.php");
       else if($_SESSION['type'] == "pro")
         header("Location:../PropPages/Prop.php");
-
 
   }else if ($res->num_rows!=1)
   {

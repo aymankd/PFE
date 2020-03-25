@@ -1,4 +1,26 @@
 <?php
+session_start();
+
+if( !isset($_SESSION['username']) || $_SESSION['type'] != "normal" )
+{
+  header("location:../../homeP.php");
+}
+
+
+$servername = "localhost";
+$userservername = "root";
+$database = "pfe";
+$msg="";
+
+// Create connection
+$conn = new mysqli($servername, $userservername,"", $database);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+
 ?>
 
 
@@ -130,14 +152,14 @@
                 <a href="#" class="nav-link count-indicator "><i class="mdi mdi-message-reply-text"></i></a>
               </li>
               <li class="nav-item nav-search d-none d-lg-block ml-3">
-                <div class="input-group">
+                <form class="input-group" action="searshResult.php" methode="POST">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="search">
                         <i class="mdi mdi-magnify"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control" placeholder="search" aria-label="search" aria-describedby="search">
-                </div>
+                    <input type="text" name="rech" class="form-control" placeholder="Search a very wide input..." aria-label="search" aria-describedby="search">
+                </form>
               </li>	
             </ul>
  

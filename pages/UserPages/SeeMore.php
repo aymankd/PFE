@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if( isset($_SESSION['username']))
+if( !isset($_SESSION['username']) || $_SESSION['type'] != "normal" )
 {
   header("location:../../homeP.php");
 }
@@ -32,29 +32,8 @@ $desc=$rowL["description"];
 $regl=$rowL["reglement"];
 $prix=$rowL["prix"];
 $sup=$rowL["superficie"];
-$type=$rowL["type"];
+$Codepro=$rowL["CodeP"];
 
-if($type=="Appartement")
-{
-   $reqAp="SELECT * from appartement where Codeapp=?";
-   $statementAp=$conn->prepare($reqAp);
-   $statementAp->bind_param("i",$CodeL);
-   $statementAp->execute();
-   $resAp=$statementAp->get_result();
-   $rowAp=$resAp->fetch_assoc();
-   $nbrC=$rowAp["nbrC"];
-   $nbrP=$rowAp["nbrP"];
-}
-else
-{
-   $reqAp="SELECT * from studio where CodeP=?";
-   $statementAp=$conn->prepare($reqAp);
-   $statementAp->bind_param("i",$CodeL);
-   $statementAp->execute();
-   $resAp=$statementAp->get_result();
-   $rowAp=$resAp->fetch_assoc();
-   $nbrP=$rowAp["nbrP"];
-}
 //recuperation des images du logement
 $reqI="SELECT * FROM image where CodeL=?";
 $statementI=$conn->prepare($reqI);
@@ -84,24 +63,31 @@ while ( ($rowI = mysqli_fetch_array($resI)) && ($i < 4) )
 }
 
 
-
 //recuperation des données du prop 
 $reqP="SELECT * from proprietaire where CodeP=?";
 $statementP=$conn->prepare($reqP);
-$statementP->bind_param("i",$rowL["CodeP"]);
+$statementP->bind_param("i",$Codepro);
 $statementP->execute();
 $resP=$statementP->get_result();
 $rowP=$resP->fetch_assoc();
 
 $Pnom=$rowP["nom"];
 $Pprenom=$rowP["prenom"];
+
+
+///////////////////////////////////////////// Messagrie /////////////////////////////////////////////
+
+$msg = "";
+$userCode = $_SESSION['usercode'];
+
+
 ?>
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
    <head>
       <meta charset="UTF-8">
       <title>Voire plus</title>
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
       <!--enable mobile device-->
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!--fontawesome css-->
@@ -117,10 +103,15 @@ $Pprenom=$rowP["prenom"];
       <link rel="stylesheet" href="../../Resourse/cssSm/select2.min.css">
       <!--responsive css-->
       <link rel="stylesheet" href="../../Resourse/cssSm/responsive.css">
-
       <link href="../../Resourse/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+      <!--ChatBox-->
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+      <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
+      <link rel="stylesheet" href="../../Resourse/css3/chatbox.css">
+
    </head>
-   <body>
+   <body >
       <header id="header" class="top-head">
          <!-- Static navbar -->
          <nav class="navbar navbar-default">
@@ -155,10 +146,9 @@ $Pprenom=$rowP["prenom"];
       <!-- Modal -->
      
     
-     
-      <div class="product-page-main">
-         <div class="container">
-            <div class="row">
+      <div class="product-page-main" >
+         <div class="container" >
+            <div class="row" >
                <div class="col-md-12">
                   <div class="prod-page-title">
                      <h2 class="titreOne"><?=$Titre?></h2>
@@ -166,7 +156,7 @@ $Pprenom=$rowP["prenom"];
                   </div>
                </div>
             </div>
-            <div class="row">
+            <div class="row" >
               
                <div class="col-md-7 col-sm-8">
                   <div class="md-prod-page">
@@ -205,7 +195,7 @@ $Pprenom=$rowP["prenom"];
                               <div class="prod-btn">
                               
                                  <a href="#"><i class="fas fa-heart"></i> Like this</a>
-                                 
+                                 <p>23 likes</p>
                               </div>
                            </div>
                            <div class="right-dit-p">
@@ -289,21 +279,22 @@ $Pprenom=$rowP["prenom"];
                      
                      <div class="row cat-pd">
                         <div class="col-md-6">
-                          <div class='small-box-c'>
-                               <div class='small-img-b'>
-                                 <img class='img-responsive' src='../../Resourse/images/tr1.png' alt='#' />
-                               </div> 
-                               <div class='dit-t clearfix'>
-                                    <div class='left-ti'>
-                                     <h4>Product</h4>
-                                     <p>By <span>Beko</span> under <span>Lights</span></p>
-                                    </div>
-                                    <a href='#' tabindex='0'>$1220</a>
-                               </div>
-                               <div class='prod-btn'>   
-                                <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
-                                <p>23 likes</p>
-                               </div>
+                           <div class="small-box-c">
+                              <div class="small-img-b">
+                                 <img class="img-responsive" src="../../Resourse/images/tr1.png" alt="#" />
+                              </div>
+                              <div class="dit-t clearfix">
+                                 <div class="left-ti">
+                                    <h4>Product</h4>
+                                    <p>By <span>Beko</span> under <span>Lights</span></p>
+                                 </div>
+                                 <a href="#" tabindex="0">$1220</a>
+                              </div>
+                              <div class="prod-btn">
+                                
+                                 <a href="#"><svg style="height: 16px; width: 16px; display: block; overflow: visible;" viewBox="0 0 24 24" fill="currentColor" fill-opacity="0" stroke="#222222" stroke-width="1.4" focusable="false" aria-hidden="true" role="presentation" stroke-linecap="round" stroke-linejoin="round"><path d="m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6" stroke-linejoin="round"></path></svg>Like this</a>
+                                 <p>23 likes</p>
+                              </div>
                            </div>
                         </div>
                         <div class="col-md-6">
@@ -377,7 +368,7 @@ $Pprenom=$rowP["prenom"];
                   
                     
                      
-                     <a href="#" class="badge badge-primary">Contacter Hote</a>
+                     <a id="ChatPro" class="badge badge-primary">Contacter Hote</a>
                   </div>
                </div>
             </div>
@@ -561,8 +552,41 @@ $Pprenom=$rowP["prenom"];
             </div>
          </div>
       </footer>
-      <!--main js--> 
-      <script src="../../Resourse/js3/jquery-1.12.4.min.js"></script> 
+      <section class="avenue-messenger" id="Chat" style="display:none">
+         <div class="menu">
+            <div class="button" id="CloseChat" title="End Chat">&#10005;</div> 
+         </div>
+         <div class="agent-face">
+            <div class="half">
+            <img class="agent circle" src="Proprofile.php?id=<?=$Codepro ?>" alt="profile">
+            </div>
+         </div>
+         <div class="chat" >
+            <div class="chat-title">
+            <h1><?=$Pnom?> <?=$Pprenom?></h1>
+            <h2>RE/MAX</h2>
+            </div>
+            <div class="messages" >
+            <div class="messages-content mCustomScrollbar _mCS_1 mCS_no_scrollbar" >
+
+            </div>
+            </div>
+            <div class="message-box">
+               <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
+               <button type="submit" id="send" class="message-submit">Send</button>
+            </div>
+         </div>
+      </section>
+
+      
+
+   </body>
+   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+   <script src='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js'></script>
+      <!--main js
+   <script src="../../Resourse/js3/jquery-1.12.4.min.js"></script> 
+   --> 
+   
       <!--bootstrap js--> 
       <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <script src="../../Resourse/js3/bootstrap.min.js"></script> 
@@ -572,7 +596,94 @@ $Pprenom=$rowP["prenom"];
       <script src="../../Resourse/js3/wow.min.js"></script> 
       <!--custom js--> 
       <script src="../../Resourse/js3/custom.js"></script>
-   </body>
+      <!--
+      <script src="../../Resourse/css3/chatbox.js"></script>   
+      --> 
+
+<script>
+chat = document.getElementById('Chat');
+var $messages = $('.messages-content'),
+d, h, m,
+i = 0;
+
+
+
+
+   function updateScrollbar() {
+   $messages.mCustomScrollbar('scrollTo', 'bottom');
+   }
+
+
+   function insertMessage() {
+   $('<div class="message message-personal">' + msg + '</div>').appendTo('.messages-content .mCSB_container');
+   $('.message-input').val(null);
+   updateScrollbar();
+   }
+
+   $('.message-submit').click(function() {
+      msg = $('.message-input').val();
+      if(msg!="")
+      {
+      insertMessage();
+      $.ajax({  
+            url:"chatbox.php",  
+            method:"GET",  
+            data:{message:msg,sender:<?=$userCode; ?>,reciever:<?=$Codepro; ?>}
+            });
+      }
+   });
+
+
+   $(window).on('keydown', function(e) {
+      if (e.which == 13) {
+         msg = $('.message-input').val();
+         if(msg!="")
+         {
+         insertMessage();
+         $.ajax({  
+               url:"chatbox.php",  
+               method:"GET",  
+               data:{message:msg,sender:<?=$userCode; ?>,reciever:<?=$Codepro; ?>}
+               });
+         }
+      }
+   })
+
+
+
+   setInterval(function() {
+      showdata="";
+      $.ajax({  
+                url:"chatmsg.php",  
+                method:"GET",  
+                data:{sender:<?=$userCode; ?>,reciever:<?=$Codepro; ?>},  
+                success:function(data){
+                   if(showdata!=data)
+                   {
+                     showdata=data;
+                     $('.mCSB_container').html(data);
+                   }
+                }  
+           });
+      updateScrollbar(); 
+   }, 1000);
+
+
+
+   
+
+
+
+   $('#ChatPro').click(function(){
+   chat.style="display:block";
+   updateScrollbar();
+   });
+   $('#CloseChat').click(function(){
+   chat.style="display:none";
+   });
+
+</script>
+
 
 
 </html>
