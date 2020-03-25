@@ -9,24 +9,7 @@ if( !isset($_SESSION['username']) || $_SESSION['type'] != "admin" )
   $database = "pfe";
   $msg="";
   $alert="";
-//remplisage des données d'utilisateur courrant
-$src="";
-$USN=$_SESSION['username'];
-$reqIU="SELECT * FROM utilisateur WHERE username=?";
-$statementIU=$conn->prepare($reqIU);
-$statementIU->bind_param("s",$USN);
-$statementIU->execute();
-$resIU=$statementIU->get_result();
-if($rowIU=$resIU->fetch_assoc())
-{
-	$src="genere_image.php?UN=$USN";
-	$img="<img src='".$src."' alt='profile'/>"
-}
-else
-{
-	$src="../../Resourse/imgs/ProfileHolder.jpg";
-	$img="<img src='".$src."' alt='profile'/>"
-}
+
 
 // Create connection
 $conn = new mysqli($servername, $userservername,"", $database);
@@ -34,6 +17,27 @@ $conn = new mysqli($servername, $userservername,"", $database);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
+}
+
+//remplisage des données d'utilisateur courrant
+$src="";
+$ProfileP="";
+$USN=$_SESSION['username'];
+$reqIU="SELECT * FROM utilisateur WHERE username=?";
+$statementIU=$conn->prepare($reqIU);
+$statementIU->bind_param("s",$USN);
+$statementIU->execute();
+$resIU=$statementIU->get_result();
+$rowIU=$resIU->fetch_assoc();
+if($rowIU['imageP']!=NULL)
+{
+  	$src="profilpic.php?UN=$USN";
+	$ProfileP="<img src='".$src."' alt='profile'/>";
+}
+else
+{
+	$src="../../Resourse/imgs/ProfileHolder.jpg";
+	$ProfileP="<img src='".$src."' alt='profile'/>";
 }
 
 ///////////////remplicage des equipment///////////////
@@ -383,7 +387,7 @@ if(isset($_POST['EnrFrm']))
                   <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                     <span class="nav-profile-name"><?=$USN?></span>
                     <span class="online-status"></span>
-                    <?=$img?>
+                       <?=$ProfileP?>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                       <a class="dropdown-item">
