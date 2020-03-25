@@ -42,12 +42,11 @@ if(isset($_POST['connect']))
     $_SESSION['type']=$row['type'];
     session_write_close();
       if($_SESSION['type'] == "admin")
-      header("Location:../../AdminPages/dash.php");
+      header("Location:../AdminPages/dash.php");
       else if($_SESSION['type'] == "normal")
         header("Location:../UserPages/User.php");
       else if($_SESSION['type'] == "pro")
         header("Location:../PropPages/Prop.php");
-
 
   }else if ($res->num_rows!=1)
   {
