@@ -24,11 +24,4 @@ $statement->bind_param("iiss",$sender,$reciever,$msg,$status);
 $statement->execute();
 
 
-/*
-$res=$statement->get_result();
-while ( $row = mysqli_fetch_array($res) )
-{
-    $msg=
-}
-*/
 ?>

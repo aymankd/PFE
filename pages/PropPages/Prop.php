@@ -9,6 +9,15 @@ $servername = "localhost";
 $userservername = "root";
 $database = "pfe";
 $msg="";
+$openclosejs=" checked = null;";
+$jsScript="<script>";
+$chatboxs="";
+$AllCodeSenders=" var codes = new array();";
+$ScriptMsg="";
+$sendScr="";
+$url='"chatbox.php"';
+$method='"GET"';
+
 
 // Create connection
 $conn = new mysqli($servername, $userservername,"", $database);
@@ -40,10 +49,9 @@ while ( $row = mysqli_fetch_array($res) )
       $rowP=$resP->fetch_assoc();
       $Pusername=$rowP["username"];
 
-
   $ntMsg = $ntMsg.
   '
-  <a class="dropdown-item preview-item">
+  <a class="dropdown-item preview-item" id="a'.$sender.'">
     <div class="preview-thumbnail">
         <img src="Proprofile.php?id='.$sender.'" alt="image" class="profile-pic">
     </div>
@@ -56,29 +64,92 @@ while ( $row = mysqli_fetch_array($res) )
     </div>
   </a>
   ';
+
+
+  $chatboxs = $chatboxs.
+  '
+  <section class="avenue-messenger" id="Chat'.$sender.'" style="display:none">
+  <div class="menu">
+     <div class="button" id="CloseChat'.$sender.'" title="End Chat">&#10005;</div> 
+  </div>
+  <div class="agent-face">
+     <div class="half">
+     <img class="agent circle" src="Proprofile.php?id='.$sender.'" alt="profile">
+     </div>
+  </div>
+  <div class="chat" >
+     <div class="chat-title">
+     <h1>'.$Pusername.'
+     </div>
+     <div class="messages" >
+     <div id="'.$sender.'" class="messages-content mCustomScrollbar _mCS_1 mCS_no_scrollbar" >
+
+     </div>
+     </div>
+     <div class="message-box">
+        <textarea type="text" id="input'.$sender.'" class="message-input" placeholder="Type message..."></textarea>
+        <button type="submit" id="send'.$sender.'" class="message-submit">Send</button>
+     </div>
+  </div>
+</section>
+  ';
+
+  $openclosejs = $openclosejs.
+  "
+  $('#a".$sender."').click(function(){
+    if(checked!=null)
+      checked.style='display:none';
+      document.getElementById('Chat".$sender."').style='display:block';
+      checked=document.getElementById('Chat".$sender."');
+    //updateScrollbar();
+    });
+    $('#CloseChat".$sender."').click(function(){
+      document.getElementById('Chat".$sender."').style='display:none';
+      checked=null;
+    });
+  ";
+
+  $ScriptMsg = $ScriptMsg.
+  '
+
+  $("#send'.$sender.'").click(function() {
+    $msgtosend=$("#input'.$sender.'").val();
+    insertMessage("'.$sender.'");
+    $.ajax({  
+          url:"chatbox.php",  
+          method:"GET",  
+          data:{message:$msgtosend,sender:'.$codeU.',reciever:'.$sender.'}
+          });
+ });
+
+  ';
 }
 
+$Msgclass='"message message-personal"';
 
-
-
-
-/*
-
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
-                    </div>
-                    <div class="preview-item-content flex-grow">
-                        <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
-                        </h6>
-                        <p class="font-weight-light small-text text-muted mb-0">
-                          New product launch
-                        </p>
-                    </div>
-                  </a>
-
-
+$UISc=
+"
+/*var MsgCont = $('.messages-content');
+function updateScrollbar() {
+  MsgCont.mCustomScrollbar('scrollTo', 'bottom');
+  }
 */
+  function insertMessage(messages) {
+    var varI='#input'+messages;
+    msg = $(varI).val();
+      if(msg!=null)
+      {
+      $('<div class=".$Msgclass.">' + msg + '</div>').appendTo('#'+messages+' .mCSB_container');
+      $(varI).val(null);
+      //updateScrollbar();
+      msg=null;
+      }
+    }
+";
+
+
+$jsScript = "<script>".$UISc.$openclosejs.$ScriptMsg."</script>";
+
 
 ?>
 
@@ -522,7 +593,7 @@ while ( $row = mysqli_fetch_array($res) )
   <img src="../../Resourse/images/auth/login-bg.jpg" class="d-block w-100">
 </div>
 <div class="carousel-item active">
-   <img src="../../Resourseimages/lockscreen-bg.jpg" class="d-block w-100">
+   <img src="../../Resourse/images/lockscreen-bg.jpg" class="d-block w-100">
 </div>
 </div>
 
@@ -600,101 +671,8 @@ while ( $row = mysqli_fetch_array($res) )
 		</div>
 		<!-- page-body-wrapper ends -->
     </div>
-
-
-    <section class="avenue-messenger">
-    <div class="menu">
-      <div class="button" title="End Chat">&#10005;</div> 
-    </div>
-    <div class="agent-face">
-      <div class="half">
-        <img class="agent circle" src="http://askavenue.com/img/17.jpg" alt="Jesse Tino">
-      </div>
-    </div>
-    <div class="chat">
-      <div class="chat-title">
-        <h1>Jesse Tino</h1>
-        <h2>RE/MAX</h2>
-      </div>
-      <div class="messages">
-        <div class="messages-content mCustomScrollbar _mCS_1 mCS_no_scrollbar">
-          <div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" style="max-height: none;" tabindex="0">
-            <div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
-              <div class="message new">
-                <figure class="avatar"><img src="http://askavenue.com/img/17.jpg"></figure>
-                Hi there, I'm Jesse and you?
-                <div class="timestamp">14:50</div>
-                <div class="checkmark-sent-delivered">✓</div>
-                <div class="checkmark-read">✓</div>
-              </div>
-              <div class="message message-personal new">
-                i'm Mike
-                <div class="timestamp">14:50</div>
-                <div class="checkmark-sent-delivered">✓</div>
-                <div class="checkmark-read">✓</div>
-              </div>
-              <div class="message new">
-                <figure class="avatar"><img src="http://askavenue.com/img/17.jpg"></figure>
-                Hi there, I'm Jesse and you?
-                <div class="timestamp">14:50</div>
-                <div class="checkmark-sent-delivered">✓</div>
-                <div class="checkmark-read">✓</div>
-              </div>
-              <div class="message message-personal new">
-                i'm Mike
-                <div class="timestamp">14:50</div>
-                <div class="checkmark-sent-delivered">✓</div>
-                <div class="checkmark-read">✓</div>
-              </div>
-              <div class="message new">
-                <figure class="avatar"><img src="http://askavenue.com/img/17.jpg"></figure>
-                Hi there, I'm Jesse and you?
-                <div class="timestamp">14:50</div>
-                <div class="checkmark-sent-delivered">✓</div>
-                <div class="checkmark-read">✓</div>
-              </div>
-              <div class="message message-personal new">
-                i'm Mike
-                <div class="timestamp">14:50</div>
-                <div class="checkmark-sent-delivered">✓</div>
-                <div class="checkmark-read">✓</div>
-              </div>
-              <div class="message new">
-                <figure class="avatar"><img src="http://askavenue.com/img/17.jpg"></figure>
-                Hi there, I'm Jesse and you?
-                <div class="timestamp">14:50</div>
-                <div class="checkmark-sent-delivered">✓</div>
-                <div class="checkmark-read">✓</div>
-              </div>
-              <div class="message message-personal new">
-                i'm Mike
-                <div class="timestamp">14:50</div>
-                <div class="checkmark-sent-delivered">✓</div>
-                <div class="checkmark-read">✓</div>
-              </div>
-              <div class="message new">
-                <figure class="avatar"><img src="http://askavenue.com/img/17.jpg"></figure>
-                Hi there, I'm Jesse and you?
-                <div class="timestamp">14:50</div>
-                <div class="checkmark-sent-delivered">✓</div>
-                <div class="checkmark-read">✓</div>
-              </div>
-              <div class="message message-personal new">
-                i'm Mike
-                <div class="timestamp">14:50</div>
-                <div class="checkmark-sent-delivered">✓</div>
-                <div class="checkmark-read">✓</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="message-box">
-          <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
-          <button type="submit" class="message-submit">Send</button>
-      </div>
-    </div>
-  </section>
+    <?=$chatboxs; ?>
+    
 
 
 
@@ -725,8 +703,8 @@ while ( $row = mysqli_fetch_array($res) )
     <!-- Custom js for this page-->
     <script src="../../Resourse/js2/dashboard.js"></script>
     <!-- End custom js for this page-->
-    <script src="../../Resourse/js2/Card.js"></script>
 
+    <?=$jsScript; ?>
   
 </body>
 </html>

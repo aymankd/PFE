@@ -601,7 +601,7 @@ $userCode = $_SESSION['usercode'];
       --> 
 
 <script>
-chat = document.getElementById('Chat'); 
+chat = document.getElementById('Chat');
 var $messages = $('.messages-content'),
 d, h, m,
 i = 0;
@@ -610,37 +610,46 @@ i = 0;
 
 
    function updateScrollbar() {
-   $messages .mCustomScrollbar('scrollTo', 'bottom');
+   $messages.mCustomScrollbar('scrollTo', 'bottom');
    }
 
 
    function insertMessage() {
-   $('<div class="message message-personal">' + msg + '</div>').appendTo('.mCSB_container');
+   $('<div class="message message-personal">' + msg + '</div>').appendTo('.messages-content .mCSB_container');
    $('.message-input').val(null);
    updateScrollbar();
    }
 
-   $(window).on('keydown', function(e) {
-      if (e.which == 13) {
-         msg = $('.message-input').val();
-         insertMessage();
-         $.ajax({  
-               url:"chatbox.php",  
-               method:"GET",  
-               data:{message:msg,sender:<?=$userCode; ?>,reciever:<?=$Codepro; ?>}
-               });
-      }
-   })
-
    $('.message-submit').click(function() {
       msg = $('.message-input').val();
+      if(msg!="")
+      {
       insertMessage();
       $.ajax({  
             url:"chatbox.php",  
             method:"GET",  
             data:{message:msg,sender:<?=$userCode; ?>,reciever:<?=$Codepro; ?>}
             });
+      }
    });
+
+
+   $(window).on('keydown', function(e) {
+      if (e.which == 13) {
+         msg = $('.message-input').val();
+         if(msg!="")
+         {
+         insertMessage();
+         $.ajax({  
+               url:"chatbox.php",  
+               method:"GET",  
+               data:{message:msg,sender:<?=$userCode; ?>,reciever:<?=$Codepro; ?>}
+               });
+         }
+      }
+   })
+
+
 
    setInterval(function() {
       showdata="";
@@ -655,7 +664,8 @@ i = 0;
                      $('.mCSB_container').html(data);
                    }
                 }  
-           });  
+           });
+      updateScrollbar(); 
    }, 1000);
 
 

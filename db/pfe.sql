@@ -2,10 +2,10 @@
 -- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le :  mar. 17 mars 2020 à 18:47
--- Version du serveur :  10.4.11-MariaDB
--- Version de PHP :  7.4.1
+-- Host: 127.0.0.1
+-- Generation Time: Mar 25, 2020 at 03:47 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `pfe`
+-- Database: `pfe`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `admin`
+-- Table structure for table `admin`
 --
 
 CREATE TABLE `admin` (
@@ -33,10 +33,17 @@ CREATE TABLE `admin` (
   `CIN` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`CodeAd`, `CIN`) VALUES
+(1, 'ABC1526');
+
 -- --------------------------------------------------------
 
 --
--- Structure de la table `appartement`
+-- Table structure for table `appartement`
 --
 
 CREATE TABLE `appartement` (
@@ -48,7 +55,7 @@ CREATE TABLE `appartement` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `eqlo`
+-- Table structure for table `eqlo`
 --
 
 CREATE TABLE `eqlo` (
@@ -59,7 +66,7 @@ CREATE TABLE `eqlo` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `equipement`
+-- Table structure for table `equipement`
 --
 
 CREATE TABLE `equipement` (
@@ -68,7 +75,7 @@ CREATE TABLE `equipement` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `equipement`
+-- Dumping data for table `equipement`
 --
 
 INSERT INTO `equipement` (`CodeE`, `nom`) VALUES
@@ -93,7 +100,7 @@ INSERT INTO `equipement` (`CodeE`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `files`
+-- Table structure for table `files`
 --
 
 CREATE TABLE `files` (
@@ -105,7 +112,7 @@ CREATE TABLE `files` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `image`
+-- Table structure for table `image`
 --
 
 CREATE TABLE `image` (
@@ -117,7 +124,7 @@ CREATE TABLE `image` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `logement`
+-- Table structure for table `logement`
 --
 
 CREATE TABLE `logement` (
@@ -137,20 +144,21 @@ CREATE TABLE `logement` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `messages`
+-- Table structure for table `messages`
 --
 
 CREATE TABLE `messages` (
   `idMsg` int(11) NOT NULL,
   `Codesender` int(5) NOT NULL,
   `Codereciever` int(5) NOT NULL,
-  `Msg` varchar(500) NOT NULL
+  `Msg` varchar(500) NOT NULL,
+  `vue` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `proprietaire`
+-- Table structure for table `proprietaire`
 --
 
 CREATE TABLE `proprietaire` (
@@ -165,18 +173,7 @@ CREATE TABLE `proprietaire` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ratings`
---
-
-CREATE TABLE `ratings` (
-  `id` int(5) NOT NULL,
-  `rating` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `studio`
+-- Table structure for table `studio`
 --
 
 CREATE TABLE `studio` (
@@ -187,7 +184,7 @@ CREATE TABLE `studio` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `utilisateur`
+-- Table structure for table `utilisateur`
 --
 
 CREATE TABLE `utilisateur` (
@@ -201,50 +198,57 @@ CREATE TABLE `utilisateur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Index pour les tables déchargées
+-- Dumping data for table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`CodeU`, `username`, `email`, `pass`, `type`, `Code_confirmation`, `imageP`) VALUES
+(1, 'aymankd', 'aymankaddioui@gmail.com', 'c72fa1f6102b6993b9c2ac7acafd5702a5b66870', 'admin', NULL, '');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `admin`
+-- Indexes for table `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`CodeAd`);
 
 --
--- Index pour la table `appartement`
+-- Indexes for table `appartement`
 --
 ALTER TABLE `appartement`
   ADD PRIMARY KEY (`Codeapp`);
 
 --
--- Index pour la table `eqlo`
+-- Indexes for table `eqlo`
 --
 ALTER TABLE `eqlo`
   ADD PRIMARY KEY (`CodeE`,`CodeL`),
   ADD KEY `eqlo_ibfk_1` (`CodeL`);
 
 --
--- Index pour la table `equipement`
+-- Indexes for table `equipement`
 --
 ALTER TABLE `equipement`
   ADD PRIMARY KEY (`CodeE`);
 
 --
--- Index pour la table `files`
+-- Indexes for table `files`
 --
 ALTER TABLE `files`
   ADD PRIMARY KEY (`CodeF`),
   ADD KEY `fileLog` (`CodeL`);
 
 --
--- Index pour la table `image`
+-- Indexes for table `image`
 --
 ALTER TABLE `image`
   ADD PRIMARY KEY (`CodeImg`),
   ADD KEY `image_ibfk_1` (`CodeL`);
 
 --
--- Index pour la table `logement`
+-- Indexes for table `logement`
 --
 ALTER TABLE `logement`
   ADD PRIMARY KEY (`CodeL`),
@@ -252,7 +256,7 @@ ALTER TABLE `logement`
   ADD KEY `ProLog` (`CodeP`);
 
 --
--- Index pour la table `messages`
+-- Indexes for table `messages`
 --
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`idMsg`),
@@ -260,125 +264,113 @@ ALTER TABLE `messages`
   ADD KEY `msgsend` (`Codesender`);
 
 --
--- Index pour la table `proprietaire`
+-- Indexes for table `proprietaire`
 --
 ALTER TABLE `proprietaire`
   ADD PRIMARY KEY (`CodeP`);
 
 --
--- Index pour la table `ratings`
---
-ALTER TABLE `ratings`
-  ADD KEY `rating_log` (`id`);
-
---
--- Index pour la table `studio`
+-- Indexes for table `studio`
 --
 ALTER TABLE `studio`
   ADD PRIMARY KEY (`CodeS`);
 
 --
--- Index pour la table `utilisateur`
+-- Indexes for table `utilisateur`
 --
 ALTER TABLE `utilisateur`
   ADD PRIMARY KEY (`CodeU`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `files`
+-- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `CodeF` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `CodeF` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT pour la table `image`
+-- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `CodeImg` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `CodeImg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT pour la table `logement`
+-- AUTO_INCREMENT for table `logement`
 --
 ALTER TABLE `logement`
-  MODIFY `CodeL` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `CodeL` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT pour la table `messages`
+-- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `idMsg` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idMsg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
--- AUTO_INCREMENT pour la table `utilisateur`
+-- AUTO_INCREMENT for table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `CodeU` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `CodeU` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Contraintes pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `admin`
+-- Constraints for table `admin`
 --
 ALTER TABLE `admin`
   ADD CONSTRAINT `FkeyAd` FOREIGN KEY (`CodeAd`) REFERENCES `utilisateur` (`CodeU`);
 
 --
--- Contraintes pour la table `appartement`
+-- Constraints for table `appartement`
 --
 ALTER TABLE `appartement`
   ADD CONSTRAINT `applog` FOREIGN KEY (`Codeapp`) REFERENCES `logement` (`CodeL`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `eqlo`
+-- Constraints for table `eqlo`
 --
 ALTER TABLE `eqlo`
   ADD CONSTRAINT `eqlo_ibfk_2` FOREIGN KEY (`CodeE`) REFERENCES `equipement` (`CodeE`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `eqlo_logem_3` FOREIGN KEY (`CodeL`) REFERENCES `logement` (`CodeL`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `files`
+-- Constraints for table `files`
 --
 ALTER TABLE `files`
   ADD CONSTRAINT `fileLog` FOREIGN KEY (`CodeL`) REFERENCES `logement` (`CodeL`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `image`
+-- Constraints for table `image`
 --
 ALTER TABLE `image`
   ADD CONSTRAINT `imLog` FOREIGN KEY (`CodeL`) REFERENCES `logement` (`CodeL`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `logement`
+-- Constraints for table `logement`
 --
 ALTER TABLE `logement`
   ADD CONSTRAINT `ProLog` FOREIGN KEY (`CodeP`) REFERENCES `proprietaire` (`CodeP`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `messages`
+-- Constraints for table `messages`
 --
 ALTER TABLE `messages`
-  ADD CONSTRAINT `msgrecie` FOREIGN KEY (`Codereciever`) REFERENCES `utilisateur` (`CodeU`),
-  ADD CONSTRAINT `msgsend` FOREIGN KEY (`Codesender`) REFERENCES `utilisateur` (`CodeU`);
+  ADD CONSTRAINT `msgrecie` FOREIGN KEY (`Codereciever`) REFERENCES `utilisateur` (`CodeU`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `msgsend` FOREIGN KEY (`Codesender`) REFERENCES `utilisateur` (`CodeU`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `proprietaire`
+-- Constraints for table `proprietaire`
 --
 ALTER TABLE `proprietaire`
   ADD CONSTRAINT `FkeyPro` FOREIGN KEY (`CodeP`) REFERENCES `utilisateur` (`CodeU`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `ratings`
---
-ALTER TABLE `ratings`
-  ADD CONSTRAINT `rating_log` FOREIGN KEY (`id`) REFERENCES `logement` (`CodeL`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `studio`
+-- Constraints for table `studio`
 --
 ALTER TABLE `studio`
   ADD CONSTRAINT `Stlog` FOREIGN KEY (`CodeS`) REFERENCES `logement` (`CodeL`) ON DELETE CASCADE ON UPDATE CASCADE;
