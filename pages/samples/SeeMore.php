@@ -99,7 +99,7 @@
                               <div class="prod-btn">
                               
                                  <a href="#"><i class="fas fa-heart"></i> Like this</a>
-                                 <p>23 likes</p>
+                                 
                               </div>
                            </div>
                            <div class="right-dit-p">
