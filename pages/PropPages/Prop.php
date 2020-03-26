@@ -17,6 +17,7 @@ $ScriptMsg="";
 $sendScr="";
 $url='"chatbox.php"';
 $method='"GET"';
+$i=1;
 $UISc='setInterval(function() {
   showdata="";';
 
@@ -54,7 +55,7 @@ $codeU = $_SESSION['usercode'];
 $ntMsg = "";
 
 $req="SELECT idMsg, Codesender, Msg FROM messages 
-WHERE Codereciever=? AND vue=0 
+WHERE Codereciever=?
 GROUP BY Codesender  ORDER BY idMsg DESC LIMIT 3";
 $statement=$conn->prepare($req);
 $statement->bind_param("i",$codeU);
@@ -148,7 +149,8 @@ while ( $row = mysqli_fetch_array($res) )
   ';
 
 
-  $mCSB_container="'#".$sender." .mCustomScrollBox .mCSB_container'";
+  $mCSB_container="'#mCSB_".$i."_container'";
+  $i=$i+1;
   
   $UISc=$UISc.
   '
@@ -308,7 +310,7 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
                   <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                     <span class="nav-profile-name"><?=$USN?></span>
                     <span class="online-status"></span>
-                    <?=ProfileP?>
+                    <?=$ProfileP?>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                   <a class="dropdown-item">

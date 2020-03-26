@@ -16,9 +16,9 @@ $sender = isset($_GET['sender']) ? $_GET['sender'] : null;
 $reciever = isset($_GET['reciever']) ? $_GET['reciever'] : null;
 
 
-$req = "SELECT * FROM `messages` WHERE `Codesender` = ? OR `Codereciever` = ?";
+$req = "SELECT * FROM `messages` WHERE (`Codesender` = ? AND `Codereciever` = ?) OR (`Codesender` = ? AND `Codereciever` = ?) ";
 $statement=$conn->prepare($req);
-$statement->bind_param("ii",$sender,$sender);
+$statement->bind_param("iiii",$sender,$reciever,$reciever,$sender);
 $statement->execute();
 $res=$statement->get_result();
 while ( $row = mysqli_fetch_array($res) )
