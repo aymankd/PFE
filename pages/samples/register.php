@@ -51,6 +51,7 @@ if(isset($_POST['Sign']))
           $statementI->bind_param("sss",$inUsername,$inEmail,$inPass);
           $statementI->execute();
           session_regenerate_id();
+          $_SESSION['usercode'] = $conn->insert_id;
 	        $_SESSION['username']=$inUsername;
 	        $_SESSION['type']='normal';
 	        session_write_close();

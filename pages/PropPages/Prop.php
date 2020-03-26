@@ -10,13 +10,15 @@ $userservername = "root";
 $database = "pfe";
 $msg="";
 $openclosejs=" checked = null;";
-$jsScript="<script>";
+$jsScript="";
 $chatboxs="";
 $AllCodeSenders=" var codes = new array();";
 $ScriptMsg="";
 $sendScr="";
 $url='"chatbox.php"';
 $method='"GET"';
+$UISc='setInterval(function() {
+  showdata="";';
 
 
 // Create connection
@@ -101,7 +103,7 @@ while ( $row = mysqli_fetch_array($res) )
       checked.style='display:none';
       document.getElementById('Chat".$sender."').style='display:block';
       checked=document.getElementById('Chat".$sender."');
-    //updateScrollbar();
+      updateScrollbar();
     });
     $('#CloseChat".$sender."').click(function(){
       document.getElementById('Chat".$sender."').style='display:none';
@@ -123,32 +125,38 @@ while ( $row = mysqli_fetch_array($res) )
  });
 
   ';
+
+
+  $mCSB_container="'#".$sender." .mCustomScrollBox .mCSB_container'";
+  
+  $UISc=$UISc.
+  '
+  $.ajax({  
+    url:"chatmsg.php",  
+    method:"GET",  
+    data:{sender:'.$codeU.',reciever:'.$sender.'},  
+    success:function(data){
+      if(showdata!=data)
+      {
+        showdata=data;
+        $('.$mCSB_container.').html(data);
+      }
+    }  
+  });
+  ';
+
+
+
+
 }
 
 $Msgclass='"message message-personal"';
 
-$UISc=
-"
-/*var MsgCont = $('.messages-content');
-function updateScrollbar() {
-  MsgCont.mCustomScrollbar('scrollTo', 'bottom');
-  }
-*/
-  function insertMessage(messages) {
-    var varI='#input'+messages;
-    msg = $(varI).val();
-      if(msg!=null)
-      {
-      $('<div class=".$Msgclass.">' + msg + '</div>').appendTo('#'+messages+' .mCSB_container');
-      $(varI).val(null);
-      //updateScrollbar();
-      msg=null;
-      }
-    }
-";
 
+$UISc = $UISc.'updateScrollbar(); 
+}, 1000);';
 
-$jsScript = "<script>".$UISc.$openclosejs.$ScriptMsg."</script>";
+$jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 
 
 ?>
@@ -681,9 +689,6 @@ $jsScript = "<script>".$UISc.$openclosejs.$ScriptMsg."</script>";
 
 
 
-    <!-- chat-box -->
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js'></script>
     <!-- container-scroller -->
     <!-- base:js -->
     <script src="../../Resourse/vendors/base/vendor.bundle.base.js"></script>
@@ -704,7 +709,53 @@ $jsScript = "<script>".$UISc.$openclosejs.$ScriptMsg."</script>";
     <script src="../../Resourse/js2/dashboard.js"></script>
     <!-- End custom js for this page-->
 
+    <!-- chat-box -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script>
+    var $MsgCont = $('.messages-content');
+    function updateScrollbar() {
+      $MsgCont.mCustomScrollbar('scrollTo', 'bottom');
+      }
+
+    function insertMessage(messages) {
+      var varI='#input'+messages;
+      msg = $(varI).val();
+        if(msg!=null){
+          $('<div class="message message-personal" >' + msg + '</div>').appendTo('#'+messages+' .mCSB_container');
+          $(varI).val(null);
+          updateScrollbar();
+          msg=null;
+        }
+      }
+
+
+
+      <?=$UISc; ?>
+      /* 
+            setInterval(function() {
+      showdata="";
+      $.ajax({  
+                url:"chatmsg.php",  
+                method:"GET",  
+                data:{sender,reciever:},  
+                success:function(data){
+                   if(showdata!=data)
+                   {
+                     showdata=data;
+                     $('.mCSB_container').html(data);
+                   }
+                }  
+           });
+                 updateScrollbar(); 
+   }, 1000);
+      */
+
+    
+    </script>
     <?=$jsScript; ?>
+
   
 </body>
 </html>
