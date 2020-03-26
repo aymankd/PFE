@@ -29,6 +29,27 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
+//remplisage des données d'utilisateur courrant
+$src="";
+$ProfileP="";
+$USN=$_SESSION['username'];
+$reqIU="SELECT * FROM utilisateur WHERE username=?";
+$statementIU=$conn->prepare($reqIU);
+$statementIU->bind_param("s",$USN);
+$statementIU->execute();
+$resIU=$statementIU->get_result();
+$rowIU=$resIU->fetch_assoc();
+if($rowIU['imageP']!=NULL)
+{
+  	$src="../Samples/profilpic.php?UN=$USN";
+	$ProfileP="<img src='".$src."' alt='profile'/>";
+}
+else
+{
+	$src="../../Resourse/imgs/ProfileHolder.jpg";
+	$ProfileP="<img src='".$src."' alt='profile'/>";
+}
+
 $codeU = $_SESSION['usercode'];
 $ntMsg = "";
 
@@ -285,9 +306,9 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
              
                 <li class="nav-item nav-profile dropdown">
                   <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                    <span class="nav-profile-name">Johnson</span>
+                    <span class="nav-profile-name"><?=$USN?></span>
                     <span class="online-status"></span>
-                    <img src="../../Resourse/images/dashboard/face29.png" alt="profile"/>
+                    <?=ProfileP?>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                   <a class="dropdown-item">
