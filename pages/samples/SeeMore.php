@@ -105,6 +105,7 @@ $Pprenom=$rowP["prenom"];
       <!--enable mobile device-->
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!--fontawesome css-->
+      
       <link rel="stylesheet" href="../../Resourse/cssSm/font-awesome.min.css">
       <!--bootstrap css-->
       <link rel="stylesheet" href="../../Resourse/cssSm/bootstrap.min.css">
@@ -119,6 +120,7 @@ $Pprenom=$rowP["prenom"];
       <link rel="stylesheet" href="../../Resourse/cssSm/responsive.css">
 
       <link href="../../Resourse/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+      
    </head>
    <body>
       <header id="header" class="top-head">
@@ -203,10 +205,16 @@ $Pprenom=$rowP["prenom"];
                         <div class="btn-dit-list clearfix">
                            <div class="left-dit-p">
                               <div class="prod-btn">
-                              
+                                 
                                  <a href="#"><i class="fas fa-heart"></i> Like this</a>
                                  
                               </div>
+                              <br>
+                              <div class="prod-btn">
+                              <a href="loginRT.php?smr=<?=$CodeL?>"><i class="far fa-star"></i> Rate this</a>
+                              </div>
+                             
+                              
                            </div>
                            <div class="right-dit-p">
                               <div class="like-list">
@@ -237,7 +245,7 @@ $Pprenom=$rowP["prenom"];
                            </div>
                         </div>
                      </div>
-                     <div class="description-box">
+                     <div id="nc" class="description-box">
                         <div class="dex-a">
                            <h4>Description</h4>
                            <p>
@@ -572,7 +580,11 @@ $Pprenom=$rowP["prenom"];
       <script src="../../Resourse/js3/wow.min.js"></script> 
       <!--custom js--> 
       <script src="../../Resourse/js3/custom.js"></script>
+     
    </body>
 
 
 </html>
+
+
+

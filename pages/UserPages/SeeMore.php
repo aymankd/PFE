@@ -80,8 +80,26 @@ $Pprenom=$rowP["prenom"];
 $msg = "";
 $userCode = $_SESSION['usercode'];
 
+//checking if user has rated this article
+$rt="";
+$reqCR="SELECT * from ratings WHERE CodeL=? and CodeU=?";
+$statementCR=$conn->prepare($reqCR);
+$statementCR->bind_param("ii",$CodeL,$userCode);
+$statementCR->execute();
+$resCR=$statementCR->get_result();
+if(($rowCR=$resCR->fetch_assoc()))
+{
+   $rt="<h3>You rated this ".$rowCR['rating']." stars</h3>";
+}
+else
+{
+   $rt="<button id='rts' onclick='ShowStars()'>rate this</button>";
+}
+
+
 
 ?>
+
 <!DOCTYPE HTML>
 <html lang="en">
    <head>
@@ -196,6 +214,30 @@ $userCode = $_SESSION['usercode'];
                               
                                  <a href="#"><i class="fas fa-heart"></i> Like this</a>
                                  <p>23 likes</p>
+                              </div>
+                              <div id="RtBlock">
+                                <div>
+                                  <?=$rt?>
+                                </div> 
+                                <div id="stars" class="container">
+                                 <div class="row">
+                                   <div class="rating">
+                                    <input type="radio" id="star5" name="rating" value="5" />
+                                    <label for="star5" title="Meh">5 stars</label>
+                                    <input type="radio" id="star4" name="rating" value="4" />
+                                    <label for="star4" title="Kinda bad">4 stars</label>
+                                    <input type="radio" id="star3" name="rating" value="3" />
+                                    <label for="star3" title="Kinda bad">3 stars</label>
+                                    <input type="radio" id="star2" name="rating" value="2" />
+                                    <label for="star2" title="Sucks big tim">2 stars</label>
+                                    <input type="radio" id="star1" name="rating" value="1" />
+                                    <label for="star1" title="Sucks big time">1 star</label>
+                                   </div>
+                                 </div>
+                                </div>   
+                              </div>
+                              <div id="YRT">
+                                
                               </div>
                            </div>
                            <div class="right-dit-p">
@@ -580,15 +622,18 @@ $userCode = $_SESSION['usercode'];
 
       
 
+
    </body>
+   
+
+   
    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
    <script src='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js'></script>
-      <!--main js
-   <script src="../../Resourse/js3/jquery-1.12.4.min.js"></script> 
-   --> 
+
+
    
       <!--bootstrap js--> 
-      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      
       <script src="../../Resourse/js3/bootstrap.min.js"></script> 
       <script src="../../Resourse/js3/bootstrap-select.min.js"></script>
       <script src="../../Resourse/js3/slick.min.js"></script> 
@@ -596,11 +641,12 @@ $userCode = $_SESSION['usercode'];
       <script src="../../Resourse/js3/wow.min.js"></script> 
       <!--custom js--> 
       <script src="../../Resourse/js3/custom.js"></script>
-      <!--
-      <script src="../../Resourse/css3/chatbox.js"></script>   
-      --> 
+
+      
+     
 
 <script>
+
 chat = document.getElementById('Chat');
 var $messages = $('.messages-content'),
 d, h, m,
@@ -685,5 +731,120 @@ i = 0;
 </script>
 
 
+
+<script>
+var appended=0;
+var redir="<?=$_GET['rdr']?>";
+if(redir=="o"){
+      document.getElementById('stars').style.display='none';
+      appended=0;
+      }
+      else if(redir=="r")
+      {
+         document.getElementById('stars').style.display='block';
+         appended=1;
+      }
+
+ function ShowStars()
+		{
+			if(appended==0)
+			  {
+				document.getElementById('stars').style.display='block';
+            appended=1;
+			  }
+			  else
+			  {
+				document.getElementById('stars').style.display='none';
+            appended=0;
+			  }
+		}
+</script> 
+
+<script>
+
+$(document).ready(function(){  
+   var rating=0;
+
+   $('#star1').click(function(){  
+          
+          rating=1;
+          $.ajax({  
+ 
+                 url:"RateL.php",   
+                 method:"POST",
+                data:{rating:rating,RatedL:<?=$CodeL?>,rater:<?=$userCode?>},
+                success:function(data){  
+                    
+                    document.getElementById('RtBlock').style.display='none';
+                    document.getElementById('YRT').innerHTML='<h3>You rated this '+rating+' Stars</h3>';
+                  }
+            });  
+          
+       }); 
+ 
+       $('#star2').click(function(){
+          rating=2;
+          $.ajax({  
+                 url:"RateL.php",   
+                 method:"POST",
+                 data:{rating:rating,RatedL:<?=$CodeL?>,rater:<?=$userCode?>},
+                 success:function(data){  
+                    
+                    document.getElementById('RtBlock').style.display='none';
+                    document.getElementById('YRT').innerHTML='<h3>You rated this '+rating+' Stars</h3>';
+                  }
+                 });
+          
+       }); 
+ 
+       $('#star3').click(function(){
+          rating=3;
+          $.ajax({  
+                 url:"RateL.php",   
+                 method:"POST",
+                 data:{rating:rating,RatedL:<?=$CodeL?>,rater:<?=$userCode?>},
+                 success:function(data){  
+                    
+                  document.getElementById('RtBlock').style.display='none';
+                  document.getElementById('YRT').innerHTML='<h3>You rated this '+rating+' Stars</h3>';
+                }  
+                 });
+       });
+ 
+       $('#star4').click(function(){
+          rating=4;
+          $.ajax({  
+                 url:"RateL.php",   
+                 method:"POST",
+                 data:{rating:rating,RatedL:<?=$CodeL?>,rater:<?=$userCode?>},
+                 success:function(data){  
+                    
+                    document.getElementById('RtBlock').style.display='none';
+                    document.getElementById('YRT').innerHTML='<h3>You rated this '+rating+' Stars</h3>';
+                  }
+                 });
+       });
+       
+       $('#star5').click(function(){
+          rating=5;
+          $.ajax({  
+                 url:"RateL.php",   
+                 method:"POST",
+                 data:{rating:rating,RatedL:<?=$CodeL?>,rater:<?=$userCode?>},
+                 success:function(data){  
+                    
+                    document.getElementById('RtBlock').style.display='none';
+                    document.getElementById('YRT').innerHTML='<h3>You rated this '+rating+' Stars</h3>';
+                  }
+                 });
+       });
+ 
+
+
+
+   
+
+ });  
+</script>
 
 </html>
