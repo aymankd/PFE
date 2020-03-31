@@ -96,6 +96,7 @@ $rowP=$resP->fetch_assoc();
 $Pnom=$rowP["nom"];
 $Pprenom=$rowP["prenom"];
 //Selection des 4 logements similaires
+$srcC="";
 $CodeO1=0;
 $CodeO2=0;
 $CodeO3=0;
@@ -111,7 +112,7 @@ $prixR1=$prix+100;
 $prixR2=$prix+300;
 if($type=="Appartement")
 {
- $reqC="SELECT count(*) as test from logement where CodeL!=? and (type='Appartement') and (prix<=?) and (CodeL in(SELECT CodeL from appartement where nbrC=? and nbrP=?)) ";
+ $reqC="SELECT count(*) as test from logement where CodeL!=? and (type='Appartement') and (prix<=?) and (CodeL in(SELECT Codeapp from appartement where nbrC=? and nbrP=?)) ";
  $statementC=$conn->prepare($reqC);
  $statementC->bind_param("idii",$CodeL,$prixR1,$nbrC,$nbrP);
  $statementC->execute();
@@ -120,7 +121,7 @@ if($type=="Appartement")
  $count=$rowC['test'];
  if($count>=4)
    {     
-      $reqC="SELECT * from logement where CodeL!=? and (type='Appartement') and (prix<=?) and (CodeL in(SELECT CodeL from appartement where nbrC=? and nbrP=?)) order by Rand() LIMIT 4 ";
+      $reqC="SELECT * from logement where CodeL!=? and (type='Appartement') and (prix<=?) and (CodeL in(SELECT Codeapp from appartement where nbrC=? and nbrP=?)) order by Rand() LIMIT 4 ";
       $statementC=$conn->prepare($reqC);
       $statementC->bind_param("idii",$CodeL,$prixR1,$nbrC,$nbrP);
       $statementC->execute();
@@ -130,6 +131,7 @@ if($type=="Appartement")
         {
          //données du Logement courrant
          $CodeLC=$rowC['CodeL'];
+         $srcC="genere_image.php?id=$CodeLC";
          $prixC=$rowC['prix'];
          $TitreC=$rowC['nom'];
          $adresseC=$rowC['adress'];
@@ -163,7 +165,7 @@ if($type=="Appartement")
            $recom1.= "<div class='col-md-6'>
                        <div class='small-box-c'>
                         <div class='small-img-b'>
-                          <img class='img-responsive' src='../../Resourse/images/tr1.png' alt='#' />
+                          <img class='img-responsive' src='".$srcC."' alt='#' />
                         </div> 
                         <div class='dit-t clearfix'>
                          <div class='left-ti'>
@@ -191,7 +193,7 @@ if($type=="Appartement")
             $recom2.="<div class='col-md-6'>
                        <div class='small-box-c'>
                         <div class='small-img-b'>
-                         <img class='img-responsive' src='../../Resourse/images/tr1.png' alt='#' />
+                         <img class='img-responsive' src='".$srcC."' alt='#' />
                         </div> 
                         <div class='dit-t clearfix'>
                          <div class='left-ti'>
@@ -226,7 +228,7 @@ if($type=="Appartement")
 
 
 
-      $reqC="SELECT * from logement where CodeL!=? and (type='Appartement') and (prix<=?) and (CodeL in(SELECT CodeL from appartement where nbrC=? and nbrP=?))";
+      $reqC="SELECT * from logement where CodeL!=? and (type='Appartement') and (prix<=?) and (CodeL in(SELECT Codeapp from appartement where nbrC=? and nbrP=?))";
       $statementC=$conn->prepare($reqC);
       $statementC->bind_param("idii",$CodeL,$prixR1,$nbrC,$nbrP);
       $statementC->execute();
@@ -236,7 +238,8 @@ if($type=="Appartement")
          while ( ($rowC = mysqli_fetch_array($resC)) && ($j<=3) )
            { 
               //données du Logement courrant
-             $CodeLC=$rowC['CodeL'];
+             $CodeLC=$rowC['CodeL'];            
+             $srcC="genere_image.php?id=$CodeLC";
              $prixC=$rowC['prix'];
              $TitreC=$rowC['nom'];
              $adresseC=$rowC['adress'];
@@ -268,7 +271,7 @@ if($type=="Appartement")
                   $recom1.="<div class='col-md-6'>
                   <div class='small-box-c'>
                    <div class='small-img-b'>
-                    <img class='img-responsive' src='../../Resourse/images/tr1.png' alt='#' />
+                    <img class='img-responsive' src='".$srcC."' alt='#' />
                    </div> 
                    <div class='dit-t clearfix'>
                     <div class='left-ti'>
@@ -295,7 +298,7 @@ if($type=="Appartement")
                   $recom2.="<div class='col-md-6'>
                        <div class='small-box-c'>
                         <div class='small-img-b'>
-                         <img class='img-responsive' src='../../Resourse/images/tr1.png' alt='#' />
+                         <img class='img-responsive' src='".$srcC."' alt='#' />
                         </div> 
                         <div class='dit-t clearfix'>
                          <div class='left-ti'>
@@ -325,6 +328,7 @@ if($type=="Appartement")
           { 
              //données du Logement courrant
             $CodeLC=$rowC['CodeL'];
+            $srcC="genere_image.php?id=$CodeLC";
             $prixC=$rowC['prix'];
             $TitreC=$rowC['nom'];
             $adresseC=$rowC['adress'];
@@ -354,7 +358,7 @@ if($type=="Appartement")
             $recom1.="<div class='col-md-6'>
             <div class='small-box-c'>
               <div class='small-img-b'>
-               <img class='img-responsive' src='../../Resourse/images/tr1.png' alt='#' />
+               <img class='img-responsive' src='".$srcC."' alt='#' />
               </div> 
               <div class='dit-t clearfix'>
                <div class='left-ti'>
@@ -382,6 +386,7 @@ if($type=="Appartement")
          $rowC=$resC->fetch_assoc();
           //données du Logement courrant
           $CodeLC=$rowC['CodeL'];
+          $srcC="genere_image.php?id=$CodeLC";
           $prixC=$rowC['prix'];
           $TitreC=$rowC['nom'];
           $adresseC=$rowC['adress'];
@@ -411,7 +416,7 @@ if($type=="Appartement")
           $recom1.="<div class='col-md-6'>
             <div class='small-box-c'>
               <div class='small-img-b'>
-               <img class='img-responsive' src='../../Resourse/images/tr1.png' alt='#' />
+               <img class='img-responsive' src='".$srcC."' alt='#' />
               </div> 
               <div class='dit-t clearfix'>
                <div class='left-ti'>
@@ -441,6 +446,7 @@ if($type=="Appartement")
        {
           //données du Logement courrant
           $CodeLC=$rowCR['CodeL'];
+          $srcC="genere_image.php?id=$CodeLC";
           $prixC=$rowCR['prix'];
           $TitreC=$rowCR['nom'];
           $adresseC=$rowCR['adress'];
@@ -472,7 +478,7 @@ if($type=="Appartement")
             $recom2.="<div class='col-md-6'>
             <div class='small-box-c'>
              <div class='small-img-b'>
-              <img class='img-responsive' src='../../Resourse/images/tr1.png' alt='#' />
+              <img class='img-responsive' src='".$srcC."' alt='#' />
              </div> 
              <div class='dit-t clearfix'>
               <div class='left-ti'>
@@ -496,7 +502,7 @@ if($type=="Appartement")
             $recom2.="<div class='col-md-6'>
             <div class='small-box-c'>
              <div class='small-img-b'>
-              <img class='img-responsive' src='../../Resourse/images/tr1.png' alt='#' />
+              <img class='img-responsive' src='".$srcC."' alt='#' />
              </div> 
              <div class='dit-t clearfix'>
               <div class='left-ti'>
@@ -522,7 +528,7 @@ if($type=="Appartement")
                $recom1.="<div class='col-md-6'>
                <div class='small-box-c'>
                 <div class='small-img-b'>
-                 <img class='img-responsive' src='../../Resourse/images/tr1.png' alt='#' />
+                 <img class='img-responsive' src='".$srcC."' alt='#' />
                 </div> 
                 <div class='dit-t clearfix'>
                  <div class='left-ti'>
@@ -546,7 +552,7 @@ if($type=="Appartement")
                $recom2.="<div class='col-md-6'>
                <div class='small-box-c'>
                 <div class='small-img-b'>
-                 <img class='img-responsive' src='../../Resourse/images/tr1.png' alt='#' />
+                 <img class='img-responsive' src='".$srcC."' alt='#' />
                 </div> 
                 <div class='dit-t clearfix'>
                  <div class='left-ti'>
@@ -573,9 +579,472 @@ if($type=="Appartement")
 }
 else if($type=="studio")
 {
-
+   $reqC="SELECT count(*) as test from logement where CodeL!=? and (type='studio') and (prix<=?) and (CodeL in(SELECT CodeS from studio where nbrP=?)) ";
+   $statementC=$conn->prepare($reqC);
+   $statementC->bind_param("idi",$CodeL,$prixR1,$nbrP);
+   $statementC->execute();
+   $resC=$statementC->get_result();
+   $rowC=$resC->fetch_assoc();
+   $count=$rowC['test'];
+   if($count>=4)
+     {     
+        $reqC="SELECT * from logement where CodeL!=? and (type='studio') and (prix<=?) and (CodeL in(SELECT CodeS from studio where  nbrP=?)) order by Rand() LIMIT 4 ";
+        $statementC=$conn->prepare($reqC);
+        $statementC->bind_param("idi",$CodeL,$prixR1,$nbrP);
+        $statementC->execute();
+        $resC=$statementC->get_result();
+  
+        while ( ($rowC = mysqli_fetch_array($resC)) && ($j <= 4) ) 
+          {
+           //données du Logement courrant
+           $CodeLC=$rowC['CodeL'];
+           $srcC="genere_image.php?id=$CodeLC";
+           $prixC=$rowC['prix'];
+           $TitreC=$rowC['nom'];
+           $adresseC=$rowC['adress'];
+           $sprC=$rowC['superficie'];
+           $descC=$rowC['description'];
+           //récuperation nbr perssone et nbr chambres
+           $reqApC="SELECT * from appartement where Codeapp=?";
+           $statementApC=$conn->prepare($reqApC);
+           $statementApC->bind_param("i",$CodeLC);
+           $statementApC->execute();
+           $resApC=$statementApC->get_result();
+           $rowApC=$resApC->fetch_assoc();
+           //nombre de perssones 
+           $nbrP2=$rowAp["nbrP"];
+           //recuparation des données du prop
+           $reqPC="SELECT * from proprietaire where CodeP=?";
+           $statementPC=$conn->prepare($reqPC);
+           $statementPC->bind_param("i",$rowC["CodeP"]);
+           $statementPC->execute();
+           $resPC=$statementPC->get_result();
+           $rowPC=$resPC->fetch_assoc(); 
+           //données du prop
+           $PprenomC=$rowPC['prenom'];
+           $PnomC=$rowPC['nom'];
+           //
+                
+   
+           if($j<=2)
+            {
+             $recom1.= "<div class='col-md-6'>
+                         <div class='small-box-c'>
+                          <div class='small-img-b'>
+                            <img class='img-responsive' src='".$srcC."' alt='#' />
+                          </div> 
+                          <div class='dit-t clearfix'>
+                           <div class='left-ti'>
+                            <h4>".$TitreC."</h4>
+                            <p>By <span>".$PprenomC." </span>".$PnomC."</p>
+                           </div>
+                           <a href='#' tabindex='0'>".$prixC."DH</a>
+                          </div>
+                          <div class='prod-btn'>
+                           <a href='#'><i class='fa fa-thumbs-up' aria-hidden='true'></i> Like this</a>
+                           <p>23 likes</p>
+                          </div>
+                         </div>
+                        </div>";
+              if($j==1)
+              $CodeO1=$CodeLC;
+              else if($j==2) 
+              $CodeO2=$CodeLC;  
+  
+              $j=$j+1;
+              
+             } 
+           else
+            {
+              $recom2.="<div class='col-md-6'>
+                         <div class='small-box-c'>
+                          <div class='small-img-b'>
+                           <img class='img-responsive' src='".$srcC."' alt='#' />
+                          </div> 
+                          <div class='dit-t clearfix'>
+                           <div class='left-ti'>
+                           <h4>".$TitreC."</h4>
+                           <p>By <span>".$PprenomC." </span>".$PnomC."</p>
+                           </div>
+                           <a href='#' tabindex='0'>".$prixC."DH</a>
+                          </div>
+                          <div class='prod-btn'>   
+                           <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                           <p>23 likes</p>
+                          </div>
+                         </div>
+                        </div>";
+              if($j==3)
+              $CodeO3=$CodeLC;
+              else if($j==4) 
+              $CodeO4=$CodeLC; 
+                     
+              $j=$j+1;
+  
+            }
+  
+              
+  
+          }
+  
+     }
+   else if($count<4)
+     {  
+        $rest=$rest-$count;
+  
+  
+  
+        $reqC="SELECT * from logement where CodeL!=? and (type='studio') and (prix<=?) and (CodeL in(SELECT CodeS from studio where  nbrP=?))";
+        $statementC=$conn->prepare($reqC);
+        $statementC->bind_param("idi",$CodeL,$prixR1,$nbrP);
+        $statementC->execute();
+        $resC=$statementC->get_result();
+        if($count==3)
+         {
+           while ( ($rowC = mysqli_fetch_array($resC)) && ($j<=3) )
+             { 
+                //données du Logement courrant
+               $CodeLC=$rowC['CodeL'];
+               $srcC="genere_image.php?id=$CodeLC";
+               $prixC=$rowC['prix'];
+               $TitreC=$rowC['nom'];
+               $adresseC=$rowC['adress'];
+               $sprC=$rowC['superficie'];
+               $descC=$rowC['description'];
+               //récuperation nbr perssone et nbr chambres
+               $reqApC="SELECT * from appartement where Codeapp=?";
+               $statementApC=$conn->prepare($reqApC);
+               $statementApC->bind_param("i",$CodeLC);
+               $statementApC->execute();
+               $resApC=$statementApC->get_result();
+               $rowApC=$resApC->fetch_assoc();
+               //nombre de perssones 
+               $nbrP2=$rowAp["nbrP"];
+               //recuparation des données du prop
+               $reqPC="SELECT * from proprietaire where CodeP=?";
+               $statementPC=$conn->prepare($reqPC);
+               $statementPC->bind_param("i",$rowC["CodeP"]);
+               $statementPC->execute();
+               $resPC=$statementPC->get_result();
+               $rowPC=$resPC->fetch_assoc(); 
+               //données du prop
+               $PprenomC=$rowPC['prenom'];
+               $PnomC=$rowPC['nom'];
+  
+               if($j<=2)
+                 {
+                    $recom1.="<div class='col-md-6'>
+                    <div class='small-box-c'>
+                     <div class='small-img-b'>
+                      <img class='img-responsive' src='".$srcC."' alt='#' />
+                     </div> 
+                     <div class='dit-t clearfix'>
+                      <div class='left-ti'>
+                      <h4>".$TitreC."</h4>
+                      <p>By <span>".$PprenomC." </span>".$PnomC."</p>
+                      </div>
+                      <a href='#' tabindex='0'>".$prixC."DH</a>
+                     </div>
+                     <div class='prod-btn'>   
+                      <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                      <p>23 likes</p>
+                     </div>
+                    </div>
+                   </div>";
+                   if($j==1)
+                   $CodeO1=$CodeLC;
+                   else if($j==2) 
+                   $CodeO2=$CodeLC;
+                   $j=$j+1;
+                   
+                 }
+                else
+                 {
+                    $recom2.="<div class='col-md-6'>
+                         <div class='small-box-c'>
+                          <div class='small-img-b'>
+                           <img class='img-responsive' src='".$srcC."' alt='#' />
+                          </div> 
+                          <div class='dit-t clearfix'>
+                           <div class='left-ti'>
+                           <h4>".$TitreC."</h4>
+                           <p>By <span>".$PprenomC." </span>".$PnomC."</p>
+                           </div>
+                           <a href='#' tabindex='0'>".$prixC."DH</a>
+                          </div>
+                          <div class='prod-btn'>   
+                           <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                           <p>23 likes</p>
+                          </div>
+                         </div>
+                        </div>";
+                        
+                    $CodeO3=$CodeLC;
+                    $j=$j+1;
+                    
+                    
+                 }  
+               
+             }
+         }
+        else if($count==2) 
+         {
+           while ( ($rowC = mysqli_fetch_array($resC)) && ($j <= 2) )
+            { 
+               //données du Logement courrant
+              $CodeLC=$rowC['CodeL'];
+              $srcC="genere_image.php?id=$CodeLC";
+              $prixC=$rowC['prix'];
+              $TitreC=$rowC['nom'];
+              $adresseC=$rowC['adress'];
+              $sprC=$rowC['superficie'];
+              $descC=$rowC['description'];
+              //récuperation nbr perssone et nbr chambres
+              $reqApC="SELECT * from appartement where Codeapp=?";
+              $statementApC=$conn->prepare($reqApC);
+              $statementApC->bind_param("i",$CodeLC);
+              $statementApC->execute();
+              $resApC=$statementApC->get_result();
+              $rowApC=$resApC->fetch_assoc();
+              //nombre de perssones
+              $nbrP2=$rowAp["nbrP"];
+              //recuparation des données du prop
+              $reqPC="SELECT * from proprietaire where CodeP=?";
+              $statementPC=$conn->prepare($reqPC);
+              $statementPC->bind_param("i",$rowC["CodeP"]);
+              $statementPC->execute();
+              $resPC=$statementPC->get_result();
+              $rowPC=$resPC->fetch_assoc(); 
+              //données du prop
+              $PprenomC=$rowPC['prenom'];
+              $PnomC=$rowPC['nom'];
+  
+              $recom1.="<div class='col-md-6'>
+              <div class='small-box-c'>
+                <div class='small-img-b'>
+                 <img class='img-responsive' src='".$srcC."' alt='#' />
+                </div> 
+                <div class='dit-t clearfix'>
+                 <div class='left-ti'>
+                  <h4>".$TitreC."</h4>
+                  <p>By <span>".$PprenomC." </span>".$PnomC."</p>
+                 </div>
+                 <a href='#' tabindex='0'>".$prixC."DH</a>
+                </div>
+                <div class='prod-btn'>   
+                 <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                 <p>23 likes</p>
+                </div>
+               </div>
+              </div>";
+              if($j==1)
+              $CodeO1=$CodeLC;
+              else if($j==2)
+              $CodeO2=$CodeLC;
+              $j=$j+1;
+              
+            }
+         }
+        else if($count==1)
+         {
+           $rowC=$resC->fetch_assoc();
+            //données du Logement courrant
+            $CodeLC=$rowC['CodeL'];
+            $srcC="genere_image.php?id=$CodeLC";
+            $prixC=$rowC['prix'];
+            $TitreC=$rowC['nom'];
+            $adresseC=$rowC['adress'];
+            $sprC=$rowC['superficie'];
+            $descC=$rowC['description'];
+            //récuperation nbr perssone et nbr chambres
+            $reqApC="SELECT * from appartement where Codeapp=?";
+            $statementApC=$conn->prepare($reqApC);
+            $statementApC->bind_param("i",$CodeLC);
+            $statementApC->execute();
+            $resApC=$statementApC->get_result();
+            $rowApC=$resApC->fetch_assoc();
+            //nombre de perssones 
+            $nbrP2=$rowAp["nbrP"];
+            //recuparation des données du prop
+            $reqPC="SELECT * from proprietaire where CodeP=?";
+            $statementPC=$conn->prepare($reqPC);
+            $statementPC->bind_param("i",$rowC["CodeP"]);
+            $statementPC->execute();
+            $resPC=$statementPC->get_result();
+            $rowPC=$resPC->fetch_assoc(); 
+            //données du prop
+            $PprenomC=$rowPC['prenom'];
+            $PnomC=$rowPC['nom']; 
+  
+            $recom1.="<div class='col-md-6'>
+              <div class='small-box-c'>
+                <div class='small-img-b'>
+                 <img class='img-responsive' src='".$srcC."' alt='#' />
+                </div> 
+                <div class='dit-t clearfix'>
+                 <div class='left-ti'>
+                  <h4>".$TitreC."</h4>
+                  <p>By <span>".$PprenomC." </span>".$PnomC."</p>
+                 </div>
+                 <a href='#' tabindex='0'>".$prixC."DH</a>
+                </div>
+                <div class='prod-btn'>   
+                 <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                 <p>23 likes</p>
+                </div>
+               </div>
+              </div>";
+              $CodeO1=$CodeLC;
+  
+              $j=$j+1;
+         } 
+  
+        //recuperation des logement secondaires d'aprés le prix
+        $reqCR="SELECT * from logement where CodeL!=?  and CodeL!=? and CodeL!=? and CodeL!=? and (type='studio') and (prix<=?) order by Rand() LIMIT ".$rest;
+        $statementCR=$conn->prepare($reqCR);
+        $statementCR->bind_param("iiiid",$CodeL,$CodeO1,$CodeO2,$CodeO3,$prixR2);
+        $statementCR->execute();
+        $resCR=$statementCR->get_result();       
+         while ( ($rowCR = mysqli_fetch_array($resCR)) && ($jR<=$rest) )
+         {
+            //données du Logement courrant
+            $CodeLC=$rowCR['CodeL'];
+            $srcC="genere_image.php?id=$CodeLC";
+            $prixC=$rowCR['prix'];
+            $TitreC=$rowCR['nom'];
+            $adresseC=$rowCR['adress'];
+            $sprC=$rowCR['superficie'];
+            $descC=$rowCR['description'];
+            //récuperation nbr perssone et nbr chambres
+            $reqApC="SELECT * from appartement where Codeapp=?";
+            $statementApC=$conn->prepare($reqApC);
+            $statementApC->bind_param("i",$CodeLCR);
+            $statementApC->execute();
+            $resApC=$statementApC->get_result();
+            $rowApC=$resApC->fetch_assoc();
+            //nombre de perssones 
+            $nbrP2=$rowAp["nbrP"];
+            //recuparation des données du prop
+            $reqPC="SELECT * from proprietaire where CodeP=?";
+            $statementPC=$conn->prepare($reqPC);
+            $statementPC->bind_param("i",$rowCR["CodeP"]);
+            $statementPC->execute();
+            $resPC=$statementPC->get_result();
+            $rowPC=$resPC->fetch_assoc(); 
+            //données du prop
+            $PprenomC=$rowPC['prenom'];
+            $PnomC=$rowPC['nom'];
+  
+            if($rest==1)
+             {
+              $recom2.="<div class='col-md-6'>
+              <div class='small-box-c'>
+               <div class='small-img-b'>
+                <img class='img-responsive' src='".$srcC."' alt='#' />
+               </div> 
+               <div class='dit-t clearfix'>
+                <div class='left-ti'>
+                <h4>".$TitreC."</h4>
+                <p>By <span>".$PprenomC." </span>".$PnomC."</p>
+                </div>
+                <a href='#' tabindex='0'>".$prixC."DH</a>
+               </div>
+               <div class='prod-btn'>   
+                <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                <p>23 likes</p>
+               </div>
+              </div>
+             </div>";
+  
+  
+             $jR=$jR+1;
+             }
+            if($rest==2)
+             {
+              $recom2.="<div class='col-md-6'>
+              <div class='small-box-c'>
+               <div class='small-img-b'>
+                <img class='img-responsive' src='".$srcC."' alt='#' />
+               </div> 
+               <div class='dit-t clearfix'>
+                <div class='left-ti'>
+                <h4>".$TitreC."</h4>
+                <p>By <span>".$PprenomC." </span>".$PnomC."</p>
+                </div>
+                <a href='#' tabindex='0'>".$prixC."DH</a>
+               </div>
+               <div class='prod-btn'>   
+                <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                <p>23 likes</p>
+               </div>
+              </div>
+             </div>";
+  
+  
+             $jR=$jR+1;
+             } 
+            if($rest==3)
+             {
+              if($jR==1)
+               {
+                 $recom1.="<div class='col-md-6'>
+                 <div class='small-box-c'>
+                  <div class='small-img-b'>
+                   <img class='img-responsive' src='".$srcC."' alt='#' />
+                  </div> 
+                  <div class='dit-t clearfix'>
+                   <div class='left-ti'>
+                   <h4>".$TitreC."</h4>
+                   <p>By <span>".$PprenomC." </span>".$PnomC."</p>
+                   </div>
+                   <a href='#' tabindex='0'>".$prixC."DH</a>
+                  </div>
+                  <div class='prod-btn'>   
+                   <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                   <p>23 likes</p>
+                  </div>
+                 </div>
+                </div>";
+  
+  
+                $jR=$jR+1;
+               }
+               else
+                {
+                 $recom2.="<div class='col-md-6'>
+                 <div class='small-box-c'>
+                  <div class='small-img-b'>
+                   <img class='img-responsive' src='".$srcC."' alt='#' />
+                  </div> 
+                  <div class='dit-t clearfix'>
+                   <div class='left-ti'>
+                   <h4>".$TitreC."</h4>
+                   <p>By <span>".$PprenomC." </span>".$PnomC."</p>
+                   </div>
+                   <a href='#' tabindex='0'>".$prixC."DH</a>
+                  </div>
+                  <div class='prod-btn'>   
+                   <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                   <p>23 likes</p>
+                  </div>
+                 </div>
+                </div>";
+  
+                $jR=$jR+1;
+                }
+             } 
+         }     
+     }
 }
+//equipements
+$reqEQ="SELECT count(*) as EQ from eqlo where CodeL=?";
+$statementEQ=$conn->prepare($reqEQ);
+$statementEQ->bind_param("i",$CodeL);
+$statementEQ->execute();
+$resEQ=$statementEQ->get_result();
+$rowEQ=$resEQ->fetch_assoc();
 
+$nbrEQ=$rowEQ['EQ'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -765,7 +1234,7 @@ else if($type=="studio")
                                  </div>
                               </li><br>
                               <div class="col-md-12">
-                                    <a type="button" href="#" aria-busy="false" class="equipment" data-toggle="modal" data-target="#modalEquip">Afficher les 24 équipements</a>
+                                    <a type="button" href="#" aria-busy="false" class="equipment" data-toggle="modal" data-target="#modalEquip">Afficher les <?=$nbrEQ?> équipements</a>
                                  </div>
                            </ul>
                         </div>

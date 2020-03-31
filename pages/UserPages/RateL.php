@@ -21,6 +21,10 @@ $s=$conn->prepare($r);
 $s->bind_param("iii",$CodeL,$CodeR,$rating);
 $s->execute();
 
+$r="UPDATE `logement` SET `rating`=(SELECT sum(ratings.rating) from ratings where CodeL=?)/(SELECT count(*) from ratings where CodeL=2) WHERE CodeL=?;"
+$s=$conn->prepare($r);
+$s->bind_param("ii",$CodeL,$CodeL);
+$s->execute();
 
 
 ?>
