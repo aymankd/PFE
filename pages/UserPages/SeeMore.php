@@ -1530,6 +1530,7 @@ else
                <button type="submit" id="send" class="message-submit">Send</button>
             </div>
          </div>
+
       </section>
 
       
@@ -1751,10 +1752,6 @@ $(document).ready(function(){
                   }
                  });
        });
- 
-
-
-
    
 
  });  
