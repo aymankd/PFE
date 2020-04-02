@@ -1198,7 +1198,7 @@ else
                         <div class="btn-dit-list clearfix">
                            <div class="left-dit-p">
                               <div class="prod-btn">
-                              
+                              <a data-toggle="modal" data-target="#modalLikeThis2"><i class="fas fa-heart"></i> Like this 2</a>
                                  <a href="#"><i class="fas fa-heart"></i> Like this</a>
                                  <p>23 likes</p>
                               </div>
@@ -1383,6 +1383,30 @@ else
     </div>
   </div>
 </div>
+
+<!--Modal-->
+
+
+<div class="modal" id="modalLikeThis2" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
       <footer>
          <div class="main-footer">
