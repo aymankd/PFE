@@ -1057,7 +1057,7 @@ $statementEQ->bind_param("i",$CodeL);
 $statementEQ->execute();
 $resEQ=$statementEQ->get_result();
 
-while(($rowEQ=$resEQ->fetch_assoc()) && $eqn<=4 )
+while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
  {
    $CodeE=$rowEQ['CodeE'];
    $reqEQS="SELECT * from equipement  where CodeE=? ";
@@ -1088,7 +1088,7 @@ while(($rowEQ=$resEQ->fetch_assoc()) && $eqn<=4 )
  $statementEQ2->execute();
  $resEQ2=$statementEQ2->get_result();
 
- while(($rowEQ2=$resEQ2->fetch_assoc()) )
+ while(($rowEQ2=mysqli_fetch_array($resEQ2)) )
  {
    $CodeE=$rowEQ2['CodeE'];
    $reqEQS="SELECT * from equipement  where CodeE=? ";
@@ -1106,6 +1106,99 @@ while(($rowEQ=$resEQ->fetch_assoc()) && $eqn<=4 )
  }
 
 
+ //rating data 
+ $reqRI="SELECT rating,COUNT(*) as num from ratings where CodeL=? GROUP BY rating";
+ $statementRI=$conn->prepare($reqRI);
+ $statementRI->bind_param("i",$CodeL);
+ $statementRI->execute();
+ $resRI=$statementRI->get_result();
+ $nbr5S=0;
+ $nbr4S=0;
+ $nbr3S=0;
+ $nbr2S=0;
+ $nbr1S=0;
+ while(($rowRI=mysqli_fetch_array($resRI)) )
+ {
+    $currentC=$rowRI['rating'];
+    $currentN=$rowRI['num'];
+
+    if($currentC==5)
+     {
+      $nbr5S=$currentN;
+     }
+    if($currentC==4)
+     {
+      $nbr5S=$currentN;
+     }    
+    if($currentC==3)
+     {
+      $nbr5S=$currentN;
+     }
+    if($currentC==2)
+     {
+      $nbr5S=$currentN;
+     } 
+    if($currentC==1)
+     {
+      $nbr5S=$currentN;
+     } 
+ 
+
+ 
+  }
+
+  $reqRI="SELECT rating From logement where CodeL=?";
+  $statementRI=$conn->prepare($reqRI);
+  $statementRI->bind_param("i",$CodeL);
+  $statementRI->execute();
+  $resRI=$statementRI->get_result();
+  $rowRI=$resRI->fetch_assoc();
+  $OvrRating=$rowRI['rating'];
+  
+
+  $wholeR = floor($OvrRating);      
+  $fractionR = $OvrRating - $wholeR;
+  $ir=0;
+  $stars="";
+  $countSTR=5-$wholeR;
+  while($ir<$wholeR)
+  {
+     $stars.="<span ><i class='fas fa-star'></i></span>";
+     $ir++;
+  }
+  
+  if($fractionR>=0.8 && $fractionR<=0.9)
+   {
+     $stars.="<span ><i class='fas fa-star'></i></span>";
+     $countSTR=$countSTR-1;
+   }
+  else if($fractionR>0.2 && $fractionR<0.8)
+   {
+     $stars.="<span ><i class='fas fa-star-half-alt'></i></span>";
+     $countSTR=$countSTR-1;
+   }
+   else if($fractionR<=0.2 && $fractionR>0.8)
+   {
+      $stars.="<span ><i class='fas fa-star'></i></span>";
+     $countSTR=$countSTR-1;
+   }
+
+   $ir=0;
+   while($ir<$countSTR)
+   {
+      $stars.="<span ><i class='far fa-star'></i></span>";
+      $ir++;
+   }
+
+  $reqRI="SELECT count(*) as ttl From ratings where CodeL=?";
+  $statementRI=$conn->prepare($reqRI);
+  $statementRI->bind_param("i",$CodeL);
+  $statementRI->execute();
+  $resRI=$statementRI->get_result();
+  $rowRI=$resRI->fetch_assoc();
+  $nbrRt=$rowRI['ttl'];
+  $nbrRt=$nbrRt;
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -1318,14 +1411,12 @@ while(($rowEQ=$resEQ->fetch_assoc()) && $eqn<=4 )
                 <div class="row">
                     <div class="col-xs-12 col-md-6 text-center">
                         <h1 class="rating-num">
-                            4.0</h1>
-                        <div class="rating">
-                            <span><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i>
-                            </span><span ><i class="fas fa-star"></i></span><span><i class="fas fa-star"></i>
-                            </span><span ><i class="far fa-star"></i></span>
+                            <?php echo sprintf("%.1f", $OvrRating);?></h1>
+                        <div class="rating"  >
+                            <?=$stars?>
                         </div>
                         <div>
-                            <span ><i class="fas fa-user"></i>  </span>1,050,008 total
+                            <span ><i class="fas fa-user"></i>  </span><?=$nbrRt?> total
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-6">
@@ -1336,8 +1427,8 @@ while(($rowEQ=$resEQ->fetch_assoc()) && $eqn<=4 )
                             <div class="col-xs-8 col-md-9">
                                 <div class="progress progress-striped">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                        <span class="sr-only">80%</span>
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                        <span class="sr-only">100%</span>
                                     </div>
                                 </div>
                             </div>
@@ -1348,8 +1439,8 @@ while(($rowEQ=$resEQ->fetch_assoc()) && $eqn<=4 )
                             <div class="col-xs-8 col-md-9">
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                        <span class="sr-only">60%</span>
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                        <span class="sr-only">80%</span>
                                     </div>
                                 </div>
                             </div>
@@ -1360,8 +1451,8 @@ while(($rowEQ=$resEQ->fetch_assoc()) && $eqn<=4 )
                             <div class="col-xs-8 col-md-9">
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                        <span class="sr-only">40%</span>
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                        <span class="sr-only">60%</span>
                                     </div>
                                 </div>
                             </div>
@@ -1372,8 +1463,8 @@ while(($rowEQ=$resEQ->fetch_assoc()) && $eqn<=4 )
                             <div class="col-xs-8 col-md-9">
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                        <span class="sr-only">20%</span>
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only">40%</span>
                                     </div>
                                 </div>
                             </div>
@@ -1384,8 +1475,8 @@ while(($rowEQ=$resEQ->fetch_assoc()) && $eqn<=4 )
                             <div class="col-xs-8 col-md-9">
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 15%">
-                                        <span class="sr-only">15%</span>
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                        <span class="sr-only">20%</span>
                                     </div>
                                 </div>
                             </div>
