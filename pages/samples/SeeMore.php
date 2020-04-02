@@ -1239,33 +1239,7 @@ while(($rowEQ=$resEQ->fetch_assoc()) && $eqn<=4 )
                              
                               
                            </div>
-                           <div class="right-dit-p">
-                              <div class="like-list">
-                                 <ul>
-                                    <li>
-                                       <div class="im-b"><img class="" src="../../Resourse/images/list-img-01.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-02.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-03.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-04.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-05.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-06.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
-                                    </li>
-                                 </ul>
-                              </div>
-                           </div>
+                         
                         </div>
                      </div>
                      <div id="nc" class="description-box">
@@ -1333,14 +1307,20 @@ while(($rowEQ=$resEQ->fetch_assoc()) && $eqn<=4 )
                             <div class="col-xs-3 col-md-3 text-right">
                                 <span><i class="fas fa-star"></i></span>5
                             </div>
+                           
                             <div class="col-xs-8 col-md-9">
                                 <div class="progress progress-striped">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
                                         aria-valuemin="0" aria-valuemax="100" style="width: 80%">
                                         <span class="sr-only">80%</span>
                                     </div>
+                                    
+                                </div>
+                                <div class="col-md-6 col-md-offset-12">
+                                <span>5</span>
                                 </div>
                             </div>
+                            
                             <!-- end 5 -->
                             <div class="col-xs-3 col-md-3 text-right">
                                 <span ><i class="fas fa-star"></i></span>4
@@ -1386,6 +1366,7 @@ while(($rowEQ=$resEQ->fetch_assoc()) && $eqn<=4 )
                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
                                         aria-valuemin="0" aria-valuemax="100" style="width: 15%">
                                         <span class="sr-only">15%</span>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -1398,6 +1379,34 @@ while(($rowEQ=$resEQ->fetch_assoc()) && $eqn<=4 )
         </div>
     </div>
 </div>
+<div class="right-dit-p">
+                              <div class="like-list">
+                                 <ul>
+                                    <li>
+                                       <div class="im-b"><img class="" src="../../Resourse/images/list-img-01.png" alt=""></div>
+                                    </li>
+                                    <li>
+                                       <div class="im-b"><img src="../../Resourse/images/list-img-02.png" alt=""></div>
+                                    </li>
+                                    <li>
+                                       <div class="im-b"><img src="../../Resourse/images/list-img-03.png" alt=""></div>
+                                    </li>
+                                    <li>
+                                       <div class="im-b"><img src="../../Resourse/images/list-img-04.png" alt=""></div>
+                                    </li>
+                                    <li>
+                                       <div class="im-b"><img src="../../Resourse/images/list-img-05.png" alt=""></div>
+                                    </li>
+                                    <li>
+                                       <div class="im-b"><img src="../../Resourse/images/list-img-06.png" alt=""></div>
+                                    </li>
+                                    <li>
+                                       <div class="im-b"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </div>
+                           <hr>
 <div class="spe-a">
  <h4>comments d zeb</h4>
       
