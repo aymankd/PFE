@@ -1455,9 +1455,14 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                             <div class="col-xs-8 col-md-9">
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
+<<<<<<< HEAD
                                         aria-valuemin="0" aria-valuemax="100" style="width: 15%">
                                         <span class="sr-only">15%</span>
                                         
+=======
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                        <span class="sr-only">20%</span>
+>>>>>>> 2a24aa1c601c5058a483afcd469cbb31a72fda99
                                     </div>
                                 </div>
                             </div>
