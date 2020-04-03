@@ -14,17 +14,14 @@ if ($conn->connect_error) {
 $CodeR=$_POST['rater'];
 $CodeL=$_POST['RatedL'];
 $rating=$_POST['rating'];
+$comment=$_POST['comment'];
 
 
-$r="INSERT INTO `ratings`(`CodeL`, `CodeU`, `rating`) VALUES (?,?,?)";
+$r="INSERT INTO `ratings`(`CodeL`, `CodeU`, `rating`, `comment`) VALUES (?,?,?,?)";
 $s=$conn->prepare($r);
-$s->bind_param("iii",$CodeL,$CodeR,$rating);
+$s->bind_param("iiis",$CodeL,$CodeR,$rating,$comment);
 $s->execute();
 
-$r="UPDATE `logement` SET `rating`=(SELECT sum(ratings.rating) from ratings where CodeL=?)/(SELECT count(*) from ratings where CodeL=2) WHERE CodeL=?;"
-$s=$conn->prepare($r);
-$s->bind_param("ii",$CodeL,$CodeL);
-$s->execute();
 
 
 ?>

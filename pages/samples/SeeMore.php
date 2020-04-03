@@ -76,7 +76,7 @@ while ( ($rowI = mysqli_fetch_array($resI)) && ($i < 4) )
   else
     {
       $img.="<div class='tab-pane' id='pic-".$i."'><img src='".$src."' alt='#' /></div>";
-      $imgs.=" <li><a data-target='#pic-".$i."' data-toggle='tab'><img src='".$src."' alt='#' /></a></li>";
+      $imgs.=" <li><a data-target='#pic-".$i."' data-toggle='tab'><img  src='".$src."' alt='#' /></a></li>";
     }  
 
 
@@ -1376,101 +1376,101 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                         </div>    
                         
                         <div class="spe-a">
-                        <h4>Ratings</h4>
-    <div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-xs-12 col-md-6 text-center">
-                        <h1 class="rating-num">
-                            <?php echo sprintf("%.1f", $OvrRating);?></h1>
-                        <div class="rating"  >
-                            <?=$stars?>
-                        </div>
-                        <div>
-                            <span ><i class="fas fa-user"></i>  </span><?=$nbrRt?> total
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-6">
-                        <div class="row rating-desc">
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span><i class="fas fa-star"></i></span>5
-                            </div>
+                           <h4>Ratings</h4>
+                              <div class="container">
+                                 <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                       <div class="well well-sm">
+                                          <div class="row">
+                                             <div class="col-xs-12 col-md-6 text-center">
+                                                <h1 class="rating-num">
+                                                <?php echo sprintf("%.1f", $OvrRating);?></h1>
+                                                <div class="rating"  >
+                                                 <?=$stars?>
+                                                </div>
+                                                <div>
+                                                  <span ><i class="fas fa-user"></i>  </span><?=$nbrRt?> total
+                                                </div>
+                                             </div>
+                                             <div class="col-xs-12 col-md-6">
+                                                <div class="row rating-desc">
+                                                   <div class="col-xs-3 col-md-3 text-right">
+                                                    <span><i class="fas fa-star"></i></span>5
+                                                   </div>
                            
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress progress-striped">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                                        <span class="sr-only">100%</span>
-                                    </div>
+                                                   <div class="col-xs-8 col-md-9">
+                                                      <div class="progress progress-striped">
+                                                       <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                                       <span class="sr-only">100%</span>
+                                                      </div>
                                     
-                                </div>
-                                <div class="col-md-6 col-md-offset-12">
-                                <span></span>
-                                </div>
-                            </div>
+                                                   </div>
+                                                   <div class="col-md-6 col-md-offset-12">
+                                                   <span></span>
+                                                   </div>
+                                                </div>
                             
-                            <!-- end 5 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span ><i class="fas fa-star"></i></span>4
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                        <span class="sr-only">80%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 4 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span ><i class="fas fa-star"></i></span>3
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                        <span class="sr-only">60%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 3 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span ><i class="fas fa-star"></i><span>2
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                        <span class="sr-only">40%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 2 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span ><i class="fas fa-star"></i></span>1
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 15%">
-                                        <span class="sr-only">15%</span>
+                                                <!-- end 5 -->
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                   <span ><i class="fas fa-star"></i></span>4
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                   <div class="progress">
+                                                      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                                        <span class="sr-only">80%</span>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <!-- end 4 -->
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                  <span ><i class="fas fa-star"></i></span>3
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                   <div class="progress">
+                                                      <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                                         <span class="sr-only">60%</span>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <!-- end 3 -->
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                   <span ><i class="fas fa-star"></i><span>2
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                   <div class="progress">
+                                                      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
+                                                         aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                         <span class="sr-only">40%</span>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <!-- end 2 -->
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                   <span ><i class="fas fa-star"></i></span>1
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                   <div class="progress">
+                                                      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
+                                                       aria-valuemin="0" aria-valuemax="100" style="width: 15%">
+                                                       <span class="sr-only">15%</span>
                                         
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <!-- end 1 -->
+                                             </div>
+                                             <!-- end row -->
+                                          </div>
+                                       </div>
                                     </div>
-                                </div>
-                            </div>
-                            <!-- end 1 -->
-                        </div>
-                        <!-- end row -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<hr>
-<div class="right-dit-p">
+                                 </div>
+                              </div>
+                           </div>
+                           <hr>
+                           <div class="right-dit-p">
                               <div class="like-list">
                                  <ul>
                                     <li>
@@ -1498,43 +1498,42 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                               </div>
                            </div>
                            
-<div class="spe-a">
- <h4>Comments</h4>
-      
- <div id="comments" class="card Comments">
-	      <div class="card-body">
-	         <div class="row">
-        	      <div class="col-md-2">
-        	        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-        	        <p class="text-secondary text-center">15 Minutes Ago</p>
-        	      </div>
-        	      <div class="col-md-10">
-        	        <p>
-        	            <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
-        	            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                     <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-        	            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-        	            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                     <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                           <div class="spe-a">
+                              <h4>Comments</h4>     
+                              <div id="comments" class="card Comments">
+	                              <div class="card-body">
+	                                 <div class="row">
+        	                              <div class="col-md-2">
+        	                                 <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+        	                                 <p class="text-secondary text-center">15 Minutes Ago</p>
+        	                              </div>
+        	                              <div class="col-md-10">
+        	                                 <p>
+        	                                 <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
+        	                                 <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                          <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+        	                                 <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+        	                                 <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                          <span class="float-right"><i class="text-warning fa fa-star"></i></span>
 
-        	       </p>
-        	       <div class="clearfix"></div>
-        	         <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-        	         <p>
-        	            <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
-        	            <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
-        	         </p>
-        	        </div>
-	            </div>
-	         </div>
-            <button><i class="far fa-arrow-alt-circle-left"></i></button> <button><i class="far fa-arrow-alt-circle-right"></i></button>
-         </div>
+        	                                 </p>
+        	                                 <div class="clearfix"></div>
+        	                                  <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        	                                       <p>
+        	                                        <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
+        	                                        <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+        	                                       </p>
+        	                                 </div>
+	                                    </div>
+	                                 </div>
+                                    <button><i class="far fa-arrow-alt-circle-left"></i></button> <button><i class="far fa-arrow-alt-circle-right"></i></button>
+                                 </div>
          
-</div> 
+                              </div> 
 
                         
-                     </div>
-                  </div>
+                            </div>
+                         </div>
 
 
                   <div class="similar-box">
@@ -1563,7 +1562,7 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
 <!--Modal-->
 
 <div class="modal fade" id="modalEquip"  tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog-centered" role="document" style="width:40%;margin-left:30%">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title _26piifo">Équipements</h5>
@@ -1713,20 +1712,21 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
       <!--main js--> 
       <script src="../../Resourse/js3/jquery-1.12.4.min.js"></script> 
       <!--bootstrap js--> 
-      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <!--<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      
+      <script src="../../Resourse/js3/bootstrap-select.min.js"></script>-->
       <script src="../../Resourse/js3/bootstrap.min.js"></script> 
-      <script src="../../Resourse/js3/bootstrap-select.min.js"></script>
       <script src="../../Resourse/js3/slick.min.js"></script> 
       <script src="../../Resourse/js3/select2.full.min.js"></script> 
       <script src="../../Resourse/js3/wow.min.js"></script> 
 
-      <script src="../../Resourse/cssSm/ratingBot/bootstrap.min.js"></script>
-<script src="../../Resourse/cssSm/ratingBot/jquery-1.11.1.min.js"></script>
+    <!--  <script src="../../Resourse/cssSm/ratingBot/bootstrap.min.js"></script>
+<script src="../../Resourse/cssSm/ratingBot/jquery-1.11.1.min.js"></script>-->
 
+<!--
+<script src="../../Resourse/cssSm/Comments/bootstrap.min.js"></script>-->
 
-<script src="../../Resourse/cssSm/Comments/bootstrap.min.js"></script>
-
-<script src="../../Resourse/cssSm/Comments/jquery.min.js"></script>
+<!--<script src="../../Resourse/cssSm/Comments/jquery.min.js"></script>-->
       <!--custom js--> 
       <script src="../../Resourse/js3/custom.js"></script>
      

@@ -42,7 +42,7 @@ if(isset($_POST['connect']))
     $_SESSION['type']=$row['type'];
     session_write_close();
      if($_SESSION['type'] == "normal")
-        header("Location:../UserPages/SeeMore.php?smr=".$_GET['smr']."&rdr=r");
+        header("Location:../UserPages/SeeMore.php?smr=".$_GET['smr']);
       else if($_SESSION['type'] == "admin")
       header("Location:../AdminPages/dash.php");
       else if($_SESSION['type'] == "pro")
