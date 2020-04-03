@@ -1166,7 +1166,7 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
      $stars.="<span ><i class='fas fa-star'></i></span>";
      $ir++;
   }
-  
+
   if($fractionR>=0.8 && $fractionR<=0.9)
    {
      $stars.="<span ><i class='fas fa-star'></i></span>";
@@ -1319,18 +1319,17 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                            </div>
                         </div>
                         <div class="btn-dit-list clearfix">
+
                            <div class="left-dit-p">
-                              <div class="prod-btn">
-                                 
-                                 <a href="#"><i class="fas fa-heart"></i> Like this</a>
-                                 
+
+                              <div class="prod-btn">                                
+                                 <a href="#"><i class="far fa-heart"></i> Like this</a>                               
                               </div>
-                              <br>
+                              &nbsp;
                               <div class="prod-btn">
-                              <a href="loginRT.php?smr=<?=$CodeL?>"><i class="far fa-star"></i> Rate this</a>
+                                 <a href="loginRT.php?smr=<?=$CodeL?>"><i class="far fa-star"></i> Rate this</a>
                               </div>
-                             
-                              
+                                                           
                            </div>
                          
                         </div>
@@ -1377,7 +1376,7 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                         </div>    
                         
                         <div class="spe-a">
-                        <h4>rating d zeb</h4>
+                        <h4>Ratings</h4>
     <div class="container">
     <div class="row">
         <div class="col-xs-12 col-md-6">
@@ -1408,7 +1407,7 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                                     
                                 </div>
                                 <div class="col-md-6 col-md-offset-12">
-                                <span>5</span>
+                                <span></span>
                                 </div>
                             </div>
                             
@@ -1475,6 +1474,7 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
         </div>
     </div>
 </div>
+<hr>
 <div class="right-dit-p">
                               <div class="like-list">
                                  <ul>
@@ -1497,62 +1497,44 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                                        <div class="im-b"><img src="../../Resourse/images/list-img-06.png" alt=""></div>
                                     </li>
                                     <li>
-                                       <div class="im-b"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+                                       <div class="im-b"><i id="SeeComments" class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
                                     </li>
                                  </ul>
                               </div>
                            </div>
-                           <hr>
+                           
 <div class="spe-a">
- <h4>comments d zeb</h4>
+ <h4>Comments</h4>
       
- <div class="card Comments">
-	    <div class="card-body">
-	        <div class="row">
-        	    <div class="col-md-2">
+ <div id="comments" class="card Comments">
+	      <div class="card-body">
+	         <div class="row">
+        	      <div class="col-md-2">
         	        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
         	        <p class="text-secondary text-center">15 Minutes Ago</p>
-        	    </div>
-        	    <div class="col-md-10">
+        	      </div>
+        	      <div class="col-md-10">
         	        <p>
         	            <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
         	            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                     <span class="float-right"><i class="text-warning fa fa-star"></i></span>
         	            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
         	            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                     <span class="float-right"><i class="text-warning fa fa-star"></i></span>
 
         	       </p>
         	       <div class="clearfix"></div>
-        	        <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-        	        <p>
+        	         <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        	         <p>
         	            <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
         	            <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
-        	       </p>
-        	    </div>
-	        </div>
-	        	<div class="card card-inner">
-            	    <div class="card-body">
-            	        <div class="row">
-                    	    <div class="col-md-2">
-                    	        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                    	        <p class="text-secondary text-center">15 Minutes Ago</p>
-                    	    </div>
-                    	    <div class="col-md-10">
-                    	        <p><a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a></p>
-                    	        <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    	        <p>
-                    	            <a class="float-right btn btn-outline-primary ml-2">  <i class="fa fa-reply"></i> Reply</a>
-                    	            <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
-                    	       </p>
-                    	    </div>
-            	        </div>
-            	    </div>
+        	         </p>
+        	        </div>
 	            </div>
-	    </div>
-	</div>
-
-
- </div>
+	         </div>
+            <button><i class="far fa-arrow-alt-circle-left"></i></button> <button><i class="far fa-arrow-alt-circle-right"></i></button>
+         </div>
+         
 </div> 
 
                         
@@ -1576,15 +1558,9 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                   <div class="price-box-right">
                      <h4>Prix</h4>
                      <h3><?=$prix?> Dh</h3><hr>
-                  
-                    
-                     
                      <a href="#" class="badge badge-primary">Contacter Hote</a>
                   </div>
-               </div>
-               
-               
-               
+               </div>        
             </div>
          </div>
       </div>
@@ -1764,5 +1740,27 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
 
 </html>
 
+<script>
 
+$(document).ready(function(){  
+   document.getElementById('comments').style.display='none';
+   var hidden=true;
+
+   $('#SeeComments').click(function(){  
+          
+     if(hidden==true)     
+      {
+         document.getElementById('comments').style.display='block';
+         hidden=false;
+      }   
+     else
+      { 
+         document.getElementById('comments').style.display='none';
+         hidden=true;
+      }
+
+       });
+ 
+ });  
+</script>
 

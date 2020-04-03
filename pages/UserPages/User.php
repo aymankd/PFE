@@ -11,6 +11,19 @@ $servername = "localhost";
 $userservername = "root";
 $database = "pfe";
 $msg="";
+$openclosejs=" checked = null;";
+$jsScript="";
+$chatboxs="";
+$AllCodeSenders=" var codes = new array();";
+$ScriptMsg="";
+$sendScr="";
+$url='"chatbox.php"';
+$method='"GET"';
+$i=1;
+$UISc='setInterval(function() {
+  showdata="";';
+
+
 
 // Create connection
 $conn = new mysqli($servername, $userservername,"", $database);
@@ -19,6 +32,8 @@ $conn = new mysqli($servername, $userservername,"", $database);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
+
+
 
 //remplisage des données d'utilisateur courrant
 $src="";
@@ -41,6 +56,139 @@ else
 	$ProfileP="<img src='".$src."' alt='profile'/>";
 }
 
+$codeU = $_SESSION['usercode'];
+$ntMsg = "";
+
+$req="SELECT idMsg, Codesender, Msg FROM messages 
+WHERE Codereciever=?
+GROUP BY Codesender  ORDER BY idMsg DESC LIMIT 3";
+$statement=$conn->prepare($req);
+$statement->bind_param("i",$codeU);
+$statement->execute();
+$res=$statement->get_result();
+while ( $row = mysqli_fetch_array($res) )
+{
+  $sender=$row['Codesender'];
+  $sms=$row['Msg'];
+      $reqP="SELECT * from utilisateur where CodeU=?";
+      $statementP=$conn->prepare($reqP);
+      $statementP->bind_param("i",$sender);
+      $statementP->execute();
+      $resP=$statementP->get_result();
+      $rowP=$resP->fetch_assoc();
+      $Pusername=$rowP["username"];
+
+  $ntMsg = $ntMsg.
+  '
+  <a class="dropdown-item preview-item" id="a'.$sender.'">
+    <div class="preview-thumbnail">
+        <img src="Proprofile.php?id='.$sender.'" alt="image" class="profile-pic">
+    </div>
+    <div class="preview-item-content flex-grow">
+        <h6 class="preview-subject ellipsis font-weight-normal">'.$Pusername.'
+        </h6>
+        <p class="font-weight-light small-text text-muted mb-0">
+          '.$sms.'
+        </p>
+    </div>
+  </a>
+  ';
+
+
+  $chatboxs = $chatboxs.
+  '
+  <section class="avenue-messenger" id="Chat'.$sender.'" style="display:none">
+  <div class="menu">
+     <div class="button" id="CloseChat'.$sender.'" title="End Chat">&#10005;</div> 
+  </div>
+  <div class="agent-face">
+     <div class="half">
+     <img class="agent circle" src="Proprofile.php?id='.$sender.'" alt="profile">
+     </div>
+  </div>
+  <div class="chat" >
+     <div class="chat-title">
+     <h1>'.$Pusername.'
+     </div>
+     <div class="messages" >
+     <div id="'.$sender.'" class="messages-content mCustomScrollbar _mCS_1 mCS_no_scrollbar" >
+
+     </div>
+     </div>
+     <div class="message-box">
+        <textarea type="text" id="input'.$sender.'" class="message-input" placeholder="Type message..."></textarea>
+        <button type="submit" id="send'.$sender.'" class="message-submit">Send</button>
+     </div>
+  </div>
+</section>
+  ';
+
+  $openclosejs = $openclosejs.
+  "
+  $('#a".$sender."').click(function(){
+    if(checked!=null)
+      checked.style='display:none';
+      document.getElementById('Chat".$sender."').style='display:block';
+      checked=document.getElementById('Chat".$sender."');
+      updateScrollbar();
+    });
+    $('#CloseChat".$sender."').click(function(){
+      document.getElementById('Chat".$sender."').style='display:none';
+      checked=null;
+    });
+  ";
+
+  $ScriptMsg = $ScriptMsg.
+  '
+
+  $("#send'.$sender.'").click(function() {
+    $msgtosend=$("#input'.$sender.'").val();
+    insertMessage("'.$sender.'");
+    $.ajax({  
+          url:"chatbox.php",  
+          method:"GET",  
+          data:{message:$msgtosend,sender:'.$codeU.',reciever:'.$sender.'}
+          });
+ });
+
+  ';
+
+
+  $mCSB_container="'#mCSB_".$i."_container'";
+  $i=$i+1;
+  
+  $UISc=$UISc.
+  '
+  $.ajax({  
+    url:"chatmsg.php",  
+    method:"GET",  
+    data:{sender:'.$codeU.',reciever:'.$sender.'},  
+    success:function(data){
+      if(showdata!=data)
+      {
+        showdata=data;
+        $('.$mCSB_container.').html(data);
+      }
+    }  
+  });
+  ';
+
+
+
+
+}
+
+$Msgclass='"message message-personal"';
+
+
+$UISc = $UISc.'updateScrollbar(); 
+}, 1000);';
+
+$jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
+
+
+
+
 ?>
 
 
@@ -60,6 +208,8 @@ else
   <link rel="stylesheet" href="../../Resourse/css2/styleUser.css">
   <link rel="shortcut icon" href="../../Resourse/images/favicon.png" />
 
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
+  <link rel="stylesheet" href="../../Resourse/css3/chatbox.css">
 
 
   </head>
@@ -130,42 +280,9 @@ else
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
                   <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
-                    </div>
-                    <div class="preview-item-content flex-grow">
-                        <h6 class="preview-subject ellipsis font-weight-normal">David Grey
-                        </h6>
-                        <p class="font-weight-light small-text text-muted mb-0">
-                          The meeting is cancelled
-                        </p>
-                    </div>
-                  </a>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
-                    </div>
-                    <div class="preview-item-content flex-grow">
-                        <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
-                        </h6>
-                        <p class="font-weight-light small-text text-muted mb-0">
-                          New product launch
-                        </p>
-                    </div>
-                  </a>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <?=$ProfileP?>
-                    </div>
-                    <div class="preview-item-content flex-grow">
-                        <h6 class="preview-subject ellipsis font-weight-normal"> <?=$USN?>
-                        </h6>
-                        <p class="font-weight-light small-text text-muted mb-0">
-                          Upcoming board meeting
-                        </p>
-                    </div>
-                  </a>
+
+                  <?=$ntMsg;?>
+
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -583,7 +700,7 @@ else
 		</div>
 		<!-- page-body-wrapper ends -->
     </div>
-
+    <?=$chatboxs; ?>
 
     <!-- container-scroller -->
     <!-- base:js -->
@@ -606,6 +723,53 @@ else
     <!-- End custom js for this page-->
     <script src="../../Resourse/js2/Card.js"></script>
 
-  
+      <!-- chat-box -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script>
+    var $MsgCont = $('.messages-content');
+    function updateScrollbar() {
+      $MsgCont.mCustomScrollbar('scrollTo', 'bottom');
+      }
+
+    function insertMessage(messages) {
+      var varI='#input'+messages;
+      msg = $(varI).val();
+        if(msg!=null){
+          $('<div class="message message-personal" >' + msg + '</div>').appendTo('#'+messages+' .mCSB_container');
+          $(varI).val(null);
+          updateScrollbar();
+          msg=null;
+        }
+      }
+
+
+
+      <?=$UISc; ?>
+      /* 
+            setInterval(function() {
+      showdata="";
+      $.ajax({  
+                url:"chatmsg.php",  
+                method:"GET",  
+                data:{sender,reciever:},  
+                success:function(data){
+                   if(showdata!=data)
+                   {
+                     showdata=data;
+                     $('.mCSB_container').html(data);
+                   }
+                }  
+           });
+                 updateScrollbar(); 
+   }, 1000);
+      */
+
+    
+    </script>
+    <?=$jsScript; ?>
+
+
 </body>
 </html>
