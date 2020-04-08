@@ -48,7 +48,7 @@ if($type=="Appartement")
 }
 else
 {
-   $reqAp="SELECT * from studio where CodeP=?";
+   $reqAp="SELECT * FROM studio WHERE CodeS=?";
    $statementAp=$conn->prepare($reqAp);
    $statementAp->bind_param("i",$CodeL);
    $statementAp->execute();
