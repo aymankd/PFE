@@ -34,6 +34,8 @@ $prix=$rowL["prix"];
 $sup=$rowL["superficie"];
 $Codepro=$rowL["CodeP"];
 $type=$rowL["type"];
+$lat=$rowL["lat"];
+$lng=$rowL["lng"];
 
 if($type=="Appartement")
 {
@@ -1237,6 +1239,28 @@ while(($rowRI=mysqli_fetch_array($resRI)) )
 
 
 
+//Check if this user has this saved
+$saved='';
+$reqS="SELECT * from saves where CodeL=? and CodeU=?";
+$statementS=$conn->prepare($reqS);
+$statementS->bind_param("ii",$CodeL,$codeU);
+$statementS->execute();
+$resS=$statementS->get_result();
+
+if(($rowS=$resS->fetch_assoc()))
+  {
+    $saved='Y';
+  }
+else
+  {
+   $saved='N';
+  }  
+
+
+
+
+
+
 ?>
 
 <!DOCTYPE HTML>
@@ -1353,7 +1377,7 @@ while(($rowRI=mysqli_fetch_array($resRI)) )
                            <div class="left-dit-p">
                               <div class="prod-btn">
                               <?=$rt2?>
-                                 <a href="#"><i class="far fa-heart"></i> Like this</a>
+                                 <a id="like-btn"><i class="far fa-heart"></i> save this</a>
                                  <p>23 likes</p>
                               </div>
                               <div id="RtBlock">
@@ -1593,7 +1617,12 @@ while(($rowRI=mysqli_fetch_array($resRI)) )
                      </div>
                   </div>
 
-
+               <!--Map location-->
+                  <div >      
+                     <div id="map">
+                   
+                     </div>
+                  </div>
                   <div class="similar-box">
                      <h2>Similiar results</h2>
                      
@@ -1838,7 +1867,7 @@ while(($rowRI=mysqli_fetch_array($resRI)) )
 
    </body>
    
-   </html>
+ 
    
    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
    <script src='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js'></script>
@@ -1955,7 +1984,11 @@ i = 0;
 <script>
 var Mrating=0;
 var comment="";
+
+
+
 $(document).ready(function(){  
+
    
 
        $('#Mstar1').click(function(){  
@@ -2005,7 +2038,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){  
    document.getElementById('comments').style.display='none';
-   var hidden=true;
+   
 
    $('#SeeComments').click(function(){  
           
@@ -2021,6 +2054,85 @@ $(document).ready(function(){
       }
 
        });
- 
- });  
+      });
+
 </script>
+
+<script>
+
+var saved='<?=$saved?>';
+var hidden=true;
+var CodeL='<?=$CodeL?>';
+var CodeU='<?=$userCode?>';
+$(document).ready(function(){  
+
+   if(saved=='N')
+       {
+          $('#like-btn').empty().append("<i class='fas fa-heart'></i> saved");
+       }
+       else if(saved=='Y')
+       {
+          $('#like-btn').empty().append("<i class='far fa-heart'></i> save this");
+         }   
+   $('#like-btn').click(function(){  
+      if(saved=='N')
+       {
+          $('#like-btn').empty().append("<i class='fas fa-heart'></i> saved");
+          saved='Y';
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:CodeL,CodeU:CodeU,action:saved},
+                 success:function(data){  
+
+                  }
+                 });
+
+
+       }   
+      else if(saved=='Y')
+       {
+          $('#like-btn').empty().append("<i class='far fa-heart'></i> save this");
+          saved='N';
+
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:CodeL,CodeU:CodeU,action:saved},
+                 success:function(data){  
+
+                  }
+                 });
+
+       }
+       });   
+    });  
+
+</script>
+
+<script async defer
+
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWv8pHQtbrov613r_RMqCjZ_nOrz2y7HM&callback=initMap">
+    </script>
+
+<script>
+function initMap(){
+   var options = {
+      zoom:8,
+      center:{lat:<?=$lat?>, lng:<?=$lng?>}
+
+   }
+   var map = new google.maps.Map(
+      document.getElementById('map'),options);
+
+   var marker = new google.maps.Marker({
+      position: {lat:<?=$lat?>, lng:<?=$lng?>}, 
+      map: map,
+      icon:'../../Resourse/imgs/adresse.png'
+      });
+   
+
+}
+</script>
+
+</html>

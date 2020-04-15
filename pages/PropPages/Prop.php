@@ -181,6 +181,59 @@ $UISc = $UISc.'updateScrollbar();
 
 $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 
+//Notifications de localisation de logement:
+  $reqN="SELECT * from logement where CodeP=?";
+  $statementN=$conn->prepare($reqN);
+  $statementN->bind_param("i",$codeU);
+  $statementN->execute();
+  $resN=$statementN->get_result();
+  $notifs="";
+  $cnt=1;
+  $CodeL1;
+  $CodeL2;
+  while(($rowN = mysqli_fetch_array($resN)))
+  {
+    
+    if($rowN['lng']==NULL && $rowN['lat']==NULL && $cnt=1)
+     { 
+       $CodeL1=$rowN['CodeL'];
+       $notifs=" <a id='LLoc1' class='dropdown-item preview-item'>
+             <div class='preview-thumbnail'>
+               <div class='preview-icon bg-success'>
+                <i class='fas fa-map-marked-alt'></i>
+               </div>
+             </div>
+             <div class='preview-item-content'>
+               <h6 class='preview-subject font-weight-normal'>Localiser votre ".$rowN['type']." '".$rowN['nom']."'</h6>
+               <p class='font-weight-light small-text mb-0 text-muted'>
+                 Just now
+               </p>
+             </div>
+           </a>";
+           $cnt=$cnt+1;
+     }  
+    else if ($rowN['lng']==NULL && $rowN['lat']==NULL && $cnt=2)
+     {
+      if($rowN['lng']==NULL && $rowN['lat']==NULL && $cnt=1)
+      { 
+        $CodeL2=$rowN['CodeL'];
+        $notifs=" <a id='LLoc2' class='dropdown-item preview-item'>
+              <div class='preview-thumbnail'>
+                <div class='preview-icon bg-success'>
+                 <i class='fas fa-map-marked-alt'></i>
+                </div>
+              </div>
+              <div class='preview-item-content'>
+                <h6 class='preview-subject font-weight-normal'>Localiser votre ".$rowN['type']." '".$rowN['nom']."'</h6>
+                <p class='font-weight-light small-text mb-0 text-muted'>
+                  Just now
+                </p>
+              </div>
+            </a>";
+            $cnt=$cnt+1;
+      } 
+     }    
+  }
 
 ?>
 
@@ -205,6 +258,7 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
   <link rel="stylesheet" href="../../Resourse/css3/chatbox.css">
+  <link href="../../Resourse/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
 
 
@@ -226,47 +280,9 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
                   <i class="mdi mdi-bell mx-0"></i>
                   <span class="count bg-success">2</span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                <div id="notifs" class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                   <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <div class="preview-icon bg-success">
-                          <i class="mdi mdi-information mx-0"></i>
-                        </div>
-                    </div>
-                    <div class="preview-item-content">
-                        <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                        <p class="font-weight-light small-text mb-0 text-muted">
-                          Just now
-                        </p>
-                    </div>
-                  </a>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <div class="preview-icon bg-warning">
-                          <i class="mdi mdi-settings mx-0"></i>
-                        </div>
-                    </div>
-                    <div class="preview-item-content">
-                        <h6 class="preview-subject font-weight-normal">Settings</h6>
-                        <p class="font-weight-light small-text mb-0 text-muted">
-                          Private message
-                        </p>
-                    </div>
-                  </a>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <div class="preview-icon bg-info">
-                          <i class="mdi mdi-account-box mx-0"></i>
-                        </div>
-                    </div>
-                    <div class="preview-item-content">
-                        <h6 class="preview-subject font-weight-normal">New user registration</h6>
-                        <p class="font-weight-light small-text mb-0 text-muted">
-                          2 days ago
-                        </p>
-                    </div>
-                  </a>
+                  <?=$notifs?>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -780,5 +796,29 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
     <?=$jsScript; ?>
 
   
+<script>
+$(document).ready(function(){  
+
+
+   $('#LLoc1').click(function(){  
+          
+    location.href = 'getLocation.php?target=<?=$CodeL1?>&owner=<?=$codeU?>';
+       });
+       $('#LLoc2').click(function(){  
+          
+          location.href = 'getLocation.php?target=<?=$CodeL1?>&owner=<?=$codeU?>';
+             });    
+       
+  
+ 
+ });  
+</script>
+
+<script>
+document.getElementById("notifs").addEventListener('click', function (event) 
+         {  
+          event.stopPropagation(); 
+         });
+</script>
 </body>
 </html>

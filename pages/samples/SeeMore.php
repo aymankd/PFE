@@ -33,6 +33,8 @@ $regl=$rowL["reglement"];
 $prix=$rowL["prix"];
 $sup=$rowL["superficie"];
 $type=$rowL["type"];
+$lat=$rowL["lat"];
+$lng=$rowL["lng"];
 
 if($type=="Appartement")
 {
@@ -1199,6 +1201,104 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
   $nbrRt=$rowRI['ttl'];
   $nbrRt=$nbrRt;
   
+  //loading first page of comments comments 
+  $Comments="";
+  $reqCM="SELECT * from ratings where CodeL=? limit 5";
+  $statementCM=$conn->prepare($reqCM);
+  $statementCM->bind_param("i",$CodeL);
+  $statementCM->execute();
+  $resCM=$statementCM->get_result();  
+  while(($rowCM=mysqli_fetch_array($resCM)))
+   {
+      $CodeCU=$rowCM['CodeU'];
+      $comment=$rowCM['comment'];
+      $rating=$rowCM['rating'];
+
+      $reqCMU="SELECT * from utilisateur where CodeU=?";
+      $statementCMU=$conn->prepare($reqCMU);
+      $statementCMU->bind_param("i",$CodeCU);
+      $statementCMU->execute();
+      $resCMU=$statementCMU->get_result(); 
+      $rowCMU=$resCMU->fetch_assoc(); 
+
+      $UserCMU=$rowCMU['username'];
+      
+      if($rowCMU['imageP']!=NULL)
+        {
+          $srcCMU="profilpic.php?UN=$UserCMU";
+	       $ProfilePCMU="<img src='".$srcCMU."' class='img img-rounded img-fluid'/>";
+        }
+      else
+        {
+	       $srcCMU="../../Resourse/imgs/ProfileHolder.jpg";
+	       $ProfilePCMU="<img src='".$srcCMU."' class='img img-rounded img-fluid'/>";
+        }
+      
+        $OvrRatingCMU=$rowCM['rating'];
+  
+
+        $wholeRCMU = floor($OvrRatingCMU);      
+        $fractionRCMU = $OvrRatingCMU - $wholeRCMU;
+        $irCMU=0;
+        $starsCMU="";
+        $countSTRCMU=5-$wholeRCMU;
+        while($irCMU<$wholeRCMU)
+        {
+           $starsCMU.="<span class='float-right'><i class='text-warning fa fa-star'></i></span>";
+           $irCMU++;
+        }
+      
+        if($fractionRCMU>=0.8 && $fractionRCMU<=0.9)
+         {
+           $starsCMU.="<span class='float-right'><i class='text-warning fa fa-star'></i></span>";
+           $countSTRCMU=$countSTRCMU-1;
+         }
+        else if($fractionRCMU>0.2 && $fractionRCMU<0.8)
+         {
+           $starsCMU.="<span class='float-right'><i class='text-warning fas fa-star-half'></i></span>";
+           $countSTRCMU=$countSTRCMU-1;
+         }
+         else if($fractionRCMU<=0.2 && $fractionRCMU>0.8)
+         {
+            $starsCMU.="<span class='float-right'><i class='text-warning fa fa-star'></i></span>";
+           $countSTRCMU=$countSTRCMU-1;
+         }
+      
+         $irCMU=0;
+         while($irCMU<$countSTRCMU)
+         {
+            $starsCMU.="<span class='float-right'><i class='text-warning far fa-star'></i></span>";
+            $irCMU++;
+         }  
+
+
+
+
+
+
+
+     $Comments.= "
+                  <div class='row'>
+                   <div class='col-md-2'>".$ProfilePCMU
+                     
+                     ."
+                   </div>
+                   <div class='col-md-10'>
+                     <p>
+                     <a class='float-left' href='https://maniruzzaman-akash.blogspot.com/p/contact.html'><strong>".$UserCMU."</strong></a>
+                    
+                     ".$starsCMU."
+
+                     </p>
+                     <div class='clearfix'></div>
+                       <p>".$comment."</p>
+                       
+                     </div>
+                   </div>
+                  </div>
+                  <hr class='cmt'>";
+   }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -1219,12 +1319,13 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
       <!--animate css-->
       <link rel="stylesheet" href="../../Resourse/cssSm/animate-wow.css">
       <!--main css-->
-      <link rel="stylesheet" href="../../Resourse/cssSm/style.css">
+      
       <link rel="stylesheet" href="../../Resourse/cssSm/bootstrap-select.min.css">
       <link rel="stylesheet" href="../../Resourse/cssSm/slick.min.css">
       <link rel="stylesheet" href="../../Resourse/cssSm/select2.min.css">
       <link rel="stylesheet" href="../../Resourse/cssSm/ratingBot/rating.css">
       <link rel="stylesheet" href="../../Resourse/cssSm/Comments/commt.css">
+      <link rel="stylesheet" href="../../Resourse/cssSm/style.css">
       
 
        <!--comments css-->
@@ -1323,7 +1424,7 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                            <div class="left-dit-p">
 
                               <div class="prod-btn">                                
-                                 <a href="#"><i class="far fa-heart"></i> Like this</a>                               
+                                 <a href="loginSV.php?smr=<?=$CodeL?>"><i class="far fa-heart"></i> Save this</a>                               
                               </div>
                               &nbsp;
                               <div class="prod-btn">
@@ -1502,31 +1603,10 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                               <h4>Comments</h4>     
                               <div id="comments" class="card Comments">
 	                              <div class="card-body">
-	                                 <div class="row">
-        	                              <div class="col-md-2">
-        	                                 <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-        	                                 <p class="text-secondary text-center">15 Minutes Ago</p>
-        	                              </div>
-        	                              <div class="col-md-10">
-        	                                 <p>
-        	                                 <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
-        	                                 <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                          <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-        	                                 <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-        	                                 <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                          <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-
-        	                                 </p>
-        	                                 <div class="clearfix"></div>
-        	                                  <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-        	                                       <p>
-        	                                        <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
-        	                                        <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
-        	                                       </p>
-        	                                 </div>
-	                                    </div>
-	                                 </div>
-                                    <button><i class="far fa-arrow-alt-circle-left"></i></button> <button><i class="far fa-arrow-alt-circle-right"></i></button>
+                                   <div id="cmt-grp">
+	                                 <?=$Comments?>
+                                   </div> 
+                                    <button id='left'><i class="far fa-arrow-alt-circle-left"></i></button> <button id='right'><i class="far fa-arrow-alt-circle-right"></i></button>
                                  </div>
          
                               </div> 
@@ -1534,8 +1614,12 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                         
                             </div>
                          </div>
-
-
+               <!--Map location-->
+                  <div >      
+                     <div id="map">
+                   
+                     </div>
+                  </div>
                   <div class="similar-box">
                      <h2>Similiar results</h2>
                      
@@ -1741,6 +1825,7 @@ $(document).ready(function(){
    document.getElementById('comments').style.display='none';
    var hidden=true;
 
+
    $('#SeeComments').click(function(){  
           
      if(hidden==true)     
@@ -1755,7 +1840,83 @@ $(document).ready(function(){
       }
 
        });
- 
+  
+
  });  
 </script>
 
+
+<script async defer
+
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWv8pHQtbrov613r_RMqCjZ_nOrz2y7HM&callback=initMap">
+    </script>
+
+<script>
+function initMap(){
+   var options = {
+      zoom:8,
+      center:{lat:<?=$lat?>, lng:<?=$lng?>}
+
+   }
+   var map = new google.maps.Map(
+      document.getElementById('map'),options);
+
+   var marker = new google.maps.Marker({
+      position: {lat:<?=$lat?>, lng:<?=$lng?>}, 
+      map: map,
+      icon:'../../Resourse/imgs/adresse.png'
+      });
+   
+
+}
+</script>
+
+<script>
+var page=1;
+var limit=5;
+var offset=0;
+$(document).ready(function(){ 
+   if(page==1)
+     {
+       document.getElementById('left').style.display='none'; 
+     }
+
+     $('#right').click(function(){
+      offset=offset+5;
+
+      $.ajax({  
+                url:"getComments.php",  
+                method:"POST",  
+                data:{limit:limit,offset:offset,CodeL:<?=$CodeL?>},  
+                success:function(data){  
+                     $('#cmt-grp').html(data);  
+                }  
+           });
+
+      page=page+1;
+      if(page>1)
+     {
+       document.getElementById('left').style.display='block'; 
+     }
+     });  
+
+     $('#left').click(function(){
+      offset=offset-5;
+      
+      $.ajax({  
+                url:"getComments.php",  
+                method:"POST",  
+                data:{limit:limit,offset:offset,CodeL:<?=$CodeL?>},  
+                success:function(data){  
+                     $('#cmt-grp').html(data);  
+                }  
+           });
+      page=page-1;
+      if(page==1)
+     {
+       document.getElementById('left').style.display='none'; 
+     }
+     });     
+});
+
+</script>
