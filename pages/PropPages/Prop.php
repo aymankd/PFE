@@ -235,6 +235,36 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
      }    
   }
 
+
+//notification
+$notif="";
+$reqN="SELECT * FROM logement WHERE CodeP=? and (CodeL NOT IN (SELECT CodeL FROM pack where CodeU=?))";
+$statementN=$conn->prepare($reqN);
+$statementN->bind_param("ii",$codeU,$codeU);
+$statementN->execute();
+$resN=$statementN->get_result();
+
+if($resN->num_rows!=0)
+  {
+    $notif='
+    <a class="dropdown-item preview-item" href="ToSuperLog.php">
+    <div class="preview-thumbnail">
+        <div class="preview-icon bg-success">
+          <i class="mdi mdi-information mx-0"></i>
+        </div>
+    </div>
+    <div class="preview-item-content">
+        <h6 class="preview-subject font-weight-normal">Logement en mode normal</h6>
+        <p class="font-weight-light small-text mb-0 text-muted">
+          click to go update
+        </p>
+    </div>
+  </a>
+    ';
+  }
+
+
+
 ?>
 
 
@@ -282,7 +312,37 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
                 </a>
                 <div id="notifs" class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                   <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+<<<<<<< HEAD
+                  <?=$notif; ?>
+                  <a class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                        <div class="preview-icon bg-warning">
+                          <i class="mdi mdi-settings mx-0"></i>
+                        </div>
+                    </div>
+                    <div class="preview-item-content">
+                        <h6 class="preview-subject font-weight-normal">Settings</h6>
+                        <p class="font-weight-light small-text mb-0 text-muted">
+                          Private message
+                        </p>
+                    </div>
+                  </a>
+                  <a class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                        <div class="preview-icon bg-info">
+                          <i class="mdi mdi-account-box mx-0"></i>
+                        </div>
+                    </div>
+                    <div class="preview-item-content">
+                        <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                        <p class="font-weight-light small-text mb-0 text-muted">
+                          2 days ago
+                        </p>
+                    </div>
+                  </a>
+=======
                   <?=$notifs?>
+>>>>>>> f40fdbbb523d21257765ec7477a9733ad146b133
                 </div>
               </li>
               <li class="nav-item dropdown">
