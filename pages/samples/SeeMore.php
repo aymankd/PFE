@@ -1490,7 +1490,7 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                                              <div class="col-xs-12 col-md-6 text-center">
                                                 <h1 class="rating-num">
                                                 <?php echo sprintf("%.1f", $OvrRating);?></h1>
-                                                <div class="rating"  >
+                                                <div class="rating">
                                                  <?=$stars?>
                                                 </div>
                                                 <div>
@@ -1516,7 +1516,6 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                                                    </div>
                                                 </div>
                             
-<<<<<<< HEAD
                                                 <!-- end 5 -->
                                                 <div class="col-xs-3 col-md-3 text-right">
                                                    <span ><i class="fas fa-star"></i></span>4
@@ -1571,59 +1570,6 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                                              <!-- end row -->
                                           </div>
                                        </div>
-=======
-                            <!-- end 5 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span ><i class="fas fa-star"></i></span>4
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                        <span class="sr-only">80%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 4 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span ><i class="fas fa-star"></i></span>3
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                        <span class="sr-only">60%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 3 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span ><i class="fas fa-star"></i><span>2
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                        <span class="sr-only">40%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 2 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span ><i class="fas fa-star"></i></span>1
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
-<<<<<<< HEAD
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 15%">
-                                        <span class="sr-only">15%</span>
-                                        
-=======
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                        <span class="sr-only">20%</span>
->>>>>>> 2a24aa1c601c5058a483afcd469cbb31a72fda99
->>>>>>> 07b37a5ec7932a405c1c84967bad562cb8030e58
                                     </div>
                                  </div>
                               </div>
@@ -1656,23 +1602,21 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                                  </ul>
                               </div>
                            </div>
-                           
                            <div class="spe-a">
                               <h4>Comments</h4>     
                               <div id="comments" class="card Comments">
 	                              <div class="card-body">
-                                   <div id="cmt-grp">
-	                                 <?=$Comments?>
-                                   </div> 
+                                    <div id="cmt-grp">
+	                                  <?=$Comments?>
+                                    </div>
                                     <button id='left'><i class="far fa-arrow-alt-circle-left"></i></button>
                                     <button id='right'><i class="far fa-arrow-alt-circle-right"></i></button>
                                  </div>
          
                               </div> 
-
                         
-                            </div>
-                         </div>
+                     </div>
+                  </div>
                <!--Map location-->
                   <div >      
                      <div id="map">
