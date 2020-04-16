@@ -1270,12 +1270,7 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
             $starsCMU.="<span class='float-right'><i class='text-warning far fa-star'></i></span>";
             $irCMU++;
          }  
-
-
-
-
-
-
+     
 
      $Comments.= "
                   <div class='row'>
@@ -1298,6 +1293,15 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                   </div>
                   <hr class='cmt'>";
    }
+
+    //count number of comment pages
+    $reqCM="SELECT Count(*) as cnt from ratings where CodeL=?";
+    $statementCM=$conn->prepare($reqCM);
+    $statementCM->bind_param("i",$CodeL);
+    $statementCM->execute();
+    $resCM=$statementCM->get_result();  
+    $rowCM=$resCM->fetch_assoc();
+    $pages=$rowCM['cnt'];
 
 ?>
 <!DOCTYPE html>
@@ -1660,7 +1664,8 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                                    <div id="cmt-grp">
 	                                 <?=$Comments?>
                                    </div> 
-                                    <button id='left'><i class="far fa-arrow-alt-circle-left"></i></button> <button id='right'><i class="far fa-arrow-alt-circle-right"></i></button>
+                                    <button id='left'><i class="far fa-arrow-alt-circle-left"></i></button>
+                                    <button id='right'><i class="far fa-arrow-alt-circle-right"></i></button>
                                  </div>
          
                               </div> 
@@ -1929,11 +1934,17 @@ function initMap(){
 var page=1;
 var limit=5;
 var offset=0;
+var pages=<?=$pages?>;
+
 $(document).ready(function(){ 
    if(page==1)
      {
        document.getElementById('left').style.display='none'; 
      }
+   if(pages<=1)
+     {
+      document.getElementById('right').style.display='none';
+     }  
 
      $('#right').click(function(){
       offset=offset+5;
@@ -1949,9 +1960,13 @@ $(document).ready(function(){
 
       page=page+1;
       if(page>1)
-     {
-       document.getElementById('left').style.display='block'; 
-     }
+       {
+        document.getElementById('left').style.display='block'; 
+       }
+      if(pages<=page)
+       {
+         document.getElementById('right').style.display='none'; 
+       } 
      });  
 
      $('#left').click(function(){
@@ -1970,6 +1985,10 @@ $(document).ready(function(){
      {
        document.getElementById('left').style.display='none'; 
      }
+     if(pages>=page)
+       {
+         document.getElementById('right').style.display='none'; 
+       }
      });     
 });
 
