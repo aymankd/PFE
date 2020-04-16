@@ -252,8 +252,8 @@ else
                   </a>
                   <div class="submenu">
                       <ul>
-                          <li class="nav-item"><a class="nav-link" href="Addform.php">Comptes</a></li>
-                          <li class="nav-item"><a class="nav-link" href="#">Location</a></li>
+                          <li class="nav-item"><a class="nav-link" href="#">Comptes</a></li>
+                          <li class="nav-item"><a class="nav-link" href="DemandeLoc.php">Location</a></li>
                       </ul>
                   </div>
               </li>
