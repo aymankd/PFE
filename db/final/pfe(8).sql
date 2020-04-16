@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  ven. 03 avr. 2020 à 22:28
+-- Généré le :  lun. 06 avr. 2020 à 19:44
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP :  7.4.1
 
@@ -67,6 +67,29 @@ CREATE TABLE `equipement` (
   `nom` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `equipement`
+--
+
+INSERT INTO `equipement` (`CodeE`, `nom`) VALUES
+('01', 'serviettes,draps,savon,papier toilette, oreillers'),
+('02', 'Climatisation'),
+('03', 'Chauffage'),
+('04', 'Seche-cheveux'),
+('05', 'Penderie/Commode'),
+('06', 'Fer a repasser'),
+('07', 'Television'),
+('08', 'Cheminée'),
+('09', 'Entrée privée'),
+('10', 'Shampoing'),
+('11', 'Wi-Fi'),
+('12', 'Bureau/Espace de travail'),
+('13', 'Petit dejeuner,café,thé'),
+('14', 'Extincteur'),
+('15', 'Detecteur de monoxyde de carbon'),
+('16', 'Detecteur de fumée'),
+('17', 'Kit de premiers secours');
+
 -- --------------------------------------------------------
 
 --
@@ -109,7 +132,9 @@ CREATE TABLE `logement` (
   `rating` float DEFAULT NULL,
   `SL_adr_nom` varchar(255) NOT NULL,
   `type` varchar(11) NOT NULL,
-  `status` varchar(20) NOT NULL
+  `status` varchar(20) NOT NULL,
+  `lat` float DEFAULT NULL,
+  `lng` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

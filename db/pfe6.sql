@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  ven. 03 avr. 2020 à 22:28
+-- Généré le :  jeu. 12 mars 2020 à 14:03
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP :  7.4.1
 
@@ -106,24 +106,9 @@ CREATE TABLE `logement` (
   `reglement` varchar(255) NOT NULL,
   `prix` double NOT NULL,
   `superficie` int(11) NOT NULL,
-  `rating` float DEFAULT NULL,
   `SL_adr_nom` varchar(255) NOT NULL,
   `type` varchar(11) NOT NULL,
   `status` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `messages`
---
-
-CREATE TABLE `messages` (
-  `idMsg` int(11) NOT NULL,
-  `Codesender` int(5) NOT NULL,
-  `Codereciever` int(5) NOT NULL,
-  `Msg` varchar(500) NOT NULL,
-  `vue` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -139,19 +124,6 @@ CREATE TABLE `proprietaire` (
   `nom` varchar(50) DEFAULT NULL,
   `prenom` varchar(50) DEFAULT NULL,
   `tel` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `ratings`
---
-
-CREATE TABLE `ratings` (
-  `CodeL` int(5) NOT NULL,
-  `CodeU` int(5) NOT NULL,
-  `rating` int(11) NOT NULL,
-  `comment` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -177,8 +149,7 @@ CREATE TABLE `utilisateur` (
   `email` varchar(90) DEFAULT NULL,
   `pass` varchar(40) DEFAULT NULL,
   `type` varchar(20) NOT NULL,
-  `Code_confirmation` varchar(40) DEFAULT NULL,
-  `imageP` mediumblob NOT NULL
+  `Code_confirmation` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -233,25 +204,10 @@ ALTER TABLE `logement`
   ADD KEY `ProLog` (`CodeP`);
 
 --
--- Index pour la table `messages`
---
-ALTER TABLE `messages`
-  ADD PRIMARY KEY (`idMsg`),
-  ADD KEY `msgrecie` (`Codereciever`),
-  ADD KEY `msgsend` (`Codesender`);
-
---
 -- Index pour la table `proprietaire`
 --
 ALTER TABLE `proprietaire`
   ADD PRIMARY KEY (`CodeP`);
-
---
--- Index pour la table `ratings`
---
-ALTER TABLE `ratings`
-  ADD KEY `rating-logement-codeL` (`CodeL`),
-  ADD KEY `rating-logement-codeU` (`CodeU`);
 
 --
 -- Index pour la table `studio`
@@ -286,12 +242,6 @@ ALTER TABLE `image`
 --
 ALTER TABLE `logement`
   MODIFY `CodeL` int(5) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `messages`
---
-ALTER TABLE `messages`
-  MODIFY `idMsg` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateur`
@@ -341,24 +291,10 @@ ALTER TABLE `logement`
   ADD CONSTRAINT `ProLog` FOREIGN KEY (`CodeP`) REFERENCES `proprietaire` (`CodeP`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `messages`
---
-ALTER TABLE `messages`
-  ADD CONSTRAINT `msgrecie` FOREIGN KEY (`Codereciever`) REFERENCES `utilisateur` (`CodeU`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `msgsend` FOREIGN KEY (`Codesender`) REFERENCES `utilisateur` (`CodeU`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Contraintes pour la table `proprietaire`
 --
 ALTER TABLE `proprietaire`
   ADD CONSTRAINT `FkeyPro` FOREIGN KEY (`CodeP`) REFERENCES `utilisateur` (`CodeU`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `ratings`
---
-ALTER TABLE `ratings`
-  ADD CONSTRAINT `rating-logement-codeL` FOREIGN KEY (`CodeL`) REFERENCES `logement` (`CodeL`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `rating-logement-codeU` FOREIGN KEY (`CodeU`) REFERENCES `utilisateur` (`CodeU`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `studio`

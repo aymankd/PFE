@@ -34,6 +34,8 @@ $prix=$rowL["prix"];
 $sup=$rowL["superficie"];
 $Codepro=$rowL["CodeP"];
 $type=$rowL["type"];
+$lat=$rowL["lat"];
+$lng=$rowL["lng"];
 
 if($type=="Appartement")
 {
@@ -177,7 +179,7 @@ if($type=="Appartement")
                          <a href='#' tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>
-                         <a href='#'><i class='fa fa-thumbs-up' aria-hidden='true'></i> Like this</a>
+                        <a href='#'><i class='far fa-heart'></i> Like this</a>
                          <p>23 likes</p>
                         </div>
                        </div>
@@ -205,7 +207,7 @@ if($type=="Appartement")
                          <a href='#' tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>   
-                         <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                        <a href='#'><i class='far fa-heart'></i> Like this</a>
                          <p>23 likes</p>
                         </div>
                        </div>
@@ -283,7 +285,7 @@ if($type=="Appartement")
                     <a href='#' tabindex='0'>".$prixC."DH</a>
                    </div>
                    <div class='prod-btn'>   
-                    <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                   <a href='#'><i class='far fa-heart'></i> Like this</a>
                     <p>23 likes</p>
                    </div>
                   </div>
@@ -310,7 +312,7 @@ if($type=="Appartement")
                          <a href='#' tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>   
-                         <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                        <a href='#'><i class='far fa-heart'></i> Like this</a>
                          <p>23 likes</p>
                         </div>
                        </div>
@@ -330,7 +332,7 @@ if($type=="Appartement")
           { 
              //données du Logement courrant
             $CodeLC=$rowC['CodeL'];
-            $srcC="genere_image.php?id=$CodeLC";
+            $srcC="genere_image.php?id=".$CodeLC;
             $prixC=$rowC['prix'];
             $TitreC=$rowC['nom'];
             $adresseC=$rowC['adress'];
@@ -360,7 +362,7 @@ if($type=="Appartement")
             $recom1.="<div class='col-md-6'>
             <div class='small-box-c'>
               <div class='small-img-b'>
-               <img class='img-responsive' src='".$srcC."' alt='#' />
+               <img class='img-responsive' src='".$srcC."' />
               </div> 
               <div class='dit-t clearfix'>
                <div class='left-ti'>
@@ -370,7 +372,7 @@ if($type=="Appartement")
                <a href='#' tabindex='0'>".$prixC."DH</a>
               </div>
               <div class='prod-btn'>   
-               <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+               <a href='#'><i class='far fa-heart'></i> Like this</a>
                <p>23 likes</p>
               </div>
              </div>
@@ -428,7 +430,7 @@ if($type=="Appartement")
                <a href='#' tabindex='0'>".$prixC."DH</a>
               </div>
               <div class='prod-btn'>   
-               <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+              <a href='#'><i class='far fa-heart'></i> Like this</a>
                <p>23 likes</p>
               </div>
              </div>
@@ -490,7 +492,7 @@ if($type=="Appartement")
               <a href='#' tabindex='0'>".$prixC."DH</a>
              </div>
              <div class='prod-btn'>   
-              <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+             <a href='#'><i class='far fa-heart'></i> Like this</a>
               <p>23 likes</p>
              </div>
             </div>
@@ -514,7 +516,7 @@ if($type=="Appartement")
               <a href='#' tabindex='0'>".$prixC."DH</a>
              </div>
              <div class='prod-btn'>   
-              <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+             <a href='#'><i class='far fa-heart'></i> Like this</a>
               <p>23 likes</p>
              </div>
             </div>
@@ -540,7 +542,7 @@ if($type=="Appartement")
                  <a href='#' tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                 <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                <a href='#'><i class='far fa-heart'></i> Like this</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -564,7 +566,7 @@ if($type=="Appartement")
                  <a href='#' tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                 <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                <a href='#'><i class='far fa-heart'></i> Like this</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -644,7 +646,7 @@ else if($type=="studio")
                            <a href='#' tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>
-                           <a href='#'><i class='fa fa-thumbs-up' aria-hidden='true'></i> Like this</a>
+                          <a href='#'><i class='far fa-heart'></i> Like this</a>
                            <p>23 likes</p>
                           </div>
                          </div>
@@ -672,7 +674,7 @@ else if($type=="studio")
                            <a href='#' tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>   
-                           <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                          <a href='#'><i class='far fa-heart'></i> Like this</a>
                            <p>23 likes</p>
                           </div>
                          </div>
@@ -749,7 +751,7 @@ else if($type=="studio")
                       <a href='#' tabindex='0'>".$prixC."DH</a>
                      </div>
                      <div class='prod-btn'>   
-                      <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                     <a href='#'><i class='far fa-heart'></i> Like this</a>
                       <p>23 likes</p>
                      </div>
                     </div>
@@ -776,7 +778,7 @@ else if($type=="studio")
                            <a href='#' tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>   
-                           <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                          <a href='#'><i class='far fa-heart'></i> Like this</a>
                            <p>23 likes</p>
                           </div>
                          </div>
@@ -835,7 +837,7 @@ else if($type=="studio")
                  <a href='#' tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                 <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                <a href='#'><i class='far fa-heart'></i> Like this</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -892,7 +894,7 @@ else if($type=="studio")
                  <a href='#' tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                 <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                <a href='#'><i class='far fa-heart'></i> Like this</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -953,7 +955,7 @@ else if($type=="studio")
                 <a href='#' tabindex='0'>".$prixC."DH</a>
                </div>
                <div class='prod-btn'>   
-                <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+               <a href='#'><i class='far fa-heart'></i> Like this</a>
                 <p>23 likes</p>
                </div>
               </div>
@@ -977,7 +979,7 @@ else if($type=="studio")
                 <a href='#' tabindex='0'>".$prixC."DH</a>
                </div>
                <div class='prod-btn'>   
-                <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+               <a href='#'><i class='far fa-heart'></i> Like this</a>
                 <p>23 likes</p>
                </div>
               </div>
@@ -1003,7 +1005,7 @@ else if($type=="studio")
                    <a href='#' tabindex='0'>".$prixC."DH</a>
                   </div>
                   <div class='prod-btn'>   
-                   <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                  <a href='#'><i class='far fa-heart'></i> Like this</a>
                    <p>23 likes</p>
                   </div>
                  </div>
@@ -1027,7 +1029,7 @@ else if($type=="studio")
                    <a href='#' tabindex='0'>".$prixC."DH</a>
                   </div>
                   <div class='prod-btn'>   
-                   <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                  <a href='#'><i class='far fa-heart'></i> Like this</a>
                    <p>23 likes</p>
                   </div>
                  </div>
@@ -1049,7 +1051,8 @@ $msg = "";
 $userCode = $_SESSION['usercode'];
 
 //checking if user has rated this article
-$rt="";
+$rt1="";
+$rt2="";
 $Alrd=0;
 $reqCR="SELECT * from ratings WHERE CodeL=? and CodeU=?";
 $statementCR=$conn->prepare($reqCR);
@@ -1058,13 +1061,13 @@ $statementCR->execute();
 $resCR=$statementCR->get_result();
 if(($rowCR=$resCR->fetch_assoc()))
 {
-   $rt="<h3>You rated this ".$rowCR['rating']." stars</h3>";
+   $rt1="<h3>You rated this ".$rowCR['rating']." stars</h3>";
    $Alrd=1;
 
 }
 else
 {
-   $rt="<button id='rts' onclick='ShowStars()'>rate this</button>";
+   $rt2="<a id='RTM' data-toggle='modal' data-target='#modalLikeThis2'><i class='far fa-star'></i> Rate this</a>";
    $Alrd=0;
 }
 
@@ -1073,14 +1076,187 @@ else
 
 
  //equipements
-   $reqEQ="SELECT count(*) as EQ from eqlo where CodeL=?";
-   $statementEQ=$conn->prepare($reqEQ);
-   $statementEQ->bind_param("i",$CodeL);
-   $statementEQ->execute();
-   $resEQ=$statementEQ->get_result();
-   $rowEQ=$resEQ->fetch_assoc();
+$reqEQ="SELECT count(*) as EQ from eqlo where CodeL=?";
+$statementEQ=$conn->prepare($reqEQ);
+$statementEQ->bind_param("i",$CodeL);
+$statementEQ->execute();
+$resEQ=$statementEQ->get_result();
+$rowEQ=$resEQ->fetch_assoc();
 
-   $nbrEQ=$rowEQ['EQ'];
+$nbrEQ=$rowEQ['EQ'];
+
+$eqn=1;
+$equiprv1="";
+$equiprv2="";
+$equiLST="";
+$CodeE="";
+$reqEQ="SELECT * from eqlo  where CodeL=? ";
+$statementEQ=$conn->prepare($reqEQ);
+$statementEQ->bind_param("i",$CodeL);
+$statementEQ->execute();
+$resEQ=$statementEQ->get_result();
+
+while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
+ {
+   $CodeE=$rowEQ['CodeE'];
+   $reqEQS="SELECT * from equipement  where CodeE=? ";
+   $statementEQS=$conn->prepare($reqEQS);
+   $statementEQS->bind_param("i",$CodeE);
+   $statementEQS->execute();
+   $resEQS=$statementEQS->get_result();
+   $rowEQS=$resEQS->fetch_assoc();
+   if($eqn<=2)
+    {
+      $equiprv1.= " <div class='col-md-4'>
+                   <h5><svg viewBox='0 0 24 24' role='presentation' aria-hidden='true' focusable='false' style='height: 19px; width: 19px; fill: currentcolor;'><path d='m12 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0 5a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm5.92-5.78a.5.5 0 1 1 -.84.55c-1.19-1.81-3.07-2.77-5.08-2.77s-3.89.96-5.08 2.78a.5.5 0 0 1 -.84-.55c1.38-2.1 3.58-3.23 5.92-3.23s4.54 1.13 5.92 3.23zm2.98-3.03a.5.5 0 1 1 -.79.61c-1.66-2.14-5.22-3.8-8.11-3.8-2.83 0-6.26 1.62-8.12 3.82a.5.5 0 0 1 -.76-.65c2.05-2.42 5.75-4.17 8.88-4.17 3.19 0 7.05 1.8 8.9 4.19zm2.95-2.33a.5.5 0 0 1 -.71-.02c-2.94-3.07-6.71-4.84-11.14-4.84s-8.2 1.77-11.14 4.85a.5.5 0 0 1 -.72-.69c3.12-3.27 7.14-5.16 11.86-5.16s8.74 1.89 11.86 5.16a.5.5 0 0 1 -.02.71z' fill-rule='evenodd'></path></svg>".$rowEQS['nom']."</h5>
+                  </div>";
+      $eqn=$eqn+1;
+    }
+   else
+    {
+      $equiprv2.= " <div class='col-md-4'>
+      <h5><svg viewBox='0 0 24 24' role='presentation' aria-hidden='true' focusable='false' style='height: 19px; width: 19px; fill: currentcolor;'><path d='m12 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0 5a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm5.92-5.78a.5.5 0 1 1 -.84.55c-1.19-1.81-3.07-2.77-5.08-2.77s-3.89.96-5.08 2.78a.5.5 0 0 1 -.84-.55c1.38-2.1 3.58-3.23 5.92-3.23s4.54 1.13 5.92 3.23zm2.98-3.03a.5.5 0 1 1 -.79.61c-1.66-2.14-5.22-3.8-8.11-3.8-2.83 0-6.26 1.62-8.12 3.82a.5.5 0 0 1 -.76-.65c2.05-2.42 5.75-4.17 8.88-4.17 3.19 0 7.05 1.8 8.9 4.19zm2.95-2.33a.5.5 0 0 1 -.71-.02c-2.94-3.07-6.71-4.84-11.14-4.84s-8.2 1.77-11.14 4.85a.5.5 0 0 1 -.72-.69c3.12-3.27 7.14-5.16 11.86-5.16s8.74 1.89 11.86 5.16a.5.5 0 0 1 -.02.71z' fill-rule='evenodd'></path></svg>".$rowEQS['nom']."</h5>
+     </div>";
+     $eqn=$eqn+1;
+    } 
+   
+ }
+ $reqEQ2="SELECT * from eqlo  where CodeL=? ";
+ $statementEQ2=$conn->prepare($reqEQ2);
+ $statementEQ2->bind_param("i",$CodeL);
+ $statementEQ2->execute();
+ $resEQ2=$statementEQ2->get_result();
+
+ while(($rowEQ2=mysqli_fetch_array($resEQ2)) )
+ {
+   $CodeE=$rowEQ2['CodeE'];
+   $reqEQS="SELECT * from equipement  where CodeE=? ";
+   $statementEQS=$conn->prepare($reqEQS);
+   $statementEQS->bind_param("i",$CodeE);
+   $statementEQS->execute();
+   $resEQS=$statementEQS->get_result();
+   $rowEQS=$resEQS->fetch_assoc();
+   $nomEQ=$rowEQS['nom'];
+   
+   $equiLST.="<hr>
+              <div class='_czm8crp'>".$nomEQ."</div> 
+              <div class='_1jlnvra2'>Description d'equipement</div>";
+  
+ }
+
+//rating data 
+$reqRI="SELECT rating,COUNT(*) as num from ratings where CodeL=? GROUP BY rating";
+$statementRI=$conn->prepare($reqRI);
+$statementRI->bind_param("i",$CodeL);
+$statementRI->execute();
+$resRI=$statementRI->get_result();
+$nbr5S=0;
+$nbr4S=0;
+$nbr3S=0;
+$nbr2S=0;
+$nbr1S=0;
+while(($rowRI=mysqli_fetch_array($resRI)) )
+{
+   $currentC=$rowRI['rating'];
+   $currentN=$rowRI['num'];
+
+   if($currentC==5)
+    {
+     $nbr5S=$currentN;
+    }
+   if($currentC==4)
+    {
+     $nbr5S=$currentN;
+    }    
+   if($currentC==3)
+    {
+     $nbr5S=$currentN;
+    }
+   if($currentC==2)
+    {
+     $nbr5S=$currentN;
+    } 
+   if($currentC==1)
+    {
+     $nbr5S=$currentN;
+    } 
+
+
+
+ }
+
+ $reqRI="SELECT rating From logement where CodeL=?";
+ $statementRI=$conn->prepare($reqRI);
+ $statementRI->bind_param("i",$CodeL);
+ $statementRI->execute();
+ $resRI=$statementRI->get_result();
+ $rowRI=$resRI->fetch_assoc();
+ $OvrRating=$rowRI['rating'];
+ 
+
+ $wholeR = floor($OvrRating);      
+ $fractionR = $OvrRating - $wholeR;
+ $ir=0;
+ $stars="";
+ $countSTR=5-$wholeR;
+ while($ir<$wholeR)
+ {
+    $stars.="<span ><i class='fas fa-star'></i></span>";
+    $ir++;
+ }
+
+ if($fractionR>=0.8 && $fractionR<=0.9)
+  {
+    $stars.="<span ><i class='fas fa-star'></i></span>";
+    $countSTR=$countSTR-1;
+  }
+ else if($fractionR>0.2 && $fractionR<0.8)
+  {
+    $stars.="<span ><i class='fas fa-star-half-alt'></i></span>";
+    $countSTR=$countSTR-1;
+  }
+  else if($fractionR<=0.2 && $fractionR>0.8)
+  {
+     $stars.="<span ><i class='fas fa-star'></i></span>";
+    $countSTR=$countSTR-1;
+  }
+
+  $ir=0;
+  while($ir<$countSTR)
+  {
+     $stars.="<span ><i class='far fa-star'></i></span>";
+     $ir++;
+  }
+
+ $reqRI="SELECT count(*) as ttl From ratings where CodeL=?";
+ $statementRI=$conn->prepare($reqRI);
+ $statementRI->bind_param("i",$CodeL);
+ $statementRI->execute();
+ $resRI=$statementRI->get_result();
+ $rowRI=$resRI->fetch_assoc();
+ $nbrRt=$rowRI['ttl'];
+ $nbrRt=$nbrRt;
+
+
+
+//Check if this user has this saved
+$saved='';
+$reqS="SELECT * from saves where CodeL=? and CodeU=?";
+$statementS=$conn->prepare($reqS);
+$statementS->bind_param("ii",$CodeL,$codeU);
+$statementS->execute();
+$resS=$statementS->get_result();
+
+if(($rowS=$resS->fetch_assoc()))
+  {
+    $saved='Y';
+  }
+else
+  {
+   $saved='N';
+  }  
+
+
 
 
 
@@ -1102,13 +1278,15 @@ else
       <!--animate css-->
       <link rel="stylesheet" href="../../Resourse/cssSm/animate-wow.css">
       <!--main css-->
-      <link rel="stylesheet" href="../../Resourse/cssSm/style.css">
+      
       <link rel="stylesheet" href="../../Resourse/cssSm/bootstrap-select.min.css">
+      <link href="../../Resourse/cssSm/ratingBot/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
       <link rel="stylesheet" href="../../Resourse/cssSm/slick.min.css">
       <link rel="stylesheet" href="../../Resourse/cssSm/select2.min.css">
       <!--responsive css-->
       <link rel="stylesheet" href="../../Resourse/cssSm/responsive.css">
       <link href="../../Resourse/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="../../Resourse/cssSm/style.css">
       <!--ChatBox-->
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -1198,30 +1376,15 @@ else
                         <div class="btn-dit-list clearfix">
                            <div class="left-dit-p">
                               <div class="prod-btn">
-                              <a data-toggle="modal" data-target="#modalLikeThis2"><i class="fas fa-heart"></i> Like this 2</a>
-                                 <a href="#"><i class="fas fa-heart"></i> Like this</a>
+                              <?=$rt2?>
+                                 <a id="like-btn"><i class="far fa-heart"></i> save this</a>
                                  <p>23 likes</p>
                               </div>
                               <div id="RtBlock">
                                 <div>
-                                  <?=$rt?>
+                                  <?=$rt1?>
                                 </div> 
-                                <div id="stars" class="container">
-                                 <div class="row">
-                                   <div class="rating">
-                                    <input type="radio" id="star5" name="rating" value="5" />
-                                    <label for="star5" title="Meh">5 stars</label>
-                                    <input type="radio" id="star4" name="rating" value="4" />
-                                    <label for="star4" title="Kinda bad">4 stars</label>
-                                    <input type="radio" id="star3" name="rating" value="3" />
-                                    <label for="star3" title="Kinda bad">3 stars</label>
-                                    <input type="radio" id="star2" name="rating" value="2" />
-                                    <label for="star2" title="Sucks big tim">2 stars</label>
-                                    <input type="radio" id="star1" name="rating" value="1" />
-                                    <label for="star1" title="Sucks big time">1 star</label>
-                                   </div>
-                                 </div>
-                                </div>   
+                               
                               </div>
                               <div id="YRT">
                                 
@@ -1269,13 +1432,9 @@ else
                         <div class="spe-a">
                            <h4>Équipements</h4>
                            <ul>
-                              <li class="clearfix">
-                                 <div class="col-md-4">
-                                    <h5><svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style="height: 19px; width: 19px; fill: currentcolor;"><path d="m12 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0 5a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm5.92-5.78a.5.5 0 1 1 -.84.55c-1.19-1.81-3.07-2.77-5.08-2.77s-3.89.96-5.08 2.78a.5.5 0 0 1 -.84-.55c1.38-2.1 3.58-3.23 5.92-3.23s4.54 1.13 5.92 3.23zm2.98-3.03a.5.5 0 1 1 -.79.61c-1.66-2.14-5.22-3.8-8.11-3.8-2.83 0-6.26 1.62-8.12 3.82a.5.5 0 0 1 -.76-.65c2.05-2.42 5.75-4.17 8.88-4.17 3.19 0 7.05 1.8 8.9 4.19zm2.95-2.33a.5.5 0 0 1 -.71-.02c-2.94-3.07-6.71-4.84-11.14-4.84s-8.2 1.77-11.14 4.85a.5.5 0 0 1 -.72-.69c3.12-3.27 7.14-5.16 11.86-5.16s8.74 1.89 11.86 5.16a.5.5 0 0 1 -.02.71z" fill-rule="evenodd"></path></svg>     WI-FI</h5>
-                                 </div>
-                                 <div class="col-md-8">
-                                 <h5><svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style="height: 19px; width: 19px; fill: currentcolor;"><path d="m10.5 0a .5.5 0 0 0 -.5.5v7a .5.5 0 0 1 -.49.5h-1.51v-7.5a.5.5 0 1 0 -1 0v7.5h-1.51a.5.5 0 0 1 -.49-.5v-7a .5.5 0 1 0 -1 0v7c0 .83.67 1.5 1.49 1.5h1.51v5c0 .03.01.06.02.09a1.49 1.49 0 0 0 -1.02 1.41v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.66-.43-1.21-1.02-1.41.01-.03.02-.06.02-.09v-5h1.51a1.5 1.5 0 0 0 1.49-1.5v-7a .5.5 0 0 0 -.5-.5zm-2.5 15.5v7a .5.5 0 0 1 -.5.5.5.5 0 0 1 -.5-.5v-7c0-.28.22-.5.5-.5s.5.22.5.5zm11.5-15.5h-2c-1.4 0-2.5 1.07-2.5 2.5v7c0 1.43 1.1 2.5 2.5 2.5h1.5v2.09a1.49 1.49 0 0 0 -.5-.09c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-22.5zm-2 11c-.86 0-1.5-.63-1.5-1.5v-7c0-.87.65-1.5 1.5-1.5h1.5v10zm1.5 11.5a.5.5 0 0 1 -.5.5.5.5 0 0 1 -.5-.5v-7c0-.28.22-.5.5-.5s.5.22.5.5z" fill-rule="evenodd"></path></svg>     Cuisine</h5>
-                                 </div>
+                               <!--equipement preview-->
+                               <li class="clearfix">
+                                <?=$equiprv1?>
                               </li>
                               <li class="clearfix">
                                  <div class="col-md-4">
@@ -1286,23 +1445,184 @@ else
                                  </div>
                               </li>
                               <li class="clearfix">
-                                 <div class="col-md-4">
-                                    <h5><svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style="height: 19px; width: 19px; fill: currentcolor;"><path d="m20 11h-19.5a.5.5 0 0 0 -.5.5v2c0 5.79 4.24 10.5 9.5 10.5 3.43 0 6.41-2.01 8.08-5h2.42a4 4 0 0 0 0-8zm-10.5 12c-4.68 0-8.5-4.24-8.5-9.5v-1.5h17v1.5c0 5.26-3.82 9.5-8.5 9.5zm10.5-5h-1.93c.59-1.37.93-2.89.93-4.5v-1.5h1a3 3 0 0 1 0 6zm-11.9-13.7c-.96-1.28-.96-2.53-.37-3.58a2.7 2.7 0 0 1 .42-.57.5.5 0 0 1 .71.71 1.73 1.73 0 0 0 -.25.35c-.41.73-.41 1.55.3 2.49 1.5 2 1.6 3.85.48 5.13a.5.5 0 1 1 -.75-.66c.79-.89.71-2.22-.53-3.87zm-4.49 1.03c-.77-.89-.77-1.85-.31-2.7a2.5 2.5 0 0 1 .32-.46.5.5 0 1 1 .74.67c-.04.04-.1.13-.18.26-.28.52-.28 1.04.15 1.54 2.12 2 2.16 3.22.45 4.29a.5.5 0 1 1 -.53-.85c1.09-.68 1.08-1.12-.64-2.75zm9 0c-.77-.89-.77-1.85-.31-2.7a2.5 2.5 0 0 1 .32-.46.5.5 0 1 1 .74.67c-.04.04-.1.13-.18.26-.28.52-.28 1.04.15 1.54 2.12 2 2.16 3.22.45 4.29a.5.5 0 0 1 -.53-.85c1.09-.68 1.08-1.12-.64-2.75z" fill-rule="evenodd"></path></svg>  Petit déjeuner</h5>
-                                 </div>
-                                 <div class="col-md-8">
-                                 <h5><svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style="height: 19px; width: 19px; fill: currentcolor;"><path d="m23.99 18.38-.5-2a .5.5 0 0 0 -.49-.38h-22a .5.5 0 0 0 -.49.38l-.5 2a .5.5 0 0 0 .49.62h23a .5.5 0 0 0 .49-.62zm-1.13-.38h-21.72l.25-1h21.22zm-21.36-3h21a .5.5 0 0 0 .5-.53c-.21-3.22-1.22-5.47-3-5.47a4911.8 4911.8 0 0 0 -8.8 0h-1.71c-.2 0-.26-.08-.19-.27a9.59 9.59 0 0 1 .17-.48c.13-.34.27-.68.43-1 .41-.79.82-1.25 1.1-1.25h10.5c.87 0 1.43-.7 1.4-1.52s-.64-1.48-1.55-1.48h-11.35c-3.84 0-7.29 4.4-8.99 11.38a.5.5 0 0 0 .49.62zm8.5-11h11.35c.35 0 .55.21.56.52.01.29-.14.48-.4.48h-10.51c-.8 0-1.42.68-1.99 1.8a10.74 10.74 0 0 0 -.65 1.61c-.31.82.23 1.59 1.13 1.59h1.71a33801.74 33801.74 0 0 1 8.8 0c .94 0 1.71 1.58 1.95 4h-19.8c1.65-6.21 4.7-10 7.85-10zm5 8a1 1 0 1 1 2 0 1 1 0 0 1 -2 0zm3 0a1 1 0 1 1 2 0 1 1 0 0 1 -2 0z" fill-rule="evenodd"></path></svg>  Fer a repasser</h5>
-
-                                 </div>
+                                 <?=$equiprv2?>
                               </li><br>
                               <div class="col-md-12">
                                     <a type="button" href="#" aria-busy="false" class="equipment" data-toggle="modal" data-target="#modalEquip">Afficher les <?=$nbrEQ?> équipements</a>
                                  </div>
                            </ul>
                         </div>
+                        <hr>
+                        <div class="spe-a">
+                           <h4>Réglements</h4>
+                           <p>
+                           <?=$regl?>
+                           </p>
+                        </div>
+                        <div class="spe-a">
+                           <h4>Ratings</h4>
+                              <div class="container">
+                                 <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                       <div class="well well-sm">
+                                          <div class="row">
+                                             <div class="col-xs-12 col-md-6 text-center">
+                                                <h1 class="rating-num">
+                                                <?php echo sprintf("%.1f", $OvrRating);?></h1>
+                                                <div class="rating">
+                                                 <?=$stars?>
+                                                </div>
+                                                <div>
+                                                  <span ><i class="fas fa-user"></i>  </span><?=$nbrRt?> total
+                                                </div>
+                                             </div>
+                                             <div class="col-xs-12 col-md-6">
+                                                <div class="row rating-desc">
+                                                   <div class="col-xs-3 col-md-3 text-right">
+                                                    <span><i class="fas fa-star"></i></span>5
+                                                   </div>
+                           
+                                                   <div class="col-xs-8 col-md-9">
+                                                      <div class="progress progress-striped">
+                                                       <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                                       <span class="sr-only">100%</span>
+                                                      </div>
+                                    
+                                                   </div>
+                                                   <div class="col-md-6 col-md-offset-12">
+                                                   <span></span>
+                                                   </div>
+                                                </div>
+                            
+                                                <!-- end 5 -->
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                   <span ><i class="fas fa-star"></i></span>4
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                   <div class="progress">
+                                                      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                                        <span class="sr-only">80%</span>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <!-- end 4 -->
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                  <span ><i class="fas fa-star"></i></span>3
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                   <div class="progress">
+                                                      <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                                         <span class="sr-only">60%</span>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <!-- end 3 -->
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                   <span ><i class="fas fa-star"></i><span>2
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                   <div class="progress">
+                                                      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
+                                                         aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                         <span class="sr-only">40%</span>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <!-- end 2 -->
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                   <span ><i class="fas fa-star"></i></span>1
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                   <div class="progress">
+                                                      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
+                                                       aria-valuemin="0" aria-valuemax="100" style="width: 15%">
+                                                       <span class="sr-only">15%</span>
+                                        
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <!-- end 1 -->
+                                             </div>
+                                             <!-- end row -->
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <hr>
+                           <div class="right-dit-p">
+                              <div class="like-list">
+                                 <ul>
+                                    <li>
+                                       <div class="im-b"><img class="" src="../../Resourse/images/list-img-01.png" alt=""></div>
+                                    </li>
+                                    <li>
+                                       <div class="im-b"><img src="../../Resourse/images/list-img-02.png" alt=""></div>
+                                    </li>
+                                    <li>
+                                       <div class="im-b"><img src="../../Resourse/images/list-img-03.png" alt=""></div>
+                                    </li>
+                                    <li>
+                                       <div class="im-b"><img src="../../Resourse/images/list-img-04.png" alt=""></div>
+                                    </li>
+                                    <li>
+                                       <div class="im-b"><img src="../../Resourse/images/list-img-05.png" alt=""></div>
+                                    </li>
+                                    <li>
+                                       <div class="im-b"><img src="../../Resourse/images/list-img-06.png" alt=""></div>
+                                    </li>
+                                    <li>
+                                       <div class="im-b"><i id="SeeComments" class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </div>
+                           <div class="spe-a">
+                              <h4>Comments</h4>     
+                              <div id="comments" class="card Comments">
+	                              <div class="card-body">
+	                                 <div class="row">
+        	                              <div class="col-md-2">
+        	                                 <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+        	                                 <p class="text-secondary text-center">15 Minutes Ago</p>
+        	                              </div>
+        	                              <div class="col-md-10">
+        	                                 <p>
+        	                                 <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
+        	                                 <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                          <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+        	                                 <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+        	                                 <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                          <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+
+        	                                 </p>
+        	                                 <div class="clearfix"></div>
+        	                                  <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        	                                       <p>
+        	                                        <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
+        	                                        <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+        	                                       </p>
+        	                                 </div>
+	                                    </div>
+	                                 </div>
+                                    <button><i class="far fa-arrow-alt-circle-left"></i></button> <button><i class="far fa-arrow-alt-circle-right"></i></button>
+                                 </div>
+         
+                              </div> 
+                        
                      </div>
                   </div>
 
-
+               <!--Map location-->
+                  <div >      
+                     <div id="map">
+                   
+                     </div>
+                  </div>
                   <div class="similar-box">
                      <h2>Similiar results</h2>
                      
@@ -1328,7 +1648,7 @@ else
             </div>
          </div>
       </div>
-
+</div>
 <!--Modal-->
 
 <div class="modal fade" id="modalEquip"  tabindex="-1" role="dialog">
@@ -1343,35 +1663,7 @@ else
       <div class="modal-body">
         <div class="_1p0spma2">Standard</div>
         <div class="_1lhxpmp">
-           <div class="_czm8crp"> Wi-Fi</div>
-           <div style="margin-top: 8px;">
-              <div class="_1jlnvra2">Accès permanent dans le logement</div> 
-              <hr>
-              <div class="_czm8crp">Television</div> 
-              <hr>
-              <div class="_czm8crp">Fer à repasser</div> 
-              <hr>
-              <div class="_czm8crp">Équipements de base</div> 
-              <div class="_1jlnvra2">Serviettes, draps, savon et papier toilette</div> 
-              <hr>
-              <div class="_czm8crp">Chauffage</div> 
-              <div class="_1jlnvra2">Chauffage central ou radiateur électrique</div> 
-              <hr>
-              <div class="_czm8crp">Climatisation</div> 
-              
-              <hr>
-              <div class="_czm8crp">Eau chaude</div> 
-              <hr>
-              <div class="_czm8crp">Detecteur de fumée</div> 
-              <hr>
-              <div class="_czm8crp">Kit de premiers secours</div> 
-              <hr>
-              <div class="_czm8crp">gg</div> 
-              <hr>
-              <div class="_czm8crp">gg</div> 
-              <hr>
-              <div class="_czm8crp">gg</div> 
-            </div>
+          <?=$equiLST?>
          </div>
          <hr>
          
@@ -1387,20 +1679,33 @@ else
 <!--Modal-->
 
 
-<div class="modal" id="modalLikeThis2" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+<div class="modal" id="modalLikeThis2" tabindex="-1" role="dialog" >
+  <div class="modal-dialog-centered" role="document" style="width:40%;margin-left:30%;margin-top:2%;">
+  
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
+      
+      <div class="modal-body" >
+         <div class="Mrating">
+          <input type="radio" id="Mstar5" name="rating" value="5" />
+          <label for="Mstar5" title="Meh">5 stars</label>
+          <input type="radio" id="Mstar4" name="rating" value="4" />
+          <label for="Mstar4" title="Kinda bad">4 stars</label>
+          <input type="radio" id="Mstar3" name="rating" value="3" />
+          <label for="Mstar3" title="Kinda bad">3 stars</label>
+          <input type="radio" id="Mstar2" name="rating" value="2" />
+          <label for="Mstar2" title="Sucks big tim">2 stars</label>
+          <input type="radio" id="Mstar1" name="rating" value="1" />
+          <label for="Mstar1" title="Sucks big time">1 star</label>
+         </div>
+         <br>
+         <div class="avis">
+          <label for="comment" style="margin-top:20%; margin-left:0px;">Donner un avis</label>
+          <textarea id="comment" name="story" rows="5" cols="33" style="border: 1px solid black; "> </textarea>
+          
+         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button id="rate-btn" type="button" class="btn btn-primary">Save changes</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -1562,7 +1867,7 @@ else
 
    </body>
    
-
+ 
    
    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
    <script src='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js'></script>
@@ -1572,7 +1877,7 @@ else
       <!--bootstrap js--> 
       
       <script src="../../Resourse/js3/bootstrap.min.js"></script> 
-      <script src="../../Resourse/js3/bootstrap-select.min.js"></script>
+      <!--<script src="../../Resourse/js3/bootstrap-select.min.js"></script>-->
       <script src="../../Resourse/js3/slick.min.js"></script> 
       <script src="../../Resourse/js3/select2.full.min.js"></script> 
       <script src="../../Resourse/js3/wow.min.js"></script> 
@@ -1669,116 +1974,165 @@ i = 0;
 
 
 
-<script>
-var appended=0;
-var redir="<?=$_GET['rdr']?>";
-var alrd=<?=$Alrd?>;
-if((redir=="o" && alrd==1) || (redir=="r" && alrd==1) ){
-      document.getElementById('stars').style.display='none';
-      appended=0;
-      }
-      else if((redir=="r" && alrd==0) || (redir=="o" && alrd==0))
-      {
-         document.getElementById('stars').style.display='block';
-         appended=1;
-      }
 
- function ShowStars()
-		{
-			if(appended==0)
-			  {
-				document.getElementById('stars').style.display='block';
-            appended=1;
-			  }
-			  else
-			  {
-				document.getElementById('stars').style.display='none';
-            appended=0;
-			  }
-		}
-</script> 
+
+
+
+
+
+
+<script>
+var Mrating=0;
+var comment="";
+
+
+
+$(document).ready(function(){  
+
+   
+
+       $('#Mstar1').click(function(){  
+          Mrating=1;
+       }); 
+ 
+       $('#Mstar2').click(function(){
+          Mrating=2;   
+       }); 
+ 
+       $('#Mstar3').click(function(){
+          Mrating=3;
+       });
+ 
+       $('#Mstar4').click(function(){
+          Mrating=4;
+       });
+       
+       $('#Mstar5').click(function(){
+          Mrating=5;
+       });
+       $("#rate-btn").click(function(){
+          comment = document.getElementById("comment").value; 
+         $.ajax({  
+                 url:"RateL.php",   
+                 method:"POST",
+                 data:{rating:Mrating,comment:comment,RatedL:<?=$CodeL?>,rater:<?=$userCode?>},
+                 success:function(data){  
+                    
+                    
+                    $('#modalLikeThis2').modal('hide');                
+                    document.getElementById('RTM').style.display='none';
+                    document.getElementById('YRT').innerHTML='<h3>You rated this '+Mrating+' Stars</h3>';
+
+                  }
+                 });
+
+       });
+
+       
+   
+
+ });  
+</script>
 
 <script>
 
 $(document).ready(function(){  
-   var rating=0;
-
-   $('#star1').click(function(){  
-          
-          rating=1;
-          $.ajax({  
- 
-                 url:"RateL.php",   
-                 method:"POST",
-                data:{rating:rating,RatedL:<?=$CodeL?>,rater:<?=$userCode?>},
-                success:function(data){  
-                    
-                    document.getElementById('RtBlock').style.display='none';
-                    document.getElementById('YRT').innerHTML='<h3>You rated this '+rating+' Stars</h3>';
-                  }
-            });  
-          
-       }); 
- 
-       $('#star2').click(function(){
-          rating=2;
-          $.ajax({  
-                 url:"RateL.php",   
-                 method:"POST",
-                 data:{rating:rating,RatedL:<?=$CodeL?>,rater:<?=$userCode?>},
-                 success:function(data){  
-                    
-                    document.getElementById('RtBlock').style.display='none';
-                    document.getElementById('YRT').innerHTML='<h3>You rated this '+rating+' Stars</h3>';
-                  }
-                 });
-          
-       }); 
- 
-       $('#star3').click(function(){
-          rating=3;
-          $.ajax({  
-                 url:"RateL.php",   
-                 method:"POST",
-                 data:{rating:rating,RatedL:<?=$CodeL?>,rater:<?=$userCode?>},
-                 success:function(data){  
-                    
-                  document.getElementById('RtBlock').style.display='none';
-                  document.getElementById('YRT').innerHTML='<h3>You rated this '+rating+' Stars</h3>';
-                }  
-                 });
-       });
- 
-       $('#star4').click(function(){
-          rating=4;
-          $.ajax({  
-                 url:"RateL.php",   
-                 method:"POST",
-                 data:{rating:rating,RatedL:<?=$CodeL?>,rater:<?=$userCode?>},
-                 success:function(data){  
-                    
-                    document.getElementById('RtBlock').style.display='none';
-                    document.getElementById('YRT').innerHTML='<h3>You rated this '+rating+' Stars</h3>';
-                  }
-                 });
-       });
-       
-       $('#star5').click(function(){
-          rating=5;
-          $.ajax({  
-                 url:"RateL.php",   
-                 method:"POST",
-                 data:{rating:rating,RatedL:<?=$CodeL?>,rater:<?=$userCode?>},
-                 success:function(data){  
-                    
-                    document.getElementById('RtBlock').style.display='none';
-                    document.getElementById('YRT').innerHTML='<h3>You rated this '+rating+' Stars</h3>';
-                  }
-                 });
-       });
+   document.getElementById('comments').style.display='none';
    
 
- });  
+   $('#SeeComments').click(function(){  
+          
+     if(hidden==true)     
+      {
+         document.getElementById('comments').style.display='block';
+         hidden=false;
+      }   
+     else
+      { 
+         document.getElementById('comments').style.display='none';
+         hidden=true;
+      }
+
+       });
+      });
+
+</script>
+
+<script>
+
+var saved='<?=$saved?>';
+var hidden=true;
+var CodeL='<?=$CodeL?>';
+var CodeU='<?=$userCode?>';
+$(document).ready(function(){  
+
+   if(saved=='N')
+       {
+          $('#like-btn').empty().append("<i class='fas fa-heart'></i> saved");
+       }
+       else if(saved=='Y')
+       {
+          $('#like-btn').empty().append("<i class='far fa-heart'></i> save this");
+         }   
+   $('#like-btn').click(function(){  
+      if(saved=='N')
+       {
+          $('#like-btn').empty().append("<i class='fas fa-heart'></i> saved");
+          saved='Y';
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:CodeL,CodeU:CodeU,action:saved},
+                 success:function(data){  
+
+                  }
+                 });
+
+
+       }   
+      else if(saved=='Y')
+       {
+          $('#like-btn').empty().append("<i class='far fa-heart'></i> save this");
+          saved='N';
+
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:CodeL,CodeU:CodeU,action:saved},
+                 success:function(data){  
+
+                  }
+                 });
+
+       }
+       });   
+    });  
+
+</script>
+
+<script async defer
+
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWv8pHQtbrov613r_RMqCjZ_nOrz2y7HM&callback=initMap">
+    </script>
+
+<script>
+function initMap(){
+   var options = {
+      zoom:8,
+      center:{lat:<?=$lat?>, lng:<?=$lng?>}
+
+   }
+   var map = new google.maps.Map(
+      document.getElementById('map'),options);
+
+   var marker = new google.maps.Marker({
+      position: {lat:<?=$lat?>, lng:<?=$lng?>}, 
+      map: map,
+      icon:'../../Resourse/imgs/adresse.png'
+      });
+   
+
+}
 </script>
 
 </html>

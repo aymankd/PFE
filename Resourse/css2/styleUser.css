@@ -13301,7 +13301,12 @@
   }
   
   .breadcrumb-item.active {
-    color: #6c757d;
+   letter-spacing: normal !important;
+font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif !important;
+color: rgb(72, 72, 72) !important;
+font-weight: 800 !important;
+   font-size: 24px;
+   line-height: 40px !important;
   }
   
   .pagination {
@@ -13427,9 +13432,11 @@
   }
   
   .badge-pill {
-    padding-right: 0.6em;
-    padding-left: 0.6em;
+    padding-right: 1em;
+    padding-left: 1em;
     border-radius: 10rem;
+    margin-top: 3px;
+    margin-left: 3px;
   }
   
   .badge-primary {
@@ -22854,7 +22861,7 @@
   
   /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
   .active, .accordion:hover {
-    background-color: #ccc;
+    /*! background-color: #ccc; */
   }
   
   /* Style the accordion panel. Note: hidden by default */
@@ -23204,3 +23211,14 @@ h2 {
     border-color: #464dee;
     box-shadow: transparent;
   }
+
+
+  .SectionName {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    list-style: none;
+    background-color: #e9ecef00;
+    border-radius: 0.25rem;
+}

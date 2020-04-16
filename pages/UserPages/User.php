@@ -204,10 +204,15 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
   <link rel="stylesheet" href="../../Resourse/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../../Resourse/vendors/base/vendor.bundle.base.css">
  
+  <link rel="stylesheet" href="../../Resourse/ForUserPage/styleCardd.css">
+  <link rel="stylesheet" href="../../Resourse/ForUserPage/css/grid2.css">
+  <link rel="stylesheet" href="../../Resourse/ForUserPage/css/colors.css">
+  <link rel="stylesheet" href="../../Resourse/ForUserPage/css/responsive.css">
 
   <link rel="stylesheet" href="../../Resourse/css2/styleUser.css">
   <link rel="shortcut icon" href="../../Resourse/images/favicon.png" />
-
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+  <link rel="stylesheet" href="../../Resourse/cssSm/font-awesome.min.css">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
   <link rel="stylesheet" href="../../Resourse/css3/chatbox.css">
 
@@ -337,362 +342,285 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 
     <!-- partial -->
 		<div class="container-fluid">
+    <br>
+    <nav aria-label="breadcrumb">
+  <ol class="SectionName">
+    <p class="breadcrumb-item active" aria-current="page">Section 1</p>
+  </ol>
+</nav>
+<section class="section first-section">
+            <div class="container-fluid">
+                <div class="masonry-blog clearfix">
+                    <div class="left-side">
+                        <div class="masonry-box post-media">
+                             <img src="../../Resourse/images/lag-60.png" alt="" class="img-fluid">
+                             <div class="shadoweffect">
+                                <div class="shadow-desc">
+                                    <div class="blog-meta">
+                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">Gardening</a></span>
+                                        <h4><a href="garden-single.html" title="">How to choose high quality soil for your gardens</a></h4>
+                                        <small><a href="garden-single.html" title="">21 July, 2017</a></small>
+                                        <small><a href="#" title="">by Amanda</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end shadow-desc -->
+                            </div><!-- end shadow -->
+                        </div><!-- end post-media -->
+                    </div><!-- end left-side -->
+
+                    <div class="center-side">
+                        <div class="masonry-box post-media">
+                             <img src="../../Resourse/images/lag-61.png" alt="" class="img-fluid">
+                             <div class="shadoweffect">
+                                <div class="shadow-desc">
+                                    <div class="blog-meta">
+                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">Outdoor</a></span>
+                                        <h4><a href="garden-single.html" title="">You can create a garden with furniture in your home</a></h4>
+                                        <small><a href="garden-single.html" title="">19 July, 2017</a></small>
+                                        <small><a href="#" title="">by Amanda</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end shadow-desc -->
+                            </div><!-- end shadow -->
+                        </div><!-- end post-media -->
+                    </div><!-- end left-side -->
+
+                    <div class="right-side hidden-md-down">
+                        <div class="masonry-box post-media">
+                             <img src="../../Resourse/images/lag-63.png" alt="" class="img-fluid">
+                             <div class="shadoweffect">
+                                <div class="shadow-desc">
+                                    <div class="blog-meta">
+                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">Indoor</a></span>
+                                        <h4><a href="garden-single.html" title="">The success of the 10 companies in the vegetable sector</a></h4>
+                                        <small><a href="garden-single.html" title="">03 July, 2017</a></small>
+                                        <small><a href="#" title="">by Jessica</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end shadow-desc -->
+                             </div><!-- end shadow -->
+                        </div><!-- end post-media -->
+                    </div><!-- end right-side -->
+                </div><!-- end masonry -->
+            </div>
+        </section>
+				<!-- partial -->
+			</div>
+			<!-- main-panel ends -->
+		</div>
+		<!-- page-body-wrapper ends -->
+    </div>
+
+
+
+
+   <!-- partial -->
+   <div class="container-fluid">
+    <br>
+    <nav aria-label="breadcrumb">
+  <ol class="SectionName">
+    <p class="breadcrumb-item active" aria-current="page">Section 2</p>
+  </ol>
+</nav>
+<div class="project-content">
+			<div class="col-half">
+				<div class="project animate-box" style="background-image:url(../../Resourse/images/lag-60.png);">
+					<div class="desc">
+						<span>Mr Alami dodo</span>
+						<h3>Appartement1</h3>
+						<span>Prix : 5000dh</h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-half">
+				<div class="project-grid animate-box" style="background-image:url(../../Resourse/images/lag-61.png);">
+					<div class="desc">
+					<span>Mr Alami dodo</span>
+						<h3>Appartement1</h3>
+						<span>Prix : 5000dh</h3>
+					</div>
+				</div>
+				<div class="project-grid animate-box" style="background-image:url(../../Resourse/images/tr3.png);">
+					<div class="desc">
+					<span>Mr Alami dodo</span>
+						<h3>Appartement1</h3>
+						<span>Prix : 5000dh</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+				<!-- partial -->
+			</div>
+			<!-- main-panel ends -->
+		</div>
+		<!-- page-body-wrapper ends -->
+    </div>
+<br>
+
+
+
+ <!-- partial -->
+ <div class="container-fluid">
+    <br>
+    <nav aria-label="breadcrumb">
+  <ol class="SectionName">
+    <p class="breadcrumb-item active" aria-current="page">Section 3</p>
+  </ol>
+</nav>
     <main class="grid">
-  <article>
-    <!--Slidshow-->
-      <div id="demo1" class="carousel slide" data-ride="carousel">
+     <article>
+    <!-- Card -->
+<div class="card">
 
-      <!-- Indicators -->
-      <ul class="carousel-indicators">
-         <li data-target="#demo1" data-slide-to="0" class="active"></li>
-         <li data-target="#demo1" data-slide-to="1" class=""></li>
-         <li data-target="#demo1" data-slide-to="2" class=""></li>
-     </ul>
-
-       <!-- The slideshow -->
-       <div class="carousel-inner">
-   <div class="carousel-item active">
-     <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
-</div>
-<div class="carousel-item">
-  <img src="../../images/auth/login-bg.jpg" class="d-block w-100">
-</div>
-<div class="carousel-item">
-   <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
-</div>
+<div class="view zoom overlay">
+  <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">Sale</span></h4>
+  <a href="#!">
+    <div class="mask">
+      <img class="img-fluid w-100"
+        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg">
+      <div class="mask rgba-black-slight"></div>
+    </div>
+  </a>
 </div>
 
-       <!-- Left and right controls -->
-        <a class="carousel-control-prev" href="#demo1" data-slide="prev">
-       <span class="carousel-control-prev-icon"></span>
-       </a>
-      <a class="carousel-control-next" href="#demo1" data-slide="next">
-      <span class="carousel-control-next-icon"></span>
-      </a>
+<div class="card-body text-center">
 
-      </div>
-        <!--/slidshow-->
-        <div class="card-body">
-     <h5 class="card-title">The Joshua Tree House</h5>
-     <p class="card-text"> <i class="fas fa-tags CA"></i> 300Dh  &nbsp;<i class="fas fa-bed CA"></i> 2  &nbsp;  <i class="fas fa-female CA"></i><i class="fas fa-male CA"></i> 3  &nbsp; <i class="fas fa-warehouse CA"></i> 100 m²</p>
-    
-     <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> Salé-Sidi Moussa </p>
-      <br>
-     <p class="cpara">The Joshua Tree House is a two bed two bath 1949 hacienda located 10 minutes from the west entrance .</p> <br>
-       <a href="#" class="btn btn-primary">Voir plus</a>
-       </div>
+  <h5>Fantasy T-shirt</h5>
+  <p class="small text-muted text-uppercase mb-2">Shirts</p>
+  
+  <hr>
+  <h6 class="mb-3">
+    <span class="text-danger mr-1">12.99$</span>
+    <span class="text-grey"><s>36.99$</s></span>
+  </h6>
+
+ 
+  <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
+    <i class="fas fa-info-circle pr-2"></i>Details
+  </button>
+  <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
+    <i class="far fa-heart"></i>
+  </button>
+
+</div>
+
+</div>
+<!-- Card -->
   </article>
   <article>
-    <!--Slidshow-->
-      <div id="demo2" class="carousel slide" data-ride="carousel">
+    <!-- Card -->
+<div class="card">
 
-      <!-- Indicators -->
-      <ul class="carousel-indicators">
-         <li data-target="#demo2" data-slide-to="0" class="active"></li>
-         <li data-target="#demo2" data-slide-to="1" class=""></li>
-         <li data-target="#demo2" data-slide-to="2" class=""></li>
-     </ul>
-
-       <!-- The slideshow -->
-       <div class="carousel-inner">
-   <div class="carousel-item active">
-     <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
-</div>
-<div class="carousel-item">
-  <img src="../../images/auth/login-bg.jpg" class="d-block w-100">
-</div>
-<div class="carousel-item">
-   <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
-</div>
+<div class="view zoom overlay">
+  <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">Sale</span></h4>
+  <a href="#!">
+    <div class="mask">
+      <img class="img-fluid w-100"
+        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg">
+      <div class="mask rgba-black-slight"></div>
+    </div>
+  </a>
 </div>
 
-       <!-- Left and right controls -->
-        <a class="carousel-control-prev" href="#demo2" data-slide="prev">
-       <span class="carousel-control-prev-icon"></span>
-       </a>
-      <a class="carousel-control-next" href="#demo2" data-slide="next">
-      <span class="carousel-control-next-icon"></span>
-      </a>
+<div class="card-body text-center">
 
-      </div>
-        <!--/slidshow-->
-        <div class="card-body">
-     <h5 class="card-title">The Joshua Tree House</h5>
-     <p class="card-text"> <i class="fas fa-tags CA"></i> 300Dh  &nbsp;<i class="fas fa-bed CA"></i> 2  &nbsp;  <i class="fas fa-female CA"></i><i class="fas fa-male CA"></i> 3  &nbsp; <i class="fas fa-warehouse CA"></i> 100 m²</p>
-    
-     <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> Salé-Sidi Moussa </p>
-      <br>
-     <p class="cpara">The Joshua Tree House is a two bed two bath 1949 hacienda located 10 minutes from the west entrance .</p> <br>
-       <a href="#" class="btn btn-primary">Voir plus</a>
-       </div>
+  <h5>Fantasy T-shirt</h5>
+  <p class="small text-muted text-uppercase mb-2">Shirts</p>
+  
+  <hr>
+  <h6 class="mb-3">
+    <span class="text-danger mr-1">12.99$</span>
+    <span class="text-grey"><s>36.99$</s></span>
+  </h6>
+
+ 
+  <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
+    <i class="fas fa-info-circle pr-2"></i>Details
+  </button>
+  <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
+    <i class="far fa-heart"></i>
+  </button>
+
+</div>
+
+</div>
+<!-- Card -->
   </article>
   <article>
-    <!--Slidshow-->
-      <div id="demo" class="carousel slide" data-ride="carousel">
+    <!-- Card -->
+<div class="card">
 
-      <!-- Indicators -->
-      <ul class="carousel-indicators">
-         <li data-target="#demo" data-slide-to="0" class=""></li>
-         <li data-target="#demo" data-slide-to="1" class=""></li>
-         <li data-target="#demo" data-slide-to="2" class="active"></li>
-     </ul>
-
-       <!-- The slideshow -->
-       <div class="carousel-inner">
-   <div class="carousel-item">
-     <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
-</div>
-<div class="carousel-item">
-  <img src="../../images/auth/login-bg.jpg" class="d-block w-100">
-</div>
-<div class="carousel-item active">
-   <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
-</div>
+<div class="view zoom overlay">
+  <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">Sale</span></h4>
+  <a href="#!">
+    <div class="mask">
+      <img class="img-fluid w-100"
+        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg">
+      <div class="mask rgba-black-slight"></div>
+    </div>
+  </a>
 </div>
 
-       <!-- Left and right controls -->
-        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-       <span class="carousel-control-prev-icon"></span>
-       </a>
-      <a class="carousel-control-next" href="#demo" data-slide="next">
-      <span class="carousel-control-next-icon"></span>
-      </a>
+<div class="card-body text-center">
 
-      </div>
-        <!--/slidshow-->
-        <div class="card-body">
-     <h5 class="card-title">The Joshua Tree House</h5>
-     <p class="card-text"> <i class="fas fa-tags CA"></i> 300Dh  &nbsp;<i class="fas fa-bed CA"></i> 2  &nbsp;  <i class="fas fa-female CA"></i><i class="fas fa-male CA"></i> 3  &nbsp; <i class="fas fa-warehouse CA"></i> 100 m²</p>
-    
-     <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> Salé-Sidi Moussa </p>
-      <br>
-     <p class="cpara">The Joshua Tree House is a two bed two bath 1949 hacienda located 10 minutes from the west entrance .</p> <br>
-       <a href="#" class="btn btn-primary">Voir plus</a>
-       </div>
+  <h5>Fantasy T-shirt</h5>
+  <p class="small text-muted text-uppercase mb-2">Shirts</p>
+  
+  <hr>
+  <h6 class="mb-3">
+    <span class="text-danger mr-1">12.99$</span>
+    <span class="text-grey"><s>36.99$</s></span>
+  </h6>
+
+ 
+  <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
+    <i class="fas fa-info-circle pr-2"></i>Details
+  </button>
+  <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
+    <i class="far fa-heart"></i>
+  </button>
+
+</div>
+
+</div>
+<!-- Card -->
   </article>
   <article>
-    <!--Slidshow-->
-      <div id="demo" class="carousel slide" data-ride="carousel">
+    <!-- Card -->
+<div class="card">
 
-      <!-- Indicators -->
-      <ul class="carousel-indicators">
-         <li data-target="#demo" data-slide-to="0" class=""></li>
-         <li data-target="#demo" data-slide-to="1" class=""></li>
-         <li data-target="#demo" data-slide-to="2" class="active"></li>
-     </ul>
-
-       <!-- The slideshow -->
-       <div class="carousel-inner">
-   <div class="carousel-item">
-     <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
-</div>
-<div class="carousel-item">
-  <img src="../../images/auth/login-bg.jpg" class="d-block w-100">
-</div>
-<div class="carousel-item active">
-   <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
-</div>
+<div class="view zoom overlay">
+  <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">Sale</span></h4>
+  <a href="#!">
+    <div class="mask">
+      <img class="img-fluid w-100"
+        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg">
+      <div class="mask rgba-black-slight"></div>
+    </div>
+  </a>
 </div>
 
-       <!-- Left and right controls -->
-        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-       <span class="carousel-control-prev-icon"></span>
-       </a>
-      <a class="carousel-control-next" href="#demo" data-slide="next">
-      <span class="carousel-control-next-icon"></span>
-      </a>
+<div class="card-body text-center">
 
-      </div>
-        <!--/slidshow-->
-        <div class="card-body">
-     <h5 class="card-title">The Joshua Tree House</h5>
-     <p class="card-text"> <i class="fas fa-tags CA"></i> 300Dh  &nbsp;<i class="fas fa-bed CA"></i> 2  &nbsp;  <i class="fas fa-female CA"></i><i class="fas fa-male CA"></i> 3  &nbsp; <i class="fas fa-warehouse CA"></i> 100 m²</p>
-    
-     <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> Salé-Sidi Moussa </p>
-      <br>
-     <p class="cpara">The Joshua Tree House is a two bed two bath 1949 hacienda located 10 minutes from the west entrance .</p> <br>
-       <a href="#" class="btn btn-primary">Voir plus</a>
-       </div>
+  <h5>Fantasy T-shirt</h5>
+  <p class="small text-muted text-uppercase mb-2">Shirts</p>
+  
+  <hr>
+  <h6 class="mb-3">
+    <span class="text-danger mr-1">12.99$</span>
+    <span class="text-grey"><s>36.99$</s></span>
+  </h6>
+
+ 
+  <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
+    <i class="fas fa-info-circle pr-2"></i>Details
+  </button>
+  <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
+    <i class="far fa-heart"></i>
+  </button>
+
+</div>
+
+</div>
+<!-- Card -->
   </article>
-  <article>
-    <!--Slidshow-->
-      <div id="demo" class="carousel slide" data-ride="carousel">
-
-      <!-- Indicators -->
-      <ul class="carousel-indicators">
-         <li data-target="#demo" data-slide-to="0" class=""></li>
-         <li data-target="#demo" data-slide-to="1" class=""></li>
-         <li data-target="#demo" data-slide-to="2" class="active"></li>
-     </ul>
-
-       <!-- The slideshow -->
-       <div class="carousel-inner">
-   <div class="carousel-item">
-     <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
-</div>
-<div class="carousel-item">
-  <img src="../../images/auth/login-bg.jpg" class="d-block w-100">
-</div>
-<div class="carousel-item active">
-   <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
-</div>
-</div>
-
-       <!-- Left and right controls -->
-        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-       <span class="carousel-control-prev-icon"></span>
-       </a>
-      <a class="carousel-control-next" href="#demo" data-slide="next">
-      <span class="carousel-control-next-icon"></span>
-      </a>
-
-      </div>
-        <!--/slidshow-->
-        <div class="card-body">
-     <h5 class="card-title">The Joshua Tree House</h5>
-     <p class="card-text"> <i class="fas fa-tags CA"></i> 300Dh  &nbsp;<i class="fas fa-bed CA"></i> 2  &nbsp;  <i class="fas fa-female CA"></i><i class="fas fa-male CA"></i> 3  &nbsp; <i class="fas fa-warehouse CA"></i> 100 m²</p>
-    
-     <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> Salé-Sidi Moussa </p>
-      <br>
-     <p class="cpara">The Joshua Tree House is a two bed two bath 1949 hacienda located 10 minutes from the west entrance .</p> <br>
-       <a href="#" class="btn btn-primary">Voir plus</a>
-       </div>
-  </article>
-  <article>
-    <!--Slidshow-->
-      <div id="demo" class="carousel slide" data-ride="carousel">
-
-      <!-- Indicators -->
-      <ul class="carousel-indicators">
-         <li data-target="#demo" data-slide-to="0" class=""></li>
-         <li data-target="#demo" data-slide-to="1" class=""></li>
-         <li data-target="#demo" data-slide-to="2" class="active"></li>
-     </ul>
-
-       <!-- The slideshow -->
-       <div class="carousel-inner">
-   <div class="carousel-item">
-     <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
-</div>
-<div class="carousel-item">
-  <img src="../../images/auth/login-bg.jpg" class="d-block w-100">
-</div>
-<div class="carousel-item active">
-   <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
-</div>
-</div>
-
-       <!-- Left and right controls -->
-        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-       <span class="carousel-control-prev-icon"></span>
-       </a>
-      <a class="carousel-control-next" href="#demo" data-slide="next">
-      <span class="carousel-control-next-icon"></span>
-      </a>
-
-      </div>
-        <!--/slidshow-->
-        <div class="card-body">
-     <h5 class="card-title">The Joshua Tree House</h5>
-     <p class="card-text"> <i class="fas fa-tags CA"></i> 300Dh  &nbsp;<i class="fas fa-bed CA"></i> 2  &nbsp;  <i class="fas fa-female CA"></i><i class="fas fa-male CA"></i> 3  &nbsp; <i class="fas fa-warehouse CA"></i> 100 m²</p>
-    
-     <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> Salé-Sidi Moussa </p>
-      <br>
-     <p class="cpara">The Joshua Tree House is a two bed two bath 1949 hacienda located 10 minutes from the west entrance .</p> <br>
-       <a href="#" class="btn btn-primary">Voir plus</a>
-       </div>
-  </article>
-  <article>
-    <!--Slidshow-->
-      <div id="demo" class="carousel slide" data-ride="carousel">
-
-      <!-- Indicators -->
-      <ul class="carousel-indicators">
-         <li data-target="#demo" data-slide-to="0" class=""></li>
-         <li data-target="#demo" data-slide-to="1" class=""></li>
-         <li data-target="#demo" data-slide-to="2" class="active"></li>
-     </ul>
-
-       <!-- The slideshow -->
-       <div class="carousel-inner">
-   <div class="carousel-item">
-     <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
-</div>
-<div class="carousel-item">
-  <img src="../../images/auth/login-bg.jpg" class="d-block w-100">
-</div>
-<div class="carousel-item active">
-   <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
-</div>
-</div>
-
-       <!-- Left and right controls -->
-        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-       <span class="carousel-control-prev-icon"></span>
-       </a>
-      <a class="carousel-control-next" href="#demo" data-slide="next">
-      <span class="carousel-control-next-icon"></span>
-      </a>
-
-      </div>
-        <!--/slidshow-->
-        <div class="card-body">
-     <h5 class="card-title">The Joshua Tree House</h5>
-     <p class="card-text"> <i class="fas fa-tags CA"></i> 300Dh  &nbsp;<i class="fas fa-bed CA"></i> 2  &nbsp;  <i class="fas fa-female CA"></i><i class="fas fa-male CA"></i> 3  &nbsp; <i class="fas fa-warehouse CA"></i> 100 m²</p>
-    
-     <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> Salé-Sidi Moussa </p>
-      <br>
-     <p class="cpara">The Joshua Tree House is a two bed two bath 1949 hacienda located 10 minutes from the west entrance .</p> <br>
-       <a href="#" class="btn btn-primary">Voir plus</a>
-       </div>
-  </article>
-
-  <article>
-    <!--Slidshow-->
-      <div id="demo" class="carousel slide" data-ride="carousel">
-
-      <!-- Indicators -->
-      <ul class="carousel-indicators">
-         <li data-target="#demo" data-slide-to="0" class=""></li>
-         <li data-target="#demo" data-slide-to="1" class=""></li>
-         <li data-target="#demo" data-slide-to="2" class="active"></li>
-     </ul>
-
-       <!-- The slideshow -->
-       <div class="carousel-inner">
-   <div class="carousel-item">
-     <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
-</div>
-<div class="carousel-item">
-  <img src="../../images/auth/login-bg.jpg" class="d-block w-100">
-</div>
-<div class="carousel-item active">
-   <img src="../../images/lockscreen-bg.jpg" class="d-block w-100">
-</div>
-</div>
-
-       <!-- Left and right controls -->
-        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-       <span class="carousel-control-prev-icon"></span>
-       </a>
-      <a class="carousel-control-next" href="#demo" data-slide="next">
-      <span class="carousel-control-next-icon"></span>
-      </a>
-
-      </div>
-        <!--/slidshow-->
-        <div class="card-body">
-     <h5 class="card-title">The Joshua Tree House</h5>
-     <p class="card-text"> <i class="fas fa-tags CA"></i> 300Dh  &nbsp;<i class="fas fa-bed CA"></i> 2  &nbsp;  <i class="fas fa-male CA"></i> 3  &nbsp; <i class="fas fa-warehouse CA"></i> 100 m²</p>
-    
-     <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> Salé-Sidi Moussa </p>
-      <br>
-     <p class="cpara">The Joshua Tree House is a two bed two bath 1949 hacienda located 10 minutes from the west entrance .</p> <br>
-       <a href="#" class="btn btn-primary">Voir plus</a>
-       </div>
-  </article>
-
-
 </main>
 				<!-- partial -->
 			</div>
@@ -700,6 +628,12 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 		</div>
 		<!-- page-body-wrapper ends -->
     </div>
+<br>
+
+
+
+
+
     <?=$chatboxs; ?>
 
     <!-- container-scroller -->

@@ -3497,19 +3497,21 @@ margin-top: 12px;
     /*  
      * Rating styles
      */
-	 .rating {
+	
+
+	  .Mrating{
 		float:left;
 	  }
   
 	  /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
 		follow these rules. Every browser that supports :checked also supports :not(), so
 		it doesn’t make the test unnecessarily selective */
-	  .rating:not(:checked) > input {
+	  .Mrating:not(:checked) > input {
 		  position:absolute;
 		  clip:rect(0,0,0,0);
 	  }
   
-	  .rating:not(:checked) > label {
+	  .Mrating:not(:checked) > label{
 		  float:right;
 		  width:1em;
 		  /* padding:0 .1em; */
@@ -3521,36 +3523,43 @@ margin-top: 12px;
 		  color:#ddd;
 	  }
   
-	  .rating:not(:checked) > label:before {
+	  .Mrating:not(:checked) > label:before {
 		  content: '★ ';
 	  }
   
-	  .rating > input:checked ~ label {
+	  .Mrating > input:checked ~ label {
 		  color: dodgerblue;
 		  
 	  }
   
-	  .rating:not(:checked) > label:hover,
-	  .rating:not(:checked) > label:hover ~ label {
+	  .Mrating:not(:checked) > label:hover,
+	  .Mrating:not(:checked) > label:hover ~ label {
 		  color: dodgerblue;
 		  
 	  }
   
-	  .rating > input:checked + label:hover,
-	  .rating > input:checked + label:hover ~ label,
-	  .rating > input:checked ~ label:hover,
-	  .rating > input:checked ~ label:hover ~ label,
-	  .rating > label:hover ~ input:checked ~ label {
+	  .Mrating > input:checked + label:hover,
+	  .Mrating > input:checked + label:hover ~ label,
+	  .Mrating > input:checked ~ label:hover,
+	  .Mrating > input:checked ~ label:hover ~ label,
+	  .Mrating > label:hover ~ input:checked ~ label {
 		  color: dodgerblue;
 		  
 	  }
   
-	  .rating > label:active {
+	  .Mrating > label:active {
 		  position:relative;
 		  top:2px;
 		  left:2px;
 	  }
 
+/*Map style*/
+#map{
+	height:400px;
+	width:100%;
+}
 
-
-
+.cmt{
+	width: 70%;
+}
+	  
