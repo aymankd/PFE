@@ -1395,7 +1395,17 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) )
     $resCM=$statementCM->get_result();  
     $rowCM=$resCM->fetch_assoc();
     $pages=$rowCM['cnt'];
-
+    //count number of saves
+    $reqs="SELECT Count(*) as cntS from saves where CodeL=?";
+    $statements=$conn->prepare($reqs);
+    $statements->bind_param("i",$CodeL);
+    $statements->execute();
+    $ress=$statements->get_result();  
+    
+   if(($rows=$ress->fetch_assoc()))
+     {
+        $nbrsaves=$rows['cntS'];
+     }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -1520,13 +1530,13 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) )
 
                            <div class="left-dit-p">
 
-                              <div class="prod-btn">                                
+                              <div class="prod-btn"> 
+                                 <a href="loginRT.php?smr=<?=$CodeL?>"><i class="far fa-star"></i> Rate this</a>                               
                                  <a href="loginSV.php?smr=<?=$CodeL?>"><i class="far fa-heart"></i> Save this</a>                               
+                                 <p><?=$nbrsaves?> personnes ont enregistrer cet logement </p>
                               </div>
-                              &nbsp;
-                              <div class="prod-btn">
-                                 <a href="loginRT.php?smr=<?=$CodeL?>"><i class="far fa-star"></i> Rate this</a>
-                              </div>
+                              
+                              
                                                            
                            </div>
                          

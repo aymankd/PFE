@@ -1336,20 +1336,24 @@ while(($rowRI=mysqli_fetch_array($resRI)) )
 
 //Check if this user has this saved
 $saved='';
-$reqS="SELECT * from saves where CodeL=? and CodeU=?";
+$reqS="SELECT count(*) as cntS from saves where CodeL=? and CodeU=?";
 $statementS=$conn->prepare($reqS);
-$statementS->bind_param("ii",$CodeL,$codeU);
+$statementS->bind_param("ii",$CodeL,$userCode);
 $statementS->execute();
 $resS=$statementS->get_result();
 
 if(($rowS=$resS->fetch_assoc()))
   {
-    $saved='Y';
+   if($rowS['cntS']==1)  
+     {
+       $saved='Y';
+     }   
+    else if($rowS['cntS']==0)
+     {
+       $saved='N';
+     } 
   }
-else
-  {
-   $saved='N';
-  }  
+  
 
 //loading first page of comments comments 
 $Comments="";
@@ -1460,6 +1464,18 @@ while(($rowCM=mysqli_fetch_array($resCM)))
  $resCM=$statementCM->get_result();  
  $rowCM=$resCM->fetch_assoc();
  $pages=$rowCM['cnt'];
+
+ //count number of saves
+ $reqs="SELECT Count(*) as cntS from saves where CodeL=?";
+ $statements=$conn->prepare($reqs);
+ $statements->bind_param("i",$CodeL);
+ $statements->execute();
+ $ress=$statements->get_result();  
+ 
+if(($rows=$ress->fetch_assoc()))
+  {
+     $nbrsaves=$rows['cntS'];
+  }
 
 ?>
 
@@ -1576,9 +1592,9 @@ while(($rowCM=mysqli_fetch_array($resCM)))
                         <div class="btn-dit-list clearfix">
                            <div class="left-dit-p">
                               <div class="prod-btn">
-                              <?=$rt2?>
+                                 <?=$rt2?>
                                  <a id="like-btn"><i class="far fa-heart"></i> save this</a>
-                                 <p>23 likes</p>
+                                 <p><?=$nbrsaves?> personnes ont enregistrer cet logement </p>
                               </div>
                               <div id="RtBlock">
                                 <div>
@@ -2220,11 +2236,11 @@ var CodeL='<?=$CodeL?>';
 var CodeU='<?=$userCode?>';
 $(document).ready(function(){  
 
-   if(saved=='N')
+   if(saved=='Y')
        {
           $('#like-btn').empty().append("<i class='fas fa-heart'></i> saved");
        }
-       else if(saved=='Y')
+       else if(saved=='N')
        {
           $('#like-btn').empty().append("<i class='far fa-heart'></i> save this");
          }   
