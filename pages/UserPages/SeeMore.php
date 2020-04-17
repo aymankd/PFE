@@ -1090,37 +1090,132 @@ $equiprv1="";
 $equiprv2="";
 $equiLST="";
 $CodeE="";
-$reqEQ="SELECT * from eqlo  where CodeL=? ";
+
+$reqEQ="SELECT CodeE from equipement  where nom='Wi-Fi' ";
 $statementEQ=$conn->prepare($reqEQ);
-$statementEQ->bind_param("i",$CodeL);
+$statementEQ->execute();
+$resEQ=$statementEQ->get_result();
+$rowEQ=$resEQ->fetch_assoc();
+$CodeWifi=$rowEQ['CodeE'];
+
+$reqEQ="SELECT CodeE from equipement  where nom='Detecteur de fumée' ";
+$statementEQ=$conn->prepare($reqEQ);
+$statementEQ->execute();
+$resEQ=$statementEQ->get_result();
+$rowEQ=$resEQ->fetch_assoc();
+$CodeDF=$rowEQ['CodeE'];
+
+$reqEQ="SELECT CodeE from equipement  where nom='Chauff-eau' ";
+$statementEQ=$conn->prepare($reqEQ);
+$statementEQ->execute();
+$resEQ=$statementEQ->get_result();
+$rowEQ=$resEQ->fetch_assoc();
+$CodeCffA=$rowEQ['CodeE'];
+
+$reqEQ="SELECT CodeE from equipement  where nom='Climatisation' ";
+$statementEQ=$conn->prepare($reqEQ);
+$statementEQ->execute();
+$resEQ=$statementEQ->get_result();
+$rowEQ=$resEQ->fetch_assoc();
+$CodeClim=$rowEQ['CodeE'];
+
+
+
+
+$reqEQ="SELECT * from eqlo  where CodeL=? and (CodeE=? or CodeE=? or CodeE=? or CodeE=?) ";
+$statementEQ=$conn->prepare($reqEQ);
+$statementEQ->bind_param("iiiii",$CodeL,$CodeWifi,$CodeDF,$CodeCffA,$CodeClim);
 $statementEQ->execute();
 $resEQ=$statementEQ->get_result();
 
-while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
+$wf=FALSE;
+$clm=FALSE;
+$df=FALSE;
+$ce=FALSE;
+
+while(($rowEQ=mysqli_fetch_array($resEQ)) )
  {
-   $CodeE=$rowEQ['CodeE'];
-   $reqEQS="SELECT * from equipement  where CodeE=? ";
-   $statementEQS=$conn->prepare($reqEQS);
-   $statementEQS->bind_param("i",$CodeE);
-   $statementEQS->execute();
-   $resEQS=$statementEQS->get_result();
-   $rowEQS=$resEQS->fetch_assoc();
-   if($eqn<=2)
-    {
-      $equiprv1.= " <div class='col-md-4'>
-                   <h5><svg viewBox='0 0 24 24' role='presentation' aria-hidden='true' focusable='false' style='height: 19px; width: 19px; fill: currentcolor;'><path d='m12 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0 5a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm5.92-5.78a.5.5 0 1 1 -.84.55c-1.19-1.81-3.07-2.77-5.08-2.77s-3.89.96-5.08 2.78a.5.5 0 0 1 -.84-.55c1.38-2.1 3.58-3.23 5.92-3.23s4.54 1.13 5.92 3.23zm2.98-3.03a.5.5 0 1 1 -.79.61c-1.66-2.14-5.22-3.8-8.11-3.8-2.83 0-6.26 1.62-8.12 3.82a.5.5 0 0 1 -.76-.65c2.05-2.42 5.75-4.17 8.88-4.17 3.19 0 7.05 1.8 8.9 4.19zm2.95-2.33a.5.5 0 0 1 -.71-.02c-2.94-3.07-6.71-4.84-11.14-4.84s-8.2 1.77-11.14 4.85a.5.5 0 0 1 -.72-.69c3.12-3.27 7.14-5.16 11.86-5.16s8.74 1.89 11.86 5.16a.5.5 0 0 1 -.02.71z' fill-rule='evenodd'></path></svg>".$rowEQS['nom']."</h5>
-                  </div>";
-      $eqn=$eqn+1;
-    }
-   else
-    {
-      $equiprv2.= " <div class='col-md-4'>
-      <h5><svg viewBox='0 0 24 24' role='presentation' aria-hidden='true' focusable='false' style='height: 19px; width: 19px; fill: currentcolor;'><path d='m12 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0 5a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm5.92-5.78a.5.5 0 1 1 -.84.55c-1.19-1.81-3.07-2.77-5.08-2.77s-3.89.96-5.08 2.78a.5.5 0 0 1 -.84-.55c1.38-2.1 3.58-3.23 5.92-3.23s4.54 1.13 5.92 3.23zm2.98-3.03a.5.5 0 1 1 -.79.61c-1.66-2.14-5.22-3.8-8.11-3.8-2.83 0-6.26 1.62-8.12 3.82a.5.5 0 0 1 -.76-.65c2.05-2.42 5.75-4.17 8.88-4.17 3.19 0 7.05 1.8 8.9 4.19zm2.95-2.33a.5.5 0 0 1 -.71-.02c-2.94-3.07-6.71-4.84-11.14-4.84s-8.2 1.77-11.14 4.85a.5.5 0 0 1 -.72-.69c3.12-3.27 7.14-5.16 11.86-5.16s8.74 1.89 11.86 5.16a.5.5 0 0 1 -.02.71z' fill-rule='evenodd'></path></svg>".$rowEQS['nom']."</h5>
-     </div>";
-     $eqn=$eqn+1;
-    } 
-   
+  
+   $reqEQs="SELECT * from equipement  where CodeE=? ";
+   $statementEQs=$conn->prepare($reqEQs);
+   $statementEQs->bind_param("i",$rowEQ['CodeE']);
+   $statementEQs->execute();
+   $resEQs=$statementEQs->get_result();
+   $rowEQs=$resEQs->fetch_assoc();
+    
+    if(strcmp($rowEQs['nom'], "Wi-Fi")==0)
+      {
+         $wf=TRUE;
+      }
+    else if(strcmp($rowEQs['nom'],"Climatisation")==0) 
+      {
+         $clm=TRUE;
+      }
+    else if(strcmp($rowEQs['nom'],"Detecteur de fumée")==0) 
+      {
+         $df=TRUE;
+      }
+    else if(strcmp($rowEQs['nom'],"Chauff-eau")==0) 
+      {
+         $ce=TRUE;         
+      }        
  }
+
+ if($wf==TRUE)
+  {
+   $equiprv1.= " <div class='col-md-4'>
+   <h4><img src='../../Resourse/imgs/equipements/wifi.png' />&nbsp;Wi-Fi</h4>
+  </div>";
+  }
+ else if($wf==FALSE) 
+  {
+   $equiprv1.= " <div class='col-md-4'>
+   <h4><p><s><img src='../../Resourse/imgs/equipements/wifi.png' />&nbsp;Wi-Fi</s></p></h4>
+  </div>";
+  }
+
+  if($clm==TRUE)
+  {
+   $equiprv1.= " <div class='col-md-4'>
+   <h4><img src='../../Resourse/imgs/equipements/air-conditioner.png' />&nbsp;Climatisation</h4>
+  </div>";
+  }
+  
+ else if($clm==FALSE) 
+  {
+   $equiprv1.= " <div class='col-md-4'>
+   <h4><p><strike><img src='../../Resourse/imgs/equipements/air-conditioner.png' />&nbsp;Climatisationsss</strike></p></h4>
+  </div>";
+  }
+
+  if($df==TRUE)
+  {
+   $equiprv2.= " <div class='col-md-4'>
+   <h4><img src='../../Resourse/imgs/equipements/smoke-detector.png' />&nbsp;Detecteur de fumée</h4>
+  </div>";
+  }
+ else if($df==FALSE) 
+  {
+   $equiprv2.= " <div class='col-md-4'>
+   <h4><p><s><img src='../../Resourse/imgs/equipements/smoke-detector.png' />&nbsp;Detecteur de fumée</s></p></h4>
+  </div>";
+  }
+
+  if($ce==TRUE)
+  {
+   $equiprv2.= " <div class='col-md-4'>
+   <h4><img src='../../Resourse/imgs/equipements/water-heater.png' />&nbsp;Chauff-eau</h4>
+  </div>";
+  }
+ else if($ce==FALSE) 
+  {
+   $equiprv2.= " <div class='col-md-4'>
+   <h4><p><s><img src='../../Resourse/imgs/equipements/water-heater.png' />&nbsp;Chauff-eau</s></p></h4>
+  </div>";
+  }
+
+
+
  $reqEQ2="SELECT * from eqlo  where CodeL=? ";
  $statementEQ2=$conn->prepare($reqEQ2);
  $statementEQ2->bind_param("i",$CodeL);
@@ -1495,33 +1590,7 @@ while(($rowCM=mysqli_fetch_array($resCM)))
                                 
                               </div>
                            </div>
-                           <div class="right-dit-p">
-                              <div class="like-list">
-                                 <ul>
-                                    <li>
-                                       <div class="im-b"><img class="" src="../../Resourse/images/list-img-01.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-02.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-03.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-04.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-05.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-06.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
-                                    </li>
-                                 </ul>
-                              </div>
-                           </div>
+                           
                         </div>
                      </div>
                      <div class="description-box">
@@ -1737,7 +1806,7 @@ while(($rowCM=mysqli_fetch_array($resCM)))
 <!--Modal-->
 
 <div class="modal fade" id="modalEquip"  tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+<div class="modal-dialog-centered" role="document" style="width:40%;margin-left:30%">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title _26piifo">Équipements</h5>
