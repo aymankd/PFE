@@ -181,6 +181,46 @@ $UISc = $UISc.'updateScrollbar();
 
 $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 
+$ulLog="";
+//dropdown logement ultra
+$requl="SELECT * FROM logement WHERE CodeP=? and (CodeL NOT IN (SELECT CodeL FROM pack where CodeU=? ))";
+$statementul=$conn->prepare($requl);
+$statementul->bind_param("ii",$codeU,$codeU);
+$statementul->execute();
+$resul=$statementul->get_result();
+while($rowul = mysqli_fetch_array($resul)){ 
+$ulLog.="
+<div class='form-check'>
+  <label class='form-check-label'>
+  <input type='checkbox' name='check_ul' value='".$rowul['CodeL']."' class='form-check-input check_ul' >
+  ".$rowul['nom']."
+  </label>
+</div>
+";
+}
+$SupLog="";
+//dropdown logement ultra
+$reqSu="SELECT * FROM logement WHERE CodeP=? and (CodeL NOT IN (SELECT CodeL FROM pack where CodeU=? and type!='super'  ))";
+$statementSu=$conn->prepare($reqSu);
+$statementSu->bind_param("ii",$codeU,$codeU);
+$statementSu->execute();
+$resSu=$statementSu->get_result();
+while($rowSu = mysqli_fetch_array($resSu)){ 
+$SupLog.="
+<div class='form-check'>
+  <label class='form-check-label'>
+  <input type='checkbox' name='check_su' value='".$rowSu['CodeL']."' class='form-check-input check_su' >
+  ".$rowSu['nom']."
+  </label>
+</div>
+";
+}
+
+
+
+
+
+
 
 ?>
 
@@ -198,6 +238,7 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
  
 
   <link rel="stylesheet" href="../../Resourse/css2/styleRe.css">
+  <link rel="stylesheet" href="../../Resourse/css2/dropbtn.css">
   <link rel="shortcut icon" href="../../Resourse/images/favicon.png" />
 
 
@@ -341,7 +382,7 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
     <main class="grid">
 
           <div class='containerbox'>
-        <section class='card'>
+        <section class='card' data-toggle='modal' data-target='#UltraModal'>
           <div class='card_inner'>
             <div class='card_inner__circle'>
               <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/rocket.png'>
@@ -367,7 +408,7 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
         </section>
         <section class='card' style="display:none">
         </section>
-        <section class='card'>
+        <section class='card' data-toggle='modal' data-target='#SuperModal'>
           <div class='card_inner'>
             <div class='card_inner__circle'>
               <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/paperplane.png'>
@@ -405,6 +446,134 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 		<!-- page-body-wrapper ends -->
     </div>
     <?=$chatboxs; ?>
+
+    <!-- Ultra Modal -->
+    <div class="modal fade" id="UltraModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ultra Modal</h5>
+          </div>
+          <div class="modal-body">
+
+            <div class="form-group row">
+              <div class="col-sm-9">
+                <div class="dropdown">
+                  <button class="dropbtn form-control btn btn-default btn-sm dropdown-toggle ">Logement</button>
+                  <div class="dropdown-content force-scroll">
+                    <div class="radioEq">
+                      <?=$ulLog; ?>
+
+                    </div>	
+                  </div>
+                </div> 
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-9">
+                <div class="dropdown">
+                  <button class="dropbtn form-control btn btn-default btn-sm dropdown-toggle ">temp de pack</button>
+                  <div class="dropdown-content force-scroll">
+                    <div class="radioEq">
+                      <div class='form-check'>
+                        <label class='form-check-label'>
+                        <input type='radio' name='temp' value="1" class='form-check-input' checked>
+                        1 mois
+                        </label>
+                      </div>
+                      <div class='form-check'>
+                        <label class='form-check-label'>
+                        <input type='radio' name='temp' value="3" class='form-check-input' >
+                        3 mois
+                        </label>
+                      </div>
+                      <div class='form-check'>
+                        <label class='form-check-label'>
+                        <input type='radio' name='temp' value="12" class='form-check-input' >
+                        1 année
+                        </label>
+                      </div>
+                    </div>	
+                  </div>
+                </div> 
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <div id="ultraprix">
+              
+            </div>
+            <button type="button" class="btn btn-primary">Accepte</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Super Modal -->
+    <div class="modal fade" id="SuperModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Super Modal</h5>
+          </div>
+          <div class="modal-body">
+
+            <div class="form-group row">
+              <div class="col-sm-9">
+                <div class="dropdown">
+                  <button class="dropbtn form-control btn btn-default btn-sm dropdown-toggle ">Logement</button>
+                  <div class="dropdown-content force-scroll">
+                    <div class="radioEq">
+                      <?=$SupLog; ?>
+
+                    </div>	
+                  </div>
+                </div> 
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-9">
+                <div class="dropdown">
+                  <button class="dropbtn form-control btn btn-default btn-sm dropdown-toggle ">temp de pack</button>
+                  <div class="dropdown-content force-scroll">
+                    <div class="radioEq">
+                      <div class='form-check'>
+                        <label class='form-check-label'>
+                        <input type='radio' name='Stemp' value="1" class='form-check-input' checked>
+                        1 mois
+                        </label>
+                      </div>
+                      <div class='form-check'>
+                        <label class='form-check-label'>
+                        <input type='radio' name='Stemp' value="3" class='form-check-input' >
+                        3 mois
+                        </label>
+                      </div>
+                      <div class='form-check'>
+                        <label class='form-check-label'>
+                        <input type='radio' name='Stemp' value="12" class='form-check-input' >
+                        1 année
+                        </label>
+                      </div>
+                    </div>	
+                  </div>
+                </div> 
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <div id="Superprix">
+              
+            </div>
+            <button type="button" class="btn btn-primary">Accepte</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     
 
 
@@ -458,27 +627,48 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 
 
       <?=$UISc; ?>
-      /* 
-            setInterval(function() {
-      showdata="";
-      $.ajax({  
-                url:"chatmsg.php",  
-                method:"GET",  
-                data:{sender,reciever:},  
-                success:function(data){
-                   if(showdata!=data)
-                   {
-                     showdata=data;
-                     $('.mCSB_container').html(data);
-                   }
-                }  
-           });
-                 updateScrollbar(); 
-   }, 1000);
-      */
-
+   
     
     </script>
+    <script>
+    setInterval(function() {
+      var checkedlog = [];
+    // Initializing array with Checkbox checked values
+    $("input[name='check_ul']:checked").each(function(){
+      checkedlog.push(this.value);
+    });
+      var timepack = $('input:radio[name="temp"]:checked').val();
+      
+      $.ajax({  
+                url:"ultra.php",  
+                method:"POST",  
+                data:{logment: checkedlog,timeout:timepack},  
+                success:function(data){
+                  $('#ultraprix').html(data);
+                }  
+           });
+
+      var checkedlogSu = [];
+    // Initializing array with Checkbox checked values
+    $("input[name='check_su']:checked").each(function(){
+      checkedlogSu.push(this.value);
+    });
+      var timepackSu = $('input:radio[name="Stemp"]:checked').val();
+      
+      $.ajax({  
+                url:"super.php",  
+                method:"POST",  
+                data:{logment: checkedlogSu,timeout:timepackSu},  
+                success:function(data){
+                  $('#Superprix').html(data);
+                }  
+           });
+    }, 200);
+
+    </script>
+
+  
+
     <?=$jsScript; ?>
 
   
