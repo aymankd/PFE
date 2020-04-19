@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 
 $id=$_GET['id'];
 
-$req = "SELECT * FROM image where CodeImg=?";
+$req = "SELECT * FROM image where CodeL=?";
 $statement=$conn->prepare($req);
 $statement->bind_param("i",$id);
 $statement->execute();

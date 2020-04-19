@@ -187,7 +187,102 @@ $UISc = $UISc.'updateScrollbar();
 $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 
 
+$reqS="SELECT * from saves where CodeU=?";
+$statementS=$conn->prepare($reqS);
+$statementS->bind_param("i",$codeU);
+$statementS->execute();
+$resS=$statementS->get_result();
+$pos=1;
+$saves="";
 
+if(mysqli_num_rows($resS)==0) 
+{
+    $saves.="   <div id='No-Saves' class='center-side'>
+                        <img src='../../Resourse/imgs/userimgs/real-estate.png'/><br>
+                        <p><h3>Vous n'avez aucun enregistrement</h3><p>
+
+                 </div><!-- end center-side -->";
+}
+else
+{
+  while(($rowS = mysqli_fetch_array($resS)))
+  {
+    $reqS1="SELECT * from logement where CodeL=?";
+    $statementS1=$conn->prepare($reqS1);
+    $statementS1->bind_param("i",$rowS['CodeL']);
+    $statementS1->execute();
+    $resS1=$statementS1->get_result(); 
+    $rowS1=$resS1->fetch_assoc();
+    $TitreS=$rowS1['nom'];
+    $PrixS=$rowS1['prix'];
+    $CodePS=$rowS1['CodeP'];
+    $reqS1="SELECT * from utilisateur where CodeU=?";
+    $statementS1=$conn->prepare($reqS1);
+    $statementS1->bind_param("i",$CodePS);
+    $statementS1->execute();
+    $resS1=$statementS1->get_result(); 
+    $rowS1=$resS1->fetch_assoc();
+    $UsernameS=$rowS1['username'];
+     if($pos==1)
+      {
+        $saves.="   <div class='left-side'>
+                        <div class='masonry-box post-media'>
+                            <img src='../../Resourse/images/lag-60.png' alt='' class='img-fluid'>
+                            <div class='shadoweffect'>
+                                <div class='shadow-desc'>
+                                    <div class='blog-meta'>
+                                      <span class='bg-aqua'><a href='blog-category-01.html' title=''>Gardening</a></span>
+                                      <h4><a href='garden-single.html' title=''>".$TitreS."</a></h4>
+                                      <small><a href='garden-single.html' title=''>".$PrixS." DH</small>
+                                      <small><a href='#' title=''>by ".$UsernameS."</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end shadow-desc -->
+                             </div><!-- end shadow -->
+                        </div><!-- end post-media -->
+                    </div><!-- end left-side -->";
+        $pos=$pos+1;
+      }
+     else if($pos==2)
+      {
+        $saves.="   <div class='center-side'>
+                        <div class='masonry-box post-media'>
+                            <img src='../../Resourse/images/lag-60.png' alt='' class='img-fluid'>
+                            <div class='shadoweffect'>
+                                <div class='shadow-desc'>
+                                    <div class='blog-meta'>
+                                      <span class='bg-aqua'><a href='blog-category-01.html' title=''>Gardening</a></span>
+                                      <h4><a href='garden-single.html' title=''>".$TitreS."</a></h4>
+                                      <small><a href='garden-single.html' title=''>".$PrixS."</a></small>
+                                      <small><a href='#' title=''>by ".$UsernameS."</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end shadow-desc -->
+                             </div><!-- end shadow -->
+                        </div><!-- end post-media -->
+                    </div><!-- end center-side -->";
+        $pos=$pos+1;
+      }
+     else if($pos==3)
+      {
+         $saves.="   <div class='right-side-side'>
+                        <div class='masonry-box post-media'>
+                            <img src='../../Resourse/images/lag-60.png' alt='' class='img-fluid'>
+                            <div class='shadoweffect'>
+                                <div class='shadow-desc'>
+                                    <div class='blog-meta'>
+                                      <span class='bg-aqua'><a href='blog-category-01.html' title=''>Gardening</a></span>
+                                      <h4><a href='garden-single.html' title=''".$TitreS."</a></h4>
+                                      <small><a href='garden-single.html' title=''>".$PrixS."</a></small>
+                                      <small><a href='#' title=''>by ".$UsernameS."</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end shadow-desc -->
+                             </div><!-- end shadow -->
+                        </div><!-- end post-media -->
+                    </div><!-- end right-side -->";
+         $pos=1;
+      }
+   
+  }
+}
 
 ?>
 
@@ -345,296 +440,18 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
         </div>
       </nav>
     </div>
-
-    <!-- partial -->
-		<div class="container-fluid">
+    <div class="container-fluid">
     <br>
     <nav aria-label="breadcrumb">
   <ol class="SectionName">
-    <p class="breadcrumb-item active" aria-current="page">Section 1</p>
+    <p class="breadcrumb-item active" aria-current="page">Vos logements enregistrés</p>
   </ol>
 </nav>
-<section class="section first-section">
-            <div class="container-fluid">
+    <div class="container-fluid">
                 <div class="masonry-blog clearfix">
-                    <div class="left-side">
-                        <div class="masonry-box post-media">
-                             <img src="../../Resourse/images/lag-60.png" alt="" class="img-fluid">
-                             <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">Gardening</a></span>
-                                        <h4><a href="garden-single.html" title="">How to choose high quality soil for your gardens</a></h4>
-                                        <small><a href="garden-single.html" title="">21 July, 2017</a></small>
-                                        <small><a href="#" title="">by Amanda</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                            </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end left-side -->
-
-                    <div class="center-side">
-                        <div class="masonry-box post-media">
-                             <img src="../../Resourse/images/lag-61.png" alt="" class="img-fluid">
-                             <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">Outdoor</a></span>
-                                        <h4><a href="garden-single.html" title="">You can create a garden with furniture in your home</a></h4>
-                                        <small><a href="garden-single.html" title="">19 July, 2017</a></small>
-                                        <small><a href="#" title="">by Amanda</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                            </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end left-side -->
-
-                    <div class="right-side hidden-md-down">
-                        <div class="masonry-box post-media">
-                             <img src="../../Resourse/images/lag-63.png" alt="" class="img-fluid">
-                             <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">Indoor</a></span>
-                                        <h4><a href="garden-single.html" title="">The success of the 10 companies in the vegetable sector</a></h4>
-                                        <small><a href="garden-single.html" title="">03 July, 2017</a></small>
-                                        <small><a href="#" title="">by Jessica</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                             </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end right-side -->
+                    <?=$saves?>
                 </div><!-- end masonry -->
             </div>
-        </section>
-				<!-- partial -->
-			</div>
-			<!-- main-panel ends -->
-		</div>
-		<!-- page-body-wrapper ends -->
-    </div>
-
-
-
-
-   <!-- partial -->
-   <div class="container-fluid">
-    <br>
-    <nav aria-label="breadcrumb">
-  <ol class="SectionName">
-    <p class="breadcrumb-item active" aria-current="page">Section 2</p>
-  </ol>
-</nav>
-<div class="project-content">
-			<div class="col-half">
-				<div class="project animate-box" style="background-image:url(../../Resourse/images/lag-60.png);">
-					<div class="desc">
-						<span>Mr Alami dodo</span>
-						<h3>Appartement1</h3>
-						<span>Prix : 5000dh</h3>
-					</div>
-				</div>
-			</div>
-			<div class="col-half">
-				<div class="project-grid animate-box" style="background-image:url(../../Resourse/images/lag-61.png);">
-					<div class="desc">
-					<span>Mr Alami dodo</span>
-						<h3>Appartement1</h3>
-						<span>Prix : 5000dh</h3>
-					</div>
-				</div>
-				<div class="project-grid animate-box" style="background-image:url(../../Resourse/images/tr3.png);">
-					<div class="desc">
-					<span>Mr Alami dodo</span>
-						<h3>Appartement1</h3>
-						<span>Prix : 5000dh</h3>
-					</div>
-				</div>
-			</div>
-		</div>
-				<!-- partial -->
-			</div>
-			<!-- main-panel ends -->
-		</div>
-		<!-- page-body-wrapper ends -->
-    </div>
-<br>
-
-
-
- <!-- partial -->
- <div class="container-fluid">
-    <br>
-    <nav aria-label="breadcrumb">
-  <ol class="SectionName">
-    <p class="breadcrumb-item active" aria-current="page">Section 3</p>
-  </ol>
-</nav>
-    <main class="grid">
-     <article>
-    <!-- Card -->
-<div class="card">
-
-<div class="view zoom overlay">
-  <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">Sale</span></h4>
-  <a href="#!">
-    <div class="mask">
-      <img class="img-fluid w-100"
-        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg">
-      <div class="mask rgba-black-slight"></div>
-    </div>
-  </a>
-</div>
-
-<div class="card-body text-center">
-
-  <h5>Fantasy T-shirt</h5>
-  <p class="small text-muted text-uppercase mb-2">Shirts</p>
-  
-  <hr>
-  <h6 class="mb-3">
-    <span class="text-danger mr-1">12.99$</span>
-    <span class="text-grey"><s>36.99$</s></span>
-  </h6>
-
- 
-  <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
-    <i class="fas fa-info-circle pr-2"></i>Details
-  </button>
-  <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
-    <i class="far fa-heart"></i>
-  </button>
-
-</div>
-
-</div>
-<!-- Card -->
-  </article>
-  <article>
-    <!-- Card -->
-<div class="card">
-
-<div class="view zoom overlay">
-  <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">Sale</span></h4>
-  <a href="#!">
-    <div class="mask">
-      <img class="img-fluid w-100"
-        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg">
-      <div class="mask rgba-black-slight"></div>
-    </div>
-  </a>
-</div>
-
-<div class="card-body text-center">
-
-  <h5>Fantasy T-shirt</h5>
-  <p class="small text-muted text-uppercase mb-2">Shirts</p>
-  
-  <hr>
-  <h6 class="mb-3">
-    <span class="text-danger mr-1">12.99$</span>
-    <span class="text-grey"><s>36.99$</s></span>
-  </h6>
-
- 
-  <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
-    <i class="fas fa-info-circle pr-2"></i>Details
-  </button>
-  <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
-    <i class="far fa-heart"></i>
-  </button>
-
-</div>
-
-</div>
-<!-- Card -->
-  </article>
-  <article>
-    <!-- Card -->
-<div class="card">
-
-<div class="view zoom overlay">
-  <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">Sale</span></h4>
-  <a href="#!">
-    <div class="mask">
-      <img class="img-fluid w-100"
-        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg">
-      <div class="mask rgba-black-slight"></div>
-    </div>
-  </a>
-</div>
-
-<div class="card-body text-center">
-
-  <h5>Fantasy T-shirt</h5>
-  <p class="small text-muted text-uppercase mb-2">Shirts</p>
-  
-  <hr>
-  <h6 class="mb-3">
-    <span class="text-danger mr-1">12.99$</span>
-    <span class="text-grey"><s>36.99$</s></span>
-  </h6>
-
- 
-  <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
-    <i class="fas fa-info-circle pr-2"></i>Details
-  </button>
-  <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
-    <i class="far fa-heart"></i>
-  </button>
-
-</div>
-
-</div>
-<!-- Card -->
-  </article>
-  <article>
-    <!-- Card -->
-<div class="card">
-
-<div class="view zoom overlay">
-  <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">Sale</span></h4>
-  <a href="#!">
-    <div class="mask">
-      <img class="img-fluid w-100"
-        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg">
-      <div class="mask rgba-black-slight"></div>
-    </div>
-  </a>
-</div>
-
-<div class="card-body text-center">
-
-  <h5>Fantasy T-shirt</h5>
-  <p class="small text-muted text-uppercase mb-2">Shirts</p>
-  
-  <hr>
-  <h6 class="mb-3">
-    <span class="text-danger mr-1">12.99$</span>
-    <span class="text-grey"><s>36.99$</s></span>
-  </h6>
-
- 
-  <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
-    <i class="fas fa-info-circle pr-2"></i>Details
-  </button>
-  <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
-    <i class="far fa-heart"></i>
-  </button>
-
-</div>
-
-</div>
-<!-- Card -->
-  </article>
-</main>
-				<!-- partial -->
-			</div>
-			<!-- main-panel ends -->
-		</div>
-		<!-- page-body-wrapper ends -->
-    </div>
-<br>
 
 
 

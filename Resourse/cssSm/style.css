@@ -39,7 +39,14 @@
 /*------------------------------------------------------------- 
 	2. BASE CSS 
 -------------------------------------------------------------*/
-
+.img-prev{
+	width: 100%;
+	max-height: 99px;
+}
+.img-main{
+	width: 100%;
+	max-height: 410px;
+}
 body {
 	font-family: 'Raleway', sans-serif;
 	font-weight: 400;

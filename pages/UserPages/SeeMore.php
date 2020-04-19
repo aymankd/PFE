@@ -74,13 +74,13 @@ while ( ($rowI = mysqli_fetch_array($resI)) && ($i < 4) )
   $src="genere_image.php?id=$id";
   if($i==1)
     {
-      $img.="<div class='tab-pane active' id='pic-1'><img src='".$src."' alt='#' /></div>";
-      $imgs.="<li class='active'><a data-target='#pic-1' data-toggle='tab'><img src='".$src."' alt='#' /></a></li>";
+      $img.="<div class='tab-pane active' id='pic-1'><img class='img-main' src='".$src."' alt='#' /></div>";
+      $imgs.="<li class='active'><a data-target='#pic-1' data-toggle='tab'><img class='img-prev' src='".$src."' alt='#' /></a></li>";
     }
   else
     {
-      $img.="<div class='tab-pane' id='pic-".$i."'><img src='".$src."' alt='#' /></div>";
-      $imgs.=" <li><a data-target='#pic-".$i."' data-toggle='tab'><img src='".$src."' alt='#' /></a></li>";
+      $img.="<div class='tab-pane' id='pic-".$i."'><img class='img-main' src='".$src."' alt='#' /></div>";
+      $imgs.=" <li><a data-target='#pic-".$i."' data-toggle='tab'><img class='img-prev' src='".$src."' alt='#' /></a></li>";
     }  
 
 
@@ -1486,8 +1486,10 @@ if(($rows=$ress->fetch_assoc()))
       <title>Voire plus</title>
 
       <!--enable mobile device-->
+
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!--fontawesome css-->
+      
       <link rel="stylesheet" href="../../Resourse/cssSm/font-awesome.min.css">
       <!--bootstrap css-->
       <link rel="stylesheet" href="../../Resourse/cssSm/bootstrap.min.css">
@@ -1499,15 +1501,17 @@ if(($rows=$ress->fetch_assoc()))
       <link href="../../Resourse/cssSm/ratingBot/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
       <link rel="stylesheet" href="../../Resourse/cssSm/slick.min.css">
       <link rel="stylesheet" href="../../Resourse/cssSm/select2.min.css">
+      <link rel="stylesheet" href="../../Resourse/cssSm/style.css">
       <!--responsive css-->
       <link rel="stylesheet" href="../../Resourse/cssSm/responsive.css">
       <link href="../../Resourse/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-      <link rel="stylesheet" href="../../Resourse/cssSm/style.css">
+      
       <!--ChatBox-->
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
       <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
       <link rel="stylesheet" href="../../Resourse/css3/chatbox.css">
+      
 
    </head>
    <body >
