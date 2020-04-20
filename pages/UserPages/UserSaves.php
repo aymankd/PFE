@@ -223,16 +223,26 @@ else
     $resS1=$statementS1->get_result(); 
     $rowS1=$resS1->fetch_assoc();
     $UsernameS=$rowS1['username'];
+
+    $reqI="SELECT * FROM image where CodeL=? limit 1";
+    $statementI=$conn->prepare($reqI);
+    $statementI->bind_param("i",$rowS['CodeL']);
+    $statementI->execute();
+    $resI=$statementI->get_result();
+    $rowI=$resI->fetch_assoc();
+    $id_img=$rowI['CodeImg'];
+    $srcL="genere_image.php?id=$id_img";
+
      if($pos==1)
       {
         $saves.="   <div class='left-side'>
                         <div class='masonry-box post-media'>
-                            <img src='../../Resourse/images/lag-60.png' alt='' class='img-fluid'>
+                            <img  src='".$srcL."' alt='' class='img-fluid'>
                             <div class='shadoweffect'>
                                 <div class='shadow-desc'>
                                     <div class='blog-meta'>
                                       <span class='bg-aqua'><a href='blog-category-01.html' title=''>Gardening</a></span>
-                                      <h4><a href='garden-single.html' title=''>".$TitreS."</a></h4>
+                                      <h4><a href='SeeMore.php?smr=".$rowS['CodeL']."' title=''>".$TitreS."</a></h4>
                                       <small><a href='garden-single.html' title=''>".$PrixS." DH</small>
                                       <small><a href='#' title=''>by ".$UsernameS."</a></small>
                                     </div><!-- end meta -->
@@ -246,7 +256,7 @@ else
       {
         $saves.="   <div class='center-side'>
                         <div class='masonry-box post-media'>
-                            <img src='../../Resourse/images/lag-60.png' alt='' class='img-fluid'>
+                            <img  src='".$srcL."' alt='' class='img-fluid'>
                             <div class='shadoweffect'>
                                 <div class='shadow-desc'>
                                     <div class='blog-meta'>
@@ -265,7 +275,7 @@ else
       {
          $saves.="   <div class='right-side-side'>
                         <div class='masonry-box post-media'>
-                            <img src='../../Resourse/images/lag-60.png' alt='' class='img-fluid'>
+                            <img  src='".$srcL."' alt='' class='img-fluid'>
                             <div class='shadoweffect'>
                                 <div class='shadow-desc'>
                                     <div class='blog-meta'>

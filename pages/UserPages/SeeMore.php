@@ -36,6 +36,15 @@ $Codepro=$rowL["CodeP"];
 $type=$rowL["type"];
 $lat=$rowL["lat"];
 $lng=$rowL["lng"];
+$lat_lng_empty="";
+if($lat==NULL ||$lng==NULL)
+ {
+   $lat_lng_empty="empty";
+ }
+else
+{
+   $lat_lng_empty="not_empty";
+} 
 
 if($type=="Appartement")
 {
@@ -105,6 +114,9 @@ $CodeO1=0;
 $CodeO2=0;
 $CodeO3=0;
 $CodeO4=0;
+
+
+
 $j=1;
 $jR=1;
 $fj=0;
@@ -169,7 +181,7 @@ if($type=="Appartement")
            $recom1.= "<div class='col-md-6'>
                        <div class='small-box-c'>
                         <div class='small-img-b'>
-                          <img class='img-responsive' src='".$srcC."' alt='#' />
+                          <img class='img-responsives' src='".$srcC."' alt='#' />
                         </div> 
                         <div class='dit-t clearfix'>
                          <div class='left-ti'>
@@ -179,7 +191,7 @@ if($type=="Appartement")
                          <a href='#' tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>
-                        <a href='#'><i class='far fa-heart'></i> Like this</a>
+                         <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
                          <p>23 likes</p>
                         </div>
                        </div>
@@ -195,9 +207,9 @@ if($type=="Appartement")
          else
           {
             $recom2.="<div class='col-md-6'>
-                       <div class='small-box-c'>
+                       <div class='small-box-c div-disp'>
                         <div class='small-img-b'>
-                         <img class='img-responsive' src='".$srcC."' alt='#' />
+                         <img class='img-responsives' src='".$srcC."' alt='#' />
                         </div> 
                         <div class='dit-t clearfix'>
                          <div class='left-ti'>
@@ -207,7 +219,7 @@ if($type=="Appartement")
                          <a href='#' tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>   
-                        <a href='#'><i class='far fa-heart'></i> Like this</a>
+                        <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
                          <p>23 likes</p>
                         </div>
                        </div>
@@ -273,9 +285,9 @@ if($type=="Appartement")
              if($j<=2)
                {
                   $recom1.="<div class='col-md-6'>
-                  <div class='small-box-c'>
+                  <div class='small-box-c div-disp'>
                    <div class='small-img-b'>
-                    <img class='img-responsive' src='".$srcC."' alt='#' />
+                    <img class='img-responsives' src='".$srcC."' alt='#' />
                    </div> 
                    <div class='dit-t clearfix'>
                     <div class='left-ti'>
@@ -285,7 +297,7 @@ if($type=="Appartement")
                     <a href='#' tabindex='0'>".$prixC."DH</a>
                    </div>
                    <div class='prod-btn'>   
-                   <a href='#'><i class='far fa-heart'></i> Like this</a>
+                   <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
                     <p>23 likes</p>
                    </div>
                   </div>
@@ -300,9 +312,9 @@ if($type=="Appartement")
               else
                {
                   $recom2.="<div class='col-md-6'>
-                       <div class='small-box-c'>
+                       <div class='small-box-c div-disp'>
                         <div class='small-img-b'>
-                         <img class='img-responsive' src='".$srcC."' alt='#' />
+                         <img class='img-responsives' src='".$srcC."' alt='#' />
                         </div> 
                         <div class='dit-t clearfix'>
                          <div class='left-ti'>
@@ -312,7 +324,7 @@ if($type=="Appartement")
                          <a href='#' tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>   
-                        <a href='#'><i class='far fa-heart'></i> Like this</a>
+                          <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
                          <p>23 likes</p>
                         </div>
                        </div>
@@ -332,7 +344,7 @@ if($type=="Appartement")
           { 
              //données du Logement courrant
             $CodeLC=$rowC['CodeL'];
-            $srcC="genere_image.php?id=".$CodeLC;
+            $srcC="genere_image.php?id=$CodeLC";
             $prixC=$rowC['prix'];
             $TitreC=$rowC['nom'];
             $adresseC=$rowC['adress'];
@@ -360,9 +372,9 @@ if($type=="Appartement")
             $PnomC=$rowPC['nom'];
 
             $recom1.="<div class='col-md-6'>
-            <div class='small-box-c'>
+            <div class='small-box-c div-disp'>
               <div class='small-img-b'>
-               <img class='img-responsive' src='".$srcC."' />
+               <img class='img-responsives' src='".$srcC."' alt='#' />
               </div> 
               <div class='dit-t clearfix'>
                <div class='left-ti'>
@@ -372,7 +384,7 @@ if($type=="Appartement")
                <a href='#' tabindex='0'>".$prixC."DH</a>
               </div>
               <div class='prod-btn'>   
-               <a href='#'><i class='far fa-heart'></i> Like this</a>
+                <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
                <p>23 likes</p>
               </div>
              </div>
@@ -418,9 +430,9 @@ if($type=="Appartement")
           $PnomC=$rowPC['nom']; 
 
           $recom1.="<div class='col-md-6'>
-            <div class='small-box-c'>
+            <div class='small-box-c div-disp'>
               <div class='small-img-b'>
-               <img class='img-responsive' src='".$srcC."' alt='#' />
+               <img class='img-responsives' src='".$srcC."' alt='#' />
               </div> 
               <div class='dit-t clearfix'>
                <div class='left-ti'>
@@ -430,7 +442,7 @@ if($type=="Appartement")
                <a href='#' tabindex='0'>".$prixC."DH</a>
               </div>
               <div class='prod-btn'>   
-              <a href='#'><i class='far fa-heart'></i> Like this</a>
+              <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
                <p>23 likes</p>
               </div>
              </div>
@@ -480,9 +492,9 @@ if($type=="Appartement")
           if($rest==1)
            {
             $recom2.="<div class='col-md-6'>
-            <div class='small-box-c'>
+            <div class='small-box-c div-disp'>
              <div class='small-img-b'>
-              <img class='img-responsive' src='".$srcC."' alt='#' />
+              <img class='img-responsives' src='".$srcC."' alt='#' />
              </div> 
              <div class='dit-t clearfix'>
               <div class='left-ti'>
@@ -492,7 +504,7 @@ if($type=="Appartement")
               <a href='#' tabindex='0'>".$prixC."DH</a>
              </div>
              <div class='prod-btn'>   
-             <a href='#'><i class='far fa-heart'></i> Like this</a>
+               <a id='".$jR."'><i class='far fa-heart'></i> Like this</a>
               <p>23 likes</p>
              </div>
             </div>
@@ -504,9 +516,9 @@ if($type=="Appartement")
           if($rest==2)
            {
             $recom2.="<div class='col-md-6'>
-            <div class='small-box-c'>
+            <div class='small-box-c div-disp'>
              <div class='small-img-b'>
-              <img class='img-responsive' src='".$srcC."' alt='#' />
+              <img class='img-responsives' src='".$srcC."' alt='#' />
              </div> 
              <div class='dit-t clearfix'>
               <div class='left-ti'>
@@ -516,7 +528,7 @@ if($type=="Appartement")
               <a href='#' tabindex='0'>".$prixC."DH</a>
              </div>
              <div class='prod-btn'>   
-             <a href='#'><i class='far fa-heart'></i> Like this</a>
+              <a id='".$jR."'><i class='far fa-heart'></i> Like this</a>
               <p>23 likes</p>
              </div>
             </div>
@@ -530,9 +542,9 @@ if($type=="Appartement")
             if($jR==1)
              {
                $recom1.="<div class='col-md-6'>
-               <div class='small-box-c'>
+               <div class='small-box-c div-disp'>
                 <div class='small-img-b'>
-                 <img class='img-responsive' src='".$srcC."' alt='#' />
+                 <img class='img-responsives' src='".$srcC."' alt='#' />
                 </div> 
                 <div class='dit-t clearfix'>
                  <div class='left-ti'>
@@ -542,7 +554,7 @@ if($type=="Appartement")
                  <a href='#' tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                <a href='#'><i class='far fa-heart'></i> Like this</a>
+                  <a id='".$jR."'><i class='far fa-heart'></i> Like this</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -554,9 +566,9 @@ if($type=="Appartement")
              else
               {
                $recom2.="<div class='col-md-6'>
-               <div class='small-box-c'>
+               <div class='small-box-c div-disp'>
                 <div class='small-img-b'>
-                 <img class='img-responsive' src='".$srcC."' alt='#' />
+                 <img class='img-responsives' src='".$srcC."' alt='#' />
                 </div> 
                 <div class='dit-t clearfix'>
                  <div class='left-ti'>
@@ -566,7 +578,7 @@ if($type=="Appartement")
                  <a href='#' tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                <a href='#'><i class='far fa-heart'></i> Like this</a>
+                  <a id='".$jR."'><i class='far fa-heart'></i> Like this</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -578,8 +590,7 @@ if($type=="Appartement")
        }     
    }
    
- 
-
+  
 
 }
 else if($type=="studio")
@@ -634,9 +645,9 @@ else if($type=="studio")
            if($j<=2)
             {
              $recom1.= "<div class='col-md-6'>
-                         <div class='small-box-c'>
+                         <div class='small-box-c div-disp'>
                           <div class='small-img-b'>
-                            <img class='img-responsive' src='".$srcC."' alt='#' />
+                            <img class='img-responsives' src='".$srcC."' alt='#' />
                           </div> 
                           <div class='dit-t clearfix'>
                            <div class='left-ti'>
@@ -646,7 +657,7 @@ else if($type=="studio")
                            <a href='#' tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>
-                          <a href='#'><i class='far fa-heart'></i> Like this</a>
+                           <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
                            <p>23 likes</p>
                           </div>
                          </div>
@@ -662,9 +673,9 @@ else if($type=="studio")
            else
             {
               $recom2.="<div class='col-md-6'>
-                         <div class='small-box-c'>
+                         <div class='small-box-c div-disp'>
                           <div class='small-img-b'>
-                           <img class='img-responsive' src='".$srcC."' alt='#' />
+                           <img class='img-responsives' src='".$srcC."' alt='#' />
                           </div> 
                           <div class='dit-t clearfix'>
                            <div class='left-ti'>
@@ -674,7 +685,7 @@ else if($type=="studio")
                            <a href='#' tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>   
-                          <a href='#'><i class='far fa-heart'></i> Like this</a>
+                             <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
                            <p>23 likes</p>
                           </div>
                          </div>
@@ -739,9 +750,9 @@ else if($type=="studio")
                if($j<=2)
                  {
                     $recom1.="<div class='col-md-6'>
-                    <div class='small-box-c'>
+                    <div class='small-box-c div-disp'>
                      <div class='small-img-b'>
-                      <img class='img-responsive' src='".$srcC."' alt='#' />
+                      <img class='img-responsives' src='".$srcC."' alt='#' />
                      </div> 
                      <div class='dit-t clearfix'>
                       <div class='left-ti'>
@@ -751,7 +762,7 @@ else if($type=="studio")
                       <a href='#' tabindex='0'>".$prixC."DH</a>
                      </div>
                      <div class='prod-btn'>   
-                     <a href='#'><i class='far fa-heart'></i> Like this</a>
+                        <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
                       <p>23 likes</p>
                      </div>
                     </div>
@@ -766,9 +777,9 @@ else if($type=="studio")
                 else
                  {
                     $recom2.="<div class='col-md-6'>
-                         <div class='small-box-c'>
+                         <div class='small-box-c div-disp'>
                           <div class='small-img-b'>
-                           <img class='img-responsive' src='".$srcC."' alt='#' />
+                           <img class='img-responsives' src='".$srcC."' alt='#' />
                           </div> 
                           <div class='dit-t clearfix'>
                            <div class='left-ti'>
@@ -778,7 +789,7 @@ else if($type=="studio")
                            <a href='#' tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>   
-                          <a href='#'><i class='far fa-heart'></i> Like this</a>
+                             <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
                            <p>23 likes</p>
                           </div>
                          </div>
@@ -825,9 +836,9 @@ else if($type=="studio")
               $PnomC=$rowPC['nom'];
   
               $recom1.="<div class='col-md-6'>
-              <div class='small-box-c'>
+              <div class='small-box-c div-disp'>
                 <div class='small-img-b'>
-                 <img class='img-responsive' src='".$srcC."' alt='#' />
+                 <img class='img-responsives' src='".$srcC."' alt='#' />
                 </div> 
                 <div class='dit-t clearfix'>
                  <div class='left-ti'>
@@ -837,7 +848,7 @@ else if($type=="studio")
                  <a href='#' tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                <a href='#'><i class='far fa-heart'></i> Like this</a>
+                  <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -882,9 +893,9 @@ else if($type=="studio")
             $PnomC=$rowPC['nom']; 
   
             $recom1.="<div class='col-md-6'>
-              <div class='small-box-c'>
+              <div class='small-box-c div-disp'>
                 <div class='small-img-b'>
-                 <img class='img-responsive' src='".$srcC."' alt='#' />
+                 <img class='img-responsives' src='".$srcC."' alt='#' />
                 </div> 
                 <div class='dit-t clearfix'>
                  <div class='left-ti'>
@@ -894,7 +905,7 @@ else if($type=="studio")
                  <a href='#' tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                <a href='#'><i class='far fa-heart'></i> Like this</a>
+                   <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -943,9 +954,9 @@ else if($type=="studio")
             if($rest==1)
              {
               $recom2.="<div class='col-md-6'>
-              <div class='small-box-c'>
+              <div class='small-box-c div-disp'>
                <div class='small-img-b'>
-                <img class='img-responsive' src='".$srcC."' alt='#' />
+                <img class='img-responsives' src='".$srcC."' alt='#' />
                </div> 
                <div class='dit-t clearfix'>
                 <div class='left-ti'>
@@ -955,7 +966,7 @@ else if($type=="studio")
                 <a href='#' tabindex='0'>".$prixC."DH</a>
                </div>
                <div class='prod-btn'>   
-               <a href='#'><i class='far fa-heart'></i> Like this</a>
+                   <a id='".$jR."'><i class='far fa-heart'></i> Like this</a>
                 <p>23 likes</p>
                </div>
               </div>
@@ -967,9 +978,9 @@ else if($type=="studio")
             if($rest==2)
              {
               $recom2.="<div class='col-md-6'>
-              <div class='small-box-c'>
+              <div class='small-box-c div-disp'>
                <div class='small-img-b'>
-                <img class='img-responsive' src='".$srcC."' alt='#' />
+                <img class='img-responsives' src='".$srcC."' alt='#' />
                </div> 
                <div class='dit-t clearfix'>
                 <div class='left-ti'>
@@ -979,7 +990,7 @@ else if($type=="studio")
                 <a href='#' tabindex='0'>".$prixC."DH</a>
                </div>
                <div class='prod-btn'>   
-               <a href='#'><i class='far fa-heart'></i> Like this</a>
+                  <a id='".$jR."'><i class='far fa-heart'></i> Like this</a>
                 <p>23 likes</p>
                </div>
               </div>
@@ -993,9 +1004,9 @@ else if($type=="studio")
               if($jR==1)
                {
                  $recom1.="<div class='col-md-6'>
-                 <div class='small-box-c'>
+                 <div class='small-box-c div-disp'>
                   <div class='small-img-b'>
-                   <img class='img-responsive' src='".$srcC."' alt='#' />
+                   <img class='img-responsives' src='".$srcC."' alt='#' />
                   </div> 
                   <div class='dit-t clearfix'>
                    <div class='left-ti'>
@@ -1005,7 +1016,7 @@ else if($type=="studio")
                    <a href='#' tabindex='0'>".$prixC."DH</a>
                   </div>
                   <div class='prod-btn'>   
-                  <a href='#'><i class='far fa-heart'></i> Like this</a>
+                  <a id='".$jR."'><i class='far fa-heart'></i> Like this</a>
                    <p>23 likes</p>
                   </div>
                  </div>
@@ -1017,9 +1028,9 @@ else if($type=="studio")
                else
                 {
                  $recom2.="<div class='col-md-6'>
-                 <div class='small-box-c'>
+                 <div class='small-box-c div-disp'>
                   <div class='small-img-b'>
-                   <img class='img-responsive' src='".$srcC."' alt='#' />
+                   <img class='img-responsives' src='".$srcC."' alt='#' />
                   </div> 
                   <div class='dit-t clearfix'>
                    <div class='left-ti'>
@@ -1029,7 +1040,7 @@ else if($type=="studio")
                    <a href='#' tabindex='0'>".$prixC."DH</a>
                   </div>
                   <div class='prod-btn'>   
-                  <a href='#'><i class='far fa-heart'></i> Like this</a>
+                  <a id='".$jR."'><i class='far fa-heart'></i> Like this</a>
                    <p>23 likes</p>
                   </div>
                  </div>
@@ -1041,7 +1052,6 @@ else if($type=="studio")
          }     
      }
 }
-
 
 
 
@@ -1184,7 +1194,7 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) )
  else if($clm==FALSE) 
   {
    $equiprv1.= " <div class='col-md-4'>
-   <h4><p><strike><img src='../../Resourse/imgs/equipements/air-conditioner.png' />&nbsp;Climatisationsss</strike></p></h4>
+   <h4><p><strike><img src='../../Resourse/imgs/equipements/air-conditioner.png' />&nbsp;Climatisation</strike></p></h4>
   </div>";
   }
 
@@ -1344,7 +1354,7 @@ $resS=$statementS->get_result();
 
 if(($rowS=$resS->fetch_assoc()))
   {
-   if($rowS['cntS']==1)  
+   if($rowS['cntS']!=0)  
      {
        $saved='Y';
      }   
@@ -1357,6 +1367,20 @@ if(($rowS=$resS->fetch_assoc()))
 
 //loading first page of comments comments 
 $Comments="";
+
+$reqCMC="SELECT count(*) as nbrCMT from ratings where CodeL=? and comment IS NOT NULL ";
+$statementCMC=$conn->prepare($reqCMC);
+$statementCMC->bind_param("i",$CodeL);
+$statementCMC->execute();
+$resCMC=$statementCMC->get_result(); 
+$rowCMC=$resCMC->fetch_assoc();
+$nbrCMT=$rowCMC['nbrCMT'];
+
+if($nbrCMT==0)
+{
+   $Comments="<div id='no-cmt-img'><img src='../../Resourse/imgs/userimgs/noComment.png'></div><br><h3 id='no-cmt-txt'>Pas de commantaires</h3><hr>";
+}
+else{
 $reqCM="SELECT * from ratings where CodeL=? limit 5";
 $statementCM=$conn->prepare($reqCM);
 $statementCM->bind_param("i",$CodeL);
@@ -1452,7 +1476,7 @@ while(($rowCM=mysqli_fetch_array($resCM)))
                 </div>
                 <hr class='cmt'>";
  }
-
+}
 /*<a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
 <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>*/
 
@@ -1475,6 +1499,125 @@ while(($rowCM=mysqli_fetch_array($resCM)))
 if(($rows=$ress->fetch_assoc()))
   {
      $nbrsaves=$rows['cntS'];
+  }
+//Selecting 5 random profile pictures of users who comented on this 
+$cmt_Lst="";
+   
+$req5U="SELECT CodeU  from ratings where CodeL=? order by RAND() LIMIT 5";
+$statement5U=$conn->prepare($req5U);
+$statement5U->bind_param("i",$CodeL);
+$statement5U->execute();
+$res5U=$statement5U->get_result(); 
+while(($row5U=mysqli_fetch_array($res5U)))
+ {
+   $CodeU_LST=$row5U['CodeU'];
+   $reqCMU="SELECT * from utilisateur where CodeU=?";
+   $statementCMU=$conn->prepare($reqCMU);
+   $statementCMU->bind_param("i",$CodeU_LST);
+   $statementCMU->execute();
+   $resCMU=$statementCMU->get_result(); 
+   $rowCMU=$resCMU->fetch_assoc(); 
+
+   $UserCMU=$rowCMU['username'];
+   
+   if($rowCMU['imageP']!=NULL)
+     {
+       $src_Lst="profilpic.php?UN=$UserCMU";
+       $cmt_Lst.=" <li>
+                    <div class='im-b'><img class='' src='$src_Lst' alt=''></div>
+                   </li>";
+     }
+   else
+     {
+       $src_Lst="../../Resourse/imgs/ProfileHolder.jpg";
+       $cmt_Lst.=" <li>
+                    <div class='im-b'><img class='' src='$src_Lst' alt=''></div>
+                   </li>";
+     }
+   
+
+
+   
+
+ } 
+
+ // checking if the user saved the recomended products
+
+ $SavedL1='';
+ $SavedL2='';
+ $SavedL3='';
+ $SavedL4='';
+
+$reqSR="SELECT count(*) as cntS from saves where CodeL=? and CodeU=?";
+$statementSR=$conn->prepare($reqSR);
+$statementSR->bind_param("ii",$CodeO1,$userCode);
+$statementSR->execute();
+$resSR=$statementSR->get_result();
+
+if(($rowSR=$resSR->fetch_assoc()))
+  {
+   if($rowSR['cntS']!=0)  
+     {
+       $SavedL1='Y';
+     }   
+    else if($rowSR['cntS']==0)
+     {
+       $SavedL1='N';
+     } 
+  }
+
+$reqSR="SELECT count(*) as cntS from saves where CodeL=? and CodeU=?";
+$statementSR=$conn->prepare($reqSR);
+$statementSR->bind_param("ii",$CodeO2,$userCode);
+$statementSR->execute();
+$resSR=$statementSR->get_result();
+
+if(($rowSR=$resSR->fetch_assoc()))
+  {
+   if($rowSR['cntS']!=0)  
+     {
+       $SavedL2='Y';
+     }   
+    else if($rowSR['cntS']==0)
+     {
+       $SavedL2='N';
+     } 
+  }
+
+$reqSR="SELECT count(*) as cntS from saves where CodeL=? and CodeU=?";
+$statementSR=$conn->prepare($reqSR);
+$statementSR->bind_param("ii",$CodeO3,$userCode);
+$statementSR->execute();
+$resSR=$statementSR->get_result();
+
+if(($rowSR=$resSR->fetch_assoc()))
+  {
+   if($rowSR['cntS']!=0)  
+     {
+       $SavedL3='Y';
+     }   
+    else if($rowSR['cntS']==0)
+     {
+       $SavedL3='N';
+     } 
+  }
+
+$reqSR="SELECT count(*) as cntS from saves where CodeL=? and CodeU=?";
+$statementSR=$conn->prepare($reqSR);
+$statementSR->bind_param("ii",$CodeO4,$userCode);
+$statementSR->execute();
+$resSR=$statementSR->get_result();
+
+if(($rowSR=$resSR->fetch_assoc()))
+  {
+   if($rowSR['cntS']!=0)  
+     {
+       $SavedL4='Y';
+     }   
+    else if($rowSR['cntS']==0)
+     {
+       $SavedL4='N';
+     } 
   }
 
 ?>
@@ -1511,6 +1654,7 @@ if(($rows=$ress->fetch_assoc()))
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
       <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
       <link rel="stylesheet" href="../../Resourse/css3/chatbox.css">
+      <link rel="stylesheet" href="../../Resourse/vendors/mdi/css/materialdesignicons.min.css">
       
 
    </head>
@@ -1597,7 +1741,7 @@ if(($rows=$ress->fetch_assoc()))
                            <div class="left-dit-p">
                               <div class="prod-btn">
                                  <?=$rt2?>
-                                 <a id="like-btn"><i class="far fa-heart"></i> save this</a>
+                                 <a id="like-btn"><i class="far fa-heart ff"></i> save this</a>
                                  <p><?=$nbrsaves?> personnes ont enregistrer cet logement </p>
                               </div>
                               <div id="RtBlock">
@@ -1751,24 +1895,7 @@ if(($rows=$ress->fetch_assoc()))
                            <div class="right-dit-p">
                               <div class="like-list">
                                  <ul>
-                                    <li>
-                                       <div class="im-b"><img class="" src="../../Resourse/images/list-img-01.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-02.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-03.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-04.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-05.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-06.png" alt=""></div>
-                                    </li>
+                                   <?=$cmt_Lst?>
                                     <li>
                                        <div class="im-b"><i id="SeeComments" class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
                                     </li>
@@ -1792,7 +1919,7 @@ if(($rows=$ress->fetch_assoc()))
                   </div>
 
                <!--Map location-->
-                  <div >      
+                  <div id="map-container">      
                      <div id="map">
                    
                      </div>
@@ -2242,16 +2369,16 @@ $(document).ready(function(){
 
    if(saved=='Y')
        {
-          $('#like-btn').empty().append("<i class='fas fa-heart'></i> saved");
+          $('#like-btn').empty().append("<i class='fas fa-heart ff'></i> Saved");
        }
        else if(saved=='N')
        {
-          $('#like-btn').empty().append("<i class='far fa-heart'></i> save this");
+          $('#like-btn').empty().append("<i class='far fa-heart ff'></i> save this");
          }   
    $('#like-btn').click(function(){  
       if(saved=='N')
        {
-          $('#like-btn').empty().append("<i class='fas fa-heart'></i> saved");
+          $('#like-btn').empty().append("<i class='fas fa-heart ff'></i> saved");
           saved='Y';
           $.ajax({  
                  url:"SaveL.php",   
@@ -2266,7 +2393,7 @@ $(document).ready(function(){
        }   
       else if(saved=='Y')
        {
-          $('#like-btn').empty().append("<i class='far fa-heart'></i> save this");
+          $('#like-btn').empty().append("<i class='far fa-heart ff'></i> save this");
           saved='N';
 
           $.ajax({  
@@ -2310,10 +2437,20 @@ function initMap(){
 </script>
 
 <script>
+ var lat_lng_empty='<?=$lat_lng_empty?>';  
+  if(lat_lng_empty=='empty')
+   {
+      $('#map-container').empty().append("<img id='no-map-img' src='../../Resourse/imgs/userimgs/noLocation.png'><br><h3 >Le proprietaire n'a pas specifier la locationdu logement</h3><hr>");
+   }
+
+
+</script>
+
+<script>
 var page=1;
 var limit=5;
 var offset=0;
-var pages=5;
+var pages=<?=$pages?>; 
 
 $(document).ready(function(){ 
    if(page==1)
@@ -2329,7 +2466,7 @@ $(document).ready(function(){
       offset=offset+5;
 
       $.ajax({  
-                url:"getComments.php",  
+                url:"../samples/getComments.php",  
                 method:"POST",  
                 data:{limit:limit,offset:offset,CodeL:<?=$CodeL?>},  
                 success:function(data){  
@@ -2352,7 +2489,7 @@ $(document).ready(function(){
       offset=offset-5;
       
       $.ajax({  
-                url:"getComments.php",  
+                url:"../samples/getComments.php",  
                 method:"POST",  
                 data:{limit:limit,offset:offset,CodeL:<?=$CodeL?>},  
                 success:function(data){  
@@ -2371,6 +2508,217 @@ $(document).ready(function(){
      });     
 });
 
+</script>
+
+<script>
+
+   //getting the ids of recommended products 
+   var CodeL1=<?=$CodeO1?>;
+   var CodeL2=<?=$CodeO2?>;
+   var CodeL3=<?=$CodeO3?>;
+   var CodeL4=<?=$CodeO4?>;
+   //getting the saved signs of recommended products
+   var SavedL1='<?=$SavedL1?>';
+   var SavedL2='<?=$SavedL2?>';
+   var SavedL3='<?=$SavedL3?>';
+   var SavedL4='<?=$SavedL4?>';
+
+   $(document).ready(function(){ 
+  //filling the save  button with the right icon  for card1  
+      if(SavedL1=='Y')
+        {
+          $('#1').empty().append("<i class='fas fa-heart ff'></i> saved");
+        }
+       else if(SavedL1=='N')
+        {
+          $('#1').empty().append("<i class='far fa-heart ff'></i> save this");
+        } 
+//filling the save  button with the right icon  for card2  
+      if(SavedL2=='Y')
+        {
+          $('#2').empty().append("<i class='fas fa-heart ff'></i> saved");
+        }
+       else if(SavedL2=='N')
+        {
+          $('#2').empty().append("<i class='far fa-heart ff'></i> save this");
+        } 
+//filling the save  button with the right icon  for card3  
+      if(SavedL3=='Y')
+        {
+          $('#3').empty().append("<i class='fas fa-heart ff'></i> saved");
+        }
+       else if(SavedL3=='N')
+        {
+          $('#3').empty().append("<i class='far fa-heart ff'></i> save this");
+        } 
+ //  filling the save  button with the right icon  for card4       
+        if(SavedL4=='Y')
+        {
+          $('#4').empty().append("<i class='fas fa-heart ff'></i> saved");
+        }
+       else if(SavedL4=='N')
+        {
+          $('#4').empty().append("<i class='far fa-heart ff'></i> save this");
+        }     
+
+
+
+
+
+
+      $('#1').click(function(){
+
+      if(SavedL1=='N')
+       {
+          $('#1').empty().append("<i class='fas fa-heart ff'></i> saved");
+          SavedL1='Y';
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:CodeL1,CodeU:CodeU,action:SavedL1},
+                 success:function(data){  
+
+                  }
+                 });
+
+
+       }   
+      else if(SavedL1=='Y')
+       {
+          $('#1').empty().append("<i class='far fa-heart ff'></i> save this");
+          SavedL1='N';
+
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:CodeL1,CodeU:CodeU,action:SavedL1},
+                 success:function(data){  
+
+                  }
+                 });
+
+       }
+          
+      });
+
+      $('#2').click(function(){
+          
+      if(SavedL2=='N')
+       {
+          $('#2').empty().append("<i class='fas fa-heart ff'></i> saved");
+          SavedL2='Y';
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:CodeL2,CodeU:CodeU,action:SavedL2},
+                 success:function(data){  
+
+                  }
+                 });
+
+
+       }   
+      else if(SavedL2=='Y')
+       {
+          $('#2').empty().append("<i class='far fa-heart ff'></i> save this");
+          SavedL2='N';
+
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:CodeL2,CodeU:CodeU,action:SavedL2},
+                 success:function(data){  
+
+                  }
+                 });
+
+       }
+
+
+         });
+
+      $('#3').click(function(){
+          
+         if(SavedL3=='N')
+       {
+          $('#3').empty().append("<i class='fas fa-heart ff'></i> saved");
+          SavedL3='Y';
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:CodeL3,CodeU:CodeU,action:SavedL3},
+                 success:function(data){  
+
+                  }
+                 });
+
+
+       }   
+      else if(SavedL3=='Y')
+       {
+          $('#3').empty().append("<i class='far fa-heart ff'></i> save this");
+          SavedL3='N';
+
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:CodeL3,CodeU:CodeU,action:SavedL3},
+                 success:function(data){  
+
+                  }
+                 });
+
+       }
+
+
+      });
+
+      $('#4').click(function(){
+         if(SavedL4=='N')
+       {
+          $('#4').empty().append("<i class='fas fa-heart ff'></i> saved");
+          SavedL4='Y';
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:CodeL4,CodeU:CodeU,action:SavedL4},
+                 success:function(data){  
+
+                  }
+                 });
+
+
+       }   
+      else if(SavedL4=='Y')
+       {
+          $('#4').empty().append("<i class='far fa-heart ff'></i> save this");
+          SavedL4='N';
+
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:CodeL4,CodeU:CodeU,action:SavedL4},
+                 success:function(data){  
+
+                  }
+                 });
+
+       }
+      });   
+   });   
+   
+</script>
+
+<script>
+   var nbr_cmt=<?=$nbrCMT?>;
+   $(document).ready(function(){ 
+   if(nbr_cmt==0)
+    {
+      document.getElementById('comments').style.display='block'; 
+      document.getElementById('SeeComments').style.display='none'; 
+
+    }
+   });  
 </script>
 
 </html>

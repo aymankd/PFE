@@ -66,19 +66,19 @@ $resI=$statementI->get_result();
 $img="";
 $imgs="";
 $i=1;
-while ( ($rowI = mysqli_fetch_array($resI)) && ($i < 4) ) 
+while ( ($rowI = mysqli_fetch_array($resI)) ) 
 {
   $id=$rowI['CodeImg'];
   $src="genere_image.php?id=$id";
   if($i==1)
     {
-      $img.="<div class='tab-pane active' id='pic-1'><img src='".$src."' alt='#' /></div>";
-      $imgs.="<li class='active'><a data-target='#pic-1' data-toggle='tab'><img src='".$src."' alt='#' /></a></li>";
+      $img.="<div class='tab-pane active' id='pic-1'><img class='img-main' src='".$src."' alt='#' /></div>";
+      $imgs.="<li class='active'><a data-target='#pic-1' data-toggle='tab'><img class='img-prev' src='".$src."' alt='#' /></a></li>";
     }
   else
     {
-      $img.="<div class='tab-pane' id='pic-".$i."'><img src='".$src."' alt='#' /></div>";
-      $imgs.=" <li><a data-target='#pic-".$i."' data-toggle='tab'><img  src='".$src."' alt='#' /></a></li>";
+      $img.="<div class='tab-pane' id='pic-".$i."'><img class='img-main' src='".$src."' alt='#' /></div>";
+      $imgs.=" <li><a data-target='#pic-".$i."' data-toggle='tab'><img class='img-prev'  src='".$src."' alt='#' /></a></li>";
     }  
 
 
@@ -167,17 +167,17 @@ if($type=="Appartement")
            $recom1.= "<div class='col-md-6'>
                        <div class='small-box-c'>
                         <div class='small-img-b'>
-                          <img class='img-responsive' src='".$srcC."' alt='#' />
+                          <img class='img-responsives' src='".$srcC."' alt='#' />
                         </div> 
                         <div class='dit-t clearfix'>
                          <div class='left-ti'>
                           <h4>".$TitreC."</h4>
                           <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                          </div>
-                         <a href='#' tabindex='0'>".$prixC."DH</a>
+                         <a  tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>
-                         <a href='#'><i class='fa fa-thumbs-up' aria-hidden='true'></i> Like this</a>
+                         <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                          <p>23 likes</p>
                         </div>
                        </div>
@@ -193,19 +193,19 @@ if($type=="Appartement")
          else
           {
             $recom2.="<div class='col-md-6'>
-                       <div class='small-box-c'>
+                       <div class='small-box-c div-disp'>
                         <div class='small-img-b'>
-                         <img class='img-responsive' src='".$srcC."' alt='#' />
+                         <img class='img-responsives' src='".$srcC."' alt='#' />
                         </div> 
                         <div class='dit-t clearfix'>
                          <div class='left-ti'>
                          <h4>".$TitreC."</h4>
                          <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                          </div>
-                         <a href='#' tabindex='0'>".$prixC."DH</a>
+                         <a tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>   
-                         <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                        <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                          <p>23 likes</p>
                         </div>
                        </div>
@@ -271,19 +271,19 @@ if($type=="Appartement")
              if($j<=2)
                {
                   $recom1.="<div class='col-md-6'>
-                  <div class='small-box-c'>
+                  <div class='small-box-c div-disp'>
                    <div class='small-img-b'>
-                    <img class='img-responsive' src='".$srcC."' alt='#' />
+                    <img class='img-responsives' src='".$srcC."' alt='#' />
                    </div> 
                    <div class='dit-t clearfix'>
                     <div class='left-ti'>
                     <h4>".$TitreC."</h4>
                     <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                     </div>
-                    <a href='#' tabindex='0'>".$prixC."DH</a>
+                    <a  tabindex='0'>".$prixC."DH</a>
                    </div>
                    <div class='prod-btn'>   
-                    <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                   <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                     <p>23 likes</p>
                    </div>
                   </div>
@@ -298,19 +298,19 @@ if($type=="Appartement")
               else
                {
                   $recom2.="<div class='col-md-6'>
-                       <div class='small-box-c'>
+                       <div class='small-box-c div-disp'>
                         <div class='small-img-b'>
-                         <img class='img-responsive' src='".$srcC."' alt='#' />
+                         <img class='img-responsives' src='".$srcC."' alt='#' />
                         </div> 
                         <div class='dit-t clearfix'>
                          <div class='left-ti'>
                          <h4>".$TitreC."</h4>
                          <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                          </div>
-                         <a href='#' tabindex='0'>".$prixC."DH</a>
+                         <a  tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>   
-                         <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                        <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                          <p>23 likes</p>
                         </div>
                        </div>
@@ -358,19 +358,19 @@ if($type=="Appartement")
             $PnomC=$rowPC['nom'];
 
             $recom1.="<div class='col-md-6'>
-            <div class='small-box-c'>
+            <div class='small-box-c div-disp'>
               <div class='small-img-b'>
-               <img class='img-responsive' src='".$srcC."' alt='#' />
+               <img class='img-responsives' src='".$srcC."' alt='#' />
               </div> 
               <div class='dit-t clearfix'>
                <div class='left-ti'>
                 <h4>".$TitreC."</h4>
                 <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                </div>
-               <a href='#' tabindex='0'>".$prixC."DH</a>
+               <a  tabindex='0'>".$prixC."DH</a>
               </div>
               <div class='prod-btn'>   
-               <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                <p>23 likes</p>
               </div>
              </div>
@@ -416,19 +416,19 @@ if($type=="Appartement")
           $PnomC=$rowPC['nom']; 
 
           $recom1.="<div class='col-md-6'>
-            <div class='small-box-c'>
+            <div class='small-box-c div-disp'>
               <div class='small-img-b'>
-               <img class='img-responsive' src='".$srcC."' alt='#' />
+               <img class='img-responsives' src='".$srcC."' alt='#' />
               </div> 
               <div class='dit-t clearfix'>
                <div class='left-ti'>
                 <h4>".$TitreC."</h4>
                 <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                </div>
-               <a href='#' tabindex='0'>".$prixC."DH</a>
+               <a tabindex='0'>".$prixC."DH</a>
               </div>
               <div class='prod-btn'>   
-               <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+              <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                <p>23 likes</p>
               </div>
              </div>
@@ -478,19 +478,19 @@ if($type=="Appartement")
           if($rest==1)
            {
             $recom2.="<div class='col-md-6'>
-            <div class='small-box-c'>
+            <div class='small-box-c div-disp'>
              <div class='small-img-b'>
-              <img class='img-responsive' src='".$srcC."' alt='#' />
+              <img class='img-responsives' src='".$srcC."' alt='#' />
              </div> 
              <div class='dit-t clearfix'>
               <div class='left-ti'>
               <h4>".$TitreC."</h4>
               <p>By <span>".$PprenomC." </span>".$PnomC."</p>
               </div>
-              <a href='#' tabindex='0'>".$prixC."DH</a>
+              <a  tabindex='0'>".$prixC."DH</a>
              </div>
              <div class='prod-btn'>   
-              <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+             <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
               <p>23 likes</p>
              </div>
             </div>
@@ -502,19 +502,19 @@ if($type=="Appartement")
           if($rest==2)
            {
             $recom2.="<div class='col-md-6'>
-            <div class='small-box-c'>
+            <div class='small-box-c div-disp'>
              <div class='small-img-b'>
-              <img class='img-responsive' src='".$srcC."' alt='#' />
+              <img class='img-responsives' src='".$srcC."' alt='#' />
              </div> 
              <div class='dit-t clearfix'>
               <div class='left-ti'>
               <h4>".$TitreC."</h4>
               <p>By <span>".$PprenomC." </span>".$PnomC."</p>
               </div>
-              <a href='#' tabindex='0'>".$prixC."DH</a>
+              <a  tabindex='0'>".$prixC."DH</a>
              </div>
              <div class='prod-btn'>   
-              <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+             <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
               <p>23 likes</p>
              </div>
             </div>
@@ -528,19 +528,19 @@ if($type=="Appartement")
             if($jR==1)
              {
                $recom1.="<div class='col-md-6'>
-               <div class='small-box-c'>
+               <div class='small-box-c div-disp'>
                 <div class='small-img-b'>
-                 <img class='img-responsive' src='".$srcC."' alt='#' />
+                 <img class='img-responsives' src='".$srcC."' alt='#' />
                 </div> 
                 <div class='dit-t clearfix'>
                  <div class='left-ti'>
                  <h4>".$TitreC."</h4>
                  <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                  </div>
-                 <a href='#' tabindex='0'>".$prixC."DH</a>
+                 <a  tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                 <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                  <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -552,19 +552,19 @@ if($type=="Appartement")
              else
               {
                $recom2.="<div class='col-md-6'>
-               <div class='small-box-c'>
+               <div class='small-box-c div-disp'>
                 <div class='small-img-b'>
-                 <img class='img-responsive' src='".$srcC."' alt='#' />
+                 <img class='img-responsives' src='".$srcC."' alt='#' />
                 </div> 
                 <div class='dit-t clearfix'>
                  <div class='left-ti'>
                  <h4>".$TitreC."</h4>
                  <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                  </div>
-                 <a href='#' tabindex='0'>".$prixC."DH</a>
+                 <a  tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                 <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                  <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -631,19 +631,19 @@ else if($type=="studio")
            if($j<=2)
             {
              $recom1.= "<div class='col-md-6'>
-                         <div class='small-box-c'>
+                         <div class='small-box-c div-disp'>
                           <div class='small-img-b'>
-                            <img class='img-responsive' src='".$srcC."' alt='#' />
+                            <img class='img-responsives' src='".$srcC."' alt='#' />
                           </div> 
                           <div class='dit-t clearfix'>
                            <div class='left-ti'>
                             <h4>".$TitreC."</h4>
                             <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                            </div>
-                           <a href='#' tabindex='0'>".$prixC."DH</a>
+                           <a  tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>
-                           <a href='#'><i class='fa fa-thumbs-up' aria-hidden='true'></i> Like this</a>
+                           <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                            <p>23 likes</p>
                           </div>
                          </div>
@@ -659,19 +659,19 @@ else if($type=="studio")
            else
             {
               $recom2.="<div class='col-md-6'>
-                         <div class='small-box-c'>
+                         <div class='small-box-c div-disp'>
                           <div class='small-img-b'>
-                           <img class='img-responsive' src='".$srcC."' alt='#' />
+                           <img class='img-responsives' src='".$srcC."' alt='#' />
                           </div> 
                           <div class='dit-t clearfix'>
                            <div class='left-ti'>
                            <h4>".$TitreC."</h4>
                            <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                            </div>
-                           <a href='#' tabindex='0'>".$prixC."DH</a>
+                           <a  tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>   
-                           <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                           <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                            <p>23 likes</p>
                           </div>
                          </div>
@@ -736,19 +736,19 @@ else if($type=="studio")
                if($j<=2)
                  {
                     $recom1.="<div class='col-md-6'>
-                    <div class='small-box-c'>
+                    <div class='small-box-c div-disp'>
                      <div class='small-img-b'>
-                      <img class='img-responsive' src='".$srcC."' alt='#' />
+                      <img class='img-responsives' src='".$srcC."' alt='#' />
                      </div> 
                      <div class='dit-t clearfix'>
                       <div class='left-ti'>
                       <h4>".$TitreC."</h4>
                       <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                       </div>
-                      <a href='#' tabindex='0'>".$prixC."DH</a>
+                      <a  tabindex='0'>".$prixC."DH</a>
                      </div>
                      <div class='prod-btn'>   
-                      <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                      <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                       <p>23 likes</p>
                      </div>
                     </div>
@@ -763,19 +763,19 @@ else if($type=="studio")
                 else
                  {
                     $recom2.="<div class='col-md-6'>
-                         <div class='small-box-c'>
+                         <div class='small-box-c div-disp'>
                           <div class='small-img-b'>
-                           <img class='img-responsive' src='".$srcC."' alt='#' />
+                           <img class='img-responsives' src='".$srcC."' alt='#' />
                           </div> 
                           <div class='dit-t clearfix'>
                            <div class='left-ti'>
                            <h4>".$TitreC."</h4>
                            <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                            </div>
-                           <a href='#' tabindex='0'>".$prixC."DH</a>
+                           <a tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>   
-                           <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                           <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                            <p>23 likes</p>
                           </div>
                          </div>
@@ -822,19 +822,19 @@ else if($type=="studio")
               $PnomC=$rowPC['nom'];
   
               $recom1.="<div class='col-md-6'>
-              <div class='small-box-c'>
+              <div class='small-box-c div-disp'>
                 <div class='small-img-b'>
-                 <img class='img-responsive' src='".$srcC."' alt='#' />
+                 <img class='img-responsives' src='".$srcC."' alt='#' />
                 </div> 
                 <div class='dit-t clearfix'>
                  <div class='left-ti'>
                   <h4>".$TitreC."</h4>
                   <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                  </div>
-                 <a href='#' tabindex='0'>".$prixC."DH</a>
+                 <a  tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                 <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                 <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -879,19 +879,19 @@ else if($type=="studio")
             $PnomC=$rowPC['nom']; 
   
             $recom1.="<div class='col-md-6'>
-              <div class='small-box-c'>
+              <div class='small-box-c div-disp'>
                 <div class='small-img-b'>
-                 <img class='img-responsive' src='".$srcC."' alt='#' />
+                 <img class='img-responsives' src='".$srcC."' alt='#' />
                 </div> 
                 <div class='dit-t clearfix'>
                  <div class='left-ti'>
                   <h4>".$TitreC."</h4>
                   <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                  </div>
-                 <a href='#' tabindex='0'>".$prixC."DH</a>
+                 <a  tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                 <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                 <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -940,19 +940,19 @@ else if($type=="studio")
             if($rest==1)
              {
               $recom2.="<div class='col-md-6'>
-              <div class='small-box-c'>
+              <div class='small-box-c div-disp'>
                <div class='small-img-b'>
-                <img class='img-responsive' src='".$srcC."' alt='#' />
+                <img class='img-responsives' src='".$srcC."' alt='#' />
                </div> 
                <div class='dit-t clearfix'>
                 <div class='left-ti'>
                 <h4>".$TitreC."</h4>
                 <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                 </div>
-                <a href='#' tabindex='0'>".$prixC."DH</a>
+                <a  tabindex='0'>".$prixC."DH</a>
                </div>
                <div class='prod-btn'>   
-                <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                 <p>23 likes</p>
                </div>
               </div>
@@ -964,19 +964,19 @@ else if($type=="studio")
             if($rest==2)
              {
               $recom2.="<div class='col-md-6'>
-              <div class='small-box-c'>
+              <div class='small-box-c div-disp'>
                <div class='small-img-b'>
-                <img class='img-responsive' src='".$srcC."' alt='#' />
+                <img class='img-responsives' src='".$srcC."' alt='#' />
                </div> 
                <div class='dit-t clearfix'>
                 <div class='left-ti'>
                 <h4>".$TitreC."</h4>
                 <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                 </div>
-                <a href='#' tabindex='0'>".$prixC."DH</a>
+                <a  tabindex='0'>".$prixC."DH</a>
                </div>
                <div class='prod-btn'>   
-                <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                 <p>23 likes</p>
                </div>
               </div>
@@ -990,19 +990,19 @@ else if($type=="studio")
               if($jR==1)
                {
                  $recom1.="<div class='col-md-6'>
-                 <div class='small-box-c'>
+                 <div class='small-box-c div-disp'>
                   <div class='small-img-b'>
-                   <img class='img-responsive' src='".$srcC."' alt='#' />
+                   <img class='img-responsives' src='".$srcC."' alt='#' />
                   </div> 
                   <div class='dit-t clearfix'>
                    <div class='left-ti'>
                    <h4>".$TitreC."</h4>
                    <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                    </div>
-                   <a href='#' tabindex='0'>".$prixC."DH</a>
+                   <a  tabindex='0'>".$prixC."DH</a>
                   </div>
                   <div class='prod-btn'>   
-                   <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                   <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                    <p>23 likes</p>
                   </div>
                  </div>
@@ -1014,19 +1014,19 @@ else if($type=="studio")
                else
                 {
                  $recom2.="<div class='col-md-6'>
-                 <div class='small-box-c'>
+                 <div class='small-box-c div-disp'>
                   <div class='small-img-b'>
-                   <img class='img-responsive' src='".$srcC."' alt='#' />
+                   <img class='img-responsives' src='".$srcC."' alt='#' />
                   </div> 
                   <div class='dit-t clearfix'>
                    <div class='left-ti'>
                    <h4>".$TitreC."</h4>
                    <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                    </div>
-                   <a href='#' tabindex='0'>".$prixC."DH</a>
+                   <a  tabindex='0'>".$prixC."DH</a>
                   </div>
                   <div class='prod-btn'>   
-                   <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                   <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                    <p>23 likes</p>
                   </div>
                  </div>
@@ -1147,7 +1147,7 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) )
  else if($clm==FALSE) 
   {
    $equiprv1.= " <div class='col-md-4'>
-   <h4><p><strike><img src='../../Resourse/imgs/equipements/air-conditioner.png' />&nbsp;Climatisationsss</strike></p></h4>
+   <h4><p><strike><img src='../../Resourse/imgs/equipements/air-conditioner.png' />&nbsp;Climatisation</strike></p></h4>
   </div>";
   }
 
@@ -1406,6 +1406,47 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) )
      {
         $nbrsaves=$rows['cntS'];
      }
+
+   //Selecting 5 random profile pictures of users who comented on this 
+   $cmt_Lst="";
+   
+   $req5U="SELECT CodeU  from ratings where CodeL=? order by RAND() LIMIT 5";
+   $statement5U=$conn->prepare($req5U);
+   $statement5U->bind_param("i",$CodeL);
+   $statement5U->execute();
+   $res5U=$statement5U->get_result(); 
+   while(($row5U=mysqli_fetch_array($res5U)))
+    {
+      $CodeU_LST=$row5U['CodeU'];
+      $reqCMU="SELECT * from utilisateur where CodeU=?";
+      $statementCMU=$conn->prepare($reqCMU);
+      $statementCMU->bind_param("i",$CodeU_LST);
+      $statementCMU->execute();
+      $resCMU=$statementCMU->get_result(); 
+      $rowCMU=$resCMU->fetch_assoc(); 
+
+      $UserCMU=$rowCMU['username'];
+      
+      if($rowCMU['imageP']!=NULL)
+        {
+          $src_Lst="profilpic.php?UN=$UserCMU";
+          $cmt_Lst.=" <li>
+                       <div class='im-b'><img class='' src='$src_Lst' alt=''></div>
+                      </li>";
+        }
+      else
+        {
+          $src_Lst="../../Resourse/imgs/ProfileHolder.jpg";
+	       $cmt_Lst.=" <li>
+                       <div class='im-b'><img class='' src='$src_Lst' alt=''></div>
+                      </li>";
+        }
+      
+
+
+      
+   
+    } 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -1511,8 +1552,8 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) )
                                  <div class="tab-pane" id="pic-5"><img src="../../Resourse/images/lag-61.png" alt="#" /></div>-->
 
                               </div>
-
-                              <ul class="preview-thumbnail nav nav-tabs">
+                              <div class='div-prev'>
+                               <ul class="preview-thumbnail nav nav-tabs">
 
                                 <?=$imgs?>
                                  <!--
@@ -1524,6 +1565,7 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) )
                                  <li><a data-target="#pic-5" data-toggle="tab"><img src="../../Resourse/images/lag-61.png" alt="#" /></a></li>
                                  -->
                               </ul>
+                              </div> 
                            </div>
                         </div>
                         <div class="btn-dit-list clearfix">
@@ -1681,24 +1723,8 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) )
                            <div class="right-dit-p">
                               <div class="like-list">
                                  <ul>
-                                    <li>
-                                       <div class="im-b"><img class="" src="../../Resourse/images/list-img-01.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-02.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-03.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-04.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-05.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-06.png" alt=""></div>
-                                    </li>
+                                    <?=$cmt_Lst?>
+                              
                                     <li>
                                        <div class="im-b"><i id="SeeComments" class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
                                     </li>
@@ -2040,3 +2066,5 @@ $(document).ready(function(){
 });
 
 </script>
+
+   
