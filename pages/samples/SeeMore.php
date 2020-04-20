@@ -35,6 +35,15 @@ $sup=$rowL["superficie"];
 $type=$rowL["type"];
 $lat=$rowL["lat"];
 $lng=$rowL["lng"];
+$lat_lng_empty="";
+if($lat==NULL ||$lng==NULL)
+ {
+   $lat_lng_empty="empty";
+ }
+else
+{
+   $lat_lng_empty="not_empty";
+} 
 
 if($type=="Appartement")
 {
@@ -1296,6 +1305,19 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) )
   
   //loading first page of comments comments 
   $Comments="";
+  $reqCMC="SELECT count(*) as nbrCMT from ratings where CodeL=? and comment IS NOT NULL ";
+  $statementCMC=$conn->prepare($reqCMC);
+  $statementCMC->bind_param("i",$CodeL);
+  $statementCMC->execute();
+  $resCMC=$statementCMC->get_result(); 
+  $rowCMC=$resCMC->fetch_assoc();
+  $nbrCMT=$rowCMC['nbrCMT'];
+
+if($nbrCMT==0)
+{
+   $Comments="<div id='no-cmt-img'><img src='../../Resourse/imgs/userimgs/noComment.png'></div><br><h3 id='no-cmt-txt'>Pas de commantaires</h3><hr>";
+}
+else{
   $reqCM="SELECT * from ratings where CodeL=? limit 5";
   $statementCM=$conn->prepare($reqCM);
   $statementCM->bind_param("i",$CodeL);
@@ -1386,7 +1408,7 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) )
                   </div>
                   <hr class='cmt'>";
    }
-
+ }
     //count number of comment pages
     $reqCM="SELECT Count(*) as cnt from ratings where CodeL=?";
     $statementCM=$conn->prepare($reqCM);
@@ -1748,9 +1770,11 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) )
                   </div>
                <!--Map location-->
                   <div >      
+                    <div id="map-container">      
                      <div id="map">
                    
                      </div>
+                    </div>
                   </div>
                   <div class="similar-box">
                      <h2>Similiar results</h2>
@@ -2004,6 +2028,16 @@ function initMap(){
 </script>
 
 <script>
+ var lat_lng_empty='<?=$lat_lng_empty?>';  
+  if(lat_lng_empty=='empty')
+   {
+      $('#map-container').empty().append("<img id='no-map-img' src='../../Resourse/imgs/userimgs/noLocation.png'><br><h3 >Le proprietaire n'a pas specifier la locationdu logement</h3><hr>");
+   }
+
+
+</script>
+
+<script>
 var page=1;
 var limit=5;
 var offset=0;
@@ -2067,4 +2101,14 @@ $(document).ready(function(){
 
 </script>
 
-   
+<script>
+   var nbr_cmt=<?=$nbrCMT?>;
+   $(document).ready(function(){ 
+   if(nbr_cmt==0)
+    {
+      document.getElementById('comments').style.display='block'; 
+      document.getElementById('SeeComments').style.display='none'; 
+
+    }
+   });  
+</script>
