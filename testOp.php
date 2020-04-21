@@ -1,7 +1,17 @@
 <?php
-$date = new DateTime('2011-12-27');
 //$date->add(new DateInterval('P1Y'));
-$date->add(new DateInterval('P1M'));
-echo $date->format('Y-m-d') . "\n";
+//$date->add(new DateInterval('P1M'));
+
+
+
+$DBdate = new DateTime("2020-04-19");
+$date = new DateTime(date('Y-m-d'));
+
+$diff = $date->diff($DBdate)->format("%a");
+
+echo $diff."\n";
+
+
+
 
 ?>
