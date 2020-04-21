@@ -1,98 +1,160 @@
-jQuery(document).ready(function() {
-	// click on next button
-	jQuery('.form-wizard-next-btn').click(function() {
-		var parentFieldset = jQuery(this).parents('.wizard-fieldset');
-		var currentActiveStep = jQuery(this).parents('.form-wizard').find('.form-wizard-steps .active');
-		var next = jQuery(this);
-		var nextWizardStep = true;
-		parentFieldset.find('.wizard-required').each(function(){
-			var thisValue = jQuery(this).val();
-
-			if( thisValue == "") {
-				jQuery(this).siblings(".wizard-form-error").slideDown();
-				nextWizardStep = false;
-			}
-			else {
-				jQuery(this).siblings(".wizard-form-error").slideUp();
-			}
-		});
-		if( nextWizardStep) {
-			next.parents('.wizard-fieldset').removeClass("show","400");
-			currentActiveStep.removeClass('active').addClass('activated').next().addClass('active',"400");
-			next.parents('.wizard-fieldset').next('.wizard-fieldset').addClass("show","400");
-			jQuery(document).find('.wizard-fieldset').each(function(){
-				if(jQuery(this).hasClass('show')){
-					var formAtrr = jQuery(this).attr('data-tab-content');
-					jQuery(document).find('.form-wizard-steps .form-wizard-step-item').each(function(){
-						if(jQuery(this).attr('data-attr') == formAtrr){
-							jQuery(this).addClass('active');
-							var innerWidth = jQuery(this).innerWidth();
-							var position = jQuery(this).position();
-							jQuery(document).find('.form-wizard-step-move').css({"left": position.left, "width": innerWidth});
-						}else{
-							jQuery(this).removeClass('active');
-						}
-					});
-				}
-			});
-		}
+const DOMstrings = {
+	stepsBtnClass: 'multisteps-form__progress-btn',
+	stepsBtns: document.querySelectorAll(`.multisteps-form__progress-btn`),
+	stepsBar: document.querySelector('.multisteps-form__progress'),
+	stepsForm: document.querySelector('.multisteps-form__form'),
+	stepsFormTextareas: document.querySelectorAll('.multisteps-form__textarea'),
+	stepFormPanelClass: 'multisteps-form__panel',
+	stepFormPanels: document.querySelectorAll('.multisteps-form__panel'),
+	stepPrevBtnClass: 'js-btn-prev',
+	stepNextBtnClass: 'js-btn-next' };
+   
+   
+  const removeClasses = (elemSet, className) => {
+   
+	elemSet.forEach(elem => {
+   
+	  elem.classList.remove(className);
+   
 	});
-	//click on previous button
-	jQuery('.form-wizard-previous-btn').click(function() {
-		var counter = parseInt(jQuery(".wizard-counter").text());;
-		var prev =jQuery(this);
-		var currentActiveStep = jQuery(this).parents('.form-wizard').find('.form-wizard-steps .active');
-		prev.parents('.wizard-fieldset').removeClass("show","400");
-		prev.parents('.wizard-fieldset').prev('.wizard-fieldset').addClass("show","400");
-		currentActiveStep.removeClass('active').prev().removeClass('activated').addClass('active',"400");
-		jQuery(document).find('.wizard-fieldset').each(function(){
-			if(jQuery(this).hasClass('show')){
-				var formAtrr = jQuery(this).attr('data-tab-content');
-				jQuery(document).find('.form-wizard-steps .form-wizard-step-item').each(function(){
-					if(jQuery(this).attr('data-attr') == formAtrr){
-						jQuery(this).addClass('active');
-						var innerWidth = jQuery(this).innerWidth();
-						var position = jQuery(this).position();
-						jQuery(document).find('.form-wizard-step-move').css({"left": position.left, "width": innerWidth});
-					}else{
-						jQuery(this).removeClass('active');
-					}
-				});
-			}
-		});
+   
+  };
+   
+  const findParent = (elem, parentClass) => {
+   
+	let currentNode = elem;
+   
+	while (!currentNode.classList.contains(parentClass)) {
+	  currentNode = currentNode.parentNode;
+	}
+   
+	return currentNode;
+   
+  };
+   
+  const getActiveStep = elem => {
+	return Array.from(DOMstrings.stepsBtns).indexOf(elem);
+  };
+   
+  const setActiveStep = activeStepNum => {
+   
+	removeClasses(DOMstrings.stepsBtns, 'js-active');
+   
+	DOMstrings.stepsBtns.forEach((elem, index) => {
+   
+	  if (index <= activeStepNum) {
+		elem.classList.add('js-active');
+	  }
+   
 	});
-	//click on form submit button
-	jQuery(document).on("click",".form-wizard .form-wizard-submit" , function(){
-		var parentFieldset = jQuery(this).parents('.wizard-fieldset');
-		var currentActiveStep = jQuery(this).parents('.form-wizard').find('.form-wizard-steps .active');
-		parentFieldset.find('.wizard-required').each(function() {
-			var thisValue = jQuery(this).val();
-			if( thisValue == "" ) {
-				jQuery(this).siblings(".wizard-form-error").slideDown();
-			}
-			else {
-				jQuery(this).siblings(".wizard-form-error").slideUp();
-			}
-		});
+  };
+   
+  const getActivePanel = () => {
+   
+	let activePanel;
+   
+	DOMstrings.stepFormPanels.forEach(elem => {
+   
+	  if (elem.classList.contains('js-active')) {
+   
+		activePanel = elem;
+   
+	  }
+   
 	});
-	// focus on input field check empty or not
-	jQuery(".form-control").on('focus', function(){
-		var tmpThis = jQuery(this).val();
-		if(tmpThis == '' ) {
-			jQuery(this).parent().addClass("focus-input");
-		}
-		else if(tmpThis !='' ){
-			jQuery(this).parent().addClass("focus-input");
-		}
-	}).on('blur', function(){
-		var tmpThis = jQuery(this).val();
-		if(tmpThis == '' ) {
-			jQuery(this).parent().removeClass("focus-input");
-			jQuery(this).siblings('.wizard-form-error').slideDown("3000");
-		}
-		else if(tmpThis !='' ){
-			jQuery(this).parent().addClass("focus-input");
-			jQuery(this).siblings('.wizard-form-error').slideUp("3000");
-		}
+   
+	return activePanel;
+   
+  };
+   
+  const setActivePanel = activePanelNum => {
+   
+	removeClasses(DOMstrings.stepFormPanels, 'js-active');
+   
+	DOMstrings.stepFormPanels.forEach((elem, index) => {
+	  if (index === activePanelNum) {
+   
+		elem.classList.add('js-active');
+   
+		setFormHeight(elem);
+   
+	  }
 	});
-});
+   
+  };
+   
+  const formHeight = activePanel => {
+   
+	const activePanelHeight = activePanel.offsetHeight;
+   
+	DOMstrings.stepsForm.style.height = `${activePanelHeight}px`;
+   
+  };
+   
+  const setFormHeight = () => {
+	const activePanel = getActivePanel();
+   
+	formHeight(activePanel);
+  };
+   
+  DOMstrings.stepsBar.addEventListener('click', e => {
+   
+	const eventTarget = e.target;
+   
+	if (!eventTarget.classList.contains(`${DOMstrings.stepsBtnClass}`)) {
+	  return;
+	}
+   
+	const activeStep = getActiveStep(eventTarget);
+   
+	setActiveStep(activeStep);
+   
+	setActivePanel(activeStep);
+  });
+   
+  DOMstrings.stepsForm.addEventListener('click', e => {
+   
+	const eventTarget = e.target;
+   
+	if (!(eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`) || eventTarget.classList.contains(`${DOMstrings.stepNextBtnClass}`)))
+	{
+	  return;
+	}
+   
+	const activePanel = findParent(eventTarget, `${DOMstrings.stepFormPanelClass}`);
+   
+	let activePanelNum = Array.from(DOMstrings.stepFormPanels).indexOf(activePanel);
+   
+	if (eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`)) {
+	  activePanelNum--;
+   
+	} else {
+   
+	  activePanelNum++;
+   
+	}
+   
+	setActiveStep(activePanelNum);
+	setActivePanel(activePanelNum);
+   
+  });
+   
+  window.addEventListener('load', setFormHeight, false);
+   
+  window.addEventListener('resize', setFormHeight, false);
+   
+   
+  const setAnimationType = newType => {
+	DOMstrings.stepFormPanels.forEach(elem => {
+	  elem.dataset.animation = newType;
+	});
+  };
+   
+  //changing animation
+  const animationSelect = document.querySelector('.pick-animation__select');
+   
+  animationSelect.addEventListener('change', () => {
+	const newAnimationType = animationSelect.value;
+   
+	setAnimationType(newAnimationType);
+  });

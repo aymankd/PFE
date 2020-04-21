@@ -1556,13 +1556,11 @@ else{
                </div>
             </div>
             <div class="row">
-              
                <div class="col-md-7 col-sm-8">
                   <div class="md-prod-page">
                      <div class="md-prod-page-in">
                         <div class="page-preview">
                            <div class="preview">
-
                               <div class="preview-pic tab-content">
                                  <?=$img?>
                                  <!--
@@ -1590,6 +1588,9 @@ else{
                               </div> 
                            </div>
                         </div>
+                    
+                          
+
                         <div class="btn-dit-list clearfix">
 
                            <div class="left-dit-p">
@@ -1598,15 +1599,12 @@ else{
                                  <a href="loginRT.php?smr=<?=$CodeL?>"><i class="far fa-star"></i> Rate this</a>                               
                                  <a href="loginSV.php?smr=<?=$CodeL?>"><i class="far fa-heart"></i> Save this</a>                               
                                  <p><?=$nbrsaves?> personnes ont enregistrer cet logement </p>
-                              </div>
-                              
-                              
-                                                           
+                              </div>                             
                            </div>
-                         
                         </div>
                      </div>
 </div>
+
                      <div id="nc" class="description-box">
                         <div class="dex-a">
                            <h4>Description</h4>
