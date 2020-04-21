@@ -1590,6 +1590,15 @@ else{
                         </div>
                     
                           
+                        <div id="cnt-hote-2" class="btn-dit-list clearfix">
+                           <div class="left-dit-p">
+                             <h4>Prix:  <?=$prix?> Dh</h4>
+                         
+                           </div>
+                           <div class="right-dit-p">
+                             <a href="#" class="badge badge-primary">Contacter Hote</a>
+                           </div>
+                        </div>   
 
                         <div class="btn-dit-list clearfix">
 
@@ -2137,13 +2146,26 @@ function checkOffset() {
 
 <script>
    
-
+orgW=$(window).width();
 var width = $(window).width();
+
+document.getElementById('cnt-hote-2').style.display='none'; 
+
 $(window).on('resize', function() {
   if ($(this).width() !== width) {
     width = $(this).width();
     document.getElementById('price-box').style.display='none'; 
+    document.getElementById('cnt-hote-2').style.display='block'; 
+    
   }
+
+  if ($(this).width() == orgW) {
+    width = $(this).width();
+    document.getElementById('price-box').style.display='block'; 
+    document.getElementById('cnt-hote-2').style.display='none'; 
+    
+  }
+
 });
 
 
