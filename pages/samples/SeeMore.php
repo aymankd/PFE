@@ -33,6 +33,17 @@ $regl=$rowL["reglement"];
 $prix=$rowL["prix"];
 $sup=$rowL["superficie"];
 $type=$rowL["type"];
+$lat=$rowL["lat"];
+$lng=$rowL["lng"];
+$lat_lng_empty="";
+if($lat==NULL ||$lng==NULL)
+ {
+   $lat_lng_empty="empty";
+ }
+else
+{
+   $lat_lng_empty="not_empty";
+} 
 
 if($type=="Appartement")
 {
@@ -47,7 +58,7 @@ if($type=="Appartement")
 }
 else
 {
-   $reqAp="SELECT * from studio where CodeP=?";
+   $reqAp="SELECT * from studio where CodeS=?";
    $statementAp=$conn->prepare($reqAp);
    $statementAp->bind_param("i",$CodeL);
    $statementAp->execute();
@@ -64,19 +75,19 @@ $resI=$statementI->get_result();
 $img="";
 $imgs="";
 $i=1;
-while ( ($rowI = mysqli_fetch_array($resI)) && ($i < 4) ) 
+while ( ($rowI = mysqli_fetch_array($resI)) ) 
 {
   $id=$rowI['CodeImg'];
   $src="genere_image.php?id=$id";
   if($i==1)
     {
-      $img.="<div class='tab-pane active' id='pic-1'><img src='".$src."' alt='#' /></div>";
-      $imgs.="<li class='active'><a data-target='#pic-1' data-toggle='tab'><img src='".$src."' alt='#' /></a></li>";
+      $img.="<div class='tab-pane active' id='pic-1'><img class='img-main' src='".$src."' alt='#' /></div>";
+      $imgs.="<li class='active'><a data-target='#pic-1' data-toggle='tab'><img class='img-prev' src='".$src."' alt='#' /></a></li>";
     }
   else
     {
-      $img.="<div class='tab-pane' id='pic-".$i."'><img src='".$src."' alt='#' /></div>";
-      $imgs.=" <li><a data-target='#pic-".$i."' data-toggle='tab'><img src='".$src."' alt='#' /></a></li>";
+      $img.="<div class='tab-pane' id='pic-".$i."'><img class='img-main' src='".$src."' alt='#' /></div>";
+      $imgs.=" <li><a data-target='#pic-".$i."' data-toggle='tab'><img class='img-prev'  src='".$src."' alt='#' /></a></li>";
     }  
 
 
@@ -165,17 +176,17 @@ if($type=="Appartement")
            $recom1.= "<div class='col-md-6'>
                        <div class='small-box-c'>
                         <div class='small-img-b'>
-                          <img class='img-responsive' src='".$srcC."' alt='#' />
+                          <img class='img-responsives' src='".$srcC."' alt='#' />
                         </div> 
                         <div class='dit-t clearfix'>
                          <div class='left-ti'>
                           <h4>".$TitreC."</h4>
                           <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                          </div>
-                         <a href='#' tabindex='0'>".$prixC."DH</a>
+                         <a  tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>
-                         <a href='#'><i class='fa fa-thumbs-up' aria-hidden='true'></i> Like this</a>
+                         <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                          <p>23 likes</p>
                         </div>
                        </div>
@@ -191,19 +202,19 @@ if($type=="Appartement")
          else
           {
             $recom2.="<div class='col-md-6'>
-                       <div class='small-box-c'>
+                       <div class='small-box-c div-disp'>
                         <div class='small-img-b'>
-                         <img class='img-responsive' src='".$srcC."' alt='#' />
+                         <img class='img-responsives' src='".$srcC."' alt='#' />
                         </div> 
                         <div class='dit-t clearfix'>
                          <div class='left-ti'>
                          <h4>".$TitreC."</h4>
                          <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                          </div>
-                         <a href='#' tabindex='0'>".$prixC."DH</a>
+                         <a tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>   
-                         <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                        <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                          <p>23 likes</p>
                         </div>
                        </div>
@@ -269,19 +280,19 @@ if($type=="Appartement")
              if($j<=2)
                {
                   $recom1.="<div class='col-md-6'>
-                  <div class='small-box-c'>
+                  <div class='small-box-c div-disp'>
                    <div class='small-img-b'>
-                    <img class='img-responsive' src='".$srcC."' alt='#' />
+                    <img class='img-responsives' src='".$srcC."' alt='#' />
                    </div> 
                    <div class='dit-t clearfix'>
                     <div class='left-ti'>
                     <h4>".$TitreC."</h4>
                     <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                     </div>
-                    <a href='#' tabindex='0'>".$prixC."DH</a>
+                    <a  tabindex='0'>".$prixC."DH</a>
                    </div>
                    <div class='prod-btn'>   
-                    <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                   <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                     <p>23 likes</p>
                    </div>
                   </div>
@@ -296,19 +307,19 @@ if($type=="Appartement")
               else
                {
                   $recom2.="<div class='col-md-6'>
-                       <div class='small-box-c'>
+                       <div class='small-box-c div-disp'>
                         <div class='small-img-b'>
-                         <img class='img-responsive' src='".$srcC."' alt='#' />
+                         <img class='img-responsives' src='".$srcC."' alt='#' />
                         </div> 
                         <div class='dit-t clearfix'>
                          <div class='left-ti'>
                          <h4>".$TitreC."</h4>
                          <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                          </div>
-                         <a href='#' tabindex='0'>".$prixC."DH</a>
+                         <a  tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>   
-                         <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                        <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                          <p>23 likes</p>
                         </div>
                        </div>
@@ -356,19 +367,19 @@ if($type=="Appartement")
             $PnomC=$rowPC['nom'];
 
             $recom1.="<div class='col-md-6'>
-            <div class='small-box-c'>
+            <div class='small-box-c div-disp'>
               <div class='small-img-b'>
-               <img class='img-responsive' src='".$srcC."' alt='#' />
+               <img class='img-responsives' src='".$srcC."' alt='#' />
               </div> 
               <div class='dit-t clearfix'>
                <div class='left-ti'>
                 <h4>".$TitreC."</h4>
                 <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                </div>
-               <a href='#' tabindex='0'>".$prixC."DH</a>
+               <a  tabindex='0'>".$prixC."DH</a>
               </div>
               <div class='prod-btn'>   
-               <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                <p>23 likes</p>
               </div>
              </div>
@@ -414,19 +425,19 @@ if($type=="Appartement")
           $PnomC=$rowPC['nom']; 
 
           $recom1.="<div class='col-md-6'>
-            <div class='small-box-c'>
+            <div class='small-box-c div-disp'>
               <div class='small-img-b'>
-               <img class='img-responsive' src='".$srcC."' alt='#' />
+               <img class='img-responsives' src='".$srcC."' alt='#' />
               </div> 
               <div class='dit-t clearfix'>
                <div class='left-ti'>
                 <h4>".$TitreC."</h4>
                 <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                </div>
-               <a href='#' tabindex='0'>".$prixC."DH</a>
+               <a tabindex='0'>".$prixC."DH</a>
               </div>
               <div class='prod-btn'>   
-               <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+              <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                <p>23 likes</p>
               </div>
              </div>
@@ -476,19 +487,19 @@ if($type=="Appartement")
           if($rest==1)
            {
             $recom2.="<div class='col-md-6'>
-            <div class='small-box-c'>
+            <div class='small-box-c div-disp'>
              <div class='small-img-b'>
-              <img class='img-responsive' src='".$srcC."' alt='#' />
+              <img class='img-responsives' src='".$srcC."' alt='#' />
              </div> 
              <div class='dit-t clearfix'>
               <div class='left-ti'>
               <h4>".$TitreC."</h4>
               <p>By <span>".$PprenomC." </span>".$PnomC."</p>
               </div>
-              <a href='#' tabindex='0'>".$prixC."DH</a>
+              <a  tabindex='0'>".$prixC."DH</a>
              </div>
              <div class='prod-btn'>   
-              <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+             <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
               <p>23 likes</p>
              </div>
             </div>
@@ -500,19 +511,19 @@ if($type=="Appartement")
           if($rest==2)
            {
             $recom2.="<div class='col-md-6'>
-            <div class='small-box-c'>
+            <div class='small-box-c div-disp'>
              <div class='small-img-b'>
-              <img class='img-responsive' src='".$srcC."' alt='#' />
+              <img class='img-responsives' src='".$srcC."' alt='#' />
              </div> 
              <div class='dit-t clearfix'>
               <div class='left-ti'>
               <h4>".$TitreC."</h4>
               <p>By <span>".$PprenomC." </span>".$PnomC."</p>
               </div>
-              <a href='#' tabindex='0'>".$prixC."DH</a>
+              <a  tabindex='0'>".$prixC."DH</a>
              </div>
              <div class='prod-btn'>   
-              <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+             <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
               <p>23 likes</p>
              </div>
             </div>
@@ -526,19 +537,19 @@ if($type=="Appartement")
             if($jR==1)
              {
                $recom1.="<div class='col-md-6'>
-               <div class='small-box-c'>
+               <div class='small-box-c div-disp'>
                 <div class='small-img-b'>
-                 <img class='img-responsive' src='".$srcC."' alt='#' />
+                 <img class='img-responsives' src='".$srcC."' alt='#' />
                 </div> 
                 <div class='dit-t clearfix'>
                  <div class='left-ti'>
                  <h4>".$TitreC."</h4>
                  <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                  </div>
-                 <a href='#' tabindex='0'>".$prixC."DH</a>
+                 <a  tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                 <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                  <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -550,19 +561,19 @@ if($type=="Appartement")
              else
               {
                $recom2.="<div class='col-md-6'>
-               <div class='small-box-c'>
+               <div class='small-box-c div-disp'>
                 <div class='small-img-b'>
-                 <img class='img-responsive' src='".$srcC."' alt='#' />
+                 <img class='img-responsives' src='".$srcC."' alt='#' />
                 </div> 
                 <div class='dit-t clearfix'>
                  <div class='left-ti'>
                  <h4>".$TitreC."</h4>
                  <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                  </div>
-                 <a href='#' tabindex='0'>".$prixC."DH</a>
+                 <a  tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                 <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                  <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -629,19 +640,19 @@ else if($type=="studio")
            if($j<=2)
             {
              $recom1.= "<div class='col-md-6'>
-                         <div class='small-box-c'>
+                         <div class='small-box-c div-disp'>
                           <div class='small-img-b'>
-                            <img class='img-responsive' src='".$srcC."' alt='#' />
+                            <img class='img-responsives' src='".$srcC."' alt='#' />
                           </div> 
                           <div class='dit-t clearfix'>
                            <div class='left-ti'>
                             <h4>".$TitreC."</h4>
                             <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                            </div>
-                           <a href='#' tabindex='0'>".$prixC."DH</a>
+                           <a  tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>
-                           <a href='#'><i class='fa fa-thumbs-up' aria-hidden='true'></i> Like this</a>
+                           <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                            <p>23 likes</p>
                           </div>
                          </div>
@@ -657,19 +668,19 @@ else if($type=="studio")
            else
             {
               $recom2.="<div class='col-md-6'>
-                         <div class='small-box-c'>
+                         <div class='small-box-c div-disp'>
                           <div class='small-img-b'>
-                           <img class='img-responsive' src='".$srcC."' alt='#' />
+                           <img class='img-responsives' src='".$srcC."' alt='#' />
                           </div> 
                           <div class='dit-t clearfix'>
                            <div class='left-ti'>
                            <h4>".$TitreC."</h4>
                            <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                            </div>
-                           <a href='#' tabindex='0'>".$prixC."DH</a>
+                           <a  tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>   
-                           <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                           <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                            <p>23 likes</p>
                           </div>
                          </div>
@@ -734,19 +745,19 @@ else if($type=="studio")
                if($j<=2)
                  {
                     $recom1.="<div class='col-md-6'>
-                    <div class='small-box-c'>
+                    <div class='small-box-c div-disp'>
                      <div class='small-img-b'>
-                      <img class='img-responsive' src='".$srcC."' alt='#' />
+                      <img class='img-responsives' src='".$srcC."' alt='#' />
                      </div> 
                      <div class='dit-t clearfix'>
                       <div class='left-ti'>
                       <h4>".$TitreC."</h4>
                       <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                       </div>
-                      <a href='#' tabindex='0'>".$prixC."DH</a>
+                      <a  tabindex='0'>".$prixC."DH</a>
                      </div>
                      <div class='prod-btn'>   
-                      <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                      <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                       <p>23 likes</p>
                      </div>
                     </div>
@@ -761,19 +772,19 @@ else if($type=="studio")
                 else
                  {
                     $recom2.="<div class='col-md-6'>
-                         <div class='small-box-c'>
+                         <div class='small-box-c div-disp'>
                           <div class='small-img-b'>
-                           <img class='img-responsive' src='".$srcC."' alt='#' />
+                           <img class='img-responsives' src='".$srcC."' alt='#' />
                           </div> 
                           <div class='dit-t clearfix'>
                            <div class='left-ti'>
                            <h4>".$TitreC."</h4>
                            <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                            </div>
-                           <a href='#' tabindex='0'>".$prixC."DH</a>
+                           <a tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>   
-                           <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                           <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                            <p>23 likes</p>
                           </div>
                          </div>
@@ -820,19 +831,19 @@ else if($type=="studio")
               $PnomC=$rowPC['nom'];
   
               $recom1.="<div class='col-md-6'>
-              <div class='small-box-c'>
+              <div class='small-box-c div-disp'>
                 <div class='small-img-b'>
-                 <img class='img-responsive' src='".$srcC."' alt='#' />
+                 <img class='img-responsives' src='".$srcC."' alt='#' />
                 </div> 
                 <div class='dit-t clearfix'>
                  <div class='left-ti'>
                   <h4>".$TitreC."</h4>
                   <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                  </div>
-                 <a href='#' tabindex='0'>".$prixC."DH</a>
+                 <a  tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                 <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                 <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -877,19 +888,19 @@ else if($type=="studio")
             $PnomC=$rowPC['nom']; 
   
             $recom1.="<div class='col-md-6'>
-              <div class='small-box-c'>
+              <div class='small-box-c div-disp'>
                 <div class='small-img-b'>
-                 <img class='img-responsive' src='".$srcC."' alt='#' />
+                 <img class='img-responsives' src='".$srcC."' alt='#' />
                 </div> 
                 <div class='dit-t clearfix'>
                  <div class='left-ti'>
                   <h4>".$TitreC."</h4>
                   <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                  </div>
-                 <a href='#' tabindex='0'>".$prixC."DH</a>
+                 <a  tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                 <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                 <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -938,19 +949,19 @@ else if($type=="studio")
             if($rest==1)
              {
               $recom2.="<div class='col-md-6'>
-              <div class='small-box-c'>
+              <div class='small-box-c div-disp'>
                <div class='small-img-b'>
-                <img class='img-responsive' src='".$srcC."' alt='#' />
+                <img class='img-responsives' src='".$srcC."' alt='#' />
                </div> 
                <div class='dit-t clearfix'>
                 <div class='left-ti'>
                 <h4>".$TitreC."</h4>
                 <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                 </div>
-                <a href='#' tabindex='0'>".$prixC."DH</a>
+                <a  tabindex='0'>".$prixC."DH</a>
                </div>
                <div class='prod-btn'>   
-                <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                 <p>23 likes</p>
                </div>
               </div>
@@ -962,19 +973,19 @@ else if($type=="studio")
             if($rest==2)
              {
               $recom2.="<div class='col-md-6'>
-              <div class='small-box-c'>
+              <div class='small-box-c div-disp'>
                <div class='small-img-b'>
-                <img class='img-responsive' src='".$srcC."' alt='#' />
+                <img class='img-responsives' src='".$srcC."' alt='#' />
                </div> 
                <div class='dit-t clearfix'>
                 <div class='left-ti'>
                 <h4>".$TitreC."</h4>
                 <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                 </div>
-                <a href='#' tabindex='0'>".$prixC."DH</a>
+                <a  tabindex='0'>".$prixC."DH</a>
                </div>
                <div class='prod-btn'>   
-                <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                 <p>23 likes</p>
                </div>
               </div>
@@ -988,19 +999,19 @@ else if($type=="studio")
               if($jR==1)
                {
                  $recom1.="<div class='col-md-6'>
-                 <div class='small-box-c'>
+                 <div class='small-box-c div-disp'>
                   <div class='small-img-b'>
-                   <img class='img-responsive' src='".$srcC."' alt='#' />
+                   <img class='img-responsives' src='".$srcC."' alt='#' />
                   </div> 
                   <div class='dit-t clearfix'>
                    <div class='left-ti'>
                    <h4>".$TitreC."</h4>
                    <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                    </div>
-                   <a href='#' tabindex='0'>".$prixC."DH</a>
+                   <a  tabindex='0'>".$prixC."DH</a>
                   </div>
                   <div class='prod-btn'>   
-                   <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                   <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                    <p>23 likes</p>
                   </div>
                  </div>
@@ -1012,19 +1023,19 @@ else if($type=="studio")
                else
                 {
                  $recom2.="<div class='col-md-6'>
-                 <div class='small-box-c'>
+                 <div class='small-box-c div-disp'>
                   <div class='small-img-b'>
-                   <img class='img-responsive' src='".$srcC."' alt='#' />
+                   <img class='img-responsives' src='".$srcC."' alt='#' />
                   </div> 
                   <div class='dit-t clearfix'>
                    <div class='left-ti'>
                    <h4>".$TitreC."</h4>
                    <p>By <span>".$PprenomC." </span>".$PnomC."</p>
                    </div>
-                   <a href='#' tabindex='0'>".$prixC."DH</a>
+                   <a  tabindex='0'>".$prixC."DH</a>
                   </div>
                   <div class='prod-btn'>   
-                   <a href='#'><svg style='height: 16px; width: 16px; display: block; overflow: visible;' viewBox='0 0 24 24' fill='currentColor' fill-opacity='0' stroke='#222222' stroke-width='1.4' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round'><path d='m17.5 2.9c-2.1 0-4.1 1.3-5.4 2.8-1.6-1.6-3.8-3.2-6.2-2.7-1.5.2-2.9 1.2-3.6 2.6-2.3 4.1 1 8.3 3.9 11.1 1.4 1.3 2.8 2.5 4.3 3.6.4.3 1.1.9 1.6.9s1.2-.6 1.6-.9c3.2-2.3 6.6-5.1 8.2-8.8 1.5-3.4 0-8.6-4.4-8.6' stroke-linejoin='round'></path></svg>Like this</a>
+                   <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
                    <p>23 likes</p>
                   </div>
                  </div>
@@ -1051,37 +1062,130 @@ $equiprv1="";
 $equiprv2="";
 $equiLST="";
 $CodeE="";
-$reqEQ="SELECT * from eqlo  where CodeL=? ";
+
+$reqEQ="SELECT CodeE from equipement  where nom='Wi-Fi' ";
 $statementEQ=$conn->prepare($reqEQ);
-$statementEQ->bind_param("i",$CodeL);
+$statementEQ->execute();
+$resEQ=$statementEQ->get_result();
+$rowEQ=$resEQ->fetch_assoc();
+$CodeWifi=$rowEQ['CodeE'];
+
+$reqEQ="SELECT CodeE from equipement  where nom='Detecteur de fumée' ";
+$statementEQ=$conn->prepare($reqEQ);
+$statementEQ->execute();
+$resEQ=$statementEQ->get_result();
+$rowEQ=$resEQ->fetch_assoc();
+$CodeDF=$rowEQ['CodeE'];
+
+$reqEQ="SELECT CodeE from equipement  where nom='Chauff-eau' ";
+$statementEQ=$conn->prepare($reqEQ);
+$statementEQ->execute();
+$resEQ=$statementEQ->get_result();
+$rowEQ=$resEQ->fetch_assoc();
+$CodeCffA=$rowEQ['CodeE'];
+
+$reqEQ="SELECT CodeE from equipement  where nom='Climatisation' ";
+$statementEQ=$conn->prepare($reqEQ);
+$statementEQ->execute();
+$resEQ=$statementEQ->get_result();
+$rowEQ=$resEQ->fetch_assoc();
+$CodeClim=$rowEQ['CodeE'];
+
+
+
+
+$reqEQ="SELECT * from eqlo  where CodeL=? and (CodeE=? or CodeE=? or CodeE=? or CodeE=?) ";
+$statementEQ=$conn->prepare($reqEQ);
+$statementEQ->bind_param("iiiii",$CodeL,$CodeWifi,$CodeDF,$CodeCffA,$CodeClim);
 $statementEQ->execute();
 $resEQ=$statementEQ->get_result();
 
-while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
+$wf=FALSE;
+$clm=FALSE;
+$df=FALSE;
+$ce=FALSE;
+
+while(($rowEQ=mysqli_fetch_array($resEQ)) )
  {
-   $CodeE=$rowEQ['CodeE'];
-   $reqEQS="SELECT * from equipement  where CodeE=? ";
-   $statementEQS=$conn->prepare($reqEQS);
-   $statementEQS->bind_param("i",$CodeE);
-   $statementEQS->execute();
-   $resEQS=$statementEQS->get_result();
-   $rowEQS=$resEQS->fetch_assoc();
-   if($eqn<=2)
-    {
-      $equiprv1.= " <div class='col-md-4'>
-                   <h5><svg viewBox='0 0 24 24' role='presentation' aria-hidden='true' focusable='false' style='height: 19px; width: 19px; fill: currentcolor;'><path d='m12 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0 5a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm5.92-5.78a.5.5 0 1 1 -.84.55c-1.19-1.81-3.07-2.77-5.08-2.77s-3.89.96-5.08 2.78a.5.5 0 0 1 -.84-.55c1.38-2.1 3.58-3.23 5.92-3.23s4.54 1.13 5.92 3.23zm2.98-3.03a.5.5 0 1 1 -.79.61c-1.66-2.14-5.22-3.8-8.11-3.8-2.83 0-6.26 1.62-8.12 3.82a.5.5 0 0 1 -.76-.65c2.05-2.42 5.75-4.17 8.88-4.17 3.19 0 7.05 1.8 8.9 4.19zm2.95-2.33a.5.5 0 0 1 -.71-.02c-2.94-3.07-6.71-4.84-11.14-4.84s-8.2 1.77-11.14 4.85a.5.5 0 0 1 -.72-.69c3.12-3.27 7.14-5.16 11.86-5.16s8.74 1.89 11.86 5.16a.5.5 0 0 1 -.02.71z' fill-rule='evenodd'></path></svg>".$rowEQS['nom']."</h5>
-                  </div>";
-      $eqn=$eqn+1;
-    }
-   else
-    {
-      $equiprv2.= " <div class='col-md-4'>
-      <h5><svg viewBox='0 0 24 24' role='presentation' aria-hidden='true' focusable='false' style='height: 19px; width: 19px; fill: currentcolor;'><path d='m12 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0 5a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm5.92-5.78a.5.5 0 1 1 -.84.55c-1.19-1.81-3.07-2.77-5.08-2.77s-3.89.96-5.08 2.78a.5.5 0 0 1 -.84-.55c1.38-2.1 3.58-3.23 5.92-3.23s4.54 1.13 5.92 3.23zm2.98-3.03a.5.5 0 1 1 -.79.61c-1.66-2.14-5.22-3.8-8.11-3.8-2.83 0-6.26 1.62-8.12 3.82a.5.5 0 0 1 -.76-.65c2.05-2.42 5.75-4.17 8.88-4.17 3.19 0 7.05 1.8 8.9 4.19zm2.95-2.33a.5.5 0 0 1 -.71-.02c-2.94-3.07-6.71-4.84-11.14-4.84s-8.2 1.77-11.14 4.85a.5.5 0 0 1 -.72-.69c3.12-3.27 7.14-5.16 11.86-5.16s8.74 1.89 11.86 5.16a.5.5 0 0 1 -.02.71z' fill-rule='evenodd'></path></svg>".$rowEQS['nom']."</h5>
-     </div>";
-     $eqn=$eqn+1;
-    } 
-   
+  
+   $reqEQs="SELECT * from equipement  where CodeE=? ";
+   $statementEQs=$conn->prepare($reqEQs);
+   $statementEQs->bind_param("i",$rowEQ['CodeE']);
+   $statementEQs->execute();
+   $resEQs=$statementEQs->get_result();
+   $rowEQs=$resEQs->fetch_assoc();
+    
+    if(strcmp($rowEQs['nom'], "Wi-Fi")==0)
+      {
+         $wf=TRUE;
+      }
+    else if(strcmp($rowEQs['nom'],"Climatisation")==0) 
+      {
+         $clm=TRUE;
+      }
+    else if(strcmp($rowEQs['nom'],"Detecteur de fumée")==0) 
+      {
+         $df=TRUE;
+      }
+    else if(strcmp($rowEQs['nom'],"Chauff-eau")==0) 
+      {
+         $ce=TRUE;         
+      }        
  }
+
+ if($wf==TRUE)
+  {
+   $equiprv1.= " <div class='col-md-4'>
+   <h4><img src='../../Resourse/imgs/equipements/wifi.png' />&nbsp;Wi-Fi</h4>
+  </div>";
+  }
+ else if($wf==FALSE) 
+  {
+   $equiprv1.= " <div class='col-md-4'>
+   <h4><p><s><img src='../../Resourse/imgs/equipements/wifi.png' />&nbsp;Wi-Fi</s></p></h4>
+  </div>";
+  }
+
+  if($clm==TRUE)
+  {
+   $equiprv1.= " <div class='col-md-4'>
+   <h4><img src='../../Resourse/imgs/equipements/air-conditioner.png' />&nbsp;Climatisation</h4>
+  </div>";
+  }
+  
+ else if($clm==FALSE) 
+  {
+   $equiprv1.= " <div class='col-md-4'>
+   <h4><p><strike><img src='../../Resourse/imgs/equipements/air-conditioner.png' />&nbsp;Climatisation</strike></p></h4>
+  </div>";
+  }
+
+  if($df==TRUE)
+  {
+   $equiprv2.= " <div class='col-md-4'>
+   <h4><img src='../../Resourse/imgs/equipements/smoke-detector.png' />&nbsp;Detecteur de fumée</h4>
+  </div>";
+  }
+ else if($df==FALSE) 
+  {
+   $equiprv2.= " <div class='col-md-4'>
+   <h4><p><s><img src='../../Resourse/imgs/equipements/smoke-detector.png' />&nbsp;Detecteur de fumée</s></p></h4>
+  </div>";
+  }
+
+  if($ce==TRUE)
+  {
+   $equiprv2.= " <div class='col-md-4'>
+   <h4><img src='../../Resourse/imgs/equipements/water-heater.png' />&nbsp;Chauff-eau</h4>
+  </div>";
+  }
+ else if($ce==FALSE) 
+  {
+   $equiprv2.= " <div class='col-md-4'>
+   <h4><p><s><img src='../../Resourse/imgs/equipements/water-heater.png' />&nbsp;Chauff-eau</s></p></h4>
+  </div>";
+  }
+
  $reqEQ2="SELECT * from eqlo  where CodeL=? ";
  $statementEQ2=$conn->prepare($reqEQ2);
  $statementEQ2->bind_param("i",$CodeL);
@@ -1199,6 +1303,172 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
   $nbrRt=$rowRI['ttl'];
   $nbrRt=$nbrRt;
   
+  //loading first page of comments comments 
+  $Comments="";
+  $reqCMC="SELECT count(*) as nbrCMT from ratings where CodeL=? and comment IS NOT NULL ";
+  $statementCMC=$conn->prepare($reqCMC);
+  $statementCMC->bind_param("i",$CodeL);
+  $statementCMC->execute();
+  $resCMC=$statementCMC->get_result(); 
+  $rowCMC=$resCMC->fetch_assoc();
+  $nbrCMT=$rowCMC['nbrCMT'];
+
+if($nbrCMT==0)
+{
+   $Comments="<div id='no-cmt-img'><img src='../../Resourse/imgs/userimgs/noComment.png'></div><br><h3 id='no-cmt-txt'>Pas de commantaires</h3><hr>";
+}
+else{
+  $reqCM="SELECT * from ratings where CodeL=? limit 5";
+  $statementCM=$conn->prepare($reqCM);
+  $statementCM->bind_param("i",$CodeL);
+  $statementCM->execute();
+  $resCM=$statementCM->get_result();  
+  while(($rowCM=mysqli_fetch_array($resCM)))
+   {
+      $CodeCU=$rowCM['CodeU'];
+      $comment=$rowCM['comment'];
+      $rating=$rowCM['rating'];
+
+      $reqCMU="SELECT * from utilisateur where CodeU=?";
+      $statementCMU=$conn->prepare($reqCMU);
+      $statementCMU->bind_param("i",$CodeCU);
+      $statementCMU->execute();
+      $resCMU=$statementCMU->get_result(); 
+      $rowCMU=$resCMU->fetch_assoc(); 
+
+      $UserCMU=$rowCMU['username'];
+      
+      if($rowCMU['imageP']!=NULL)
+        {
+          $srcCMU="profilpic.php?UN=$UserCMU";
+	       $ProfilePCMU="<img src='".$srcCMU."' class='img img-rounded img-fluid'/>";
+        }
+      else
+        {
+	       $srcCMU="../../Resourse/imgs/ProfileHolder.jpg";
+	       $ProfilePCMU="<img src='".$srcCMU."' class='img img-rounded img-fluid'/>";
+        }
+      
+        $OvrRatingCMU=$rowCM['rating'];
+  
+
+        $wholeRCMU = floor($OvrRatingCMU);      
+        $fractionRCMU = $OvrRatingCMU - $wholeRCMU;
+        $irCMU=0;
+        $starsCMU="";
+        $countSTRCMU=5-$wholeRCMU;
+        while($irCMU<$wholeRCMU)
+        {
+           $starsCMU.="<span class='float-right'><i class='text-warning fa fa-star'></i></span>";
+           $irCMU++;
+        }
+      
+        if($fractionRCMU>=0.8 && $fractionRCMU<=0.9)
+         {
+           $starsCMU.="<span class='float-right'><i class='text-warning fa fa-star'></i></span>";
+           $countSTRCMU=$countSTRCMU-1;
+         }
+        else if($fractionRCMU>0.2 && $fractionRCMU<0.8)
+         {
+           $starsCMU.="<span class='float-right'><i class='text-warning fas fa-star-half'></i></span>";
+           $countSTRCMU=$countSTRCMU-1;
+         }
+         else if($fractionRCMU<=0.2 && $fractionRCMU>0.8)
+         {
+            $starsCMU.="<span class='float-right'><i class='text-warning fa fa-star'></i></span>";
+           $countSTRCMU=$countSTRCMU-1;
+         }
+      
+         $irCMU=0;
+         while($irCMU<$countSTRCMU)
+         {
+            $starsCMU.="<span class='float-right'><i class='text-warning far fa-star'></i></span>";
+            $irCMU++;
+         }  
+     
+
+     $Comments.= "
+                  <div class='row'>
+                   <div class='col-md-2'>".$ProfilePCMU
+                     
+                     ."
+                   </div>
+                   <div class='col-md-10'>
+                     <p>
+                     <a class='float-left' href='https://maniruzzaman-akash.blogspot.com/p/contact.html'><strong>".$UserCMU."</strong></a>
+                    
+                     ".$starsCMU."
+
+                     </p>
+                     <div class='clearfix'></div>
+                       <p>".$comment."</p>
+                       
+                     </div>
+                   </div>
+                  </div>
+                  <hr class='cmt'>";
+   }
+ }
+    //count number of comment pages
+    $reqCM="SELECT Count(*) as cnt from ratings where CodeL=?";
+    $statementCM=$conn->prepare($reqCM);
+    $statementCM->bind_param("i",$CodeL);
+    $statementCM->execute();
+    $resCM=$statementCM->get_result();  
+    $rowCM=$resCM->fetch_assoc();
+    $pages=$rowCM['cnt'];
+    //count number of saves
+    $reqs="SELECT Count(*) as cntS from saves where CodeL=?";
+    $statements=$conn->prepare($reqs);
+    $statements->bind_param("i",$CodeL);
+    $statements->execute();
+    $ress=$statements->get_result();  
+    
+   if(($rows=$ress->fetch_assoc()))
+     {
+        $nbrsaves=$rows['cntS'];
+     }
+
+   //Selecting 5 random profile pictures of users who comented on this 
+   $cmt_Lst="";
+   
+   $req5U="SELECT CodeU  from ratings where CodeL=? order by RAND() LIMIT 5";
+   $statement5U=$conn->prepare($req5U);
+   $statement5U->bind_param("i",$CodeL);
+   $statement5U->execute();
+   $res5U=$statement5U->get_result(); 
+   while(($row5U=mysqli_fetch_array($res5U)))
+    {
+      $CodeU_LST=$row5U['CodeU'];
+      $reqCMU="SELECT * from utilisateur where CodeU=?";
+      $statementCMU=$conn->prepare($reqCMU);
+      $statementCMU->bind_param("i",$CodeU_LST);
+      $statementCMU->execute();
+      $resCMU=$statementCMU->get_result(); 
+      $rowCMU=$resCMU->fetch_assoc(); 
+
+      $UserCMU=$rowCMU['username'];
+      
+      if($rowCMU['imageP']!=NULL)
+        {
+          $src_Lst="profilpic.php?UN=$UserCMU";
+          $cmt_Lst.=" <li>
+                       <div class='im-b'><img class='' src='$src_Lst' alt=''></div>
+                      </li>";
+        }
+      else
+        {
+          $src_Lst="../../Resourse/imgs/ProfileHolder.jpg";
+	       $cmt_Lst.=" <li>
+                       <div class='im-b'><img class='' src='$src_Lst' alt=''></div>
+                      </li>";
+        }
+      
+
+
+      
+   
+    } 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -1219,12 +1489,13 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
       <!--animate css-->
       <link rel="stylesheet" href="../../Resourse/cssSm/animate-wow.css">
       <!--main css-->
-      <link rel="stylesheet" href="../../Resourse/cssSm/style.css">
+      
       <link rel="stylesheet" href="../../Resourse/cssSm/bootstrap-select.min.css">
       <link rel="stylesheet" href="../../Resourse/cssSm/slick.min.css">
       <link rel="stylesheet" href="../../Resourse/cssSm/select2.min.css">
       <link rel="stylesheet" href="../../Resourse/cssSm/ratingBot/rating.css">
       <link rel="stylesheet" href="../../Resourse/cssSm/Comments/commt.css">
+      <link rel="stylesheet" href="../../Resourse/cssSm/style.css">
       
 
        <!--comments css-->
@@ -1303,8 +1574,8 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                                  <div class="tab-pane" id="pic-5"><img src="../../Resourse/images/lag-61.png" alt="#" /></div>-->
 
                               </div>
-
-                              <ul class="preview-thumbnail nav nav-tabs">
+                              <div class='div-prev'>
+                               <ul class="preview-thumbnail nav nav-tabs">
 
                                 <?=$imgs?>
                                  <!--
@@ -1316,19 +1587,20 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                                  <li><a data-target="#pic-5" data-toggle="tab"><img src="../../Resourse/images/lag-61.png" alt="#" /></a></li>
                                  -->
                               </ul>
+                              </div> 
                            </div>
                         </div>
                         <div class="btn-dit-list clearfix">
 
                            <div class="left-dit-p">
 
-                              <div class="prod-btn">                                
-                                 <a href="#"><i class="far fa-heart"></i> Like this</a>                               
+                              <div class="prod-btn"> 
+                                 <a href="loginRT.php?smr=<?=$CodeL?>"><i class="far fa-star"></i> Rate this</a>                               
+                                 <a href="loginSV.php?smr=<?=$CodeL?>"><i class="far fa-heart"></i> Save this</a>                               
+                                 <p><?=$nbrsaves?> personnes ont enregistrer cet logement </p>
                               </div>
-                              &nbsp;
-                              <div class="prod-btn">
-                                 <a href="loginRT.php?smr=<?=$CodeL?>"><i class="far fa-star"></i> Rate this</a>
-                              </div>
+                              
+                              
                                                            
                            </div>
                          
@@ -1377,172 +1649,134 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                         </div>    
                         
                         <div class="spe-a">
-                        <h4>Ratings</h4>
-    <div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-xs-12 col-md-6 text-center">
-                        <h1 class="rating-num">
-                            <?php echo sprintf("%.1f", $OvrRating);?></h1>
-                        <div class="rating"  >
-                            <?=$stars?>
-                        </div>
-                        <div>
-                            <span ><i class="fas fa-user"></i>  </span><?=$nbrRt?> total
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-6">
-                        <div class="row rating-desc">
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span><i class="fas fa-star"></i></span>5
-                            </div>
+                           <h4>Ratings</h4>
+                              <div class="container">
+                                 <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                       <div class="well well-sm">
+                                          <div class="row">
+                                             <div class="col-xs-12 col-md-6 text-center">
+                                                <h1 class="rating-num">
+                                                <?php echo sprintf("%.1f", $OvrRating);?></h1>
+                                                <div class="rating">
+                                                 <?=$stars?>
+                                                </div>
+                                                <div>
+                                                  <span ><i class="fas fa-user"></i>  </span><?=$nbrRt?> total
+                                                </div>
+                                             </div>
+                                             <div class="col-xs-12 col-md-6">
+                                                <div class="row rating-desc">
+                                                   <div class="col-xs-3 col-md-3 text-right">
+                                                    <span><i class="fas fa-star"></i></span>5
+                                                   </div>
                            
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress progress-striped">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                                        <span class="sr-only">100%</span>
-                                    </div>
+                                                   <div class="col-xs-8 col-md-9">
+                                                      <div class="progress progress-striped">
+                                                       <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                                       <span class="sr-only">100%</span>
+                                                      </div>
                                     
-                                </div>
-                                <div class="col-md-6 col-md-offset-12">
-                                <span></span>
-                                </div>
-                            </div>
+                                                   </div>
+                                                   <div class="col-md-6 col-md-offset-12">
+                                                   <span></span>
+                                                   </div>
+                                                </div>
                             
-                            <!-- end 5 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span ><i class="fas fa-star"></i></span>4
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                        <span class="sr-only">80%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 4 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span ><i class="fas fa-star"></i></span>3
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                        <span class="sr-only">60%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 3 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span ><i class="fas fa-star"></i><span>2
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                        <span class="sr-only">40%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 2 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span ><i class="fas fa-star"></i></span>1
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
-<<<<<<< HEAD
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 15%">
-                                        <span class="sr-only">15%</span>
+                                                <!-- end 5 -->
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                   <span ><i class="fas fa-star"></i></span>4
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                   <div class="progress">
+                                                      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                                        <span class="sr-only">80%</span>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <!-- end 4 -->
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                  <span ><i class="fas fa-star"></i></span>3
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                   <div class="progress">
+                                                      <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                                         <span class="sr-only">60%</span>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <!-- end 3 -->
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                   <span ><i class="fas fa-star"></i><span>2
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                   <div class="progress">
+                                                      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
+                                                         aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                         <span class="sr-only">40%</span>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <!-- end 2 -->
+                                                <div class="col-xs-3 col-md-3 text-right">
+                                                   <span ><i class="fas fa-star"></i></span>1
+                                                </div>
+                                                <div class="col-xs-8 col-md-9">
+                                                   <div class="progress">
+                                                      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
+                                                       aria-valuemin="0" aria-valuemax="100" style="width: 15%">
+                                                       <span class="sr-only">15%</span>
                                         
-=======
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                        <span class="sr-only">20%</span>
->>>>>>> 2a24aa1c601c5058a483afcd469cbb31a72fda99
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <!-- end 1 -->
+                                             </div>
+                                             <!-- end row -->
+                                          </div>
+                                       </div>
                                     </div>
-                                </div>
-                            </div>
-                            <!-- end 1 -->
-                        </div>
-                        <!-- end row -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<hr>
-<div class="right-dit-p">
+                                 </div>
+                              </div>
+                           </div>
+                           <hr>
+                           <div class="right-dit-p">
                               <div class="like-list">
                                  <ul>
-                                    <li>
-                                       <div class="im-b"><img class="" src="../../Resourse/images/list-img-01.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-02.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-03.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-04.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-05.png" alt=""></div>
-                                    </li>
-                                    <li>
-                                       <div class="im-b"><img src="../../Resourse/images/list-img-06.png" alt=""></div>
-                                    </li>
+                                    <?=$cmt_Lst?>
+                              
                                     <li>
                                        <div class="im-b"><i id="SeeComments" class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
                                     </li>
                                  </ul>
                               </div>
                            </div>
-                           
-<div class="spe-a">
- <h4>Comments</h4>
-      
- <div id="comments" class="card Comments">
-	      <div class="card-body">
-	         <div class="row">
-        	      <div class="col-md-2">
-        	        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-        	        <p class="text-secondary text-center">15 Minutes Ago</p>
-        	      </div>
-        	      <div class="col-md-10">
-        	        <p>
-        	            <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
-        	            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                     <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-        	            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-        	            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                     <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-
-        	       </p>
-        	       <div class="clearfix"></div>
-        	         <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-        	         <p>
-        	            <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
-        	            <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
-        	         </p>
-        	        </div>
-	            </div>
-	         </div>
-            <button><i class="far fa-arrow-alt-circle-left"></i></button> <button><i class="far fa-arrow-alt-circle-right"></i></button>
-         </div>
+                           <div class="spe-a">
+                              <h4>Comments</h4>     
+                              <div id="comments" class="card Comments">
+	                              <div class="card-body">
+                                    <div id="cmt-grp">
+	                                  <?=$Comments?>
+                                    </div>
+                                    <button id='left'><i class="far fa-arrow-alt-circle-left"></i></button>
+                                    <button id='right'><i class="far fa-arrow-alt-circle-right"></i></button>
+                                 </div>
          
-</div> 
-
+                              </div> 
                         
                      </div>
                   </div>
-
-
+               <!--Map location-->
+                  <div >      
+                    <div id="map-container">      
+                     <div id="map">
+                   
+                     </div>
+                    </div>
+                  </div>
                   <div class="similar-box">
                      <h2>Similiar results</h2>
                      
@@ -1569,7 +1803,7 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
 <!--Modal-->
 
 <div class="modal fade" id="modalEquip"  tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog-centered" role="document" style="width:40%;margin-left:30%">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title _26piifo">Équipements</h5>
@@ -1719,20 +1953,21 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
       <!--main js--> 
       <script src="../../Resourse/js3/jquery-1.12.4.min.js"></script> 
       <!--bootstrap js--> 
-      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <!--<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      
+      <script src="../../Resourse/js3/bootstrap-select.min.js"></script>-->
       <script src="../../Resourse/js3/bootstrap.min.js"></script> 
-      <script src="../../Resourse/js3/bootstrap-select.min.js"></script>
       <script src="../../Resourse/js3/slick.min.js"></script> 
       <script src="../../Resourse/js3/select2.full.min.js"></script> 
       <script src="../../Resourse/js3/wow.min.js"></script> 
 
-      <script src="../../Resourse/cssSm/ratingBot/bootstrap.min.js"></script>
-<script src="../../Resourse/cssSm/ratingBot/jquery-1.11.1.min.js"></script>
+    <!--  <script src="../../Resourse/cssSm/ratingBot/bootstrap.min.js"></script>
+<script src="../../Resourse/cssSm/ratingBot/jquery-1.11.1.min.js"></script>-->
 
+<!--
+<script src="../../Resourse/cssSm/Comments/bootstrap.min.js"></script>-->
 
-<script src="../../Resourse/cssSm/Comments/bootstrap.min.js"></script>
-
-<script src="../../Resourse/cssSm/Comments/jquery.min.js"></script>
+<!--<script src="../../Resourse/cssSm/Comments/jquery.min.js"></script>-->
       <!--custom js--> 
       <script src="../../Resourse/js3/custom.js"></script>
      
@@ -1746,6 +1981,7 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
 $(document).ready(function(){  
    document.getElementById('comments').style.display='none';
    var hidden=true;
+
 
    $('#SeeComments').click(function(){  
           
@@ -1761,7 +1997,119 @@ $(document).ready(function(){
       }
 
        });
- 
+  
+
  });  
 </script>
 
+
+<script async defer
+
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWv8pHQtbrov613r_RMqCjZ_nOrz2y7HM&callback=initMap">
+    </script>
+
+<script>
+function initMap(){
+   var options = {
+      zoom:8,
+      center:{lat:<?=$lat?>, lng:<?=$lng?>}
+
+   }
+   var map = new google.maps.Map(
+      document.getElementById('map'),options);
+
+   var marker = new google.maps.Marker({
+      position: {lat:<?=$lat?>, lng:<?=$lng?>}, 
+      map: map,
+      icon:'../../Resourse/imgs/adresse.png'
+      });
+   
+
+}
+</script>
+
+<script>
+ var lat_lng_empty='<?=$lat_lng_empty?>';  
+  if(lat_lng_empty=='empty')
+   {
+      $('#map-container').empty().append("<img id='no-map-img' src='../../Resourse/imgs/userimgs/noLocation.png'><br><h3 >Le proprietaire n'a pas specifier la locationdu logement</h3><hr>");
+   }
+
+
+</script>
+
+<script>
+var page=1;
+var limit=5;
+var offset=0;
+var pages=<?=$pages?>;
+
+$(document).ready(function(){ 
+   if(page==1)
+     {
+       document.getElementById('left').style.display='none'; 
+     }
+   if(pages<=1)
+     {
+      document.getElementById('right').style.display='none';
+     }  
+
+     $('#right').click(function(){
+      offset=offset+5;
+
+      $.ajax({  
+                url:"getComments.php",  
+                method:"POST",  
+                data:{limit:limit,offset:offset,CodeL:<?=$CodeL?>},  
+                success:function(data){  
+                     $('#cmt-grp').html(data);  
+                }  
+           });
+
+      page=page+1;
+      if(page>1)
+       {
+        document.getElementById('left').style.display='block'; 
+       }
+      if(pages<=page)
+       {
+         document.getElementById('right').style.display='none'; 
+       } 
+     });  
+
+     $('#left').click(function(){
+      offset=offset-5;
+      
+      $.ajax({  
+                url:"getComments.php",  
+                method:"POST",  
+                data:{limit:limit,offset:offset,CodeL:<?=$CodeL?>},  
+                success:function(data){  
+                     $('#cmt-grp').html(data);  
+                }  
+           });
+      page=page-1;
+      if(page==1)
+     {
+       document.getElementById('left').style.display='none'; 
+     }
+     if(pages>=page)
+       {
+         document.getElementById('right').style.display='none'; 
+       }
+     });     
+});
+
+</script>
+
+<script>
+   var nbr_cmt=<?=$nbrCMT?>;
+   $(document).ready(function(){ 
+   if(nbr_cmt==0)
+    {
+      document.getElementById('comments').style.display='block'; 
+      document.getElementById('SeeComments').style.display='none'; 
+
+    }
+   });  
+</script>

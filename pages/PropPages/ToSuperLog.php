@@ -1,11 +1,9 @@
 <?php
 session_start();
-
-if( !isset($_SESSION['username']) || $_SESSION['type'] != "normal" )
+if( !isset($_SESSION['username']) || $_SESSION['type'] != "pro" )
 {
   header("location:../../homeP.php");
 }
-
 
 $servername = "localhost";
 $userservername = "root";
@@ -24,7 +22,6 @@ $UISc='setInterval(function() {
   showdata="";';
 
 
-
 // Create connection
 $conn = new mysqli($servername, $userservername,"", $database);
 
@@ -32,8 +29,6 @@ $conn = new mysqli($servername, $userservername,"", $database);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-
-
 
 //remplisage des données d'utilisateur courrant
 $src="";
@@ -47,7 +42,7 @@ $resIU=$statementIU->get_result();
 $rowIU=$resIU->fetch_assoc();
 if($rowIU['imageP']!=NULL)
 {
-  $src="../Samples/profilpic.php?UN=$USN";
+  	$src="../Samples/profilpic.php?UN=$USN";
 	$ProfileP="<img src='".$src."' alt='profile'/>";
 }
 else
@@ -186,11 +181,48 @@ $UISc = $UISc.'updateScrollbar();
 
 $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 
+$ulLog="";
+//dropdown logement ultra
+$requl="SELECT * FROM logement WHERE CodeP=? and (CodeL NOT IN (SELECT CodeL FROM pack where CodeU=? ))";
+$statementul=$conn->prepare($requl);
+$statementul->bind_param("ii",$codeU,$codeU);
+$statementul->execute();
+$resul=$statementul->get_result();
+while($rowul = mysqli_fetch_array($resul)){ 
+$ulLog.="
+<div class='form-check'>
+  <label class='form-check-label'>
+  <input type='checkbox' name='check_ul' value='".$rowul['CodeL']."' class='form-check-input check_ul' >
+  ".$rowul['nom']."
+  </label>
+</div>
+";
+}
+$SupLog="";
+//dropdown logement ultra
+$reqSu="SELECT * FROM logement WHERE CodeP=? and (CodeL NOT IN (SELECT CodeL FROM pack where CodeU=? and type!='super'  ))";
+$statementSu=$conn->prepare($reqSu);
+$statementSu->bind_param("ii",$codeU,$codeU);
+$statementSu->execute();
+$resSu=$statementSu->get_result();
+while($rowSu = mysqli_fetch_array($resSu)){ 
+$SupLog.="
+<div class='form-check'>
+  <label class='form-check-label'>
+  <input type='checkbox' name='check_su' value='".$rowSu['CodeL']."' class='form-check-input check_su' >
+  ".$rowSu['nom']."
+  </label>
+</div>
+";
+}
+
+
+
+
 
 
 
 ?>
-
 
 
 <!DOCTYPE html>
@@ -204,17 +236,17 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
   <link rel="stylesheet" href="../../Resourse/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../../Resourse/vendors/base/vendor.bundle.base.css">
  
-  <link rel="stylesheet" href="../../Resourse/ForUserPage/styleCardd.css">
-  <link rel="stylesheet" href="../../Resourse/ForUserPage/css/grid2.css">
-  <link rel="stylesheet" href="../../Resourse/ForUserPage/css/colors.css">
-  <link rel="stylesheet" href="../../Resourse/ForUserPage/css/responsive.css">
 
-  <link rel="stylesheet" href="../../Resourse/css2/styleUser.css">
+  <link rel="stylesheet" href="../../Resourse/css2/styleRe.css">
+  <link rel="stylesheet" href="../../Resourse/css2/dropbtn.css">
   <link rel="shortcut icon" href="../../Resourse/images/favicon.png" />
+
+
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-  <link rel="stylesheet" href="../../Resourse/cssSm/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
   <link rel="stylesheet" href="../../Resourse/css3/chatbox.css">
+  <link rel="stylesheet" href="../../Resourse/css3/packbox.css">
 
 
   </head>
@@ -287,6 +319,7 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
                   <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
 
                   <?=$ntMsg;?>
+                  
 
                 </div>
               </li>
@@ -294,14 +327,14 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
                 <a href="#" class="nav-link count-indicator "><i class="mdi mdi-message-reply-text"></i></a>
               </li>
               <li class="nav-item nav-search d-none d-lg-block ml-3">
-                <form class="input-group" action="searshResult.php" methode="POST">
+                <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="search">
                         <i class="mdi mdi-magnify"></i>
                       </span>
                     </div>
-                    <input type="text" name="rech" class="form-control" placeholder="Search a very wide input..." aria-label="search" aria-describedby="search">
-                </form>
+                    <input type="text" class="form-control" placeholder="search" aria-label="search" aria-describedby="search">
+                </div>
               </li>	
             </ul>
  
@@ -325,12 +358,10 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
                         <i class="mdi mdi-account text-primary"></i>
                         Mon Compte
                       </a>
-
-                      <a href="UserSaves.php" class="dropdown-item">
-                        <i class="mdi mdi-heart text-primary"></i>
-                        Enregistrements
+                      <a class="dropdown-item">
+                        <i class="mdi mdi-home-modern text-primary"></i>
+                        Les Logement
                       </a>
-
                       <a class="dropdown-item">
                         <i class="mdi mdi-logout text-primary"></i>
                         Logout
@@ -348,299 +379,209 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 
     <!-- partial -->
 		<div class="container-fluid">
-    <br>
-    <nav aria-label="breadcrumb">
-  <ol class="SectionName">
-    <p class="breadcrumb-item active" aria-current="page">Section 1</p>
-  </ol>
-</nav>
-<section class="section first-section">
-            <div class="container-fluid">
-                <div class="masonry-blog clearfix">
-                    <div class="left-side">
-                        <div class="masonry-box post-media">
-                             <img src="../../Resourse/images/lag-60.png" alt="" class="img-fluid">
-                             <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">Gardening</a></span>
-                                        <h4><a href="garden-single.html" title="">How to choose high quality soil for your gardens</a></h4>
-                                        <small><a href="garden-single.html" title="">21 July, 2017</a></small>
-                                        <small><a href="#" title="">by Amanda</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                            </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end left-side -->
-
-                    <div class="center-side">
-                        <div class="masonry-box post-media">
-                             <img src="../../Resourse/images/lag-61.png" alt="" class="img-fluid">
-                             <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">Outdoor</a></span>
-                                        <h4><a href="garden-single.html" title="">You can create a garden with furniture in your home</a></h4>
-                                        <small><a href="garden-single.html" title="">19 July, 2017</a></small>
-                                        <small><a href="#" title="">by Amanda</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                            </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end left-side -->
-
-                    <div class="right-side hidden-md-down">
-                        <div class="masonry-box post-media">
-                             <img src="../../Resourse/images/lag-63.png" alt="" class="img-fluid">
-                             <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">Indoor</a></span>
-                                        <h4><a href="garden-single.html" title="">The success of the 10 companies in the vegetable sector</a></h4>
-                                        <small><a href="garden-single.html" title="">03 July, 2017</a></small>
-                                        <small><a href="#" title="">by Jessica</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                             </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end right-side -->
-                </div><!-- end masonry -->
-            </div>
-        </section>
-				<!-- partial -->
-			</div>
-			<!-- main-panel ends -->
-		</div>
-		<!-- page-body-wrapper ends -->
-    </div>
-
-
-
-
-   <!-- partial -->
-   <div class="container-fluid">
-    <br>
-    <nav aria-label="breadcrumb">
-  <ol class="SectionName">
-    <p class="breadcrumb-item active" aria-current="page">Section 2</p>
-  </ol>
-</nav>
-<div class="project-content">
-			<div class="col-half">
-				<div class="project animate-box" style="background-image:url(../../Resourse/images/lag-60.png);">
-					<div class="desc">
-						<span>Mr Alami dodo</span>
-						<h3>Appartement1</h3>
-						<span>Prix : 5000dh</h3>
-					</div>
-				</div>
-			</div>
-			<div class="col-half">
-				<div class="project-grid animate-box" style="background-image:url(../../Resourse/images/lag-61.png);">
-					<div class="desc">
-					<span>Mr Alami dodo</span>
-						<h3>Appartement1</h3>
-						<span>Prix : 5000dh</h3>
-					</div>
-				</div>
-				<div class="project-grid animate-box" style="background-image:url(../../Resourse/images/tr3.png);">
-					<div class="desc">
-					<span>Mr Alami dodo</span>
-						<h3>Appartement1</h3>
-						<span>Prix : 5000dh</h3>
-					</div>
-				</div>
-			</div>
-		</div>
-				<!-- partial -->
-			</div>
-			<!-- main-panel ends -->
-		</div>
-		<!-- page-body-wrapper ends -->
-    </div>
-<br>
-
-
-
- <!-- partial -->
- <div class="container-fluid">
-    <br>
-    <nav aria-label="breadcrumb">
-  <ol class="SectionName">
-    <p class="breadcrumb-item active" aria-current="page">Section 3</p>
-  </ol>
-</nav>
     <main class="grid">
-     <article>
-    <!-- Card -->
-<div class="card">
 
-<div class="view zoom overlay">
-  <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">Sale</span></h4>
-  <a href="#!">
-    <div class="mask">
-      <img class="img-fluid w-100"
-        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg">
-      <div class="mask rgba-black-slight"></div>
-    </div>
-  </a>
-</div>
+          <div class='containerbox'>
+        <section class='card' data-toggle='modal' data-target='#UltraModal'>
+          <div class='card_inner'>
+            <div class='card_inner__circle'>
+              <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/rocket.png'>
+            </div>
+            <div class='card_inner__header'>
+              <img src='http://www.pixeden.com/media/k2/galleries/343/002-city-vector-background-town-vol2.jpg'>
+            </div>
+            <div class='card_inner__content'>
+              <div class='title'>Ultra Logement</div>
+              <div class='price'>$39</div>
+              <div class='text'>
+                RECHERCH <br>
+                HOME <br>
+                +10 PHOTO
+              </div>
+            </div>
+            <div class='card_inner__cta'>
+              <button>
+                <span>Buy now</span>
+              </button>
+            </div>
+          </div>
+        </section>
+        <section class='card' style="display:none">
+        </section>
+        <section class='card' data-toggle='modal' data-target='#SuperModal'>
+          <div class='card_inner'>
+            <div class='card_inner__circle'>
+              <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/paperplane.png'>
+            </div>
+            <div class='card_inner__header'>
+              <img src='http://7428.net/wp-content/uploads/2013/06/Forest-Creek.jpg'>
+            </div>
+            <div class='card_inner__content'>
+              <div class='title'>Super Logement</div>
+              <div class='price'>$19</div>
+              <div class='text'>
+                * RECHERCH <br>
+                * +5 PHOTO <br>
+                <br>
+              </div>
+            </div>
+            <div class='card_inner__cta'>
+              <button>
+                <span>Buy now</span>
+              </button>
+            </div>
+          </div>
+        </section>
 
-<div class="card-body text-center">
+      </div>
 
-  <h5>Fantasy T-shirt</h5>
-  <p class="small text-muted text-uppercase mb-2">Shirts</p>
-  
-  <hr>
-  <h6 class="mb-3">
-    <span class="text-danger mr-1">12.99$</span>
-    <span class="text-grey"><s>36.99$</s></span>
-  </h6>
 
- 
-  <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
-    <i class="fas fa-info-circle pr-2"></i>Details
-  </button>
-  <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
-    <i class="far fa-heart"></i>
-  </button>
+    </main>
 
-</div>
 
-</div>
-<!-- Card -->
-  </article>
-  <article>
-    <!-- Card -->
-<div class="card">
-
-<div class="view zoom overlay">
-  <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">Sale</span></h4>
-  <a href="#!">
-    <div class="mask">
-      <img class="img-fluid w-100"
-        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg">
-      <div class="mask rgba-black-slight"></div>
-    </div>
-  </a>
-</div>
-
-<div class="card-body text-center">
-
-  <h5>Fantasy T-shirt</h5>
-  <p class="small text-muted text-uppercase mb-2">Shirts</p>
-  
-  <hr>
-  <h6 class="mb-3">
-    <span class="text-danger mr-1">12.99$</span>
-    <span class="text-grey"><s>36.99$</s></span>
-  </h6>
-
- 
-  <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
-    <i class="fas fa-info-circle pr-2"></i>Details
-  </button>
-  <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
-    <i class="far fa-heart"></i>
-  </button>
-
-</div>
-
-</div>
-<!-- Card -->
-  </article>
-  <article>
-    <!-- Card -->
-<div class="card">
-
-<div class="view zoom overlay">
-  <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">Sale</span></h4>
-  <a href="#!">
-    <div class="mask">
-      <img class="img-fluid w-100"
-        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg">
-      <div class="mask rgba-black-slight"></div>
-    </div>
-  </a>
-</div>
-
-<div class="card-body text-center">
-
-  <h5>Fantasy T-shirt</h5>
-  <p class="small text-muted text-uppercase mb-2">Shirts</p>
-  
-  <hr>
-  <h6 class="mb-3">
-    <span class="text-danger mr-1">12.99$</span>
-    <span class="text-grey"><s>36.99$</s></span>
-  </h6>
-
- 
-  <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
-    <i class="fas fa-info-circle pr-2"></i>Details
-  </button>
-  <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
-    <i class="far fa-heart"></i>
-  </button>
-
-</div>
-
-</div>
-<!-- Card -->
-  </article>
-  <article>
-    <!-- Card -->
-<div class="card">
-
-<div class="view zoom overlay">
-  <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">Sale</span></h4>
-  <a href="#!">
-    <div class="mask">
-      <img class="img-fluid w-100"
-        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg">
-      <div class="mask rgba-black-slight"></div>
-    </div>
-  </a>
-</div>
-
-<div class="card-body text-center">
-
-  <h5>Fantasy T-shirt</h5>
-  <p class="small text-muted text-uppercase mb-2">Shirts</p>
-  
-  <hr>
-  <h6 class="mb-3">
-    <span class="text-danger mr-1">12.99$</span>
-    <span class="text-grey"><s>36.99$</s></span>
-  </h6>
-
- 
-  <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
-    <i class="fas fa-info-circle pr-2"></i>Details
-  </button>
-  <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
-    <i class="far fa-heart"></i>
-  </button>
-
-</div>
-
-</div>
-<!-- Card -->
-  </article>
-</main>
 				<!-- partial -->
 			</div>
 			<!-- main-panel ends -->
 		</div>
 		<!-- page-body-wrapper ends -->
     </div>
-<br>
-
-
-
-
-
     <?=$chatboxs; ?>
+
+    <!-- Ultra Modal -->
+    <div class="modal fade" id="UltraModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ultra Modal</h5>
+          </div>
+          <div class="modal-body">
+
+            <div class="form-group row">
+              <div class="col-sm-9">
+                <div class="dropdown">
+                  <button class="dropbtn form-control btn btn-default btn-sm dropdown-toggle ">Logement</button>
+                  <div class="dropdown-content force-scroll">
+                    <div class="radioEq">
+                      <?=$ulLog; ?>
+
+                    </div>	
+                  </div>
+                </div> 
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-9">
+                <div class="dropdown">
+                  <button class="dropbtn form-control btn btn-default btn-sm dropdown-toggle ">temp de pack</button>
+                  <div class="dropdown-content force-scroll">
+                    <div class="radioEq">
+                      <div class='form-check'>
+                        <label class='form-check-label'>
+                        <input type='radio' name='temp' value="1" class='form-check-input' checked>
+                        1 mois
+                        </label>
+                      </div>
+                      <div class='form-check'>
+                        <label class='form-check-label'>
+                        <input type='radio' name='temp' value="3" class='form-check-input' >
+                        3 mois
+                        </label>
+                      </div>
+                      <div class='form-check'>
+                        <label class='form-check-label'>
+                        <input type='radio' name='temp' value="12" class='form-check-input' >
+                        1 année
+                        </label>
+                      </div>
+                    </div>	
+                  </div>
+                </div> 
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <div id="ultraprix">
+              
+            </div>
+            <button type="button" class="btn btn-primary">Accepte</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Super Modal -->
+    <div class="modal fade" id="SuperModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Super Modal</h5>
+          </div>
+          <div class="modal-body">
+
+            <div class="form-group row">
+              <div class="col-sm-9">
+                <div class="dropdown">
+                  <button class="dropbtn form-control btn btn-default btn-sm dropdown-toggle ">Logement</button>
+                  <div class="dropdown-content force-scroll">
+                    <div class="radioEq">
+                      <?=$SupLog; ?>
+
+                    </div>	
+                  </div>
+                </div> 
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-9">
+                <div class="dropdown">
+                  <button class="dropbtn form-control btn btn-default btn-sm dropdown-toggle ">temp de pack</button>
+                  <div class="dropdown-content force-scroll">
+                    <div class="radioEq">
+                      <div class='form-check'>
+                        <label class='form-check-label'>
+                        <input type='radio' name='Stemp' value="1" class='form-check-input' checked>
+                        1 mois
+                        </label>
+                      </div>
+                      <div class='form-check'>
+                        <label class='form-check-label'>
+                        <input type='radio' name='Stemp' value="3" class='form-check-input' >
+                        3 mois
+                        </label>
+                      </div>
+                      <div class='form-check'>
+                        <label class='form-check-label'>
+                        <input type='radio' name='Stemp' value="12" class='form-check-input' >
+                        1 année
+                        </label>
+                      </div>
+                    </div>	
+                  </div>
+                </div> 
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <div id="Superprix">
+              
+            </div>
+            <button type="button" class="btn btn-primary">Accepte</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+
+
+
+
+
+
 
     <!-- container-scroller -->
     <!-- base:js -->
@@ -661,10 +602,9 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
     <!-- Custom js for this page-->
     <script src="../../Resourse/js2/dashboard.js"></script>
     <!-- End custom js for this page-->
-    <script src="../../Resourse/js2/Card.js"></script>
 
-      <!-- chat-box -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- chat-box -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <script>
@@ -687,29 +627,50 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 
 
       <?=$UISc; ?>
-      /* 
-            setInterval(function() {
-      showdata="";
-      $.ajax({  
-                url:"chatmsg.php",  
-                method:"GET",  
-                data:{sender,reciever:},  
-                success:function(data){
-                   if(showdata!=data)
-                   {
-                     showdata=data;
-                     $('.mCSB_container').html(data);
-                   }
-                }  
-           });
-                 updateScrollbar(); 
-   }, 1000);
-      */
-
+   
     
     </script>
+    <script>
+    setInterval(function() {
+      var checkedlog = [];
+    // Initializing array with Checkbox checked values
+    $("input[name='check_ul']:checked").each(function(){
+      checkedlog.push(this.value);
+    });
+      var timepack = $('input:radio[name="temp"]:checked').val();
+      
+      $.ajax({  
+                url:"ultra.php",  
+                method:"POST",  
+                data:{logment: checkedlog,timeout:timepack},  
+                success:function(data){
+                  $('#ultraprix').html(data);
+                }  
+           });
+
+      var checkedlogSu = [];
+    // Initializing array with Checkbox checked values
+    $("input[name='check_su']:checked").each(function(){
+      checkedlogSu.push(this.value);
+    });
+      var timepackSu = $('input:radio[name="Stemp"]:checked').val();
+      
+      $.ajax({  
+                url:"super.php",  
+                method:"POST",  
+                data:{logment: checkedlogSu,timeout:timepackSu},  
+                success:function(data){
+                  $('#Superprix').html(data);
+                }  
+           });
+    }, 200);
+
+    </script>
+
+  
+
     <?=$jsScript; ?>
 
-
+  
 </body>
 </html>
