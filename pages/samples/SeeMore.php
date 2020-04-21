@@ -1334,6 +1334,7 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) && $eqn<=4 )
                          
                         </div>
                      </div>
+</div>
                      <div id="nc" class="description-box">
                         <div class="dex-a">
                            <h4>Description</h4>
