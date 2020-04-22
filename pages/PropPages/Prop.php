@@ -235,18 +235,26 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
      }    
   }
 
-/*chec pack expiration time
+//chec pack expiration time
 
-$reqP="SELECT * FROM pack WHERE CodeU=?";
+$reqP="SELECT * FROM pack";
 $statementP=$conn->prepare($reqP);
-$statementP->bind_param("i",$codeU);
 $statementP->execute();
 $resP=$statementP->get_result();
+$date = new DateTime(date('Y-m-d'));
 while ( $rowP = mysqli_fetch_array($resP) )
   {
-    $experttime=
+    $date = new DateTime(date('Y-m-d'));
+    $DBdate = new DateTime($rowP['ExpeTo']);
+    if( $DBdate <= $date )
+      {
+        $reqEX="DELETE FROM pack WHERE CodeL=?";
+        $statementEX=$conn->prepare($reqEX);
+        $statementEX->bind_param("i",$rowP['CodeL']);
+        $statementEX->execute();
+      }
   }
-*/
+//chec complete
 
 
 
