@@ -37,7 +37,6 @@ if(isset($_POST['logment']) && isset($_POST['timeout']))
         {
             if($row['type']=="super")
             {
-                echo 'xxxxxxxxxx';
                 $DBdate = new DateTime($row['ExpeTo']);
                 $date = new DateTime(date('Y-m-d'));
                 $diff = $date->diff($DBdate)->format("%m");
@@ -50,7 +49,6 @@ if(isset($_POST['logment']) && isset($_POST['timeout']))
                 $statementIn->execute();
             }else if($row['type']=="ultra")
             {
-                echo 'eeeeeeeeeeeeeee';
                 $DBdate = new DateTime($row['ExpeTo']);
                 $date = new DateTime(date('Y-m-d'));
                 $diff = $date->diff($DBdate)->format("%m");

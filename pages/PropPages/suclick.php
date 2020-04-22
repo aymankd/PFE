@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 }
 
 $codeU = $_SESSION['usercode'];
-$type = 'ultra';
+$type = 'super';
 if(isset($_POST['logment']) && isset($_POST['timeout']))
 {
     $arraylogment = $_POST['logment'];
@@ -37,20 +37,6 @@ if(isset($_POST['logment']) && isset($_POST['timeout']))
         {
             if($row['type']=="super")
             {
-                echo 'xxxxxxxxxx';
-                $DBdate = new DateTime($row['ExpeTo']);
-                $date = new DateTime(date('Y-m-d'));
-                $diff = $date->diff($DBdate)->format("%m");
-                $diff = intdiv((int)$diff, 3) + $timeout ;
-                $date->add(new DateInterval('P'.$diff.'M'));
-                $dateToreq = $date->format('Y-m-d');
-                $reqIn="UPDATE `pack` SET `ExpeTo` = ? , `type` = ?  WHERE CodeL = ?";
-                $statementIn=$conn->prepare($reqIn);
-                $statementIn->bind_param("ssi",$dateToreq,$type,$Codelogment);
-                $statementIn->execute();
-            }else if($row['type']=="ultra")
-            {
-                echo 'eeeeeeeeeeeeeee';
                 $DBdate = new DateTime($row['ExpeTo']);
                 $date = new DateTime(date('Y-m-d'));
                 $diff = $date->diff($DBdate)->format("%m");
@@ -68,7 +54,7 @@ if(isset($_POST['logment']) && isset($_POST['timeout']))
 
 
 
-    $chang = 'document.getElementById("ulAccepte").innerHTML = "';
+    $chang = 'document.getElementById("suAccepte").innerHTML = "';
     $chang = $chang."<div class='spinner-border text-light' role='status'><span class='sr-only'>Loading...</span></div>" ;
     $chang = $chang.'";';
 

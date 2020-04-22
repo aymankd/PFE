@@ -235,6 +235,20 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
      }    
   }
 
+/*chec pack expiration time
+
+$reqP="SELECT * FROM pack WHERE CodeU=?";
+$statementP=$conn->prepare($reqP);
+$statementP->bind_param("i",$codeU);
+$statementP->execute();
+$resP=$statementP->get_result();
+while ( $rowP = mysqli_fetch_array($resP) )
+  {
+    $experttime=
+  }
+*/
+
+
 
 //notification
 $notif="";

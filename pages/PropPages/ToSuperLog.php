@@ -699,7 +699,7 @@ $SupLog.="
               method:"POST",  
               data:{logment: checkedlogS,timeout:timepackS},  
               success:function(data){
-                $('#ultraprix').html(data);
+                $('#Superprix').html(data);
               }  
         });
     }
