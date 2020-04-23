@@ -1737,6 +1737,7 @@ if(($rowSR=$resSR->fetch_assoc()))
                               </ul>
                            </div>
                         </div>
+                        </div>
                         <div class="btn-dit-list clearfix">
                            <div class="left-dit-p">
                               <div class="prod-btn">
