@@ -183,7 +183,7 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 
 $ulLog="";
 //dropdown logement ultra
-$requl="SELECT * FROM logement WHERE CodeP=? and (CodeL NOT IN (SELECT CodeL FROM pack where CodeU=? ))";
+$requl="SELECT * FROM logement WHERE CodeP=? and (CodeL NOT IN (SELECT CodeL FROM pack where CodeU=? and type!='super' and type!='ultra' ))";
 $statementul=$conn->prepare($requl);
 $statementul->bind_param("ii",$codeU,$codeU);
 $statementul->execute();
@@ -199,8 +199,8 @@ $ulLog.="
 ";
 }
 $SupLog="";
-//dropdown logement ultra
-$reqSu="SELECT * FROM logement WHERE CodeP=? and (CodeL NOT IN (SELECT CodeL FROM pack where CodeU=? and type!='super'  ))";
+//dropdown logement super
+$reqSu="SELECT * FROM logement WHERE CodeP=? and (CodeL NOT IN (SELECT CodeL FROM pack where CodeU=? and type!='super' ))";
 $statementSu=$conn->prepare($reqSu);
 $statementSu->bind_param("ii",$codeU,$codeU);
 $statementSu->execute();
@@ -505,7 +505,7 @@ $SupLog.="
             <div id="ultraprix">
               
             </div>
-            <button type="button" class="btn btn-primary">Accepte</button>
+            <button type="button" id="ulAccepte" onclick="ulAcc()" class="btn btn-primary">Accepte</button>
           </div>
         </div>
       </div>
@@ -568,7 +568,7 @@ $SupLog.="
             <div id="Superprix">
               
             </div>
-            <button type="button" class="btn btn-primary">Accepte</button>
+            <button type="button" id="suAccepte" onclick="suAcc()" class="btn btn-primary">Accepte</button>
           </div>
         </div>
       </div>
@@ -632,42 +632,81 @@ $SupLog.="
     </script>
     <script>
     setInterval(function() {
-      var checkedlog = [];
-    // Initializing array with Checkbox checked values
-    $("input[name='check_ul']:checked").each(function(){
-      checkedlog.push(this.value);
-    });
-      var timepack = $('input:radio[name="temp"]:checked').val();
-      
-      $.ajax({  
-                url:"ultra.php",  
-                method:"POST",  
-                data:{logment: checkedlog,timeout:timepack},  
-                success:function(data){
-                  $('#ultraprix').html(data);
-                }  
-           });
 
-      var checkedlogSu = [];
-    // Initializing array with Checkbox checked values
-    $("input[name='check_su']:checked").each(function(){
-      checkedlogSu.push(this.value);
-    });
-      var timepackSu = $('input:radio[name="Stemp"]:checked').val();
-      
+                  var checkedlog = [];
+                // Initializing array with Checkbox checked values
+                $("input[name='check_ul']:checked").each(function(){
+                  checkedlog.push(this.value);
+                });
+                  var timepack = $('input:radio[name="temp"]:checked').val();
+                  
+                  $.ajax({  
+                            url:"ultra.php",  
+                            method:"POST",  
+                            data:{logment: checkedlog,timeout:timepack},  
+                            success:function(data){
+                              $('#ultraprix').html(data);
+                            }  
+                      });
+
+                var checkedlogSu = [];
+              // Initializing array with Checkbox checked values
+              $("input[name='check_su']:checked").each(function(){
+                checkedlogSu.push(this.value);
+              });
+                var timepackSu = $('input:radio[name="Stemp"]:checked').val();
+                
+                $.ajax({  
+                          url:"super.php",  
+                          method:"POST",  
+                          data:{logment: checkedlogSu,timeout:timepackSu},  
+                          success:function(data){
+                            $('#Superprix').html(data);
+                          }  
+                    });
+    }, 10000);
+
+    </script>
+    <script>
+    //validation method
+    function ulAcc() {
+      var checkedlogU = [];
+                // Initializing array with Checkbox checked values
+                $("input[name='check_ul']:checked").each(function(){
+                  checkedlogU.push(this.value);
+                });
+                  var timepackU = $('input:radio[name="temp"]:checked').val();
+
+
       $.ajax({  
-                url:"super.php",  
-                method:"POST",  
-                data:{logment: checkedlogSu,timeout:timepackSu},  
-                success:function(data){
-                  $('#Superprix').html(data);
-                }  
-           });
-    }, 200);
+              url:"ulclick.php",  
+              method:"POST",  
+              data:{logment: checkedlogU,timeout:timepackU},  
+              success:function(data){
+                $('#ultraprix').html(data);
+              }  
+        });
+    }
+    function suAcc() {
+      var checkedlogS = [];
+                // Initializing array with Checkbox checked values
+                $("input[name='check_su']:checked").each(function(){
+                  checkedlogS.push(this.value);
+                });
+                  var timepackS = $('input:radio[name="Stemp"]:checked').val();
+      $.ajax({  
+              url:"suclick.php",  
+              method:"POST",  
+              data:{logment: checkedlogS,timeout:timepackS},  
+              success:function(data){
+                $('#Superprix').html(data);
+              }  
+        });
+    }
 
     </script>
 
-  
+
 
     <?=$jsScript; ?>
 

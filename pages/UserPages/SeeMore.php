@@ -1737,7 +1737,21 @@ if(($rowSR=$resSR->fetch_assoc()))
                               </ul>
                            </div>
                         </div>
+<<<<<<< HEAD
                         </div>
+=======
+
+                        <div id="cnt-hote-2" class="btn-dit-list clearfix">
+                           <div class="left-dit-p">
+                             <h4>Prix:  <?=$prix?> Dh</h4>
+                         
+                           </div>
+                           <div class="right-dit-p">
+                             <a  class="badge badge-primary ChatPro">Contacter Hote</a>
+                           </div>
+                        </div> 
+
+>>>>>>> 3ac4b7673bdd38cf83782fc4be002d1642e659f1
                         <div class="btn-dit-list clearfix">
                            <div class="left-dit-p">
                               <div class="prod-btn">
@@ -1925,7 +1939,7 @@ if(($rowSR=$resSR->fetch_assoc()))
                    
                      </div>
                   </div>
-                  <div class="similar-box">
+                  <div id="sim-res" class="similar-box">
                      <h2>Similiar results</h2>
                      
                      <div class="row cat-pd">
@@ -1938,13 +1952,11 @@ if(($rowSR=$resSR->fetch_assoc()))
                   </div>
                </div>
                <div class="col-md-3 col-sm-12">
-                  <div class="price-box-right">
+                  <div id="price-box" class="price-box-right">
                      <h4>Prix</h4>
                      <h3><?=$prix?> Dh</h3><hr>
                   
-                    
-                     
-                     <a id="ChatPro" class="badge badge-primary">Contacter Hote</a>
+                     <a class="badge badge-primary ChatPro">Contacter Hote</a>
                   </div>
                </div>
             </div>
@@ -2016,7 +2028,7 @@ if(($rowSR=$resSR->fetch_assoc()))
 
 
       <footer>
-         <div class="main-footer">
+         <div  class="main-footer">
             <div class="container">
                <div class="row">
                   <div class="footer-top clearfix">
@@ -2264,7 +2276,7 @@ i = 0;
 
 
 
-   $('#ChatPro').click(function(){
+   $('.ChatPro').click(function(){
    chat.style="display:block";
    updateScrollbar();
    });
@@ -2720,6 +2732,56 @@ $(document).ready(function(){
 
     }
    });  
+</script>
+
+<script>
+   $(document).scroll(function() {
+    checkOffset();
+});
+
+function checkOffset() {
+    if($('#price-box').offset().top + $('#price-box').height() 
+                                           >= $('#sim-res').offset().top - 10)
+        {
+           $('#price-box').css('position', 'relative');
+           $('#price-box').css('margin-left', '688px');
+           $('#price-box').css('top', '-850px');
+        
+        }
+    if($(document).scrollTop() + window.innerHeight < $('#sim-res').offset().top)
+       { $('#price-box').css('position', 'fixed'); // restore when you scroll up
+         $('#price-box').css('left', '50%');
+         $('#price-box').css('top', '25%');
+         $('#price-box').css('margin-left', '15%');
+       }
+}
+</script>
+
+<script>
+   
+orgW=$(window).width();
+var width = $(window).width();
+
+document.getElementById('cnt-hote-2').style.display='none'; 
+
+$(window).on('resize', function() {
+  if ($(this).width() !== width) {
+    width = $(this).width();
+    document.getElementById('price-box').style.display='none'; 
+    document.getElementById('cnt-hote-2').style.display='block'; 
+    
+  }
+
+  if ($(this).width() == orgW) {
+    width = $(this).width();
+    document.getElementById('price-box').style.display='block'; 
+    document.getElementById('cnt-hote-2').style.display='none'; 
+    
+  }
+
+});
+
+
 </script>
 
 </html>

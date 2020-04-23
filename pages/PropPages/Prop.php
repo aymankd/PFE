@@ -235,6 +235,28 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
      }    
   }
 
+//chec pack expiration time
+
+$reqP="SELECT * FROM pack";
+$statementP=$conn->prepare($reqP);
+$statementP->execute();
+$resP=$statementP->get_result();
+$date = new DateTime(date('Y-m-d'));
+while ( $rowP = mysqli_fetch_array($resP) )
+  {
+    $date = new DateTime(date('Y-m-d'));
+    $DBdate = new DateTime($rowP['ExpeTo']);
+    if( $DBdate <= $date )
+      {
+        $reqEX="DELETE FROM pack WHERE CodeL=?";
+        $statementEX=$conn->prepare($reqEX);
+        $statementEX->bind_param("i",$rowP['CodeL']);
+        $statementEX->execute();
+      }
+  }
+//chec complete
+
+
 
 //notification
 $notif="";
