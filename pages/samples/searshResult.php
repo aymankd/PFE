@@ -230,6 +230,7 @@ while ($rowL = mysqli_fetch_array($resL))
           </div>
         </div>
       </nav>
+      
       <nav class="navbar bottom-navbar col-lg-12 col-12 p-0">
       <nav class="bottom-navbar">
       <ul class="nav page-navigation">

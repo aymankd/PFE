@@ -22350,11 +22350,19 @@
       left: 58%;
       top: 6px;
     }
+ 
   }
   
+  @media(max-width:360px){
+    .grid{
+      margin-top: 40px;
+    }
+  }
+
   .horizontal-menu .top-navbar .navbar-menu-wrapper .count-indicator:after {
     display: none;
   }
+  
   
   .horizontal-menu .bottom-navbar {
     background: #ffffff;
@@ -23204,3 +23212,4 @@ h2 {
     border-color: #464dee;
     box-shadow: transparent;
   }
+
