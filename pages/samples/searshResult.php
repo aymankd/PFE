@@ -179,6 +179,18 @@ while ($rowL = mysqli_fetch_array($resL))
 <head>
 
 
+    <style type="text/css">
+     @media (max-width: 991px) {
+    .logoo{
+      width: 6em;
+      margin-top: 1em;
+      margin-left: 1em;
+    }
+  }
+    </style>
+
+
+
   <!-- Standard Meta -->
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -186,6 +198,7 @@ while ($rowL = mysqli_fetch_array($resL))
 
   <!-- Site Properties -->
   <title>Homepage</title>
+  <link rel="stylesheet" href="../../Resourse/css2/styleRe.css">
   <link rel="stylesheet" type="text/css" href="../../Resourse/CSS/semantic.min.css">
   <link href="../../Resourse/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="../../Resourse/vendors/mdi/css/materialdesignicons.min.css">
@@ -195,9 +208,9 @@ while ($rowL = mysqli_fetch_array($resL))
   <link rel="stylesheet" type="text/css" href="../../Resourse/CSS/PageSearch.css">
   <link rel="stylesheet" type="text/css" href="../../Resourse/CSS/StyleSearshBar.css">
  
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   
-  <link rel="stylesheet" href="../../Resourse/css2/styleRe.css">
+ 
   
 	<link rel="shortcut icon" href="../../Resourse/images/favicon.png" />
 </head>
@@ -230,8 +243,34 @@ while ($rowL = mysqli_fetch_array($resL))
           </div>
         </div>
       </nav>
-      
+       <!--Mobile view-->
+ 
+
+<!-- Top Navigation Menu -->
+<div class="topnav">
+  <img class="logoo" src="../../Resourse/images/logo-1.png" alt="logo"/>
+  <a class="spaceline"></a>
+  <a href="#" aria-busy="false" class="equipment" data-toggle="modal" data-target="#modalEquip" class="active">Filters</a>
+  <!-- Navigation links (hidden by default) -->
+  <div id="myLinks">
+  <a href="pages/samples/register.php" class="itemXE">Devenez hôte</a>
+            <a href="pages/samples/register.php" class="itemXE">Aide</a>
+            <a href="pages/samples/register.php" class="itemXE">Inscription</a>
+            <a href="pages/samples/login.php"  class="itemXE" >Connexion</a>
+  </div>
+  <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+       <!--/Mobile view-->
+
+     
+
+
+
       <nav class="navbar bottom-navbar col-lg-12 col-12 p-0">
+        
       <nav class="bottom-navbar">
       <ul class="nav page-navigation">
               <li class="nav-item">
@@ -239,7 +278,7 @@ while ($rowL = mysqli_fetch_array($resL))
             <ul class="nav page-navigation">
             <div id="SR" class="searshX">
         <input id="search51" name="q" type="text" value="<?=$_GET['rech']?>"  placeholder="Search..." />
-        </div> 
+        </div>
          </li>
          &nbsp;  &nbsp;&nbsp;
          <li class="nav-item dropdown d-lg-flex d-none">
@@ -411,12 +450,144 @@ while ($rowL = mysqli_fetch_array($resL))
 
         
       </nav>
+      <div class="filtersbtn">
+    
+</div>  
    </nav> 
    </div>
-
+  
+  
   <div class="grid" id="nC">
     <?=$result ;?>
     </div>
+
+<!--Modal-->
+
+
+<div  class="modal fade" id="modalEquip"  tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">FILTERS </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    
+                      
+                     <div class="modalContent" id="PM">
+                      <p class="mb-0 font-weight-medium float-left dropdown-header">Price</p> <br><br>
+
+                        <a class="dropdown-item">
+                        
+                        <input type="text" class="form-control" placeholder="MIN" id="Imin" value="0" aria-label="search" aria-describedby="MIN">
+
+                      </a>
+                      <a class="dropdown-item">
+                        
+                      <input type="text" class="form-control" placeholder="MIN" id="Imax" value="5000" aria-label="search" aria-describedby="MIN">
+
+                      </a>
+                      <br>
+                      </div>
+
+                      <div id="NPM" class="switch-field modalContent">
+                      <p class="mb-0 font-weight-medium float-left dropdown-header">Nombre de personne</p> <br><br>
+
+                        <a class="dropdown-item">
+                        
+                        <input type="radio" id="radio-O" name="switch-two" value="All" checked/>
+	                         	<label for="radio-O">All</label>
+	                        	<input type="radio" id="radio-one" name="switch-two" value="1" />
+	                         	<label for="radio-one">1</label>
+	                         	<input type="radio" id="radio-two" name="switch-two" value="2" />
+	                          	<label for="radio-two">2</label>
+	                         	<input type="radio" id="radio-thre" name="switch-two" value="3" />
+                            <label for="radio-thre">3</label>
+                            <input type="radio" id="radio-four" name="switch-two" value="4" />
+	                          	<label for="radio-four">4</label>
+	                         	<input type="radio" id="radio-five" name="switch-two" value="5" />
+	                        	<label for="radio-five">5</label>  
+                      </a>
+                      <br>
+                      </div>
+              
+                      <div id="NCM" class="switch-field modalContent" >
+                <p class="mb-0 font-weight-medium float-left dropdown-header">Nombre de Chambres</p> <br><br>
+
+                  <a class="dropdown-item">
+                 
+                  <input type="radio" id="rad0" name="switchs-two3" value="All" checked/> <label for="rad0">All</label>
+                  <input type="radio" id="rad1" name="switchs-two3" value="1" /> <label for="rad1">1</label>
+                  <input type="radio" id="rad2" name="switchs-two3" value="2" /> <label for="rad2">2</label>
+                  <input type="radio" id="rad3" name="switchs-two3" value="3" /> <label for="rad3">3</label>
+                  <input type="radio" id="rad4" name="switchs-two3" value="4" /> <label for="rad4">4</label>
+                  <input type="radio" id="rad5" name="switchs-two3" value="5" /> <label for="rad5">5</label>
+                </a>
+               
+                <br>
+                </div>
+
+                <div id="TM" class="switch-field modalContent">
+                <p class="mb-0 font-weight-medium float-left dropdown-header">Type de Logemnt</p> <br><br>
+                  <a class="dropdown-item">
+                
+                  <input type="radio" id="radio-Oee" name="switch-two4" value="All" checked/>
+                       <label for="radio-Oee">All</label>
+                  <input type="radio" id="radio-Oe" name="switch-two4" value="studio"/>
+                       <label for="radio-Oe">Studio</label>
+                      <input type="radio" id="radio-fin" name="switch-two4" value="Apartement" />
+                       <label for="radio-fin">Apartement</label>
+                 
+                </a>
+               
+                <br>
+                </div>
+                <div id="MrM" class="switch-field modalContent">
+                <p class="mb-0 font-weight-medium float-left dropdown-header">Price</p> <br><br>
+
+                  <a class="dropdown-item">
+               
+                  <input type="radio" id="radio-O" name="switch-twoM" value="yes"/>
+                       <label for="radio-l">Studio</label>
+                      <input type="radio" id="radio-three" name="switch-twoM" value="no"  />
+                       <label for="radio-l">Apartement</label>
+                      
+                
+
+
+                </a>
+               
+                <br>
+                </div>
+
+
+                 
+               
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </body>
@@ -493,3 +664,14 @@ while ($rowL = mysqli_fetch_array($resL))
       });  
  });  
  </script>  
+
+ <script>
+   function myFunction() {
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+} 
+   </script>
