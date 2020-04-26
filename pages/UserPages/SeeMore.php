@@ -1737,6 +1737,7 @@ if(($rowSR=$resSR->fetch_assoc()))
                               </ul>
                            </div>
                         </div>
+                        </div>
 
                         <div id="cnt-hote-2" class="btn-dit-list clearfix">
                            <div class="left-dit-p">
@@ -2374,6 +2375,7 @@ var saved='<?=$saved?>';
 var hidden=true;
 var CodeL='<?=$CodeL?>';
 var CodeU='<?=$userCode?>';
+var CodeP='<?=$Codepro?>';
 $(document).ready(function(){  
 
    if(saved=='Y')
@@ -2392,7 +2394,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL,CodeU:CodeU,action:saved},
+                 data:{CodeL:CodeL,CodeU:CodeU,action:saved,CodeP:CodeP},
                  success:function(data){  
 
                   }
@@ -2408,7 +2410,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL,CodeU:CodeU,action:saved},
+                 data:{CodeL:CodeL,CodeU:CodeU,action:saved,CodeP:CodeP},
                  success:function(data){  
 
                   }
@@ -2584,7 +2586,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL1,CodeU:CodeU,action:SavedL1},
+                 data:{CodeL:CodeL1,CodeU:CodeU,action:SavedL1,CodeP:CodeP},
                  success:function(data){  
 
                   }
@@ -2600,7 +2602,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL1,CodeU:CodeU,action:SavedL1},
+                 data:{CodeL:CodeL1,CodeU:CodeU,action:SavedL1,CodeP:CodeP},
                  success:function(data){  
 
                   }
@@ -2619,7 +2621,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL2,CodeU:CodeU,action:SavedL2},
+                 data:{CodeL:CodeL2,CodeU:CodeU,action:SavedL2,CodeP:CodeP},
                  success:function(data){  
 
                   }
@@ -2635,7 +2637,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL2,CodeU:CodeU,action:SavedL2},
+                 data:{CodeL:CodeL2,CodeU:CodeU,action:SavedL2,CodeP:CodeP},
                  success:function(data){  
 
                   }
@@ -2655,7 +2657,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL3,CodeU:CodeU,action:SavedL3},
+                 data:{CodeL:CodeL3,CodeU:CodeU,action:SavedL3,CodeP:CodeP},
                  success:function(data){  
 
                   }
@@ -2671,7 +2673,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL3,CodeU:CodeU,action:SavedL3},
+                 data:{CodeL:CodeL3,CodeU:CodeU,action:SavedL3,CodeP:CodeP},
                  success:function(data){  
 
                   }
@@ -2690,7 +2692,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL4,CodeU:CodeU,action:SavedL4},
+                 data:{CodeL:CodeL4,CodeU:CodeU,action:SavedL4,CodeP:CodeP},
                  success:function(data){  
 
                   }
@@ -2706,7 +2708,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL4,CodeU:CodeU,action:SavedL4},
+                 data:{CodeL:CodeL4,CodeU:CodeU,action:SavedL4,CodeP:CodeP},
                  success:function(data){  
 
                   }

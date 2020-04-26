@@ -181,6 +181,58 @@ $UISc = $UISc.'updateScrollbar();
 
 $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 
+
+//chec pack expiration time
+
+$reqP="SELECT * FROM pack";
+$statementP=$conn->prepare($reqP);
+$statementP->execute();
+$resP=$statementP->get_result();
+$date = new DateTime(date('Y-m-d'));
+while ( $rowP = mysqli_fetch_array($resP) )
+  {
+    $date = new DateTime(date('Y-m-d'));
+    $DBdate = new DateTime($rowP['ExpeTo']);
+    if( $DBdate <= $date )
+      {
+        $reqEX="DELETE FROM pack WHERE CodeL=?";
+        $statementEX=$conn->prepare($reqEX);
+        $statementEX->bind_param("i",$rowP['CodeL']);
+        $statementEX->execute();
+      }
+  }
+//chec complete
+
+
+//----------------- ----------Notifications------------
+$nbr_nts=0;
+// notifications des packs
+$notif="";
+$reqN="SELECT * FROM logement WHERE CodeP=? and (CodeL NOT IN (SELECT CodeL FROM pack where CodeU=?))";
+$statementN=$conn->prepare($reqN);
+$statementN->bind_param("ii",$codeU,$codeU);
+$statementN->execute();
+$resN=$statementN->get_result();
+
+if($resN->num_rows!=0)
+  {
+    $notif='
+    <a class="dropdown-item preview-item" href="ToSuperLog.php">
+    <div class="preview-thumbnail">
+        <div class="preview-icon bg-success">
+          <i class="mdi mdi-information mx-0"></i>
+        </div>
+    </div>
+    <div class="preview-item-content">
+        <h6 class="preview-subject font-weight-normal">Logement en mode normal</h6>
+        <p class="font-weight-light small-text mb-0 text-muted">
+          click to go update
+        </p>
+    </div>
+  </a>
+    ';
+    $nbr_nts=$nbr_nts+1;
+  }
 //Notifications de localisation de logement:
   $reqN="SELECT * from logement where CodeP=?";
   $statementN=$conn->prepare($reqN);
@@ -211,6 +263,7 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
              </div>
            </a>";
            $cnt=$cnt+1;
+           $nbr_nts=$nbr_nts+1;
      }  
     else if ($rowN['lng']==NULL && $rowN['lat']==NULL && $cnt=2)
      {
@@ -231,60 +284,95 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
               </div>
             </a>";
             $cnt=$cnt+1;
+            $nbr_nts=$nbr_nts+1;
       } 
      }    
   }
-
-//chec pack expiration time
-
-$reqP="SELECT * FROM pack";
-$statementP=$conn->prepare($reqP);
-$statementP->execute();
-$resP=$statementP->get_result();
-$date = new DateTime(date('Y-m-d'));
-while ( $rowP = mysqli_fetch_array($resP) )
+//user notifications(saves/ratings)
+  $user_notis="";
+  $reqN="SELECT * from user_notis where CodeP=?";
+  $statementN=$conn->prepare($reqN);
+  $statementN->bind_param("i",$codeU);
+  $statementN->execute();
+  $resN=$statementN->get_result();
+  while(($rowN = mysqli_fetch_array($resN)))
   {
-    $date = new DateTime(date('Y-m-d'));
-    $DBdate = new DateTime($rowP['ExpeTo']);
-    if( $DBdate <= $date )
-      {
-        $reqEX="DELETE FROM pack WHERE CodeL=?";
-        $statementEX=$conn->prepare($reqEX);
-        $statementEX->bind_param("i",$rowP['CodeL']);
-        $statementEX->execute();
-      }
+    $user=$rowN['CodeU'];
+    $action=$rowN['action'];
+    $logement=$rowN['CodeL'];
+    $nt_code=$rowN['idN'];
+
+    $reqU="SELECT * from utilisateur where CodeU=?";
+    $statementU=$conn->prepare($reqU);
+    $statementU->bind_param("i",$user);
+    $statementU->execute();
+    $resU=$statementU->get_result();
+    $rowU=$resU->fetch_assoc();
+
+    $nt_usern=$rowU['username'];
+
+    $reqU="SELECT * from logement where CodeL=?";
+    $statementU=$conn->prepare($reqU);
+    $statementU->bind_param("i",$logement);
+    $statementU->execute();
+    $resU=$statementU->get_result();
+    $rowU=$resU->fetch_assoc();
+    $nt_loge=$rowU['nom'];
+    
+
+    if($action=='saved')
+     {
+       $user_notis.=" <a id='".$nt_code."' class='dropdown-item preview-item'>
+                        <div class='preview-thumbnail'>
+                            <div class='preview-icon bg-success'>
+                             <i class='mdi mdi-heart text-normal'></i>
+                            </div>
+                        </div>
+                        <div class='preview-item-content'>
+                          <h6 class='preview-subject font-weight-normal'>".$nt_usern." a enregistré votre logement '".$nt_loge."'</h6>
+                          <p class='font-weight-light small-text mb-0 text-muted'>
+                           Just now
+                          </p>
+                        </div>
+                      </a>";
+                      $nbr_nts=$nbr_nts+1;
+     }
+    else if($action=='rated')
+     {
+        $user_notis.=" <a id='".$nt_code."' class='dropdown-item preview-item'>
+                        <div class='preview-thumbnail'>
+                            <div class='preview-icon bg-success'>
+                             <i class='fas fa-star'>
+                            </div>
+                        </div>
+                        <div class='preview-item-content'>
+                          <h6 class='preview-subject font-weight-normal'>".$nt_usern." a évalué votre logement '".$nt_loge."'</h6>
+                          <p class='font-weight-light small-text mb-0 text-muted'>
+                           Just now
+                          </p>
+                        </div>
+                      </a>";
+                      $nbr_nts=$nbr_nts+1;
+     }
+    else if($action=='commented') 
+     {
+       $user_notis.=" <a id='".$nt_code."' class='dropdown-item preview-item'>
+                        <div class='preview-thumbnail'>
+                            <div class='preview-icon bg-success'>
+                              <i class='far fa-comment'></i> 
+                            </div>
+                        </div>
+                        <div class='preview-item-content'>
+                          <h6 class='preview-subject font-weight-normal'>".$nt_usern." a commenté sur votre logement '".$nt_loge."'</h6>
+                          <p class='font-weight-light small-text mb-0 text-muted'>
+                           Just now
+                          </p>
+                        </div>
+                      </a>";
+                      $nbr_nts=$nbr_nts+1;
+     }
+  
   }
-//chec complete
-
-
-
-//notification
-$notif="";
-$reqN="SELECT * FROM logement WHERE CodeP=? and (CodeL NOT IN (SELECT CodeL FROM pack where CodeU=?))";
-$statementN=$conn->prepare($reqN);
-$statementN->bind_param("ii",$codeU,$codeU);
-$statementN->execute();
-$resN=$statementN->get_result();
-
-if($resN->num_rows!=0)
-  {
-    $notif='
-    <a class="dropdown-item preview-item" href="ToSuperLog.php">
-    <div class="preview-thumbnail">
-        <div class="preview-icon bg-success">
-          <i class="mdi mdi-information mx-0"></i>
-        </div>
-    </div>
-    <div class="preview-item-content">
-        <h6 class="preview-subject font-weight-normal">Logement en mode normal</h6>
-        <p class="font-weight-light small-text mb-0 text-muted">
-          click to go update
-        </p>
-    </div>
-  </a>
-    ';
-  }
-
 
 
 ?>
@@ -330,11 +418,13 @@ if($resN->num_rows!=0)
               <li class="nav-item dropdown">
                 <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
                   <i class="mdi mdi-bell mx-0"></i>
-                  <span class="count bg-success">2</span>
+                  <span class="count bg-success"><?php if($nbr_nts>0) echo $nbr_nts?></span>
                 </a>
                 <div id="notifs" class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                  <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-<<<<<<< HEAD
+                  <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p> <br>
+                  <hr>
+                  <a id="clr_all">Clear all</a>
+                  <?=$user_notis?>
                   <?=$notif; ?>
                   <a class="dropdown-item preview-item">
                     <div class="preview-thumbnail">
@@ -362,9 +452,8 @@ if($resN->num_rows!=0)
                         </p>
                     </div>
                   </a>
-=======
                   <?=$notifs?>
->>>>>>> f40fdbbb523d21257765ec7477a9733ad146b133
+
                 </div>
               </li>
               <li class="nav-item dropdown">

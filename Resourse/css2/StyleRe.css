@@ -22350,11 +22350,15 @@
       left: 58%;
       top: 6px;
     }
+ 
   }
   
+ 
+
   .horizontal-menu .top-navbar .navbar-menu-wrapper .count-indicator:after {
     display: none;
   }
+  
   
   .horizontal-menu .bottom-navbar {
     background: #ffffff;
@@ -22381,9 +22385,7 @@
   }
   
   @media (max-width: 991.98px) {
-    .horizontal-menu .bottom-navbar {
-      display: none;
-    }
+   
     .horizontal-menu .bottom-navbar.header-toggled {
       display: block;
       max-height: calc(100vh - 78px);
@@ -22410,6 +22412,8 @@
   @media (max-width: 991.98px) {
     .horizontal-menu .bottom-navbar .page-navigation {
       border: none;
+      margin-top: 17px;
+      margin-left: 17px;
     }
   }
   
@@ -22582,7 +22586,7 @@
   
   @media (max-width: 991px) {
     .horizontal-menu .bottom-navbar .page-navigation > .nav-item.active > .nav-link:before {
-      left: -15px;
+    
       top: 0;
       bottom: 0;
       height: 100%;
@@ -22815,6 +22819,41 @@
   }
   
   @media (max-width: 991px) {
+    .itemXE{
+      font-size: 0.2rem;
+      font-weight: 600;
+      color: rgb(255, 0, 0);
+        font-weight: 600;
+        margin-right: .5rem;
+        font-size: 14px;
+     }
+     a:hover {
+      background-color:transparent;
+      color:rgba(0,0,0,.87);
+      border-radius: 10px;
+      font-weight:700;
+         
+     }
+  .spaceline{
+    pointer-events: none;
+    cursor: default;
+    border-bottom: 0.5px;
+    border-bottom-style: outset;
+    border-color: #ececec;
+  }
+    .modalContent{
+      border: 0.5px;
+      border-style: solid;
+      border-color: #ececec;
+    }
+  .breadcrumb{
+    margin-top: 30px;
+  }
+    .grid{
+      margin-top: 180px;
+      margin-right: 10px;
+      margin-left: 10px;
+    }
     .horizontal-menu {
       position: fixed;
       z-index: 1030;
@@ -22822,6 +22861,53 @@
       left: 0;
       right: 0;
     }
+  
+     .rightSh{
+      display: none;
+  }
+ 
+ 
+  .topnav {
+       overflow: hidden;
+        background-color: #fff;
+       position: relative;
+      margin-top:-79px;
+        }
+
+          /* Hide the links inside the navigation menu (except for logo/home) */
+         .topnav #myLinks {
+         display: none;
+          }
+
+          /* Style navigation menu links */
+         .topnav a {
+      color: black;
+         padding: 14px 16px;
+        text-decoration: none;
+         font-size: 20px;
+          display: block;
+         }
+
+       /* Style the hamburger menu */
+      .topnav a.icon {
+      background: #0000;
+       display: block;
+      position: absolute;
+      right: 0;
+    top: 0;
+       }
+
+      /* Add a grey background color on mouse-over */
+     .topnav a:hover {
+      /*! background-color: #003ffd05; */
+     color: #0010ff;
+      }
+
+       /* Style the active link (or home/logo) */
+       .active {
+        background-color: #4CAF50;
+       color: white;
+        }
   }
   
   /*# mycss */
@@ -23028,15 +23114,16 @@
   }
   /*btns head*/
   
- 
- .itemXE{
-  font-size: 0.937rem;
-  font-weight: 600;
-  color: black;
+  @media only screen and (min-width: 768px) { 
+    .itemXE{
+    font-size: 0.937rem;
     font-weight: 600;
-    margin-right: .5rem;
-    font-size: 14px;
- }
+    color: black;
+      font-weight: 600;
+      margin-right: .5rem;
+      font-size: 14px;
+   }}
+
  .dropdown-toggle.show-dropdown-arrow.btn.btn-inverse-primary.btn-sm{
      margin-top: 4px;
      margin-bottom: 4px;
@@ -23137,15 +23224,19 @@ h2 {
  width:285.25px ;
  height:190.167px ;
 }
-
+@media only screen and (min-width: 768px) {
+   .grid{
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+   }
+}
 .grid { 
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(285.25px, 2fr));
   grid-gap: 20px;
   align-items: stretch;
-  margin-top: 20px;
-  margin-left: 10px;
-  margin-right: 10px;
+
   }
 .grid > article {
   border: 1px solid #ccc;
@@ -23204,3 +23295,20 @@ h2 {
     border-color: #464dee;
     box-shadow: transparent;
   }
+
+  @media only screen and (min-width: 768px) {
+    .topnav{
+      display: none;
+    }
+    .breadcrumb{
+     /* display: none; */
+    }
+  
+  }
+/*
+  .navbar.bottom-navbar.col-lg-12.col-12.p-0{
+    margin: unset;
+    width: unset;
+    height: unset;
+    display: none;
+  }*/

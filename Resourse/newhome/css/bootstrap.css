@@ -869,6 +869,7 @@ pre code {
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
+  background-image: url('../../Resourse/images/footerBack.jpg');
 }
 .container:before, .container:after {
   content: " ";
