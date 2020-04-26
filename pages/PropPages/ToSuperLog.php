@@ -664,7 +664,7 @@ $SupLog.="
                             $('#Superprix').html(data);
                           }  
                     });
-    }, 10000);
+    }, 100);
 
     </script>
     <script>

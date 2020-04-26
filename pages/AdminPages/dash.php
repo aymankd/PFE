@@ -41,6 +41,69 @@ else
 	$ProfileP="<img src='".$src."' alt='profile'/>";
 }
 
+// for real statestique
+//SELECT * FROM `sts_visiteur` WHERE `date` LIKE "_____04___"
+//SELECT COUNT(*),MONTH(date) FROM `sts_visiteur` GROUP BY YEAR(date),MONTH(date)
+//pre-statestique
+$nbr_vis=0; $nbr_pro=0; $nbr_logement=0; $nbr_message=0; $pack=0; $trans=0;
+$thisyear = date("Y");
+$thismount = date("m");
+//visiteur
+$req="SELECT COUNT(*) as sumres FROM `sts_visiteur` where MONTH(date) = ? and YEAR(date) = ?";
+$statement=$conn->prepare($req);
+$statement->bind_param("ss",$thismount,$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+$row=$res->fetch_assoc();
+$nbr_vis=$row['sumres'];
+//proprietaire
+$req="SELECT COUNT(*) as sumres FROM `sts_prop` where MONTH(date) = ? and YEAR(date) = ?";
+$statement=$conn->prepare($req);
+$statement->bind_param("ss",$thismount,$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+$row=$res->fetch_assoc();
+$nbr_pro=$row['sumres'];
+//logement
+$req="SELECT COUNT(*) as sumres FROM `sts_loge` where MONTH(date) = ? and YEAR(date) = ?";
+$statement=$conn->prepare($req);
+$statement->bind_param("ss",$thismount,$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+$row=$res->fetch_assoc();
+$nbr_logement=$row['sumres'];
+//messages
+$req="SELECT COUNT(*) as sumres FROM `messages` where MONTH(datemsg) = ? and YEAR(datemsg) = ?";
+$statement=$conn->prepare($req);
+$statement->bind_param("ss",$thismount,$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+$row=$res->fetch_assoc();
+$nbr_message=$row['sumres'];
+//messages
+$req="SELECT COUNT(*) as sumres FROM `pack` where MONTH(datein) = ? and YEAR(datein) = ?";
+$statement=$conn->prepare($req);
+$statement->bind_param("ss",$thismount,$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+$row=$res->fetch_assoc();
+$pack=$row['sumres'];
+//transaction
+$req="SELECT sum(`value`) as sumres FROM `sts_trans` where MONTH(date) = ? and YEAR(date) = ?";
+$statement=$conn->prepare($req);
+$statement->bind_param("ss",$thismount,$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+$row=$res->fetch_assoc();
+$trans=$row['sumres'];
+
+
+
+
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -338,75 +401,74 @@ else
 								</div>
 							</div>
 						</div>
-						
 					</div>
 					<div class="row">
 						<div class="col-lg-2 grid-margin stretch-card">
 							<div class="card"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 								<div class="card-body pb-0">
 									<div class="d-flex align-items-center justify-content-between">
-										<h2 class="text-success font-weight-bold">18390</h2>
+										<h2 class="text-success font-weight-bold"><?=$nbr_vis; ?></h2>
 										<i class="mdi mdi-account-outline mdi-18px text-dark"></i>
 									</div>
 								</div>
 								<canvas id="newClient" width="979" height="489" class="chartjs-render-monitor" style="display: block; height: 326px; width: 653px;"></canvas>
-								<div class="line-chart-row-title">MY NEW CLIENTS</div>
+								<div class="line-chart-row-title">LES VISITEURS</div>
 							</div>
 						</div>
 						<div class="col-lg-2 grid-margin stretch-card">
 							<div class="card"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 								<div class="card-body pb-0">
 									<div class="d-flex align-items-center justify-content-between">
-										<h2 class="text-danger font-weight-bold">839</h2>
-										<i class="mdi mdi-refresh mdi-18px text-dark"></i>
+										<h2 class="text-danger font-weight-bold"><?=$nbr_pro; ?></h2>
+										<i class="mdi mdi-account-star mdi-18px text-dark"></i>
 									</div>
 								</div>
 								<canvas id="allProducts" width="979" height="489" class="chartjs-render-monitor" style="display: block; height: 326px; width: 653px;"></canvas>
-								<div class="line-chart-row-title">All Products</div>
+								<div class="line-chart-row-title">LES PROPRIETAIRE</div>
 							</div>
 						</div>
 						<div class="col-lg-2 grid-margin stretch-card">
 							<div class="card"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 								<div class="card-body pb-0">
 									<div class="d-flex align-items-center justify-content-between">
-										<h2 class="text-info font-weight-bold">244</h2>
-										<i class="mdi mdi-file-document-outline mdi-18px text-dark"></i>
+										<h2 class="text-info font-weight-bold"><?=$nbr_logement; ?></h2>
+										<i class="mdi mdi-home-modern mdi-18px text-dark"></i>
 									</div>
 								</div>
 								<canvas id="invoices" width="979" height="489" class="chartjs-render-monitor" style="display: block; height: 326px; width: 653px;"></canvas>
-								<div class="line-chart-row-title">NEW INVOICES</div>
+								<div class="line-chart-row-title">LES LOGEMENTS</div>
 							</div>
 						</div>
 						<div class="col-lg-2 grid-margin stretch-card">
 							<div class="card"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 								<div class="card-body pb-0">
 									<div class="d-flex align-items-center justify-content-between">
-										<h2 class="text-warning font-weight-bold">3259</h2>
-										<i class="mdi mdi-folder-outline mdi-18px text-dark"></i>
+										<h2 class="text-warning font-weight-bold"><?=$nbr_message; ?></h2>
+										<i class="mdi mdi-message-text-outline mdi-18px text-dark"></i>
 									</div>
 								</div>
 								<canvas id="projects" width="979" height="489" class="chartjs-render-monitor" style="display: block; height: 326px; width: 653px;"></canvas>
-								<div class="line-chart-row-title">All PROJECTS</div>
+								<div class="line-chart-row-title">LES MESSAGES</div>
 							</div>
 						</div>
 						<div class="col-lg-2 grid-margin stretch-card">
 							<div class="card"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 								<div class="card-body pb-0">
 									<div class="d-flex align-items-center justify-content-between">
-										<h2 class="text-secondary font-weight-bold">586</h2>
-										<i class="mdi mdi-cart-outline mdi-18px text-dark"></i>
+										<h2 class="text-secondary font-weight-bold"><?=$pack; ?></h2>
+										<i class="mdi mdi-package-variant mdi-18px text-dark"></i>
 									</div>
 								</div>
 								<canvas id="orderRecieved" width="979" height="489" class="chartjs-render-monitor" style="display: block; height: 326px; width: 653px;"></canvas>
-								<div class="line-chart-row-title">Orders Received</div>
+								<div class="line-chart-row-title">LES PACK</div>
 							</div>
 						</div>
 						<div class="col-lg-2 grid-margin stretch-card">
 							<div class="card"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 								<div class="card-body pb-0">
 									<div class="d-flex align-items-center justify-content-between">
-										<h2 class="text-dark font-weight-bold">7826</h2>
-										<i class="mdi mdi-cash text-dark mdi-18px"></i>
+										<h2 class="text-dark font-weight-bold"><?=$trans; ?></h2>
+										<i class="mdi mdi-cash-multiple text-dark mdi-18px"></i>
 									</div>
 								</div>
 								<canvas id="transactions" width="979" height="489" class="chartjs-render-monitor" style="display: block; height: 326px; width: 653px;"></canvas>
