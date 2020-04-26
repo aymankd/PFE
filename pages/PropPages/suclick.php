@@ -16,6 +16,30 @@ if(isset($_POST['logment']) && isset($_POST['timeout']))
 {
     $arraylogment = $_POST['logment'];
     $timeout = $_POST['timeout'];
+    $logsize = (int)sizeof($arraylogment);
+    $prix = 19;
+    $promo = 1;
+    
+    //demunition du temps du promo
+    if($timeout == 3)
+        $promo = $promo - 0.1;         
+    else if($timeout == 12)
+        $promo = $promo - 0.2;                
+    //promo nombre des logement 
+    if($logsize>1)
+        $promo = $promo - (sizeof($logment)/10);
+    $totale = $prix*$timeout*$promo;
+
+    $datenow = new DateTime(date('Y-m-d'));
+    $datenow = $datenow->format('Y-m-d');
+
+    
+    $reqTr="INSERT INTO `sts_trans`(`id`, `date`, `value`) VALUES (?,?,?)";
+    $statementTr=$conn->prepare($reqTr);
+    $statementTr->bind_param("iss",$codeU,$datenow,$totale);
+    $statementTr->execute();
+
+
     foreach ($arraylogment as $Codelogment) {
         $req="SELECT * FROM pack WHERE CodeL=?";
         $statement=$conn->prepare($req);
@@ -29,9 +53,11 @@ if(isset($_POST['logment']) && isset($_POST['timeout']))
             $date->add(new DateInterval('P'.$timeout.'M'));
             $dateToreq = $date->format('Y-m-d');
 
-            $reqIn="INSERT INTO `pack`(`CodeL`, `CodeU`, `type`, `ExpeTo`) VALUES(?,?,?,?)";
+
+
+            $reqIn="INSERT INTO `pack`(`CodeL`, `CodeU`, `type`, `ExpeTo`, `datein`) VALUES(?,?,?,?,?)";
             $statementIn=$conn->prepare($reqIn);
-            $statementIn->bind_param("iiss",$Codelogment,$codeU,$type,$dateToreq);
+            $statementIn->bind_param("iisss",$Codelogment,$codeU,$type,$dateToreq,$datenow);
             $statementIn->execute();
         }else if ($res->num_rows==1)
         {
