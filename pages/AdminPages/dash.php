@@ -80,7 +80,7 @@ $statement->execute();
 $res=$statement->get_result();
 $row=$res->fetch_assoc();
 $nbr_message=$row['sumres'];
-//messages
+//pack
 $req="SELECT COUNT(*) as sumres FROM `pack` where MONTH(datein) = ? and YEAR(datein) = ?";
 $statement=$conn->prepare($req);
 $statement->bind_param("ss",$thismount,$thisyear);
@@ -96,6 +96,40 @@ $statement->execute();
 $res=$statement->get_result();
 $row=$res->fetch_assoc();
 $trans=$row['sumres'];
+
+//char packs
+////////////// ultra
+$UlVal = array();
+$UlVal[1]=0; $UlVal[2]=0; $UlVal[3]=0; $UlVal[4]=0;
+$UlVal[5]=0; $UlVal[6]=0; $UlVal[7]=0; $UlVal[8]=0;
+$UlVal[9]=0;$UlVal[10]=0;$UlVal[11]=0;$UlVal[12]=0;
+$req="SELECT COUNT(*) as sumres,MONTH(datein) as mou FROM `pack` where YEAR(datein) = ?
+and `type`='ultra' GROUP BY MONTH(datein)";
+$statement=$conn->prepare($req);
+$statement->bind_param("s",$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+while ($row = mysqli_fetch_array($res))
+{
+  $UlVal[$row['mou']] = $row['sumres'];
+}
+////////////// super
+$SuVal = array();
+$SuVal[1]=0; $SuVal[2]=0; $SuVal[3]=0; $SuVal[4]=0;
+$SuVal[5]=0; $SuVal[6]=0; $SuVal[7]=0; $SuVal[8]=0;
+$SuVal[9]=0;$SuVal[10]=0;$SuVal[11]=0;$SuVal[12]=0;
+$req="SELECT COUNT(*) as sumres,MONTH(datein) as mou FROM `pack` where YEAR(datein) = ?
+and `type`='super' GROUP BY MONTH(datein)";
+$statement=$conn->prepare($req);
+$statement->bind_param("s",$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+while ($row = mysqli_fetch_array($res))
+{
+  $SuVal[$row['mou']] = $row['sumres'];
+}
+
+
 
 
 
@@ -128,7 +162,6 @@ $trans=$row['sumres'];
       width: 70px;
 	  height: 16px;
 	  margin-bottom:4px
-      
     }
 </style>
   <body>
@@ -537,6 +570,415 @@ $trans=$row['sumres'];
 		<script src="../../Resourse/vendors/justgage/raphael-2.1.4.min.js"></script>
 		<script src="../../Resourse/vendors/justgage/justgage.js"></script>
     <!-- Custom js for this page-->
-    <script src="../../Resourse/js2/dashboard.js"></script>
+    
+    <script>
+    //////////////////////////////////////////////
+      var newClientData = {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+			datasets: [{
+				label: 'Margin',
+				data: [35, 37, 34, 36, 32],
+				backgroundColor: [
+						'#f7f7f7',
+				],
+				borderColor: [
+						'#dcdcdc'
+				],
+				borderWidth: 2,
+				fill: true,
+			},],
+		};
+		var newClientOptions = {
+			scales: {
+				yAxes: [{
+					display: false,
+				}],
+				xAxes: [{
+					display: false,
+				}],
+			},
+			legend: {
+				display: false,
+			},
+			elements: {
+				point: {
+					radius: 0
+				},		
+			},
+			plugins: {
+				datalabels: {
+					display: false,
+					align: 'center',
+					anchor: 'center'
+				}
+			}				
+		};
+		if ($("#newClient").length) {
+			var lineChartCanvas = $("#newClient").get(0).getContext("2d");
+			var saleschart = new Chart(lineChartCanvas, {
+				type: 'line',
+				data: newClientData,
+				options: newClientOptions
+			});
+    }
+    //////////////////////////////////////////////
+		var allProductsData = {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+			datasets: [{
+				label: 'Margin',
+				data: [37, 36, 37, 35, 36],
+				backgroundColor: [
+						'#f7f7f7',
+				],
+				borderColor: [
+						'#dcdcdc'
+				],
+				borderWidth: 2,
+				fill: true,
+			}, ],
+		};
+		var allProductsOptions = {
+			scales: {
+				yAxes: [{
+					display: false,
+				}],
+				xAxes: [{
+					display: false,
+				}],
+			},
+			legend: {
+				display: false,
+			},
+			elements: {
+				point: {
+					radius: 0
+				},
+			},
+			plugins: {
+				datalabels: {
+					display: false,
+					align: 'center',
+					anchor: 'center'
+				}
+			}				
+	
+		};
+		if ($("#allProducts").length) {
+			var lineChartCanvas = $("#allProducts").get(0).getContext("2d");
+			var saleschart = new Chart(lineChartCanvas, {
+				type: 'line',
+				data: allProductsData,
+				options: allProductsOptions
+			});
+		}
+
+    //////////////////////////////////////////////
+    var invoicesData = {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+			datasets: [{
+				label: 'Margin',
+				data: [35, 37, 34, 36, 32],
+				backgroundColor: [
+						'#f7f7f7',
+				],
+				borderColor: [
+						'#dcdcdc'
+				],
+				borderWidth: 2,
+				fill: true,
+			}, ],
+		};
+		var invoicesOptions = {
+			scales: {
+				yAxes: [{
+					display: false,
+				}],
+				xAxes: [{
+					display: false,
+				}],
+			},
+			legend: {
+				display: false,
+			},
+			elements: {
+					point: {
+						radius: 0
+					},
+			},
+			plugins: {
+				datalabels: {
+					display: false,
+					align: 'center',
+					anchor: 'center'
+				}
+			}				
+	
+		};
+		if ($("#invoices").length) {
+			var lineChartCanvas = $("#invoices").get(0).getContext("2d");
+			var saleschart = new Chart(lineChartCanvas, {
+				type: 'line',
+				data: invoicesData,
+				options: invoicesOptions
+			});
+		}
+
+    
+    //////////////////////////////////////////////
+		var projectsData = {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+			datasets: [{
+				label: 'Margin',
+				data: [38, 39, 37, 40, 36],
+					backgroundColor: [
+							'#f7f7f7',
+					],
+				borderColor: [
+						'#dcdcdc'
+				],
+				borderWidth: 2,
+				fill: true,
+			}, ],
+		};
+		var projectsOptions = {
+			scales: {
+				yAxes: [{
+					display: false,
+				}],
+				xAxes: [{
+					display: false,
+				}],
+			},
+			legend: {
+				display: false,
+			},
+			elements: {
+				point: {
+					radius: 0
+				},
+			},
+			plugins: {
+				datalabels: {
+					display: false,
+					align: 'center',
+					anchor: 'center'
+				}
+			}					
+		};
+		if ($("#projects").length) {
+			var lineChartCanvas = $("#projects").get(0).getContext("2d");
+			var saleschart = new Chart(lineChartCanvas, {
+				type: 'line',
+				data: projectsData,
+				options: projectsOptions
+			});
+		}
+
+    //////////////////////////////////////////////
+		var orderRecievedData = {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+			datasets: [{
+				label: 'Margin',
+				data: [35, 37, 34, 36, 32],
+				backgroundColor: [
+						'#f7f7f7',
+				],
+				borderColor: [
+						'#dcdcdc'
+				],
+				borderWidth: 2,
+				fill: true,
+			}, ],
+		};
+		var orderRecievedOptions = {
+			scales: {
+				yAxes: [{
+					display: false,
+				}],
+				xAxes: [{
+					display: false,
+				}],
+			},
+			legend: {
+				display: false,
+			},
+			elements: {
+				point: {
+					radius: 0
+				},
+			},
+			plugins: {
+				datalabels: {
+					display: false,
+					align: 'center',
+					anchor: 'center'
+				}
+			}				
+	
+		};
+		if ($("#orderRecieved").length) {
+			var lineChartCanvas = $("#orderRecieved").get(0).getContext("2d");
+			var saleschart = new Chart(lineChartCanvas, {
+				type: 'line',
+				data: orderRecievedData,
+				options: orderRecievedOptions
+			});
+		}
+
+    //////////////////////////////////////////////
+		var transactionsData = {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+			datasets: [{
+				label: 'Margin',
+				data: [38, 35, 36, 38, 34],
+				backgroundColor: [
+						'#f7f7f7',
+				],
+				borderColor: [
+						'#dcdcdc'
+				],
+				borderWidth: 2,
+				fill: true,
+			}, ],
+		};
+		var transactionsOptions = {
+			scales: {
+				yAxes: [{
+					display: false,
+				}],
+				xAxes: [{
+					display: false,
+				}],
+			},
+			legend: {
+				display: false,
+			},
+			elements: {
+				point: {
+					radius: 0
+				},
+			},
+			plugins: {
+				datalabels: {
+					display: false,
+					align: 'center',
+					anchor: 'center'
+				}
+			}				
+		};
+		if ($("#transactions").length) {
+			var lineChartCanvas = $("#transactions").get(0).getContext("2d");
+			var saleschart = new Chart(lineChartCanvas, {
+				type: 'line',
+				data: transactionsData,
+				options: transactionsOptions
+			});
+		}
+
+    //////////////////////////////////////////////
+
+		var supportTrackerData = {
+			labels: [ "janv", "fevr", "mars", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ],
+			datasets: [{
+				label: 'New Tickets',
+        data: [<?=$UlVal[1] ;?>,<?=$UlVal[2] ;?>,<?=$UlVal[3] ;?>,<?=$UlVal[4] ;?>, <?=$UlVal[5] ;?>,
+        <?=$UlVal[6] ;?>, <?=$UlVal[7] ;?>, <?=$UlVal[8] ;?>, <?=$UlVal[9] ;?>, <?=$UlVal[10] ;?>,
+        <?=$UlVal[11] ;?>, <?=$UlVal[12] ;?>],
+				backgroundColor: '#464dee',
+				borderColor: '#464dee',//d8d8d8
+				borderWidth: 1,
+				fill: false
+      },
+			{
+					label: 'Open Tickets',
+					data: [<?=$SuVal[1] ;?>,<?=$SuVal[2] ;?>,<?=$SuVal[3] ;?>,<?=$SuVal[4] ;?>, <?=$SuVal[5] ;?>,
+        <?=$SuVal[6] ;?>, <?=$SuVal[7] ;?>, <?=$SuVal[8] ;?>, <?=$SuVal[9] ;?>, <?=$SuVal[10] ;?>,
+        <?=$SuVal[11] ;?>, <?=$SuVal[12] ;?>],					
+					backgroundColor: '#d8d8d8',
+					borderColor: '#d8d8d8',
+					borderWidth: 1,
+					fill: false
+			}
+			]
+		};
+		var supportTrackerOptions = {
+			scales: {
+				xAxes: [{
+				//stacked: true,
+				barPercentage: 0.6,
+				position: 'bottom',
+				display: true,
+				gridLines: {
+					display: false,
+					drawBorder: false,
+				},
+				ticks: {
+					display: true, //this will remove only the label
+					stepSize: 300,
+				}
+				}],
+				yAxes: [{
+					//stacked: true,
+					display: true,
+					gridLines: {
+						drawBorder: false,
+						display: true,
+						color: "#f0f3f6",
+						borderDash: [8, 4],
+					},
+					ticks: {
+						beginAtZero: true,
+						callback: function(value, index, values) {
+						return value;//return '$' + value;
+						}
+					},
+				}]
+			},
+			legend: {
+				display: false
+			},
+			legendCallback: function(chart) {
+				var text = [];
+				text.push('<ul class="' + chart.id + '-legend">');
+				for (var i = 0; i < chart.data.datasets.length; i++) {
+					text.push('<li><span class="legend-box" style="background:' + chart.data.datasets[i].backgroundColor[i] + ';"></span><span class="legend-label text-dark">');
+					if (chart.data.datasets[i].label) {
+							text.push(chart.data.datasets[i].label);
+					}
+					text.push('</span></li>');
+				}
+				text.push('</ul>');
+				return text.join("");
+			},
+			tooltips: {
+				backgroundColor: 'rgba(0, 0, 0, 1)',
+			},
+			plugins: {
+				datalabels: {
+					display: false,
+					align: 'center',
+					anchor: 'center'
+				}
+			}				
+		};
+		if ($("#supportTracker").length) {
+			var barChartCanvas = $("#supportTracker").get(0).getContext("2d");
+			// This will get the first returned node in the jQuery collection.
+			var barChart = new Chart(barChartCanvas, {
+				type: 'bar',
+				data: supportTrackerData,
+				options: supportTrackerOptions
+			});
+			document.getElementById('support-tracker-legend').innerHTML = barChart.generateLegend();
+		}
+
+
+
+
+
+    </script>
+
+
+
     <!-- End custom js for this page-->
 </html>
