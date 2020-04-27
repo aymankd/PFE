@@ -290,7 +290,7 @@ if($resN->num_rows!=0)
   }
 //user notifications(saves/ratings)
   $user_notis="";
-  $reqN="SELECT * from user_notis where CodeP=?";
+  $reqN="SELECT * from user_notis where CodeP=? and status='old'";
   $statementN=$conn->prepare($reqN);
   $statementN->bind_param("i",$codeU);
   $statementN->execute();
@@ -335,7 +335,7 @@ if($resN->num_rows!=0)
                           </p>
                         </div>
                       </a>";
-                      $nbr_nts=$nbr_nts+1;
+                      //$nbr_nts=$nbr_nts+1;
      }
     else if($action=='rated')
      {
@@ -352,7 +352,7 @@ if($resN->num_rows!=0)
                           </p>
                         </div>
                       </a>";
-                      $nbr_nts=$nbr_nts+1;
+                     // $nbr_nts=$nbr_nts+1;
      }
     else if($action=='commented') 
      {
@@ -369,11 +369,16 @@ if($resN->num_rows!=0)
                           </p>
                         </div>
                       </a>";
-                      $nbr_nts=$nbr_nts+1;
+                    //  $nbr_nts=$nbr_nts+1;
      }
-  
-  }
+    /* $reqUp="UPDATE `user_notis` SET status='loaded'  where idN=?";
+     $statementUp=$conn->prepare($reqUp);
+     $statementUp->bind_param("i",$nt_code);
+     $statementUp->execute();*/
 
+  }
+  
+  
 
 ?>
 
@@ -416,15 +421,29 @@ if($resN->num_rows!=0)
                 <a href="#" class="nav-link horizontal-nav-left-menu"><i class="mdi mdi-format-list-bulleted"></i></a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
+                <a  id="noti_open" class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
                   <i class="mdi mdi-bell mx-0"></i>
-                  <span class="count bg-success"><?php if($nbr_nts>0) echo $nbr_nts?></span>
+                  <span id="nbrnts" class="count bg-success"><?php if($nbr_nts>0) echo $nbr_nts?></span>
                 </a>
                 <div id="notifs" class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                   <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p> <br>
                   <hr>
                   <a id="clr_all">Clear all</a>
-                  <?=$user_notis?>
+                  
+                  <div id="stsx">
+                    
+                    </div>
+                  <div id="new_user_notis">
+                    
+                  </div>
+
+                  <div id="loaded_user_notis">
+                     
+                  </div>
+
+                  <div id="old_user_notis">
+                   <?=$user_notis?>   
+                  </div>
                   <?=$notif; ?>
                   <a class="dropdown-item preview-item">
                     <div class="preview-thumbnail">
@@ -991,5 +1010,127 @@ document.getElementById("notifs").addEventListener('click', function (event)
           event.stopPropagation(); 
          });
 </script>
+
+
+<script>
+var CodePst=<?=$codeU?>;
+var nbrnts=<?=$nbr_nts?>;
+var nbrnts2=0;
+var audioNT = new Audio('../sound/time-is-now.mp3');
+
+
+
+
+  setInterval(function(){ 
+  
+//new notis
+
+    $.ajax({  
+                          url:"User_Notis.php",  
+                          method:"POST",  
+                          data:{CodeP:CodePst,nbrnts:nbrnts,act:'get'},  
+                          dataType : 'json',
+                          success:function(response){
+                           
+                            nbrnts=response.result;
+                            nbrnts2=response.result;
+
+                            if(nbrnts ><?=$nbr_nts?>)
+                            {$('#nbrnts').empty().append(nbrnts);
+                              audioNT.play();
+                            }
+                           nbrnts=<?=$nbr_nts?>;
+                           
+                             
+                          }  
+                    });
+//loaded notis
+                    $.ajax({  
+                          url:"Loaded_User_Notis.php",  
+                          method:"POST",  
+                          data:{CodeP:CodePst,nbrnts:<?=$nbr_nts?>},  
+                          dataType : 'json',
+                          success:function(response2){
+
+                            $('#loaded_user_notis').html(response2.echo);
+                            nbrnts=response2.result2;
+                            if(nbrnts ><?=$nbr_nts?>)
+                            {$('#nbrnts').empty().append(nbrnts);}
+                            nbrnts=<?=$nbr_nts?>;
+
+                             
+                          }  
+                    });
+
+//old notis       
+
+$.ajax({  
+                          url:"Old_User_Notis.php",  
+                          method:"POST",  
+                          data:{CodeP:CodePst,nbrnts:<?=$nbr_nts?>},  
+                          dataType : 'json',
+                          success:function(response3){
+
+                            $('#old_user_notis').html(response3.echo);
+                            
+                            
+                             
+                          }  
+                    });
+    }, 1000);
+
+   
+
+
+   
+
+
+   
+</script>
+
+<script>
+var mns=0;
+$(document).ready(function(){  
+
+nt_clsd="Y";
+
+   $('#noti_open').click(function(){  
+          if(nt_clsd=="Y")
+           {
+            $.ajax({  
+                          url:"noti_is_old.php",  
+                          method:"POST",  
+                          data:{CodeP:CodePst,nbrnts:<?=$nbr_nts?>},  
+                          dataType : 'json',
+                          success:function(response4){
+                            mns=response4.result4;
+                            if(mns>0)
+                            $('#nbrnts').empty().append(mns);
+                          // arr=response3.tab;
+                           //$('#old_user_notis').insertAdjacentHTML('afterbegin',response3.echo);
+                          //  $('#old_user_notis').html();
+                            
+
+                             
+                          }  
+                    });
+
+             nt_clsd="N";
+           }
+          else if(nt_clsd=="N")
+           {
+            
+
+            nt_clsd="Y";
+           }
+          
+       });
+        
+       
+  
+ 
+ }); 
+</script>
+
 </body>
 </html>

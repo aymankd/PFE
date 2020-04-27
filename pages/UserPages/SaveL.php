@@ -22,10 +22,10 @@ if($action=='Y')
     $s=$conn->prepare($r);
     $s->bind_param("ii",$CodeL,$CodeU);
     $s->execute();
-
-    $r="INSERT INTO `user_notis`(`CodeU`, `CodeP`,`action`,`CodeL`) VALUES (?,?,'saved',?)";
+    $tm_stmp=date('Y-m-d H:i:s', time());
+    $r="INSERT INTO `user_notis`(`CodeU`, `CodeP`,`action`,`CodeL`,`status`,`date`) VALUES (?,?,'saved',?,'new',?)";
     $s=$conn->prepare($r);
-    $s->bind_param("iii",$CodeU,$CodeP,$CodeL);
+    $s->bind_param("iiii",$CodeU,$CodeP,$CodeL,$tm_stmp);
     $s->execute();
 }
 else if($action=='N')
