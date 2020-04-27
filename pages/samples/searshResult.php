@@ -286,20 +286,20 @@ while ($rowL = mysqli_fetch_array($resL))
                   Price
                   </a>
                   <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"  aria-labelledby="nreportDropdown">
-                     <div id="PM">
-                      <p class="mb-0 font-weight-medium float-left dropdown-header">Price</p> <br><br>
+                      <div id="PM">
+                       <p class="mb-0 font-weight-medium float-left dropdown-header">Price</p> <br><br>
 
                         <a class="dropdown-item">
                         
-                        <input type="text" class="form-control" placeholder="MIN" id="Imin" value="0" aria-label="search" aria-describedby="MIN">
+                         <input type="text" class="form-control" placeholder="MIN" id="Imin" value="0" aria-label="search" aria-describedby="MIN">
 
-                      </a>
-                      <a class="dropdown-item">
+                        </a>
+                        <a class="dropdown-item">
                         
-                      <input type="text" class="form-control" placeholder="MIN" id="Imax" value="5000" aria-label="search" aria-describedby="MIN">
+                        <input type="text" class="form-control" placeholder="MIN" id="Imax" value="5000" aria-label="search" aria-describedby="MIN">
 
-                      </a>
-                      <br>
+                        </a>
+                        <br>
                       </div>
                       <div class="footer">
                       <button type="button" class="btn btn-dark">Done</button>
@@ -476,83 +476,83 @@ while ($rowL = mysqli_fetch_array($resL))
       <div class="modal-body">
     
                       
-                     <div class="modalContent" id="PM">
-                      <p class="mb-0 font-weight-medium float-left dropdown-header">Price</p> <br><br>
+                      <div class="modalContent" id="PMS">
+                        <p class="mb-0 font-weight-medium float-left dropdown-header">Price</p> <br><br>
 
                         <a class="dropdown-item">
                         
-                        <input type="text" class="form-control" placeholder="MIN" id="Imin" value="0" aria-label="search" aria-describedby="MIN">
+                          <input type="text" class="form-control" placeholder="MIN" id="IminS" value="0" aria-label="search" aria-describedby="MIN">
 
-                      </a>
-                      <a class="dropdown-item">
+                        </a>
+                        <a class="dropdown-item">
                         
-                      <input type="text" class="form-control" placeholder="MIN" id="Imax" value="5000" aria-label="search" aria-describedby="MIN">
+                          <input type="text" class="form-control" placeholder="MIN" id="ImaxS" value="5000" aria-label="search" aria-describedby="MIN">
 
-                      </a>
-                      <br>
+                        </a>
+                        <br>
                       </div>
 
-                      <div id="NPM" class="switch-field modalContent">
+                      <div id="NPMS" class="switch-field modalContent">
                       <p class="mb-0 font-weight-medium float-left dropdown-header">Nombre de personne</p> <br><br>
 
                         <a class="dropdown-item">
                         
-                        <input type="radio" id="radio-O" name="switch-two" value="All" checked/>
-	                         	<label for="radio-O">All</label>
-	                        	<input type="radio" id="radio-one" name="switch-two" value="1" />
-	                         	<label for="radio-one">1</label>
-	                         	<input type="radio" id="radio-two" name="switch-two" value="2" />
-	                          	<label for="radio-two">2</label>
-	                         	<input type="radio" id="radio-thre" name="switch-two" value="3" />
-                            <label for="radio-thre">3</label>
-                            <input type="radio" id="radio-four" name="switch-two" value="4" />
-	                          	<label for="radio-four">4</label>
-	                         	<input type="radio" id="radio-five" name="switch-two" value="5" />
-	                        	<label for="radio-five">5</label>  
+                        <input type="radio" id="radio-OS" name="switch-twoS" value="All" checked/>
+	                         	<label for="radio-OS">All</label>
+	                        	<input type="radio" id="radio-oneS" name="switch-twoS" value="1" />
+	                         	<label for="radio-oneS">1</label>
+	                         	<input type="radio" id="radio-twoS" name="switch-twoS" value="2" />
+	                          	<label for="radio-twoS">2</label>
+	                         	<input type="radio" id="radio-threS" name="switch-twoS" value="3" />
+                            <label for="radio-threS">3</label>
+                            <input type="radio" id="radio-fourS" name="switch-twoS" value="4" />
+	                          	<label for="radio-fourS">4</label>
+	                         	<input type="radio" id="radio-fiveS" name="switch-twoS" value="5" />
+	                        	<label for="radio-fiveS">5</label>  
                       </a>
                       <br>
                       </div>
               
-                      <div id="NCM" class="switch-field modalContent" >
+                      <div id="NCMS" class="switch-field modalContent" >
                 <p class="mb-0 font-weight-medium float-left dropdown-header">Nombre de Chambres</p> <br><br>
 
                   <a class="dropdown-item">
                  
-                  <input type="radio" id="rad0" name="switchs-two3" value="All" checked/> <label for="rad0">All</label>
-                  <input type="radio" id="rad1" name="switchs-two3" value="1" /> <label for="rad1">1</label>
-                  <input type="radio" id="rad2" name="switchs-two3" value="2" /> <label for="rad2">2</label>
-                  <input type="radio" id="rad3" name="switchs-two3" value="3" /> <label for="rad3">3</label>
-                  <input type="radio" id="rad4" name="switchs-two3" value="4" /> <label for="rad4">4</label>
-                  <input type="radio" id="rad5" name="switchs-two3" value="5" /> <label for="rad5">5</label>
+                  <input type="radio" id="rad0S" name="switchs-two3S" value="All" checked/> <label for="rad0S">All</label>
+                  <input type="radio" id="rad1S" name="switchs-two3S" value="1" /> <label for="rad1S">1</label>
+                  <input type="radio" id="rad2S" name="switchs-two3S" value="2" /> <label for="rad2S">2</label>
+                  <input type="radio" id="rad3S" name="switchs-two3S" value="3" /> <label for="rad3S">3</label>
+                  <input type="radio" id="rad4S" name="switchs-two3S" value="4" /> <label for="rad4S">4</label>
+                  <input type="radio" id="rad5S" name="switchs-two3S" value="5" /> <label for="rad5S">5</label>
                 </a>
                
                 <br>
                 </div>
 
-                <div id="TM" class="switch-field modalContent">
+                <div id="TMS" class="switch-field modalContent">
                 <p class="mb-0 font-weight-medium float-left dropdown-header">Type de Logemnt</p> <br><br>
                   <a class="dropdown-item">
                 
-                  <input type="radio" id="radio-Oee" name="switch-two4" value="All" checked/>
-                       <label for="radio-Oee">All</label>
-                  <input type="radio" id="radio-Oe" name="switch-two4" value="studio"/>
-                       <label for="radio-Oe">Studio</label>
-                      <input type="radio" id="radio-fin" name="switch-two4" value="Apartement" />
-                       <label for="radio-fin">Apartement</label>
+                  <input type="radio" id="radio-OeeS" name="switch-two4S" value="All" checked/>
+                       <label for="radio-OeeS">All</label>
+                  <input type="radio" id="radio-OeS" name="switch-two4S" value="studio"/>
+                       <label for="radio-OeS">Studio</label>
+                      <input type="radio" id="radio-finS" name="switch-two4S" value="Apartement" />
+                       <label for="radio-finS">Apartement</label>
                  
                 </a>
                
                 <br>
                 </div>
-                <div id="MrM" class="switch-field modalContent">
+                <div id="MrMS" class="switch-field modalContent">
                 <p class="mb-0 font-weight-medium float-left dropdown-header">Price</p> <br><br>
 
                   <a class="dropdown-item">
                
-                  <input type="radio" id="radio-O" name="switch-twoM" value="yes"/>
-                       <label for="radio-l">Studio</label>
-                      <input type="radio" id="radio-three" name="switch-twoM" value="no"  />
-                       <label for="radio-l">Apartement</label>
+                  <input type="radio" id="radio-StS" name="switch-twoMS" value="yes"/>
+                       <label for="radio-StS">Studio</label>
+                      <input type="radio" id="radio-ApS" name="switch-twoMS" value="no"  />
+                       <label for="radio-ApS">Apartement</label>
                       
                 
 
@@ -568,7 +568,7 @@ while ($rowL = mysqli_fetch_array($resL))
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button id="apls" onclick='applyfilters()'  class="btn btn-primary">Appliquer</button>
       </div>
     </div>
   </div>
@@ -662,6 +662,9 @@ while ($rowL = mysqli_fetch_array($resL))
                 }  
            });  
       });  
+
+     
+
  });  
  </script>  
 
@@ -675,3 +678,29 @@ while ($rowL = mysqli_fetch_array($resL))
   }
 } 
    </script>
+
+<script>  
+
+
+
+
+function applyfilters(){
+           var MaxS = document.getElementById("ImaxS").value; 
+           var MinS = document.getElementById("IminS").value; 
+           var Nbr_prS=document.querySelector('#NPMS input[name="switch-twoS"]:checked').value;
+           var Nbr_ChS=document.querySelector('#NCMS input[name="switchs-two3S"]:checked').value;
+           var TL_TypeS=document.querySelector('#TMS input[name="switch-two4S"]:checked').value; 
+           var srchS=document.querySelector('#SR input[name="q"]').value;
+
+
+           $.ajax({  
+                url:"FilteredSearch.php?rech=<?=$_GET['rech']?>",  
+                method:"POST",  
+                data:{Pmax:MaxS,Pmin:MinS,NP:Nbr_prS,NC:Nbr_ChS,TL:TL_TypeS,search:srchS},  
+                success:function(data){  
+                     $('#nC').html(data);  
+                }  
+           });  
+          }
+
+</script>
