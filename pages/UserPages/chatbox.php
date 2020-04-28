@@ -17,10 +17,11 @@ $sender = isset($_GET['sender']) ? $_GET['sender'] : null;
 $reciever = isset($_GET['reciever']) ? $_GET['reciever'] : null;
 
 $status = false;
-
-$req = "INSERT INTO `messages`(`Codesender`, `Codereciever`, `Msg`, `vue`) VALUES (?,?,?,?)";
+$datemsg = new DateTime(date('Y-m-d'));
+$datemsg = $datemsg->format('Y-m-d');
+$req = "INSERT INTO `messages`(`Codesender`, `Codereciever`, `Msg`, `vue`, `datemsg`) VALUES (?,?,?,?,?)";
 $statement=$conn->prepare($req);
-$statement->bind_param("iiss",$sender,$reciever,$msg,$status);
+$statement->bind_param("iisss",$sender,$reciever,$msg,$status,$datemsg);
 $statement->execute();
 
 

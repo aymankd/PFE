@@ -41,6 +41,103 @@ else
 	$ProfileP="<img src='".$src."' alt='profile'/>";
 }
 
+// for real statestique
+//SELECT * FROM `sts_visiteur` WHERE `date` LIKE "_____04___"
+//SELECT COUNT(*),MONTH(date) FROM `sts_visiteur` GROUP BY YEAR(date),MONTH(date)
+//pre-statestique
+$nbr_vis=0; $nbr_pro=0; $nbr_logement=0; $nbr_message=0; $pack=0; $trans=0;
+$thisyear = date("Y");
+$thismount = date("m");
+//visiteur
+$req="SELECT COUNT(*) as sumres FROM `sts_visiteur` where MONTH(date) = ? and YEAR(date) = ?";
+$statement=$conn->prepare($req);
+$statement->bind_param("ss",$thismount,$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+$row=$res->fetch_assoc();
+$nbr_vis=$row['sumres'];
+//proprietaire
+$req="SELECT COUNT(*) as sumres FROM `sts_prop` where MONTH(date) = ? and YEAR(date) = ?";
+$statement=$conn->prepare($req);
+$statement->bind_param("ss",$thismount,$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+$row=$res->fetch_assoc();
+$nbr_pro=$row['sumres'];
+//logement
+$req="SELECT COUNT(*) as sumres FROM `sts_loge` where MONTH(date) = ? and YEAR(date) = ?";
+$statement=$conn->prepare($req);
+$statement->bind_param("ss",$thismount,$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+$row=$res->fetch_assoc();
+$nbr_logement=$row['sumres'];
+//messages
+$req="SELECT COUNT(*) as sumres FROM `messages` where MONTH(datemsg) = ? and YEAR(datemsg) = ?";
+$statement=$conn->prepare($req);
+$statement->bind_param("ss",$thismount,$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+$row=$res->fetch_assoc();
+$nbr_message=$row['sumres'];
+//pack
+$req="SELECT COUNT(*) as sumres FROM `pack` where MONTH(datein) = ? and YEAR(datein) = ?";
+$statement=$conn->prepare($req);
+$statement->bind_param("ss",$thismount,$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+$row=$res->fetch_assoc();
+$pack=$row['sumres'];
+//transaction
+$req="SELECT sum(`value`) as sumres FROM `sts_trans` where MONTH(date) = ? and YEAR(date) = ?";
+$statement=$conn->prepare($req);
+$statement->bind_param("ss",$thismount,$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+$row=$res->fetch_assoc();
+$trans=$row['sumres'];
+
+//char packs
+////////////// ultra
+$UlVal = array();
+$UlVal[1]=0; $UlVal[2]=0; $UlVal[3]=0; $UlVal[4]=0;
+$UlVal[5]=0; $UlVal[6]=0; $UlVal[7]=0; $UlVal[8]=0;
+$UlVal[9]=0;$UlVal[10]=0;$UlVal[11]=0;$UlVal[12]=0;
+$req="SELECT COUNT(*) as sumres,MONTH(datein) as mou FROM `pack` where YEAR(datein) = ?
+and `type`='ultra' GROUP BY MONTH(datein)";
+$statement=$conn->prepare($req);
+$statement->bind_param("s",$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+while ($row = mysqli_fetch_array($res))
+{
+  $UlVal[$row['mou']] = $row['sumres'];
+}
+////////////// super
+$SuVal = array();
+$SuVal[1]=0; $SuVal[2]=0; $SuVal[3]=0; $SuVal[4]=0;
+$SuVal[5]=0; $SuVal[6]=0; $SuVal[7]=0; $SuVal[8]=0;
+$SuVal[9]=0;$SuVal[10]=0;$SuVal[11]=0;$SuVal[12]=0;
+$req="SELECT COUNT(*) as sumres,MONTH(datein) as mou FROM `pack` where YEAR(datein) = ?
+and `type`='super' GROUP BY MONTH(datein)";
+$statement=$conn->prepare($req);
+$statement->bind_param("s",$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+while ($row = mysqli_fetch_array($res))
+{
+  $SuVal[$row['mou']] = $row['sumres'];
+}
+
+
+
+
+
+
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +162,6 @@ else
       width: 70px;
 	  height: 16px;
 	  margin-bottom:4px
-      
     }
 </style>
   <body>
@@ -338,75 +434,74 @@ else
 								</div>
 							</div>
 						</div>
-						
 					</div>
 					<div class="row">
 						<div class="col-lg-2 grid-margin stretch-card">
 							<div class="card"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 								<div class="card-body pb-0">
 									<div class="d-flex align-items-center justify-content-between">
-										<h2 class="text-success font-weight-bold">18390</h2>
+										<h2 class="text-success font-weight-bold"><?=$nbr_vis; ?></h2>
 										<i class="mdi mdi-account-outline mdi-18px text-dark"></i>
 									</div>
 								</div>
 								<canvas id="newClient" width="979" height="489" class="chartjs-render-monitor" style="display: block; height: 326px; width: 653px;"></canvas>
-								<div class="line-chart-row-title">MY NEW CLIENTS</div>
+								<div class="line-chart-row-title">LES VISITEURS</div>
 							</div>
 						</div>
 						<div class="col-lg-2 grid-margin stretch-card">
 							<div class="card"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 								<div class="card-body pb-0">
 									<div class="d-flex align-items-center justify-content-between">
-										<h2 class="text-danger font-weight-bold">839</h2>
-										<i class="mdi mdi-refresh mdi-18px text-dark"></i>
+										<h2 class="text-danger font-weight-bold"><?=$nbr_pro; ?></h2>
+										<i class="mdi mdi-account-star mdi-18px text-dark"></i>
 									</div>
 								</div>
 								<canvas id="allProducts" width="979" height="489" class="chartjs-render-monitor" style="display: block; height: 326px; width: 653px;"></canvas>
-								<div class="line-chart-row-title">All Products</div>
+								<div class="line-chart-row-title">LES PROPRIETAIRE</div>
 							</div>
 						</div>
 						<div class="col-lg-2 grid-margin stretch-card">
 							<div class="card"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 								<div class="card-body pb-0">
 									<div class="d-flex align-items-center justify-content-between">
-										<h2 class="text-info font-weight-bold">244</h2>
-										<i class="mdi mdi-file-document-outline mdi-18px text-dark"></i>
+										<h2 class="text-info font-weight-bold"><?=$nbr_logement; ?></h2>
+										<i class="mdi mdi-home-modern mdi-18px text-dark"></i>
 									</div>
 								</div>
 								<canvas id="invoices" width="979" height="489" class="chartjs-render-monitor" style="display: block; height: 326px; width: 653px;"></canvas>
-								<div class="line-chart-row-title">NEW INVOICES</div>
+								<div class="line-chart-row-title">LES LOGEMENTS</div>
 							</div>
 						</div>
 						<div class="col-lg-2 grid-margin stretch-card">
 							<div class="card"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 								<div class="card-body pb-0">
 									<div class="d-flex align-items-center justify-content-between">
-										<h2 class="text-warning font-weight-bold">3259</h2>
-										<i class="mdi mdi-folder-outline mdi-18px text-dark"></i>
+										<h2 class="text-warning font-weight-bold"><?=$nbr_message; ?></h2>
+										<i class="mdi mdi-message-text-outline mdi-18px text-dark"></i>
 									</div>
 								</div>
 								<canvas id="projects" width="979" height="489" class="chartjs-render-monitor" style="display: block; height: 326px; width: 653px;"></canvas>
-								<div class="line-chart-row-title">All PROJECTS</div>
+								<div class="line-chart-row-title">LES MESSAGES</div>
 							</div>
 						</div>
 						<div class="col-lg-2 grid-margin stretch-card">
 							<div class="card"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 								<div class="card-body pb-0">
 									<div class="d-flex align-items-center justify-content-between">
-										<h2 class="text-secondary font-weight-bold">586</h2>
-										<i class="mdi mdi-cart-outline mdi-18px text-dark"></i>
+										<h2 class="text-secondary font-weight-bold"><?=$pack; ?></h2>
+										<i class="mdi mdi-package-variant mdi-18px text-dark"></i>
 									</div>
 								</div>
 								<canvas id="orderRecieved" width="979" height="489" class="chartjs-render-monitor" style="display: block; height: 326px; width: 653px;"></canvas>
-								<div class="line-chart-row-title">Orders Received</div>
+								<div class="line-chart-row-title">LES PACK</div>
 							</div>
 						</div>
 						<div class="col-lg-2 grid-margin stretch-card">
 							<div class="card"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 								<div class="card-body pb-0">
 									<div class="d-flex align-items-center justify-content-between">
-										<h2 class="text-dark font-weight-bold">7826</h2>
-										<i class="mdi mdi-cash text-dark mdi-18px"></i>
+										<h2 class="text-dark font-weight-bold"><?=$trans; ?></h2>
+										<i class="mdi mdi-cash-multiple text-dark mdi-18px"></i>
 									</div>
 								</div>
 								<canvas id="transactions" width="979" height="489" class="chartjs-render-monitor" style="display: block; height: 326px; width: 653px;"></canvas>
@@ -447,8 +542,8 @@ else
 				<footer class="footer">
           <div class="footer-wrap">
               <div class="w-100 clearfix">
-                <span class="d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018 <a href="https://www.templatewatch.com/" target="_blank">templatewatch</a>. All rights reserved.</span>
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted &amp; made with <i class="mdi mdi-heart-outline"></i></span>
+                <span class="d-block text-center text-sm-left d-sm-inline-block">Copyright © 2020 ESRENT. All rights reserved.</span>
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"></span>
               </div>
           </div>
         </footer>
@@ -475,6 +570,415 @@ else
 		<script src="../../Resourse/vendors/justgage/raphael-2.1.4.min.js"></script>
 		<script src="../../Resourse/vendors/justgage/justgage.js"></script>
     <!-- Custom js for this page-->
-    <script src="../../Resourse/js2/dashboard.js"></script>
+    
+    <script>
+    //////////////////////////////////////////////
+      var newClientData = {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+			datasets: [{
+				label: 'Margin',
+				data: [35, 37, 34, 36, 32],
+				backgroundColor: [
+						'#f7f7f7',
+				],
+				borderColor: [
+						'#dcdcdc'
+				],
+				borderWidth: 2,
+				fill: true,
+			},],
+		};
+		var newClientOptions = {
+			scales: {
+				yAxes: [{
+					display: false,
+				}],
+				xAxes: [{
+					display: false,
+				}],
+			},
+			legend: {
+				display: false,
+			},
+			elements: {
+				point: {
+					radius: 0
+				},		
+			},
+			plugins: {
+				datalabels: {
+					display: false,
+					align: 'center',
+					anchor: 'center'
+				}
+			}				
+		};
+		if ($("#newClient").length) {
+			var lineChartCanvas = $("#newClient").get(0).getContext("2d");
+			var saleschart = new Chart(lineChartCanvas, {
+				type: 'line',
+				data: newClientData,
+				options: newClientOptions
+			});
+    }
+    //////////////////////////////////////////////
+		var allProductsData = {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+			datasets: [{
+				label: 'Margin',
+				data: [37, 36, 37, 35, 36],
+				backgroundColor: [
+						'#f7f7f7',
+				],
+				borderColor: [
+						'#dcdcdc'
+				],
+				borderWidth: 2,
+				fill: true,
+			}, ],
+		};
+		var allProductsOptions = {
+			scales: {
+				yAxes: [{
+					display: false,
+				}],
+				xAxes: [{
+					display: false,
+				}],
+			},
+			legend: {
+				display: false,
+			},
+			elements: {
+				point: {
+					radius: 0
+				},
+			},
+			plugins: {
+				datalabels: {
+					display: false,
+					align: 'center',
+					anchor: 'center'
+				}
+			}				
+	
+		};
+		if ($("#allProducts").length) {
+			var lineChartCanvas = $("#allProducts").get(0).getContext("2d");
+			var saleschart = new Chart(lineChartCanvas, {
+				type: 'line',
+				data: allProductsData,
+				options: allProductsOptions
+			});
+		}
+
+    //////////////////////////////////////////////
+    var invoicesData = {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+			datasets: [{
+				label: 'Margin',
+				data: [35, 37, 34, 36, 32],
+				backgroundColor: [
+						'#f7f7f7',
+				],
+				borderColor: [
+						'#dcdcdc'
+				],
+				borderWidth: 2,
+				fill: true,
+			}, ],
+		};
+		var invoicesOptions = {
+			scales: {
+				yAxes: [{
+					display: false,
+				}],
+				xAxes: [{
+					display: false,
+				}],
+			},
+			legend: {
+				display: false,
+			},
+			elements: {
+					point: {
+						radius: 0
+					},
+			},
+			plugins: {
+				datalabels: {
+					display: false,
+					align: 'center',
+					anchor: 'center'
+				}
+			}				
+	
+		};
+		if ($("#invoices").length) {
+			var lineChartCanvas = $("#invoices").get(0).getContext("2d");
+			var saleschart = new Chart(lineChartCanvas, {
+				type: 'line',
+				data: invoicesData,
+				options: invoicesOptions
+			});
+		}
+
+    
+    //////////////////////////////////////////////
+		var projectsData = {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+			datasets: [{
+				label: 'Margin',
+				data: [38, 39, 37, 40, 36],
+					backgroundColor: [
+							'#f7f7f7',
+					],
+				borderColor: [
+						'#dcdcdc'
+				],
+				borderWidth: 2,
+				fill: true,
+			}, ],
+		};
+		var projectsOptions = {
+			scales: {
+				yAxes: [{
+					display: false,
+				}],
+				xAxes: [{
+					display: false,
+				}],
+			},
+			legend: {
+				display: false,
+			},
+			elements: {
+				point: {
+					radius: 0
+				},
+			},
+			plugins: {
+				datalabels: {
+					display: false,
+					align: 'center',
+					anchor: 'center'
+				}
+			}					
+		};
+		if ($("#projects").length) {
+			var lineChartCanvas = $("#projects").get(0).getContext("2d");
+			var saleschart = new Chart(lineChartCanvas, {
+				type: 'line',
+				data: projectsData,
+				options: projectsOptions
+			});
+		}
+
+    //////////////////////////////////////////////
+		var orderRecievedData = {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+			datasets: [{
+				label: 'Margin',
+				data: [35, 37, 34, 36, 32],
+				backgroundColor: [
+						'#f7f7f7',
+				],
+				borderColor: [
+						'#dcdcdc'
+				],
+				borderWidth: 2,
+				fill: true,
+			}, ],
+		};
+		var orderRecievedOptions = {
+			scales: {
+				yAxes: [{
+					display: false,
+				}],
+				xAxes: [{
+					display: false,
+				}],
+			},
+			legend: {
+				display: false,
+			},
+			elements: {
+				point: {
+					radius: 0
+				},
+			},
+			plugins: {
+				datalabels: {
+					display: false,
+					align: 'center',
+					anchor: 'center'
+				}
+			}				
+	
+		};
+		if ($("#orderRecieved").length) {
+			var lineChartCanvas = $("#orderRecieved").get(0).getContext("2d");
+			var saleschart = new Chart(lineChartCanvas, {
+				type: 'line',
+				data: orderRecievedData,
+				options: orderRecievedOptions
+			});
+		}
+
+    //////////////////////////////////////////////
+		var transactionsData = {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+			datasets: [{
+				label: 'Margin',
+				data: [38, 35, 36, 38, 34],
+				backgroundColor: [
+						'#f7f7f7',
+				],
+				borderColor: [
+						'#dcdcdc'
+				],
+				borderWidth: 2,
+				fill: true,
+			}, ],
+		};
+		var transactionsOptions = {
+			scales: {
+				yAxes: [{
+					display: false,
+				}],
+				xAxes: [{
+					display: false,
+				}],
+			},
+			legend: {
+				display: false,
+			},
+			elements: {
+				point: {
+					radius: 0
+				},
+			},
+			plugins: {
+				datalabels: {
+					display: false,
+					align: 'center',
+					anchor: 'center'
+				}
+			}				
+		};
+		if ($("#transactions").length) {
+			var lineChartCanvas = $("#transactions").get(0).getContext("2d");
+			var saleschart = new Chart(lineChartCanvas, {
+				type: 'line',
+				data: transactionsData,
+				options: transactionsOptions
+			});
+		}
+
+    //////////////////////////////////////////////
+
+		var supportTrackerData = {
+			labels: [ "janv", "fevr", "mars", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ],
+			datasets: [{
+				label: 'New Tickets',
+        data: [<?=$UlVal[1] ;?>,<?=$UlVal[2] ;?>,<?=$UlVal[3] ;?>,<?=$UlVal[4] ;?>, <?=$UlVal[5] ;?>,
+        <?=$UlVal[6] ;?>, <?=$UlVal[7] ;?>, <?=$UlVal[8] ;?>, <?=$UlVal[9] ;?>, <?=$UlVal[10] ;?>,
+        <?=$UlVal[11] ;?>, <?=$UlVal[12] ;?>],
+				backgroundColor: '#464dee',
+				borderColor: '#464dee',//d8d8d8
+				borderWidth: 1,
+				fill: false
+      },
+			{
+					label: 'Open Tickets',
+					data: [<?=$SuVal[1] ;?>,<?=$SuVal[2] ;?>,<?=$SuVal[3] ;?>,<?=$SuVal[4] ;?>, <?=$SuVal[5] ;?>,
+        <?=$SuVal[6] ;?>, <?=$SuVal[7] ;?>, <?=$SuVal[8] ;?>, <?=$SuVal[9] ;?>, <?=$SuVal[10] ;?>,
+        <?=$SuVal[11] ;?>, <?=$SuVal[12] ;?>],					
+					backgroundColor: '#d8d8d8',
+					borderColor: '#d8d8d8',
+					borderWidth: 1,
+					fill: false
+			}
+			]
+		};
+		var supportTrackerOptions = {
+			scales: {
+				xAxes: [{
+				//stacked: true,
+				barPercentage: 0.6,
+				position: 'bottom',
+				display: true,
+				gridLines: {
+					display: false,
+					drawBorder: false,
+				},
+				ticks: {
+					display: true, //this will remove only the label
+					stepSize: 300,
+				}
+				}],
+				yAxes: [{
+					//stacked: true,
+					display: true,
+					gridLines: {
+						drawBorder: false,
+						display: true,
+						color: "#f0f3f6",
+						borderDash: [8, 4],
+					},
+					ticks: {
+						beginAtZero: true,
+						callback: function(value, index, values) {
+						return value;//return '$' + value;
+						}
+					},
+				}]
+			},
+			legend: {
+				display: false
+			},
+			legendCallback: function(chart) {
+				var text = [];
+				text.push('<ul class="' + chart.id + '-legend">');
+				for (var i = 0; i < chart.data.datasets.length; i++) {
+					text.push('<li><span class="legend-box" style="background:' + chart.data.datasets[i].backgroundColor[i] + ';"></span><span class="legend-label text-dark">');
+					if (chart.data.datasets[i].label) {
+							text.push(chart.data.datasets[i].label);
+					}
+					text.push('</span></li>');
+				}
+				text.push('</ul>');
+				return text.join("");
+			},
+			tooltips: {
+				backgroundColor: 'rgba(0, 0, 0, 1)',
+			},
+			plugins: {
+				datalabels: {
+					display: false,
+					align: 'center',
+					anchor: 'center'
+				}
+			}				
+		};
+		if ($("#supportTracker").length) {
+			var barChartCanvas = $("#supportTracker").get(0).getContext("2d");
+			// This will get the first returned node in the jQuery collection.
+			var barChart = new Chart(barChartCanvas, {
+				type: 'bar',
+				data: supportTrackerData,
+				options: supportTrackerOptions
+			});
+			document.getElementById('support-tracker-legend').innerHTML = barChart.generateLegend();
+		}
+
+
+
+
+
+    </script>
+
+
+
     <!-- End custom js for this page-->
 </html>
