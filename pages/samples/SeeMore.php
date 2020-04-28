@@ -1605,8 +1605,8 @@ else{
                            <div class="left-dit-p">
 
                               <div class="prod-btn"> 
-                                 <a href="loginRT.php?smr=<?=$CodeL?>"><i class="far fa-star"></i> Rate this</a>                               
-                                 <a href="loginSV.php?smr=<?=$CodeL?>"><i class="far fa-heart"></i> Save this</a>                               
+                                 <a href="loginRT.php?smr=<?=$CodeL?>"><i class="far fa-star"></i> Évaluer</a>                               
+                                 <a href="loginSV.php?smr=<?=$CodeL?>"><i class="far fa-heart"></i> Enregister</a>                               
                                  <p><?=$nbrsaves?> personnes ont enregistrer cet logement </p>
                               </div>                             
                            </div>
