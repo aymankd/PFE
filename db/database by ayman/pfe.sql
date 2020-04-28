@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2020 at 10:14 PM
+-- Generation Time: Apr 28, 2020 at 04:05 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -272,6 +272,22 @@ CREATE TABLE `studio` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_notis`
+--
+
+CREATE TABLE `user_notis` (
+  `idN` int(4) NOT NULL,
+  `CodeU` int(5) NOT NULL,
+  `CodeP` int(5) NOT NULL,
+  `CodeL` int(5) NOT NULL,
+  `action` varchar(30) NOT NULL,
+  `status` varchar(30) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `utilisateur`
 --
 
@@ -410,6 +426,12 @@ ALTER TABLE `studio`
   ADD PRIMARY KEY (`CodeS`);
 
 --
+-- Indexes for table `user_notis`
+--
+ALTER TABLE `user_notis`
+  ADD PRIMARY KEY (`idN`);
+
+--
 -- Indexes for table `utilisateur`
 --
 ALTER TABLE `utilisateur`
@@ -423,19 +445,19 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `CodeF` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `CodeF` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `CodeImg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `CodeImg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `logement`
 --
 ALTER TABLE `logement`
-  MODIFY `CodeL` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `CodeL` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -444,10 +466,16 @@ ALTER TABLE `messages`
   MODIFY `idMsg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `user_notis`
+--
+ALTER TABLE `user_notis`
+  MODIFY `idN` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+
+--
 -- AUTO_INCREMENT for table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `CodeU` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `CodeU` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
