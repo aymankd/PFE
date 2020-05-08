@@ -137,11 +137,13 @@ if(isset($_POST['EnrFrm']))
 				          for ($i = 0; $i < 8; $i++) {
 				              $pa = $pa.$characters[rand(0, strlen($characters))];
 				          }
-				          $pa=sha1($pa);
-							$type="proprietaire";
-					        $reqI = "INSERT INTO `utilisateur`(`username`, `email`, `pass`, `type`) VALUES (?,?,?,?)";
+						  $pa=sha1($pa);
+						  $datenow2 = new DateTime(date('Y-m-d'));
+						  $datetoreq2 = $datenow2->format('Y-m-d');
+							$type="pro";
+					        $reqI = "INSERT INTO `utilisateur`(`username`, `email`, `pass`, `type`, `date`) VALUES (?,?,?,?,?)";
 					        $statementI=$conn->prepare($reqI);
-					        $statementI->bind_param("ssss",$CIN,$Email,$pa,$type);
+					        $statementI->bind_param("sssss",$CIN,$Email,$pa,$type,$datetoreq2);
 					        $statementI->execute();
 
 							$reqI = "SELECT CodeU FROM utilisateur where username=? ";
@@ -273,11 +275,13 @@ if(isset($_POST['EnrFrm']))
 
 			if ($Accval=="Ok" && $CodeU!=null)
 			{
+				$datenow = new DateTime(date('Y-m-d'));
+				$datetoreq = $datenow->format('Y-m-d');
 				//creation logement [creation Studio || Apparetement()],creation images,creation file
 				$Forseatch=metaphone($nomL).' '.metaphone($Desc).' '.metaphone($adresseL);
-				$req = "INSERT INTO `logement`(`CodeP`, `nom`, `adress`, `description`, `reglement`,`prix`,`superficie`,`SL_adr_nom`, `type`, `status`) VALUES (?,?,?,?,?,?,?,?,?,'valide')";
+				$req = "INSERT INTO `logement`(`CodeP`, `nom`, `adress`, `description`, `reglement`,`prix`,`superficie`,`SL_adr_nom`, `type`, `status`, `date`) VALUES (?,?,?,?,?,?,?,?,?,'valide',?)";
 			    $statement=$conn->prepare($req);
-			    $statement->bind_param("issssdiss",$CodeU,$nomL,$adresseL,$Desc,$reglement,$prix,$sprfc,$Forseatch,$LogeType);
+			    $statement->bind_param("issssdisss",$CodeU,$nomL,$adresseL,$Desc,$reglement,$prix,$sprfc,$Forseatch,$LogeType,$datetoreq);
 			    $statement->execute();
 
 				$reqI = "SELECT CodeL FROM logement where nom=? ";
