@@ -523,7 +523,7 @@ if($type=="Appartement")
              <div class='dit-t clearfix'>
               <div class='left-ti'>
               <h4>".$TitreC."</h4>
-              <p>By <span>".$PprenomC." </span>".$PnomC."</p>
+              <p> <span>".$PprenomC." </span>".$PnomC."</p>
               </div>
               <a href='#' tabindex='0'>".$prixC."DH</a>
              </div>
@@ -1071,13 +1071,13 @@ $statementCR->execute();
 $resCR=$statementCR->get_result();
 if(($rowCR=$resCR->fetch_assoc()))
 {
-   $rt1="<h3>You rated this ".$rowCR['rating']." stars</h3>";
+   $rt1="<h3>Vous avez évalué ".$rowCR['rating']." étoiles</h3>";
    $Alrd=1;
 
 }
 else
 {
-   $rt2="<a id='RTM' data-toggle='modal' data-target='#modalLikeThis2'><i class='far fa-star'></i> Rate this</a>";
+   $rt2="<a id='RTM' data-toggle='modal' data-target='#modalLikeThis2'><i class='far fa-star'></i> Évaluer</a>";
    $Alrd=0;
 }
 
@@ -1699,7 +1699,7 @@ if(($rowSR=$resSR->fetch_assoc()))
                <div class="col-md-12">
                   <div class="prod-page-title">
                      <h2 class="titreOne"><?=$Titre?></h2>
-                     <p>By <span><?=$Pnom?> <?=$Pprenom?></span></p>
+                     <p>Par <span><?=$Pnom?> <?=$Pprenom?></span></p>
                   </div>
                </div>
             </div>
@@ -1810,7 +1810,7 @@ if(($rowSR=$resSR->fetch_assoc()))
                            </p>
                         </div>
                         <div class="spe-a">
-                           <h4>Ratings</h4>
+                           <h4>Évaluations</h4>
                               <div class="container">
                                  <div class="row">
                                     <div class="col-xs-12 col-md-6">
@@ -1937,7 +1937,7 @@ if(($rowSR=$resSR->fetch_assoc()))
                      </div>
                   </div>
                   <div id="sim-res" class="similar-box">
-                     <h2>Similiar results</h2>
+                     <h2>Des résultats similaires</h2>
                      
                      <div class="row cat-pd">
                         <?=$recom1?>
@@ -2332,7 +2332,7 @@ $(document).ready(function(){
                     
                     $('#modalLikeThis2').modal('hide');                
                     document.getElementById('RTM').style.display='none';
-                    document.getElementById('YRT').innerHTML='<h3>You rated this '+Mrating+' Stars</h3>';
+                    document.getElementById('YRT').innerHTML='<h3>Vous avez évalué ceci '+Mrating+' Stars</h3>';
 
                   }
                  });
@@ -2380,16 +2380,16 @@ $(document).ready(function(){
 
    if(saved=='Y')
        {
-          $('#like-btn').empty().append("<i class='fas fa-heart ff'></i> Saved");
+          $('#like-btn').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
        }
        else if(saved=='N')
        {
-          $('#like-btn').empty().append("<i class='far fa-heart ff'></i> save this");
+          $('#like-btn').empty().append("<i class='far fa-heart ff'></i> sauvegarde");
          }   
    $('#like-btn').click(function(){  
       if(saved=='N')
        {
-          $('#like-btn').empty().append("<i class='fas fa-heart ff'></i> saved");
+          $('#like-btn').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
           saved='Y';
           $.ajax({  
                  url:"SaveL.php",   
@@ -2404,7 +2404,7 @@ $(document).ready(function(){
        }   
       else if(saved=='Y')
        {
-          $('#like-btn').empty().append("<i class='far fa-heart ff'></i> save this");
+          $('#like-btn').empty().append("<i class='far fa-heart ff'></i> sauvegarde");
           saved='N';
 
           $.ajax({  
@@ -2538,38 +2538,38 @@ $(document).ready(function(){
   //filling the save  button with the right icon  for card1  
       if(SavedL1=='Y')
         {
-          $('#1').empty().append("<i class='fas fa-heart ff'></i> saved");
+          $('#1').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
         }
        else if(SavedL1=='N')
         {
-          $('#1').empty().append("<i class='far fa-heart ff'></i> save this");
+          $('#1').empty().append("<i class='far fa-heart ff'></i> Enregistrer");
         } 
 //filling the save  button with the right icon  for card2  
       if(SavedL2=='Y')
         {
-          $('#2').empty().append("<i class='fas fa-heart ff'></i> saved");
+          $('#2').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
         }
        else if(SavedL2=='N')
         {
-          $('#2').empty().append("<i class='far fa-heart ff'></i> save this");
+          $('#2').empty().append("<i class='far fa-heart ff'></i> Enregistrer");
         } 
 //filling the save  button with the right icon  for card3  
       if(SavedL3=='Y')
         {
-          $('#3').empty().append("<i class='fas fa-heart ff'></i> saved");
+          $('#3').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
         }
        else if(SavedL3=='N')
         {
-          $('#3').empty().append("<i class='far fa-heart ff'></i> save this");
+          $('#3').empty().append("<i class='far fa-heart ff'></i> Enregistrer");
         } 
  //  filling the save  button with the right icon  for card4       
         if(SavedL4=='Y')
         {
-          $('#4').empty().append("<i class='fas fa-heart ff'></i> saved");
+          $('#4').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
         }
        else if(SavedL4=='N')
         {
-          $('#4').empty().append("<i class='far fa-heart ff'></i> save this");
+          $('#4').empty().append("<i class='far fa-heart ff'></i> Enregistrer");
         }     
 
 
@@ -2581,7 +2581,7 @@ $(document).ready(function(){
 
       if(SavedL1=='N')
        {
-          $('#1').empty().append("<i class='fas fa-heart ff'></i> saved");
+          $('#1').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
           SavedL1='Y';
           $.ajax({  
                  url:"SaveL.php",   
@@ -2596,7 +2596,7 @@ $(document).ready(function(){
        }   
       else if(SavedL1=='Y')
        {
-          $('#1').empty().append("<i class='far fa-heart ff'></i> save this");
+          $('#1').empty().append("<i class='far fa-heart ff'></i> Enregistrer");
           SavedL1='N';
 
           $.ajax({  
@@ -2616,7 +2616,7 @@ $(document).ready(function(){
           
       if(SavedL2=='N')
        {
-          $('#2').empty().append("<i class='fas fa-heart ff'></i> saved");
+          $('#2').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
           SavedL2='Y';
           $.ajax({  
                  url:"SaveL.php",   
@@ -2631,7 +2631,7 @@ $(document).ready(function(){
        }   
       else if(SavedL2=='Y')
        {
-          $('#2').empty().append("<i class='far fa-heart ff'></i> save this");
+          $('#2').empty().append("<i class='far fa-heart ff'></i> Enregistrer");
           SavedL2='N';
 
           $.ajax({  
@@ -2652,7 +2652,7 @@ $(document).ready(function(){
           
          if(SavedL3=='N')
        {
-          $('#3').empty().append("<i class='fas fa-heart ff'></i> saved");
+          $('#3').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
           SavedL3='Y';
           $.ajax({  
                  url:"SaveL.php",   
@@ -2667,7 +2667,7 @@ $(document).ready(function(){
        }   
       else if(SavedL3=='Y')
        {
-          $('#3').empty().append("<i class='far fa-heart ff'></i> save this");
+          $('#3').empty().append("<i class='far fa-heart ff'></i> Enregistrer");
           SavedL3='N';
 
           $.ajax({  
@@ -2687,7 +2687,7 @@ $(document).ready(function(){
       $('#4').click(function(){
          if(SavedL4=='N')
        {
-          $('#4').empty().append("<i class='fas fa-heart ff'></i> saved");
+          $('#4').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
           SavedL4='Y';
           $.ajax({  
                  url:"SaveL.php",   
@@ -2702,7 +2702,7 @@ $(document).ready(function(){
        }   
       else if(SavedL4=='Y')
        {
-          $('#4').empty().append("<i class='far fa-heart ff'></i> save this");
+          $('#4').empty().append("<i class='far fa-heart ff'></i> Enregistrer");
           SavedL4='N';
 
           $.ajax({  

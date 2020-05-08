@@ -5,7 +5,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>King &mdash; Free Website Template, Free HTML5 Template by gettemplates.co</title>
+	<title>ESRENT &mdash; </title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
@@ -58,7 +58,7 @@
 					<ul>
 						
 						<li><a href="pages/Hote/LoginHote.php">Devenez hôte</a></li>
-						<li><a href="about.html">Aide</a></li>			
+						<li><a href="help.html">Aide</a></li>			
 						<li><a href="contact.html">Contact</a></li>
 						<li class="btn-cta"><a href="pages/samples/register.php"><span>Inscription</span></a></li>
 						<li class="btn-cta"><a href="pages/samples/login.php"><span>Connexion</span></a></li>
@@ -82,7 +82,7 @@
 								<form class="form-inline" id="fh5co-header-subscribe"  action="pages/samples/searshResult.php" methode="POST">
 									<div class="col-md-8 col-md-offset-2">
 										<div class="form-group">
-											<input  class="form-control" id="email" type="text" name="rech" placeholder="Search a very wide input..." required>
+											<input  class="form-control" id="email" type="text" name="rech" placeholder="Rechercher une location" required>
 											<button type="submit" class="btn btn-default"  methode="POST">Rechercher</button>
 										</div>
 									</div>
@@ -147,11 +147,11 @@ Vous ne manquerez donc jamais rien..</p>
 						<div class="col-md-12 animate-box">
 							<div class="testimony">
 								<div class="inner text-center">
-									<img src="Resourse/images/list-img-04.png" alt="testimony">
+									<img src="Resourse/images/list-img-05.png" alt="testimony">
 								</div>
 								<blockquote>
-									<p>&ldquo;Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.&rdquo;</p>
-									<p class="author"><cite>&mdash; Aicha l7awla</cite></p>
+									<p>&ldquo;Beautiful spacious and well located studio! Very good advice. The bed is super comfortable. To recommend.&rdquo;</p>
+									<p class="author"><cite>&mdash; Client</cite></p>
 								</blockquote>
 							</div>
 						</div>
@@ -168,16 +168,37 @@ Vous ne manquerez donc jamais rien..</p>
 		<div class="container">
 			<div class="row row-pb-md">
 				<div class="col-md-4 fh5co-widget">
-					<h3>ESRENT</h3>
-					<p>description du site </p>
-					<p><a href="#">retour en haut de page</a></p>
+					<h3>King.</h3>
+					<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
+					<p><a href="#">Learn More</a></p>
 				</div>
 				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
 					<ul class="fh5co-footer-links">
 						<li><a href="#">About</a></li>
 						<li><a href="#">Help</a></li>
 						<li><a href="#">Contact</a></li>
-						
+						<li><a href="#">Terms</a></li>
+						<li><a href="#">Meetups</a></li>
+					</ul>
+				</div>
+
+				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
+					<ul class="fh5co-footer-links">
+						<li><a href="#">Shop</a></li>
+						<li><a href="#">Privacy</a></li>
+						<li><a href="#">Testimonials</a></li>
+						<li><a href="#">Handbook</a></li>
+						<li><a href="#">Held Desk</a></li>
+					</ul>
+				</div>
+
+				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
+					<ul class="fh5co-footer-links">
+						<li><a href="#">Find Designers</a></li>
+						<li><a href="#">Find Developers</a></li>
+						<li><a href="#">Teams</a></li>
+						<li><a href="#">Advertise</a></li>
+						<li><a href="#">API</a></li>
 					</ul>
 				</div>
 			</div>
@@ -185,7 +206,8 @@ Vous ne manquerez donc jamais rien..</p>
 			<div class="row copyright">
 				<div class="col-md-12 text-center">
 					<p>
-						<small class="block">&copy; 2020 ESRENT. All Rights Reserved.</small> 
+						<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small> 
+						<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://unsplash.com/" target="_blank">Unsplash</a></small>
 					</p>
 					<p>
 						<ul class="fh5co-social-icons">
