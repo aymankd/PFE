@@ -197,7 +197,7 @@ $resP=$statementP->get_result();
 while ( $rowP = mysqli_fetch_array($resP) )
   {
     $logementtochar=$rowP['CodeL'];
-    $reqVue="SELECT COUNT(*) as sumres,MONTH(date) as mou FROM `Log_Vues` where YEAR(date) = ?
+    $reqVue="SELECT COUNT(*) as sumres,MONTH(date) as mou FROM `log_vues` where YEAR(date) = ?
     and `idL`=? GROUP BY MONTH(date)";
     $statementVue=$conn->prepare($reqVue);
     $statementVue->bind_param("ss",$thisyear,$logementtochar);
