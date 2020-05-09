@@ -362,7 +362,7 @@ while ($row = mysqli_fetch_array($res))
                   </div>
               </li>
               <li class="nav-item">
-                  <a href="../pages/charts/chartjs.html" class="nav-link">
+                  <a href="statestique.php" class="nav-link">
                     <i class="mdi mdi-chart-areaspline menu-icon"></i>
                     <span class="menu-title">Statestique</span>
                     <i class="menu-arrow"></i>
