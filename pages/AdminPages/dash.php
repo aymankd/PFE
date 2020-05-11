@@ -49,23 +49,25 @@ $nbr_vis=0; $nbr_pro=0; $nbr_logement=0; $nbr_message=0; $pack=0; $trans=0;
 $thisyear = date("Y");
 $thismount = date("m");
 //visiteur
-$req="SELECT COUNT(*) as sumres FROM `sts_visiteur` where MONTH(date) = ? and YEAR(date) = ?";
+$normaltype="normal";
+$req="SELECT COUNT(*) as sumres FROM `utilisateur` where MONTH(date) = ? and YEAR(date) = ? and type=?";
 $statement=$conn->prepare($req);
-$statement->bind_param("ss",$thismount,$thisyear);
+$statement->bind_param("sss",$thismount,$thisyear,$normaltype);
 $statement->execute();
 $res=$statement->get_result();
 $row=$res->fetch_assoc();
 $nbr_vis=$row['sumres'];
 //proprietaire
-$req="SELECT COUNT(*) as sumres FROM `sts_prop` where MONTH(date) = ? and YEAR(date) = ?";
+$protype="pro";
+$req="SELECT COUNT(*) as sumres FROM `utilisateur` where MONTH(date) = ? and YEAR(date) = ? and type=?";
 $statement=$conn->prepare($req);
-$statement->bind_param("ss",$thismount,$thisyear);
+$statement->bind_param("sss",$thismount,$thisyear,$protype);
 $statement->execute();
 $res=$statement->get_result();
 $row=$res->fetch_assoc();
 $nbr_pro=$row['sumres'];
 //logement
-$req="SELECT COUNT(*) as sumres FROM `sts_loge` where MONTH(date) = ? and YEAR(date) = ?";
+$req="SELECT COUNT(*) as sumres FROM `logement` where MONTH(date) = ? and YEAR(date) = ?";
 $statement=$conn->prepare($req);
 $statement->bind_param("ss",$thismount,$thisyear);
 $statement->execute();
@@ -95,7 +97,11 @@ $statement->bind_param("ss",$thismount,$thisyear);
 $statement->execute();
 $res=$statement->get_result();
 $row=$res->fetch_assoc();
+if($row['sumres'])
 $trans=$row['sumres'];
+
+
+$totpacks = 0;
 
 //char packs
 ////////////// ultra
@@ -112,6 +118,7 @@ $res=$statement->get_result();
 while ($row = mysqli_fetch_array($res))
 {
   $UlVal[$row['mou']] = $row['sumres'];
+  $totpacks = $totpacks + $row['sumres'];
 }
 ////////////// super
 $SuVal = array();
@@ -127,6 +134,7 @@ $res=$statement->get_result();
 while ($row = mysqli_fetch_array($res))
 {
   $SuVal[$row['mou']] = $row['sumres'];
+  $totpacks = $totpacks + $row['sumres'];
 }
 
 
@@ -354,7 +362,7 @@ while ($row = mysqli_fetch_array($res))
                   </div>
               </li>
               <li class="nav-item">
-                  <a href="../pages/charts/chartjs.html" class="nav-link">
+                  <a href="statestique.php" class="nav-link">
                     <i class="mdi mdi-chart-areaspline menu-icon"></i>
                     <span class="menu-title">Statestique</span>
                     <i class="menu-arrow"></i>
@@ -500,7 +508,7 @@ while ($row = mysqli_fetch_array($res))
 							<div class="card"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 								<div class="card-body pb-0">
 									<div class="d-flex align-items-center justify-content-between">
-										<h2 class="text-dark font-weight-bold"><?=$trans; ?></h2>
+										<h2 class="text-dark font-weight-bold"><?=$trans; ?> Dh</h2>
 										<i class="mdi mdi-cash-multiple text-dark mdi-18px"></i>
 									</div>
 								</div>
@@ -514,10 +522,9 @@ while ($row = mysqli_fetch_array($res))
 							<div class="card">
 								<div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 									<div class="d-flex align-items-center justify-content-between">
-										<h4 class="card-title">Support Tracker</h4>
-										<h4 class="text-success font-weight-bold">Tickets<span class="text-dark ml-3">163</span></h4>
+										<h4 class="card-title">Pack Tracker</h4>
+										<h4 class="text-success font-weight-bold">Packs<span class="text-dark ml-3"><?=$totpacks; ?></span></h4>
 									</div>
-									<div id="support-tracker-legend" class="support-tracker-legend"><ul class="13-legend"><li><span class="legend-box" style="background:#464dee;"></span><span class="legend-label text-dark">New Tickets</span></li><li><span class="legend-box" style="background:#d8d8d8;"></span><span class="legend-label text-dark">Open Tickets</span></li></ul></div>
 									<canvas id="supportTracker" width="396" height="198" class="chartjs-render-monitor" style="display: block; height: 132px; width: 264px;"></canvas>
 								</div>
 							</div>
@@ -880,7 +887,7 @@ while ($row = mysqli_fetch_array($res))
 		var supportTrackerData = {
 			labels: [ "janv", "fevr", "mars", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ],
 			datasets: [{
-				label: 'New Tickets',
+				label: 'Super',
         data: [<?=$UlVal[1] ;?>,<?=$UlVal[2] ;?>,<?=$UlVal[3] ;?>,<?=$UlVal[4] ;?>, <?=$UlVal[5] ;?>,
         <?=$UlVal[6] ;?>, <?=$UlVal[7] ;?>, <?=$UlVal[8] ;?>, <?=$UlVal[9] ;?>, <?=$UlVal[10] ;?>,
         <?=$UlVal[11] ;?>, <?=$UlVal[12] ;?>],
@@ -890,7 +897,7 @@ while ($row = mysqli_fetch_array($res))
 				fill: false
       },
 			{
-					label: 'Open Tickets',
+					label: 'Ultra',
 					data: [<?=$SuVal[1] ;?>,<?=$SuVal[2] ;?>,<?=$SuVal[3] ;?>,<?=$SuVal[4] ;?>, <?=$SuVal[5] ;?>,
         <?=$SuVal[6] ;?>, <?=$SuVal[7] ;?>, <?=$SuVal[8] ;?>, <?=$SuVal[9] ;?>, <?=$SuVal[10] ;?>,
         <?=$SuVal[11] ;?>, <?=$SuVal[12] ;?>],					

@@ -64,7 +64,7 @@ while(($rowNS = mysqli_fetch_array($resNS)))
                       <div class='preview-item-content'>
                         <h6 class='preview-subject font-weight-normal'>".$nt_usern." a enregistré votre logement '".$nt_loge."'</h6>
                         <p class='font-weight-light small-text mb-0 text-muted'>
-                         Just now
+                        Il y'a 5min
                         </p>
                       </div>
                     </a>";

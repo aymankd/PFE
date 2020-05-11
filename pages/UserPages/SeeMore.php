@@ -19,6 +19,16 @@ if ($conn->connect_error) {
 }
 //recuperation du code du logement
 $CodeL=$_GET["smr"];
+////////////////System de vues////////////
+$datenow = new DateTime(date('Y-m-d'));
+$dateNow = $datenow->format('Y-m-d');
+
+$reqV = "INSERT INTO `vue`(`idL`, `date`) VALUES (?,?)";
+$statementV=$conn->prepare($reqV);
+$statementV->bind_param("ss",$CodeL,$dateNow);
+$statementV->execute();
+
+//////////////////////////////////////////
 //recuperation des données du logement a travers son code
 $reqL = "SELECT * from logement where CodeL=?";
 $statementL=$conn->prepare($reqL);
