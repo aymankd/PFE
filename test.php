@@ -5,18 +5,11 @@
 	$data2 = '';
 
 
-	//loop through the returned data
-	for($i=0 ; $i<9 ; $i++)
-	$data1 = $data1 . '"'.$i.'",';
+	$data1 = '3,5,2,12,17,10,9,3,13';
 
-	for($i=15 ; $i>0 ; $i--)
-	{
-		$data2 = $data2 . '"'.$i.'",';
-		$i--;
-	}
+	$data2 = '0,5,3,9,13,7,2,8,11';
 
-	$data1 = trim($data1,",");
-	$data2 = trim($data2,",");
+
 
 
 ?>
@@ -51,7 +44,7 @@
 	<body>	   
 	    <div class="container">	
 	    <h1>USE CHART.JS WITH MYSQL DATASETS</h1>       
-			<canvas id="chart" style="width: 100%; height: 65vh; background: #222; border: 1px solid #555652; margin-top: 10px;"></canvas>
+			<canvas id="chart" ></canvas>
 
 			<script>
 				var ctx = document.getElementById("chart").getContext('2d');
