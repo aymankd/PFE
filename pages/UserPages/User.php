@@ -351,7 +351,7 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
     <br>
     <nav aria-label="breadcrumb">
   <ol class="SectionName">
-    <p class="breadcrumb-item active" aria-current="page">Section 1</p>
+    <p class="breadcrumb-item active" aria-current="page">Recommandation</p>
   </ol>
 </nav>
 <section class="section first-section">
@@ -363,10 +363,10 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
                              <div class="shadoweffect">
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
-                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">Gardening</a></span>
-                                        <h4><a href="garden-single.html" title="">How to choose high quality soil for your gardens</a></h4>
+                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">Voir plus</a></span>
+                                        <h4><a href="garden-single.html" title="">Apartement 1</a></h4>
                                         <small><a href="garden-single.html" title="">21 July, 2017</a></small>
-                                        <small><a href="#" title="">by Amanda</a></small>
+                                        <small><a href="#" title="">by user1</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->
                             </div><!-- end shadow -->
@@ -379,10 +379,10 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
                              <div class="shadoweffect">
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
-                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">Outdoor</a></span>
-                                        <h4><a href="garden-single.html" title="">You can create a garden with furniture in your home</a></h4>
-                                        <small><a href="garden-single.html" title="">19 July, 2017</a></small>
-                                        <small><a href="#" title="">by Amanda</a></small>
+                                    <span class="bg-aqua"><a href="blog-category-01.html" title="">Voir plus</a></span>
+                                        <h4><a href="garden-single.html" title="">Apartement 2</a></h4>
+                                        <small><a href="garden-single.html" title="">21 July, 2017</a></small>
+                                        <small><a href="#" title="">by user2</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->
                             </div><!-- end shadow -->
@@ -395,10 +395,10 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
                              <div class="shadoweffect">
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
-                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">Indoor</a></span>
-                                        <h4><a href="garden-single.html" title="">The success of the 10 companies in the vegetable sector</a></h4>
-                                        <small><a href="garden-single.html" title="">03 July, 2017</a></small>
-                                        <small><a href="#" title="">by Jessica</a></small>
+                                    <span class="bg-aqua"><a href="blog-category-01.html" title="">Voir plus</a></span>
+                                        <h4><a href="garden-single.html" title="">Apartement 3</a></h4>
+                                        <small><a href="garden-single.html" title="">21 July, 2017</a></small>
+                                        <small><a href="#" title="">by user3</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->
                              </div><!-- end shadow -->
@@ -422,7 +422,7 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
     <br>
     <nav aria-label="breadcrumb">
   <ol class="SectionName">
-    <p class="breadcrumb-item active" aria-current="page">Section 2</p>
+    <p class="breadcrumb-item active" aria-current="page">Logement avec bon revu</p>
   </ol>
 </nav>
 <div class="project-content">
@@ -467,7 +467,7 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
     <br>
     <nav aria-label="breadcrumb">
   <ol class="SectionName">
-    <p class="breadcrumb-item active" aria-current="page">Section 3</p>
+    <p class="breadcrumb-item active" aria-current="page">Logements populaires</p>
   </ol>
 </nav>
     <main class="grid">
@@ -480,7 +480,7 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
   <a href="#!">
     <div class="mask">
       <img class="img-fluid w-100"
-        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg">
+        src="../../logImages - Copie/1/2a70870a_original.jpg">
       <div class="mask rgba-black-slight"></div>
     </div>
   </a>
@@ -488,22 +488,20 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 
 <div class="card-body text-center">
 
-  <h5>Fantasy T-shirt</h5>
-  <p class="small text-muted text-uppercase mb-2">Shirts</p>
+  <h5>Apartement 1</h5>
+  <p class="small text-muted text-uppercase mb-2">apart</p>
   
   <hr>
   <h6 class="mb-3">
-    <span class="text-danger mr-1">12.99$</span>
-    <span class="text-grey"><s>36.99$</s></span>
+    <span class="text-danger mr-1">1296 dh</span>
+
   </h6>
 
  
   <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
-    <i class="fas fa-info-circle pr-2"></i>Details
+    Details
   </button>
-  <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
-    <i class="far fa-heart"></i>
-  </button>
+ 
 
 </div>
 
@@ -519,7 +517,7 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
   <a href="#!">
     <div class="mask">
       <img class="img-fluid w-100"
-        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg">
+        src="../../logImages - Copie/1/35a008d2_original.jpg">
       <div class="mask rgba-black-slight"></div>
     </div>
   </a>
@@ -527,22 +525,20 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 
 <div class="card-body text-center">
 
-  <h5>Fantasy T-shirt</h5>
-  <p class="small text-muted text-uppercase mb-2">Shirts</p>
+  <h5>Apartement 2</h5>
+  <p class="small text-muted text-uppercase mb-2">apart</p>
   
   <hr>
   <h6 class="mb-3">
-    <span class="text-danger mr-1">12.99$</span>
-    <span class="text-grey"><s>36.99$</s></span>
+    <span class="text-danger mr-1">1299 dh</span>
+    
   </h6>
 
  
   <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
-    <i class="fas fa-info-circle pr-2"></i>Details
+    Details
   </button>
-  <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
-    <i class="far fa-heart"></i>
-  </button>
+  
 
 </div>
 
@@ -558,7 +554,7 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
   <a href="#!">
     <div class="mask">
       <img class="img-fluid w-100"
-        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg">
+        src="../../logImages - Copie/1/00830390_original.jpg">
       <div class="mask rgba-black-slight"></div>
     </div>
   </a>
@@ -566,22 +562,20 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 
 <div class="card-body text-center">
 
-  <h5>Fantasy T-shirt</h5>
-  <p class="small text-muted text-uppercase mb-2">Shirts</p>
+  <h5>Apartement 3</h5>
+  <p class="small text-muted text-uppercase mb-2">Apart</p>
   
   <hr>
   <h6 class="mb-3">
-    <span class="text-danger mr-1">12.99$</span>
-    <span class="text-grey"><s>36.99$</s></span>
+    <span class="text-danger mr-1">1299 dh</span>
+
   </h6>
 
  
   <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
-    <i class="fas fa-info-circle pr-2"></i>Details
+    Details
   </button>
-  <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
-    <i class="far fa-heart"></i>
-  </button>
+
 
 </div>
 
@@ -597,7 +591,7 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
   <a href="#!">
     <div class="mask">
       <img class="img-fluid w-100"
-        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg">
+        src="../../logImages - Copie/1/b8d9b49e_original.jpg">
       <div class="mask rgba-black-slight"></div>
     </div>
   </a>
@@ -605,22 +599,20 @@ $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 
 <div class="card-body text-center">
 
-  <h5>Fantasy T-shirt</h5>
-  <p class="small text-muted text-uppercase mb-2">Shirts</p>
+  <h5>Apartement 4</h5>
+  <p class="small text-muted text-uppercase mb-2">apart</p>
   
   <hr>
   <h6 class="mb-3">
-    <span class="text-danger mr-1">12.99$</span>
-    <span class="text-grey"><s>36.99$</s></span>
+    <span class="text-danger mr-1">1299 dh</span>
+   
   </h6>
 
  
   <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
-    <i class="fas fa-info-circle pr-2"></i>Details
+    Details
   </button>
-  <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
-    <i class="far fa-heart"></i>
-  </button>
+
 
 </div>
 
