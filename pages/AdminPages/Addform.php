@@ -138,7 +138,7 @@ if(isset($_POST['EnrFrm']))
 				              $pa = $pa.$characters[rand(0, strlen($characters))];
 				          }
 				          $pa=sha1($pa);
-							$type="proprietaire";
+							$type="pro";
 					        $reqI = "INSERT INTO `utilisateur`(`username`, `email`, `pass`, `type`) VALUES (?,?,?,?)";
 					        $statementI=$conn->prepare($reqI);
 					        $statementI->bind_param("ssss",$CIN,$Email,$pa,$type);
@@ -247,7 +247,7 @@ if(isset($_POST['EnrFrm']))
 						$statement->execute();
 						$Accval="Ok";				
 						}
-						else if ($Utype=="proprietaire"){
+						else if ($Utype=="pro"){
 						$Accval="Ok";
 						$CodeU=$rowU['CodeU'];
 						}else
@@ -279,7 +279,6 @@ if(isset($_POST['EnrFrm']))
 			    $statement=$conn->prepare($req);
 			    $statement->bind_param("issssdiss",$CodeU,$nomL,$adresseL,$Desc,$reglement,$prix,$sprfc,$Forseatch,$LogeType);
 			    $statement->execute();
-
 				$reqI = "SELECT CodeL FROM logement where nom=? ";
 			    $statementI=$conn->prepare($reqI);
 			    $statementI->bind_param("s",$nomL);
@@ -332,7 +331,6 @@ if(isset($_POST['EnrFrm']))
 			   <span aria-hidden="true">&times;</span>
 			   </button>
 			   </div>';
-
 			}
 
 }

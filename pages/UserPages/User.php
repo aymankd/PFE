@@ -187,7 +187,35 @@ $UISc = $UISc.'updateScrollbar();
 $jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
 
 
+//recommendation des logement du 1er section(Ultra)
+$line_cnt=1;
+$ultra_rec='';
+$reqR1="SELECT * from logement where CodeL is in(SELECT CodeL from pack where type='Ultra')";
+$statementR1=$conn->prepare($reqR1);
+$statementR1->bind_param();
+$statementR1->execute();
+$resR1=$statementR1->get_result();
+while($rowR1= mysqli_fetch_array($resR1))
+{
+  if($line_cnt<3)
+    {
 
+    }
+  else
+    {
+      $ultra_titre='';
+      $ultra_type='';
+      $ultra_prix='';
+      $image='';
+
+    }  
+}
+
+//recommendation des logement du 2éme section(Top rated)
+$reqR2="";
+
+//recommendation des logement du 3éme section(popular)
+$reqR3="";
 
 ?>
 

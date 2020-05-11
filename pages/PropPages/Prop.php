@@ -423,7 +423,7 @@ if($resN->num_rows!=0)
               <li class="nav-item dropdown">
                 <a  id="noti_open" class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
                   <i class="mdi mdi-bell mx-0"></i>
-                  <span id="nbrnts" class="count bg-success"><?php if($nbr_nts>0) echo $nbr_nts?></span>
+                  <?php if($nbr_nts>0) echo "<span id='nbrnts' class='count bg-success'>". $nbr_nts ."</span>" ?>
                 </a>
                 <div id="notifs" class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                   <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p> <br>
