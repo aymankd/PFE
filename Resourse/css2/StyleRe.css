@@ -22867,12 +22867,14 @@
   }
  
  
-  .topnav {
+  .topnav{
        overflow: hidden;
         background-color: #fff;
        position: relative;
       margin-top:-79px;
         }
+  
+        
 
           /* Hide the links inside the navigation menu (except for logo/home) */
          .topnav #myLinks {
@@ -23312,3 +23314,5 @@ h2 {
     height: unset;
     display: none;
   }*/
+
+ 
