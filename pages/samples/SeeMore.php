@@ -23,7 +23,7 @@ $CodeL=$_GET["smr"];
 $datenow = new DateTime(date('Y-m-d'));
 $dateNow = $datenow->format('Y-m-d');
 
-$reqV = "INSERT INTO `vue`(`idL`, `date`) VALUES (?,?)";
+$reqV = "INSERT INTO `log_vues`(`idL`, `date`) VALUES (?,?)";
 $statementV=$conn->prepare($reqV);
 $statementV->bind_param("ss",$CodeL,$dateNow);
 $statementV->execute();
