@@ -774,10 +774,14 @@ while($rowR3= mysqli_fetch_array($resR3))
     <nav aria-label="breadcrumb">
   <ol class="SectionName">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <p class="breadcrumb-item active" aria-current="page">Logements recommandés</p>
 =======
     <p class="breadcrumb-item active" aria-current="page">Recommandation</p>
 >>>>>>> 52f4a021b78f717bd6b68ef7bfbf45eceae8156c
+=======
+    <p class="breadcrumb-item active" aria-current="page">Recommandation</p>
+>>>>>>> 91d1fdd200004dd3efdd1b2e6cf9fb90e4f391ed
   </ol>
 </nav>
 <section class="section first-section">
@@ -853,10 +857,14 @@ while($rowR3= mysqli_fetch_array($resR3))
     <nav aria-label="breadcrumb">
   <ol class="SectionName">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <p class="breadcrumb-item active" aria-current="page">Logements les mieux notées</p>
 =======
     <p class="breadcrumb-item active" aria-current="page">Logement avec bon revu</p>
 >>>>>>> 52f4a021b78f717bd6b68ef7bfbf45eceae8156c
+=======
+    <p class="breadcrumb-item active" aria-current="page">Logement avec bon revu</p>
+>>>>>>> 91d1fdd200004dd3efdd1b2e6cf9fb90e4f391ed
   </ol>
 </nav>
 
