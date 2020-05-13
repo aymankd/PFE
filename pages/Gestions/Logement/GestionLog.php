@@ -165,9 +165,9 @@
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
                                         <span class="bg-aqua"><a href="Modifierlog.php" title="">Modifier</a></span>
-                                        <h4><a href="garden-single.html" title="">How to choose high quality soil for your gardens</a></h4>
-                                        <small><a href="garden-single.html" title="">21 July, 2017</a></small>
-                                        <small><a href="#" title="">by Amanda</a></small>
+                                        <h4><a href="garden-single.html" title="">Apart1</a></h4>
+                                        <small><a href="garden-single.html" title="">Prix : 1600 dh</a></small>
+                                        <small><a href="#" title="">by khalid</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->
                             </div><!-- end shadow -->
@@ -180,10 +180,10 @@
                              <div class="shadoweffect">
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
-                                        <span class="bg-aqua"><a href="Modifierlog.php" title="">Modifier</a></span>
-                                        <h4><a href="garden-single.html" title="">You can create a garden with furniture in your home</a></h4>
-                                        <small><a href="garden-single.html" title="">19 July, 2017</a></small>
-                                        <small><a href="#" title="">by Amanda</a></small>
+                                    <span class="bg-aqua"><a href="Modifierlog.php" title="">Modifier</a></span>
+                                        <h4><a href="garden-single.html" title="">Apart2</a></h4>
+                                        <small><a href="garden-single.html" title="">Prix : 1605 dh</a></small>
+                                        <small><a href="#" title="">by nabil</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->
                             </div><!-- end shadow -->
@@ -196,10 +196,10 @@
                              <div class="shadoweffect">
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
-                                        <span class="bg-aqua"><a href="Modifierlog.php" title="">Modifier</a></span>
-                                        <h4><a href="garden-single.html" title="">The success of the 10 companies in the vegetable sector</a></h4>
-                                        <small><a href="garden-single.html" title="">03 July, 2017</a></small>
-                                        <small><a href="#" title="">by Jessica</a></small>
+                                    <span class="bg-aqua"><a href="Modifierlog.php" title="">Modifier</a></span>
+                                        <h4><a href="garden-single.html" title="">Apart3</a></h4>
+                                        <small><a href="garden-single.html" title="">Prix : 1800 dh</a></small>
+                                        <small><a href="#" title="">by ayman</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->
                              </div><!-- end shadow -->

@@ -207,9 +207,9 @@ a.list-group-item, .list-group-item-action {
             <div class="wizard">
                 <nav class="list-group list-group-flush">
                    
-                    <a class="list-group-item " href="GestionProp.php"><i class="fe-icon-user text-muted"></i>Information génerale</a>
-                    <a class="list-group-item active" href="GestionProp2.php"><i class="fe-icon-map-pin text-muted"></i>Sécurité</a>
-                 
+                   
+                    <a class="list-group-item active" href="GestionProp2.php"><i class="fe-icon-map-pin text-muted"></i>Information génerale</a>
+                    <a class="list-group-item " href="GestionProp.php"><i class="fe-icon-user text-muted"></i>Sécurité </a>
                 </nav>
             </div>
         </div>
@@ -219,7 +219,7 @@ a.list-group-item, .list-group-item-action {
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="account-fn">User Name</label>
-                        <input class="form-control" type="text" id="account-fn" value="t9i9iba" required="">
+                        <input class="form-control" type="text" id="account-fn" value="daniel" required="">
                     </div>
                 </div>
                

@@ -773,13 +773,67 @@ while($rowR3= mysqli_fetch_array($resR3))
     <br>
     <nav aria-label="breadcrumb">
   <ol class="SectionName">
+<<<<<<< HEAD
     <p class="breadcrumb-item active" aria-current="page">Logements recommandés</p>
+=======
+    <p class="breadcrumb-item active" aria-current="page">Recommandation</p>
+>>>>>>> 52f4a021b78f717bd6b68ef7bfbf45eceae8156c
   </ol>
 </nav>
 <section class="section first-section">
             <div class="container-fluid">
                 <div class="masonry-blog clearfix">
+<<<<<<< HEAD
                     <?=$ultra_rec?>
+=======
+                    <div class="left-side">
+                        <div class="masonry-box post-media">
+                             <img src="../../Resourse/images/lag-60.png" alt="" class="img-fluid">
+                             <div class="shadoweffect">
+                                <div class="shadow-desc">
+                                    <div class="blog-meta">
+                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">Voir plus</a></span>
+                                        <h4><a href="garden-single.html" title="">Apartement 1</a></h4>
+                                        <small><a href="garden-single.html" title="">21 July, 2017</a></small>
+                                        <small><a href="#" title="">by user1</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end shadow-desc -->
+                            </div><!-- end shadow -->
+                        </div><!-- end post-media -->
+                    </div><!-- end left-side -->
+
+                    <div class="center-side">
+                        <div class="masonry-box post-media">
+                             <img src="../../Resourse/images/lag-61.png" alt="" class="img-fluid">
+                             <div class="shadoweffect">
+                                <div class="shadow-desc">
+                                    <div class="blog-meta">
+                                    <span class="bg-aqua"><a href="blog-category-01.html" title="">Voir plus</a></span>
+                                        <h4><a href="garden-single.html" title="">Apartement 2</a></h4>
+                                        <small><a href="garden-single.html" title="">21 July, 2017</a></small>
+                                        <small><a href="#" title="">by user2</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end shadow-desc -->
+                            </div><!-- end shadow -->
+                        </div><!-- end post-media -->
+                    </div><!-- end left-side -->
+
+                    <div class="right-side hidden-md-down">
+                        <div class="masonry-box post-media">
+                             <img src="../../Resourse/images/lag-63.png" alt="" class="img-fluid">
+                             <div class="shadoweffect">
+                                <div class="shadow-desc">
+                                    <div class="blog-meta">
+                                    <span class="bg-aqua"><a href="blog-category-01.html" title="">Voir plus</a></span>
+                                        <h4><a href="garden-single.html" title="">Apartement 3</a></h4>
+                                        <small><a href="garden-single.html" title="">21 July, 2017</a></small>
+                                        <small><a href="#" title="">by user3</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end shadow-desc -->
+                             </div><!-- end shadow -->
+                        </div><!-- end post-media -->
+                    </div><!-- end right-side -->
+>>>>>>> 52f4a021b78f717bd6b68ef7bfbf45eceae8156c
                 </div><!-- end masonry -->
             </div>
         </section>
@@ -798,7 +852,11 @@ while($rowR3= mysqli_fetch_array($resR3))
     <br>
     <nav aria-label="breadcrumb">
   <ol class="SectionName">
+<<<<<<< HEAD
     <p class="breadcrumb-item active" aria-current="page">Logements les mieux notées</p>
+=======
+    <p class="breadcrumb-item active" aria-current="page">Logement avec bon revu</p>
+>>>>>>> 52f4a021b78f717bd6b68ef7bfbf45eceae8156c
   </ol>
 </nav>
 
@@ -825,7 +883,158 @@ while($rowR3= mysqli_fetch_array($resR3))
   </ol>
 </nav>
     <main class="grid">
+<<<<<<< HEAD
   <?=$top_vues?>
+=======
+     <article>
+    <!-- Card -->
+<div class="card">
+
+<div class="view zoom overlay">
+  <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">Sale</span></h4>
+  <a href="#!">
+    <div class="mask">
+      <img class="img-fluid w-100"
+        src="../../logImages - Copie/1/2a70870a_original.jpg">
+      <div class="mask rgba-black-slight"></div>
+    </div>
+  </a>
+</div>
+
+<div class="card-body text-center">
+
+  <h5>Apartement 1</h5>
+  <p class="small text-muted text-uppercase mb-2">apart</p>
+  
+  <hr>
+  <h6 class="mb-3">
+    <span class="text-danger mr-1">1296 dh</span>
+
+  </h6>
+
+ 
+  <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
+    Details
+  </button>
+ 
+
+</div>
+
+</div>
+<!-- Card -->
+  </article>
+  <article>
+    <!-- Card -->
+<div class="card">
+
+<div class="view zoom overlay">
+  <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">Sale</span></h4>
+  <a href="#!">
+    <div class="mask">
+      <img class="img-fluid w-100"
+        src="../../logImages - Copie/1/35a008d2_original.jpg">
+      <div class="mask rgba-black-slight"></div>
+    </div>
+  </a>
+</div>
+
+<div class="card-body text-center">
+
+  <h5>Apartement 2</h5>
+  <p class="small text-muted text-uppercase mb-2">apart</p>
+  
+  <hr>
+  <h6 class="mb-3">
+    <span class="text-danger mr-1">1299 dh</span>
+    
+  </h6>
+
+ 
+  <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
+    Details
+  </button>
+  
+
+</div>
+
+</div>
+<!-- Card -->
+  </article>
+  <article>
+    <!-- Card -->
+<div class="card">
+
+<div class="view zoom overlay">
+  <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">Sale</span></h4>
+  <a href="#!">
+    <div class="mask">
+      <img class="img-fluid w-100"
+        src="../../logImages - Copie/1/00830390_original.jpg">
+      <div class="mask rgba-black-slight"></div>
+    </div>
+  </a>
+</div>
+
+<div class="card-body text-center">
+
+  <h5>Apartement 3</h5>
+  <p class="small text-muted text-uppercase mb-2">Apart</p>
+  
+  <hr>
+  <h6 class="mb-3">
+    <span class="text-danger mr-1">1299 dh</span>
+
+  </h6>
+
+ 
+  <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
+    Details
+  </button>
+
+
+</div>
+
+</div>
+<!-- Card -->
+  </article>
+  <article>
+    <!-- Card -->
+<div class="card">
+
+<div class="view zoom overlay">
+  <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">Sale</span></h4>
+  <a href="#!">
+    <div class="mask">
+      <img class="img-fluid w-100"
+        src="../../logImages - Copie/1/b8d9b49e_original.jpg">
+      <div class="mask rgba-black-slight"></div>
+    </div>
+  </a>
+</div>
+
+<div class="card-body text-center">
+
+  <h5>Apartement 4</h5>
+  <p class="small text-muted text-uppercase mb-2">apart</p>
+  
+  <hr>
+  <h6 class="mb-3">
+    <span class="text-danger mr-1">1299 dh</span>
+   
+  </h6>
+
+ 
+  <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
+    Details
+  </button>
+
+
+</div>
+
+</div>
+<!-- Card -->
+  </article>
+>>>>>>> 52f4a021b78f717bd6b68ef7bfbf45eceae8156c
 </main>
 				<!-- partial -->
 			</div>

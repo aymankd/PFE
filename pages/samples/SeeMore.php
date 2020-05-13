@@ -1561,7 +1561,7 @@ else{
                <div class="col-md-12">
                   <div class="prod-page-title">
                      <h2 class="titreOne"><?=$Titre?></h2>
-                     <p>By <span><?=$Pnom?> <?=$Pprenom?></span></p>
+                     <p>Par <span><?=$Pnom?> <?=$Pprenom?></span></p>
                   </div>
                </div>
             </div>
@@ -1666,7 +1666,7 @@ else{
                         </div>    
                         
                         <div class="spe-a">
-                           <h4>Ratings</h4>
+                           <h4>Évaluations</h4>
                               <div class="container">
                                  <div class="row">
                                     <div class="col-xs-12 col-md-6">
@@ -1772,7 +1772,7 @@ else{
                               </div>
                            </div>
                            <div class="spe-a">
-                              <h4>Comments</h4>     
+                              <h4>commentaires</h4>     
                               <div id="comments" class="card Comments">
 	                              <div class="card-body">
                                     <div id="cmt-grp">
@@ -1795,7 +1795,7 @@ else{
                     </div>
                   </div>
                   <div id="sim-res" class="similar-box">
-                     <h2>Similar results</h2>
+                     <h2>Des résultats similaires</h2>
                      
                      <div class="row cat-pd">
                        <?=$recom1?>

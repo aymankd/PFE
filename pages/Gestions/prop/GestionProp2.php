@@ -200,7 +200,7 @@ a.list-group-item, .list-group-item-action {
                     <div class="author-card-avatar"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Daniel Adams">
                     </div>
                     <div class="author-card-details">
-                        <h5 class="author-card-name text-lg">Hemdan to9ba</h5><span class="author-card-position">Joined February 06, 2017</span>
+                        <h5 class="author-card-name text-lg">Khalid berhail</h5><span class="author-card-position">Joined February 06, 2017</span>
                     </div>
                 </div>
             </div>
@@ -218,19 +218,19 @@ a.list-group-item, .list-group-item-action {
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="account-fn">Prénom</label>
-                        <input class="form-control" type="text" id="account-fn" value="Hemdan" required="">
+                        <input class="form-control" type="text" id="account-fn" value="khalid" required="">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="account-ln">Nom</label>
-                        <input class="form-control" type="text" id="account-ln" value="to9ba" required="">
+                        <input class="form-control" type="text" id="account-ln" value="berhail" required="">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="account-email">E-mail</label>
-                        <input class="form-control" type="email" id="account-email" value="Hemdan.to9ba@example.com" disabled="">
+                        <input class="form-control" type="email" id="account-email" value="khalid.ber@example.com" disabled="">
                     </div>
                 </div>
              
