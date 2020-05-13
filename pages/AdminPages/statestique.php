@@ -1,5 +1,10 @@
 <?php 
 session_start();
+if(isset($_POST['logoutbtn'])) 
+{
+	unset($_SESSION['type']);
+	unset($_SESSION['username']);
+}
 if( !isset($_SESSION['username']) || $_SESSION['type'] != "admin" )
 {
   header("location:../../homeP.php");
@@ -41,50 +46,108 @@ else
 	$ProfileP="<img src='".$src."' alt='profile'/>";
 }
 
-// for real statestique
-//SELECT * FROM `sts_visiteur` WHERE `date` LIKE "_____04___"
-//SELECT COUNT(*),MONTH(date) FROM `sts_visiteur` GROUP BY YEAR(date),MONTH(date)
-
+//visiteur
 $thisyear = date("Y");
-$thismount = date("m");
 
+$Vis = array();
+$Vis[1]=0; $Vis[2]=0; $Vis[3]=0; $Vis[4]=0;
+$Vis[5]=0; $Vis[6]=0; $Vis[7]=0; $Vis[8]=0;
+$Vis[9]=0;$Vis[10]=0;$Vis[11]=0;$Vis[12]=0;
+$normaltype='normal';
 
-//char packs
-////////////// ultra
-$UlVal = array();
-$UlVal[1]=0; $UlVal[2]=0; $UlVal[3]=0; $UlVal[4]=0;
-$UlVal[5]=0; $UlVal[6]=0; $UlVal[7]=0; $UlVal[8]=0;
-$UlVal[9]=0;$UlVal[10]=0;$UlVal[11]=0;$UlVal[12]=0;
-$req="SELECT COUNT(*) as sumres,MONTH(datein) as mou FROM `pack` where YEAR(datein) = ?
-and `type`='ultra' GROUP BY MONTH(datein)";
+$reqvis="SELECT COUNT(*) as sumres,MONTH(date) as mou FROM `utilisateur` where YEAR(date) = ?
+and `type`= ? GROUP BY MONTH(date)";
+$statementvis=$conn->prepare($reqvis);
+$statementvis->bind_param("ss",$thisyear,$normaltype);
+$statementvis->execute();
+$resvis=$statementvis->get_result();
+while ( $rowvis = mysqli_fetch_array($resvis) )
+{
+      $Vis[$rowvis['mou']] = $rowvis['sumres'];
+}
+
+//proprietaire
+$Pro = array();
+$Pro[1]=0; $Pro[2]=0; $Pro[3]=0; $Pro[4]=0;
+$Pro[5]=0; $Pro[6]=0; $Pro[7]=0; $Pro[8]=0;
+$Pro[9]=0;$Pro[10]=0;$Pro[11]=0;$Pro[12]=0;
+
+$protype='pro';
+
+$reqpro="SELECT COUNT(*) as sumres,MONTH(date) as mou FROM `utilisateur` where YEAR(date) = ?
+and `type`= ? GROUP BY MONTH(date)";
+$statementpro=$conn->prepare($reqpro);
+$statementpro->bind_param("ss",$thisyear,$protype);
+$statementpro->execute();
+$respro=$statementpro->get_result();
+while ( $rowpro = mysqli_fetch_array($respro) )
+{
+      $Pro[$rowpro['mou']] = $rowpro['sumres'];
+}
+//Logement
+$Log = array();
+$Log[1]=0; $Log[2]=0; $Log[3]=0; $Log[4]=0;
+$Log[5]=0; $Log[6]=0; $Log[7]=0; $Log[8]=0;
+$Log[9]=0;$Log[10]=0;$Log[11]=0;$Log[12]=0;
+
+$req="SELECT COUNT(*) as sumres,MONTH(date) as mou FROM `logement` where YEAR(date) = ?
+GROUP BY MONTH(date)";
 $statement=$conn->prepare($req);
 $statement->bind_param("s",$thisyear);
 $statement->execute();
 $res=$statement->get_result();
-while ($row = mysqli_fetch_array($res))
+while ( $row = mysqli_fetch_array($res) )
 {
-  $UlVal[$row['mou']] = $row['sumres'];
+      $Log[$row['mou']] = $row['sumres'];
 }
-////////////// super
-$SuVal = array();
-$SuVal[1]=0; $SuVal[2]=0; $SuVal[3]=0; $SuVal[4]=0;
-$SuVal[5]=0; $SuVal[6]=0; $SuVal[7]=0; $SuVal[8]=0;
-$SuVal[9]=0;$SuVal[10]=0;$SuVal[11]=0;$SuVal[12]=0;
-$req="SELECT COUNT(*) as sumres,MONTH(datein) as mou FROM `pack` where YEAR(datein) = ?
-and `type`='super' GROUP BY MONTH(datein)";
+//message
+$Mes = array();
+$Mes[1]=0; $Mes[2]=0; $Mes[3]=0; $Mes[4]=0;
+$Mes[5]=0; $Mes[6]=0; $Mes[7]=0; $Mes[8]=0;
+$Mes[9]=0;$Mes[10]=0;$Mes[11]=0;$Mes[12]=0;
+
+$req="SELECT COUNT(*) as sumres,MONTH(datemsg) as mou FROM `messages` where YEAR(datemsg) = ?
+GROUP BY MONTH(datemsg)";
 $statement=$conn->prepare($req);
 $statement->bind_param("s",$thisyear);
 $statement->execute();
 $res=$statement->get_result();
-while ($row = mysqli_fetch_array($res))
+while ( $row = mysqli_fetch_array($res) )
 {
-  $SuVal[$row['mou']] = $row['sumres'];
+      $Mes[$row['mou']] = $row['sumres'];
 }
+//Pack
+$Pac = array();
+$Pac[1]=0; $Pac[2]=0; $Pac[3]=0; $Pac[4]=0;
+$Pac[5]=0; $Pac[6]=0; $Pac[7]=0; $Pac[8]=0;
+$Pac[9]=0;$Pac[10]=0;$Pac[11]=0;$Pac[12]=0;
 
+$req="SELECT COUNT(*) as sumres,MONTH(datein) as mou FROM `pack` where YEAR(datein) = ?
+GROUP BY MONTH(datein)";
+$statement=$conn->prepare($req);
+$statement->bind_param("s",$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+while ( $row = mysqli_fetch_array($res) )
+{
+      $Pac[$row['mou']] = $row['sumres'];
+}
+//Pack
+$Tra = array();
+$Tra[1]=0; $Tra[2]=0; $Tra[3]=0; $Tra[4]=0;
+$Tra[5]=0; $Tra[6]=0; $Tra[7]=0; $Tra[8]=0;
+$Tra[9]=0;$Tra[10]=0;$Tra[11]=0;$Tra[12]=0;
 
-
-
-
+$req="SELECT sum(`value`) as sumres,MONTH(date) as mou FROM `sts_trans` where YEAR(date) = ?
+GROUP BY MONTH(date)";
+$statement=$conn->prepare($req);
+$statement->bind_param("s",$thisyear);
+$statement->execute();
+$res=$statement->get_result();
+while ( $row = mysqli_fetch_array($res) )
+{
+      $Tra[$row['mou']] = $row['sumres'];
+}
 
 
 
@@ -251,16 +314,16 @@ while ($row = mysqli_fetch_array($res))
                     <span class="online-status"></span>
                     <?=$ProfileP?>
                   </a>
-                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                  <form method="post" class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                       <a class="dropdown-item">
                         <i class="mdi mdi-settings text-primary"></i>
                         Settings
                       </a>
-                      <a class="dropdown-item">
+                      <button name="logoutbtn" class="dropdown-item">
                         <i class="mdi mdi-logout text-primary"></i>
                         Logout
-                      </a>
-                  </div>
+                      </button>
+                  </form>
                 </li>
             </ul>
             <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="horizontal-menu-toggle">
@@ -345,56 +408,56 @@ while ($row = mysqli_fetch_array($res))
 				<div class="content-wrapper">
                     <div class="row">
                         <div class="col-lg-6 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                            <h4 class="card-title">Line chart</h4>
-                            <canvas id="lineChart" width="682" height="340" class="chartjs-render-monitor" style="display: block; height: 227px; width: 455px;"></canvas>
-                            </div>
-                        </div>
+                          <div class="card">
+                              <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                              <h4 class="card-title">Statestique des visteurs</h4>
+                              <canvas id="areaChart1" width="682" height="340" class="chartjs-render-monitor" style="display: block; height: 227px; width: 455px;"></canvas>
+                              </div>
+                          </div>
                         </div>
                         <div class="col-lg-6 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                            <h4 class="card-title">Bar chart</h4>
-                            <canvas id="barChart" style="display: block; height: 227px; width: 455px;" width="682" height="340" class="chartjs-render-monitor"></canvas>
-                            </div>
-                        </div>
+                          <div class="card">
+                              <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                              <h4 class="card-title">Statestique des Proprietaires</h4>
+                              <canvas id="barChart1" style="display: block; height: 227px; width: 455px;" width="682" height="340" class="chartjs-render-monitor"></canvas>
+                              </div>
+                          </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                            <h4 class="card-title">Area chart</h4>
-                            <canvas id="areaChart" width="682" height="340" class="chartjs-render-monitor" style="display: block; height: 227px; width: 455px;"></canvas>
-                            </div>
-                        </div>
+                          <div class="card">
+                              <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                              <h4 class="card-title">Statestique des Logements</h4>
+                              <canvas id="areaChart2" width="682" height="340" class="chartjs-render-monitor" style="display: block; height: 227px; width: 455px;"></canvas>
+                              </div>
+                          </div>
                         </div>
                         <div class="col-lg-6 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                            <h4 class="card-title">Doughnut chart</h4>
-                            <canvas id="doughnutChart" width="682" height="340" class="chartjs-render-monitor" style="display: block; height: 227px; width: 455px;"></canvas>
-                            </div>
-                        </div>
+                          <div class="card">
+                              <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                              <h4 class="card-title">Statestique des Messages</h4>
+                              <canvas id="barChart2" style="display: block; height: 227px; width: 455px;" width="682" height="340" class="chartjs-render-monitor"></canvas>
+                              </div>
+                          </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6 grid-margin grid-margin-lg-0 stretch-card">
-                        <div class="card">
-                            <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                            <h4 class="card-title">Pie chart</h4>
-                            <canvas id="pieChart" width="682" height="340" class="chartjs-render-monitor" style="display: block; height: 227px; width: 455px;"></canvas>
-                            </div>
+                        <div class="col-lg-6 grid-margin stretch-card">
+                          <div class="card">
+                              <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                              <h4 class="card-title">Statestique des Packs</h4>
+                              <canvas id="areaChart3" width="682" height="340" class="chartjs-render-monitor" style="display: block; height: 227px; width: 455px;"></canvas>
+                              </div>
+                          </div>
                         </div>
-                        </div>
-                        <div class="col-lg-6 grid-margin grid-margin-lg-0 stretch-card">
-                        <div class="card">
-                            <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                            <h4 class="card-title">Scatter chart</h4>
-                            <canvas id="scatterChart" width="682" height="340" class="chartjs-render-monitor" style="display: block; height: 227px; width: 455px;"></canvas>
-                            </div>
-                        </div>
+                        <div class="col-lg-6 grid-margin stretch-card">
+                          <div class="card">
+                              <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                              <h4 class="card-title">Statestique des Transactions</h4>
+                              <canvas id="barChart3" style="display: block; height: 227px; width: 455px;" width="682" height="340" class="chartjs-render-monitor"></canvas>
+                              </div>
+                          </div>
                         </div>
                     </div>
 				</div>
@@ -434,358 +497,384 @@ while ($row = mysqli_fetch_array($res))
     
     <script>
     //////////////////////////////////////////////
-    $(function() {
-  /* ChartJS
-   * -------
-   * Data and config for chartjs
-   */
-  'use strict';
-  var data = {
-    labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
-    datasets: [{
-      label: '# of Votes',
-      data: [10, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-      borderWidth: 1,
-      fill: false
-    }]
-  };
-  var multiLineData = {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-    datasets: [{
-        label: 'Dataset 1',
-        data: [12, 19, 3, 5, 2, 3],
-        borderColor: [
-          '#587ce4'
-        ],
-        borderWidth: 2,
-        fill: false
-      },
+    $(function() 
       {
-        label: 'Dataset 2',
-        data: [5, 23, 7, 12, 42, 23],
-        borderColor: [
-          '#ede190'
-        ],
-        borderWidth: 2,
-        fill: false
-      },
-      {
-        label: 'Dataset 3',
-        data: [15, 10, 21, 32, 12, 33],
-        borderColor: [
-          '#f44252'
-        ],
-        borderWidth: 2,
-        fill: false
-      }
-    ]
-  };
-  var options = {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    },
-    legend: {
-      display: false
-    },
-    elements: {
-      point: {
-        radius: 0
-      }
-    }
+        var data1 = {
+          labels: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aou", "Sept", "Oct", "Nov", "Dec"],
+          datasets: [{
+            label: 'Proprietaires',
+            data: [<?=$Pro[1] ;?>,<?=$Pro[2] ;?>,<?=$Pro[3] ;?>,<?=$Pro[4] ;?>, <?=$Pro[5] ;?>,
+        <?=$Pro[6] ;?>, <?=$Pro[7] ;?>, <?=$Pro[8] ;?>, <?=$Pro[9] ;?>, <?=$Pro[10] ;?>,
+        <?=$Pro[11] ;?>, <?=$Pro[12] ;?>],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(75, 192, 192, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(75, 192, 192, 1)'
+            ],
+            borderWidth: 1,
+            fill: false
+          }]
+        };
+        var data2 = {
+          labels: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aou", "Sept", "Oct", "Nov", "Dec"],
+          datasets: [{
+            label: 'Messages',
+            data: [<?=$Mes[1] ;?>,<?=$Mes[2] ;?>,<?=$Mes[3] ;?>,<?=$Mes[4] ;?>, <?=$Mes[5] ;?>,
+        <?=$Mes[6] ;?>, <?=$Mes[7] ;?>, <?=$Mes[8] ;?>, <?=$Mes[9] ;?>, <?=$Mes[10] ;?>,
+        <?=$Mes[11] ;?>, <?=$Mes[12] ;?>],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(75, 192, 192, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(75, 192, 192, 1)'
+            ],
+            borderWidth: 1,
+            fill: false
+          }]
+        };
+        var data3 = {
+          labels: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aou", "Sept", "Oct", "Nov", "Dec"],
+          datasets: [{
+            label: 'Transaction',
+            data: [<?=$Tra[1] ;?>,<?=$Tra[2] ;?>,<?=$Tra[3] ;?>,<?=$Tra[4] ;?>, <?=$Tra[5] ;?>,
+        <?=$Tra[6] ;?>, <?=$Tra[7] ;?>, <?=$Tra[8] ;?>, <?=$Tra[9] ;?>, <?=$Tra[10] ;?>,
+        <?=$Tra[11] ;?>, <?=$Tra[12] ;?>],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(75, 192, 192, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(75, 192, 192, 1)'
+            ],
+            borderWidth: 1,
+            fill: false
+          }]
+        };
 
-  };
-  var doughnutPieData = {
-    datasets: [{
-      data: [30, 40, 30],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.5)',
-        'rgba(54, 162, 235, 0.5)',
-        'rgba(255, 206, 86, 0.5)',
-        'rgba(75, 192, 192, 0.5)',
-        'rgba(153, 102, 255, 0.5)',
-        'rgba(255, 159, 64, 0.5)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-    }],
-
-    // These labels appear in the legend and in the tooltips when hovering different arcs
-    labels: [
-      'Pink',
-      'Blue',
-      'Yellow',
-    ]
-  };
-  var doughnutPieOptions = {
-    responsive: true,
-    animation: {
-      animateScale: true,
-      animateRotate: true
-    }
-  };
-  var areaData = {
-    labels: ["2013", "2014", "2015", "2016", "2017"],
-    datasets: [{
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-      borderWidth: 1,
-      fill: true, // 3: no fill
-    }]
-  };
-
-  var areaOptions = {
-    plugins: {
-      filler: {
-        propagate: true
-      }
-    }
-  }
-
-  var multiAreaData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: [{
-        label: 'Facebook',
-        data: [8, 11, 13, 15, 12, 13, 16, 15, 13, 19, 11, 14],
-        borderColor: ['rgba(255, 99, 132, 0.5)'],
-        backgroundColor: ['rgba(255, 99, 132, 0.5)'],
-        borderWidth: 1,
-        fill: true
-      },
-      {
-        label: 'Twitter',
-        data: [7, 17, 12, 16, 14, 18, 16, 12, 15, 11, 13, 9],
-        borderColor: ['rgba(54, 162, 235, 0.5)'],
-        backgroundColor: ['rgba(54, 162, 235, 0.5)'],
-        borderWidth: 1,
-        fill: true
-      },
-      {
-        label: 'Linkedin',
-        data: [6, 14, 16, 20, 12, 18, 15, 12, 17, 19, 15, 11],
-        borderColor: ['rgba(255, 206, 86, 0.5)'],
-        backgroundColor: ['rgba(255, 206, 86, 0.5)'],
-        borderWidth: 1,
-        fill: true
-      }
-    ]
-  };
-
-  var multiAreaOptions = {
-    plugins: {
-      filler: {
-        propagate: true
-      }
-    },
-    elements: {
-      point: {
-        radius: 0
-      }
-    },
-    scales: {
-      xAxes: [{
-        gridLines: {
-          display: false
-        }
-      }],
-      yAxes: [{
-        gridLines: {
-          display: false
-        }
-      }]
-    }
-  }
-
-  var scatterChartData = {
-    datasets: [{
-        label: 'First Dataset',
-        data: [{
-            x: -10,
-            y: 0
+        var options1 = {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
           },
-          {
-            x: 0,
-            y: 3
+          legend: {
+            display: false
           },
-          {
-            x: -25,
-            y: 5
-          },
-          {
-            x: 40,
-            y: 5
+          elements: {
+            point: {
+              radius: 0
+            }
           }
-        ],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255,99,132,1)'
-        ],
-        borderWidth: 1
-      },
-      {
-        label: 'Second Dataset',
-        data: [{
-            x: 10,
-            y: 5
+        };
+        var options2 = {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
           },
-          {
-            x: 20,
-            y: -30
+          legend: {
+            display: false
           },
-          {
-            x: -25,
-            y: 15
-          },
-          {
-            x: -10,
-            y: 5
+          elements: {
+            point: {
+              radius: 0
+            }
           }
-        ],
-        backgroundColor: [
-          'rgba(54, 162, 235, 0.2)',
-        ],
-        borderColor: [
-          'rgba(54, 162, 235, 1)',
-        ],
-        borderWidth: 1
-      }
-    ]
-  }
+        };
+        var options3 = {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          },
+          legend: {
+            display: false
+          },
+          elements: {
+            point: {
+              radius: 0
+            }
+          }
+        };
 
-  var scatterChartOptions = {
-    scales: {
-      xAxes: [{
-        type: 'linear',
-        position: 'bottom'
-      }]
-    }
-  }
-  // Get context with jQuery - using jQuery's .get() method.
-  if ($("#barChart").length) {
-    var barChartCanvas = $("#barChart").get(0).getContext("2d");
-    // This will get the first returned node in the jQuery collection.
-    var barChart = new Chart(barChartCanvas, {
-      type: 'bar',
-      data: data,
-      options: options
-    });
-  }
+        ///////////////////////////////barChart1///////////////////////////////
+        if ($("#barChart1").length) {
+          var barChartCanvas = $("#barChart1").get(0).getContext("2d");
+          var barChart = new Chart(barChartCanvas, {
+            type: 'bar',
+            data: data1,
+            options: options1
+          });
+        }
+        ///////////////////////////////barChart2///////////////////////////////
+        if ($("#barChart2").length) {
+          var barChartCanvas = $("#barChart2").get(0).getContext("2d");
+          var barChart = new Chart(barChartCanvas, {
+            type: 'bar',
+            data: data2,
+            options: options2
+          });
+        }
+        ////////////////////////////////barChart3///////////////////////////////
+        if ($("#barChart3").length) {
+          var barChartCanvas = $("#barChart3").get(0).getContext("2d");
+          var barChart = new Chart(barChartCanvas, {
+            type: 'bar',
+            data: data3,
+            options: options3
+          });
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        var areaData1 = {
+          labels: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aou", "Sept", "Oct", "Nov", "Dec"],
+          datasets: [{
+            label: 'Visiteur',
+            data: [<?=$Vis[1] ;?>,<?=$Vis[2] ;?>,<?=$Vis[3] ;?>,<?=$Vis[4] ;?>, <?=$Vis[5] ;?>,
+        <?=$Vis[6] ;?>, <?=$Vis[7] ;?>, <?=$Vis[8] ;?>, <?=$Vis[9] ;?>, <?=$Vis[10] ;?>,
+        <?=$Vis[11] ;?>, <?=$Vis[12] ;?>],
+            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            borderColor: 'rgba(153, 102, 255, 1)',
+            pointBackgroundColor:[
+              'rgba(255,99,132,0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255,99,132,0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            pointBorderColor:[
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
+            fill: true, // 3: no fill
+          }]
+        };
+        //areaoptions
+        var areaOptions1 = {
+          plugins: {
+            filler: {
+              propagate: true
+            }
+          }
+        }
+        var areaData2 = {
+          labels: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aou", "Sept", "Oct", "Nov", "Dec"],
+          datasets: [{
+            label: ' Logements',
+            data: [<?=$Log[1] ;?>,<?=$Log[2] ;?>,<?=$Log[3] ;?>,<?=$Log[4] ;?>, <?=$Log[5] ;?>,
+        <?=$Log[6] ;?>, <?=$Log[7] ;?>, <?=$Log[8] ;?>, <?=$Log[9] ;?>, <?=$Log[10] ;?>,
+        <?=$Log[11] ;?>, <?=$Log[12] ;?>],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            pointBackgroundColor:[
+              'rgba(255,99,132,0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255,99,132,0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
 
-  if ($("#lineChart").length) {
-    var lineChartCanvas = $("#lineChart").get(0).getContext("2d");
-    var lineChart = new Chart(lineChartCanvas, {
-      type: 'line',
-      data: data,
-      options: options
-    });
-  }
-
-  if ($("#linechart-multi").length) {
-    var multiLineCanvas = $("#linechart-multi").get(0).getContext("2d");
-    var lineChart = new Chart(multiLineCanvas, {
-      type: 'line',
-      data: multiLineData,
-      options: options
-    });
-  }
-
-  if ($("#areachart-multi").length) {
-    var multiAreaCanvas = $("#areachart-multi").get(0).getContext("2d");
-    var multiAreaChart = new Chart(multiAreaCanvas, {
-      type: 'line',
-      data: multiAreaData,
-      options: multiAreaOptions
-    });
-  }
-
-  if ($("#doughnutChart").length) {
-    var doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
-    var doughnutChart = new Chart(doughnutChartCanvas, {
-      type: 'doughnut',
-      data: doughnutPieData,
-      options: doughnutPieOptions
-    });
-  }
-
-  if ($("#pieChart").length) {
-    var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
-    var pieChart = new Chart(pieChartCanvas, {
-      type: 'pie',
-      data: doughnutPieData,
-      options: doughnutPieOptions
-    });
-  }
-
-  if ($("#areaChart").length) {
-    var areaChartCanvas = $("#areaChart").get(0).getContext("2d");
-    var areaChart = new Chart(areaChartCanvas, {
-      type: 'line',
-      data: areaData,
-      options: areaOptions
-    });
-  }
-
-  if ($("#scatterChart").length) {
-    var scatterChartCanvas = $("#scatterChart").get(0).getContext("2d");
-    var scatterChart = new Chart(scatterChartCanvas, {
-      type: 'scatter',
-      data: scatterChartData,
-      options: scatterChartOptions
-    });
-  }
-
-  if ($("#browserTrafficChart").length) {
-    var doughnutChartCanvas = $("#browserTrafficChart").get(0).getContext("2d");
-    var doughnutChart = new Chart(doughnutChartCanvas, {
-      type: 'doughnut',
-      data: browserTrafficData,
-      options: doughnutPieOptions
-    });
-  }
-});
+            pointBorderColor:[
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
+            fill: true, // 3: no fill
+          }]
+        };
+        //areaoptions
+        var areaOptions2 = {
+          plugins: {
+            filler: {
+              propagate: true
+            }
+          }
+        }
+        var areaData3 = {
+          labels: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aou", "Sept", "Oct", "Nov", "Dec"],
+          datasets: [{
+            label: 'Packs',
+            data: [<?=$Pac[1] ;?>,<?=$Pac[2] ;?>,<?=$Pac[3] ;?>,<?=$Pac[4] ;?>, <?=$Pac[5] ;?>,
+        <?=$Pac[6] ;?>, <?=$Pac[7] ;?>, <?=$Pac[8] ;?>, <?=$Pac[9] ;?>, <?=$Pac[10] ;?>,
+        <?=$Pac[11] ;?>, <?=$Pac[12] ;?>],
+            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+            borderColor: 'rgba(255, 159, 64, 1)',
+            pointBackgroundColor:[
+              'rgba(255,99,132,0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255,99,132,0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            pointBorderColor:[
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
+            fill: true, // 3: no fill
+          }]
+        };
+        //areaoptions
+        var areaOptions3 = {
+          plugins: {
+            filler: {
+              propagate: true
+            }
+          }
+        }
+        //////////////////////////////areaChart1//////////////////////////////////
+        if ($("#areaChart1").length) {
+          var areaChartCanvas = $("#areaChart1").get(0).getContext("2d");
+          var areaChart = new Chart(areaChartCanvas, {
+            type: 'line',
+            data: areaData1,
+            options: areaOptions1
+          });
+        }
+        //////////////////////////////areaChart2//////////////////////////////////
+        if ($("#areaChart2").length) {
+          var areaChartCanvas = $("#areaChart2").get(0).getContext("2d");
+          var areaChart = new Chart(areaChartCanvas, {
+            type: 'line',
+            data: areaData2,
+            options: areaOptions2
+          });
+        }
+        //////////////////////////////areaChart3//////////////////////////////////
+        if ($("#areaChart3").length) {
+          var areaChartCanvas = $("#areaChart3").get(0).getContext("2d");
+          var areaChart = new Chart(areaChartCanvas, {
+            type: 'line',
+            data: areaData3,
+            options: areaOptions3
+          });
+        }
+      });
 
     </script>
 

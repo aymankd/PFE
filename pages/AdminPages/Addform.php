@@ -1,5 +1,12 @@
 <?php 
 session_start();
+
+if(isset($_POST['logoutbtn'])) 
+{
+	unset($_SESSION['type']);
+	unset($_SESSION['username']);
+}
+
 if( !isset($_SESSION['username']) || $_SESSION['type'] != "admin" )
 {
   header("location:../../homeP.php");
@@ -137,11 +144,9 @@ if(isset($_POST['EnrFrm']))
 				          for ($i = 0; $i < 8; $i++) {
 				              $pa = $pa.$characters[rand(0, strlen($characters))];
 				          }
-						  $pa=sha1($pa);
-						  $datenow2 = new DateTime(date('Y-m-d'));
-						  $datetoreq2 = $datenow2->format('Y-m-d');
+				          $pa=sha1($pa);
 							$type="pro";
-					        $reqI = "INSERT INTO `utilisateur`(`username`, `email`, `pass`, `type`, `date`) VALUES (?,?,?,?,?)";
+					        $reqI = "INSERT INTO `utilisateur`(`username`, `email`, `pass`, `type`) VALUES (?,?,?,?)";
 					        $statementI=$conn->prepare($reqI);
 					        $statementI->bind_param("sssss",$CIN,$Email,$pa,$type,$datetoreq2);
 					        $statementI->execute();
@@ -249,7 +254,7 @@ if(isset($_POST['EnrFrm']))
 						$statement->execute();
 						$Accval="Ok";				
 						}
-						else if ($Utype=="proprietaire"){
+						else if ($Utype=="pro"){
 						$Accval="Ok";
 						$CodeU=$rowU['CodeU'];
 						}else
@@ -283,7 +288,6 @@ if(isset($_POST['EnrFrm']))
 			    $statement=$conn->prepare($req);
 			    $statement->bind_param("issssdisss",$CodeU,$nomL,$adresseL,$Desc,$reglement,$prix,$sprfc,$Forseatch,$LogeType,$datetoreq);
 			    $statement->execute();
-
 				$reqI = "SELECT CodeL FROM logement where nom=? ";
 			    $statementI=$conn->prepare($reqI);
 			    $statementI->bind_param("s",$nomL);
@@ -336,7 +340,6 @@ if(isset($_POST['EnrFrm']))
 			   <span aria-hidden="true">&times;</span>
 			   </button>
 			   </div>';
-
 			}
 
 }
@@ -393,16 +396,16 @@ if(isset($_POST['EnrFrm']))
                     <span class="online-status"></span>
                        <?=$ProfileP?>
                   </a>
-                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                  <form method='post' class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                       <a class="dropdown-item">
                         <i class="mdi mdi-settings text-primary"></i>
                         Settings
                       </a>
-                      <a class="dropdown-item">
+                      <button name="logoutbtn" class="dropdown-item">
                         <i class="mdi mdi-logout text-primary"></i>
                         Logout
-                      </a>
-                  </div>
+                      </button>
+                  </form>
                 </li>
             </ul>
             <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="horizontal-menu-toggle">

@@ -25,7 +25,7 @@ $s->execute();
 $tm_stmp=date('Y-m-d H:i:s', time());
 $r="INSERT INTO `user_notis`(`CodeU`, `CodeP`,`action`,`CodeL`,`status`,`date`) VALUES (?,?,'rated',?,'new',?)";
 $s=$conn->prepare($r);
-$s->bind_param("iiii",$CodeU,$CodeP,$CodeL,$tm_stmp);
+$s->bind_param("iiis",$CodeU,$CodeP,$CodeL,$tm_stmp);
 $s->execute();
 
 
