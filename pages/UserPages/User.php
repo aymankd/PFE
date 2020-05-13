@@ -1,6 +1,10 @@
 <?php
 session_start();
-
+if(isset($_POST['logoutbtn'])) 
+{
+	unset($_SESSION['type']);
+	unset($_SESSION['username']);
+}
 if( !isset($_SESSION['username']) || $_SESSION['type'] != "normal" )
 {
   header("location:../../homeP.php");
@@ -742,22 +746,20 @@ while($rowR3= mysqli_fetch_array($resR3))
                     <span class="online-status"></span>
                     <?=$ProfileP?>
                   </a>
-                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                  <a class="dropdown-item">
-                        <i class="mdi mdi-account text-primary"></i>
-                        Mon Compte
-                      </a>
-
-                      <a href="UserSaves.php" class="dropdown-item">
-                        <i class="mdi mdi-heart text-primary"></i>
-                        Enregistrements
-                      </a>
-
-                      <a class="dropdown-item">
-                        <i class="mdi mdi-logout text-primary"></i>
-                        Logout
-                      </a>
-                  </div>
+                  <form method="post" class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                    <a class="dropdown-item">
+                      <i class="mdi mdi-account text-primary"></i>
+                      Mon Compte
+                    </a>
+                    <a href="UserSaves.php" class="dropdown-item">
+                      <i class="mdi mdi-heart text-primary"></i>
+                      Enregistrements
+                    </a>
+                    <button name="logoutbtn" class="dropdown-item">
+                    <i class="mdi mdi-logout text-primary"></i>
+                    Logout
+                    </button>
+                  </form>
                 </li>
             </ul>
             <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="horizontal-menu-toggle">
@@ -775,6 +777,7 @@ while($rowR3= mysqli_fetch_array($resR3))
   <ol class="SectionName">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <p class="breadcrumb-item active" aria-current="page">Logements recommandés</p>
 =======
     <p class="breadcrumb-item active" aria-current="page">Recommandation</p>
@@ -782,6 +785,9 @@ while($rowR3= mysqli_fetch_array($resR3))
 =======
     <p class="breadcrumb-item active" aria-current="page">Recommandation</p>
 >>>>>>> 91d1fdd200004dd3efdd1b2e6cf9fb90e4f391ed
+=======
+    <p class="breadcrumb-item active" aria-current="page">Recommandation</p>
+>>>>>>> 21e5a724c3f83e6d84d9ab989884aefc20005a09
   </ol>
 </nav>
 <section class="section first-section">
@@ -858,6 +864,7 @@ while($rowR3= mysqli_fetch_array($resR3))
   <ol class="SectionName">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <p class="breadcrumb-item active" aria-current="page">Logements les mieux notées</p>
 =======
     <p class="breadcrumb-item active" aria-current="page">Logement avec bon revu</p>
@@ -865,6 +872,9 @@ while($rowR3= mysqli_fetch_array($resR3))
 =======
     <p class="breadcrumb-item active" aria-current="page">Logement avec bon revu</p>
 >>>>>>> 91d1fdd200004dd3efdd1b2e6cf9fb90e4f391ed
+=======
+    <p class="breadcrumb-item active" aria-current="page">Logement avec bon revu</p>
+>>>>>>> 21e5a724c3f83e6d84d9ab989884aefc20005a09
   </ol>
 </nav>
 
