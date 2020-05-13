@@ -1,5 +1,10 @@
 <?php
 session_start();
+if(isset($_POST['logoutbtn'])) 
+{
+	unset($_SESSION['type']);
+	unset($_SESSION['username']);
+}
 if( !isset($_SESSION['username']) || $_SESSION['type'] != "pro" )
 {
   header("location:../../homeP.php");
@@ -551,7 +556,7 @@ if($resN->num_rows!=0)
                       <span class="online-status"></span>
                       <?=$ProfileP?>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                    <form method="post" class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                     <a class="dropdown-item">
                           <i class="mdi mdi-account text-primary"></i>
                           Mon Compte
@@ -560,11 +565,11 @@ if($resN->num_rows!=0)
                           <i class="mdi mdi-home-modern text-primary"></i>
                           Les Logement
                         </a>
-                        <a class="dropdown-item">
-                          <i class="mdi mdi-logout text-primary"></i>
-                          Logout
-                        </a>
-                    </div>
+                        <button name="logoutbtn" class="dropdown-item">
+                        <i class="mdi mdi-logout text-primary"></i>
+                        Logout
+                        </button>
+                    </form>
                   </li>
               </ul>
               <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="horizontal-menu-toggle">

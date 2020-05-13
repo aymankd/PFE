@@ -1,5 +1,10 @@
 <?php 
 session_start();
+if(isset($_POST['logoutbtn'])) 
+{
+	unset($_SESSION['type']);
+	unset($_SESSION['username']);
+}
 if( !isset($_SESSION['username']) || $_SESSION['type'] != "admin" )
 {
   header("location:../../homeP.php");
@@ -309,16 +314,16 @@ while ( $row = mysqli_fetch_array($res) )
                     <span class="online-status"></span>
                     <?=$ProfileP?>
                   </a>
-                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                  <form method="post" class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                       <a class="dropdown-item">
                         <i class="mdi mdi-settings text-primary"></i>
                         Settings
                       </a>
-                      <a class="dropdown-item">
+                      <button name="logoutbtn" class="dropdown-item">
                         <i class="mdi mdi-logout text-primary"></i>
                         Logout
-                      </a>
-                  </div>
+                      </button>
+                  </form>
                 </li>
             </ul>
             <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="horizontal-menu-toggle">
@@ -701,8 +706,8 @@ while ( $row = mysqli_fetch_array($res) )
             data: [<?=$Vis[1] ;?>,<?=$Vis[2] ;?>,<?=$Vis[3] ;?>,<?=$Vis[4] ;?>, <?=$Vis[5] ;?>,
         <?=$Vis[6] ;?>, <?=$Vis[7] ;?>, <?=$Vis[8] ;?>, <?=$Vis[9] ;?>, <?=$Vis[10] ;?>,
         <?=$Vis[11] ;?>, <?=$Vis[12] ;?>],
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)',
+            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            borderColor: 'rgba(153, 102, 255, 1)',
             pointBackgroundColor:[
               'rgba(255,99,132,0.2)',
               'rgba(54, 162, 235, 0.2)',
@@ -750,8 +755,8 @@ while ( $row = mysqli_fetch_array($res) )
             data: [<?=$Log[1] ;?>,<?=$Log[2] ;?>,<?=$Log[3] ;?>,<?=$Log[4] ;?>, <?=$Log[5] ;?>,
         <?=$Log[6] ;?>, <?=$Log[7] ;?>, <?=$Log[8] ;?>, <?=$Log[9] ;?>, <?=$Log[10] ;?>,
         <?=$Log[11] ;?>, <?=$Log[12] ;?>],
-            backgroundColor: 'rgba(255, 206, 86, 0.2)',
-            borderColor: 'rgba(255, 206, 86, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
             pointBackgroundColor:[
               'rgba(255,99,132,0.2)',
               'rgba(54, 162, 235, 0.2)',
@@ -800,8 +805,8 @@ while ( $row = mysqli_fetch_array($res) )
             data: [<?=$Pac[1] ;?>,<?=$Pac[2] ;?>,<?=$Pac[3] ;?>,<?=$Pac[4] ;?>, <?=$Pac[5] ;?>,
         <?=$Pac[6] ;?>, <?=$Pac[7] ;?>, <?=$Pac[8] ;?>, <?=$Pac[9] ;?>, <?=$Pac[10] ;?>,
         <?=$Pac[11] ;?>, <?=$Pac[12] ;?>],
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+            borderColor: 'rgba(255, 159, 64, 1)',
             pointBackgroundColor:[
               'rgba(255,99,132,0.2)',
               'rgba(54, 162, 235, 0.2)',
