@@ -14,7 +14,14 @@ if ($conn->connect_error) {
 $CodeU=$_POST['CodeU'];
 $CodeL=$_POST['CodeL'];
 $action=$_POST['action'];
-$CodeP=$_POST['CodeP'];
+$rf="SELECT CodeP from logement where CodeL=?";
+$sf=$conn->prepare($rf);
+$sf->bind_param("i",$CodeL);
+$sf->execute();
+$rsf=$sf->get_result();
+$rwf=$rsf->fetch_assoc();
+$CodeP=$rwf['CodeP'];
+//$CodeP=$_POST['CodeP'];
 
 if($action=='Y')
 {

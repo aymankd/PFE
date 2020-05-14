@@ -254,6 +254,7 @@ if(mysqli_num_rows($resR1)==0)
                         <div class='masonry-box post-media'>
                           <img src='".$image."' alt='' class='img-fluid'>
                           <div class='shadoweffect'>
+                          <button id='ultra".$line_cnt."' class='ultra_save'><i class='far fa-heart rf'></i></button>
                             <div class='shadow-desc'>
                               <div class='blog-meta'>
                                 <span class='bg-aqua'><a title=''>".$ultra_type."</a></span>
@@ -273,6 +274,7 @@ if(mysqli_num_rows($resR1)==0)
                         <div class='masonry-box post-media'>
                           <img src='".$image."' alt='' class='img-fluid'>
                           <div class='shadoweffect'>
+                          <button id='ultra".$line_cnt."' class='ultra_save'><i class='far fa-heart rf'></i></button>
                             <div class='shadow-desc'>
                               <div class='blog-meta'>
                                 <span class='bg-aqua'><a  title=''>".$ultra_type."</a></span>
@@ -292,6 +294,7 @@ if(mysqli_num_rows($resR1)==0)
         <div class='masonry-box post-media'>
           <img src='".$image."' alt='' class='img-fluid'>
           <div class='shadoweffect'>
+          <button id='ultra".$line_cnt."' class='ultra_save'><i class='far fa-heart rf'></i></button>
             <div class='shadow-desc'>
               <div class='blog-meta'>
                 <span class='bg-aqua'><a title=''>".$ultra_type."</a></span>
@@ -318,7 +321,8 @@ if(mysqli_num_rows($resR1)==0)
  
 }
 
-
+else
+{
 $line_cnt=0;
 while(($rowR1= mysqli_fetch_array($resR1)))
 {
@@ -359,14 +363,17 @@ while(($rowR1= mysqli_fetch_array($resR1)))
        { 
         $ultra_rec.=" <div class='left-side'>
                         <div class='masonry-box post-media'>
-                          <img src='".$image."' alt='' class='img-fluid'>
-                          <div class='shadoweffect'>
+                          <img  src='".$image."' alt='' class='img-fluid'>
+                          
+                          <div id='Ultr_Img".$line_cnt."' class='shadoweffect'>
+                          <button id='ultra".$line_cnt."' class='ultra_save'><i class='far fa-heart rf'></i></button>
                             <div class='shadow-desc'>
                               <div class='blog-meta'>
                                 <span class='bg-aqua'><a  title=''>".$ultra_type."</a></span>
                                 <h4><a href='garden-single.html' title=''>".$ultra_titre."</a></h4>
                                 <small><a href='' title=''>".$ultra_prix."</a></small>
                                 <small><a href='' title=''>".$ultra_nomP."</a></small>
+                                
                               </div>
                             </div>
                           </div>
@@ -380,6 +387,7 @@ while(($rowR1= mysqli_fetch_array($resR1)))
                         <div class='masonry-box post-media'>
                           <img src='".$image."' alt='' class='img-fluid'>
                           <div class='shadoweffect'>
+                          <button id='ultra".$line_cnt."' class='ultra_save'><i class='far fa-heart rf'></i></button>
                             <div class='shadow-desc'>
                               <div class='blog-meta'>
                                 <span class='bg-aqua'><a title=''>".$ultra_type."</a></span>
@@ -399,6 +407,7 @@ while(($rowR1= mysqli_fetch_array($resR1)))
         <div class='masonry-box post-media'>
           <img src='".$image."' alt='' class='img-fluid'>
           <div class='shadoweffect'>
+          <button id='ultra".$line_cnt."' class='ultra_save'><i class='far fa-heart rf'></i></button>
             <div class='shadow-desc'>
               <div class='blog-meta'>
                 <span class='bg-aqua'><a title=''>".$ultra_type."</a></span>
@@ -422,6 +431,8 @@ while(($rowR1= mysqli_fetch_array($resR1)))
       $statementV->execute(); 
  
 }
+}
+
 
 //recommendation des logement du 2éme section(Top rated)
   //logements recommandées.
@@ -471,9 +482,12 @@ while($rowR2= mysqli_fetch_array($resR2))
          $top_rated.="<div class='col-half'>
                       <div class='project animate-box' style='background-image:url(".$image.");'>
                         <div class='desc'>
+                        
                          <span>".$rated_nomP."</span>
+                         <button id='rated".$nbr_rated."' class='rated_sv' ><i class='far fa-heart tpr'></i></button>
                          <h3>".$rated_titre."</h3>
                          <span>Prix : ".$rated_prix."dh</h3>
+                         
                         </div>
                       </div>
                     </div>";
@@ -483,6 +497,7 @@ while($rowR2= mysqli_fetch_array($resR2))
        {
          $top_rated.="<div class='col-half'>
                       <div class='project-grid animate-box' style='background-image:url(".$image.");'>
+                      <button id='rated".$nbr_rated."' class='rated_sv' ><i class='far fa-heart tpr'></i></button>
                         <div class='desc'>
                           <span>".$rated_nomP."</span>
                           <h3>".$rated_titre."</h3>
@@ -495,6 +510,7 @@ while($rowR2= mysqli_fetch_array($resR2))
        {
           $top_rated.="
                       <div class='project-grid animate-box' style='background-image:url(".$image.");'>
+                      <button id='rated".$nbr_rated."' class='rated_sv' ><i class='far fa-heart tpr'></i></button>
                         <div class='desc'>
                           <span>".$rated_nomP."</span>
                           <h3>".$rated_titre."</h3>
@@ -594,7 +610,7 @@ while($rowR3= mysqli_fetch_array($resR3))
                           <span class='text-primary mr-1'>".$pop_prix."DH</span>
                         </h6> 
                         <a  href='SeeMore.php?smr=".$pop_CodeL."' class='btn btn-primary vr_pls'>Voir plus</a>
-                        <a   class='btn btn-primary pop_save'><i class='far fa-heart'></i> Like</a>
+                        <a  id='pop".$cnt_pop."' class='btn btn-primary pop_save'><i class='far fa-heart'></i> Enregistrer</a>
                         
                         
                        
@@ -642,6 +658,7 @@ while($rowR3= mysqli_fetch_array($resR3))
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
   <link rel="stylesheet" href="../../Resourse/css3/chatbox.css">
 
+  <link href="../../Resourse/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
   </head>
   <body>
@@ -919,3 +936,424 @@ while($rowR3= mysqli_fetch_array($resR3))
 
 </body>
 </html>
+
+
+<script>
+//pop save script
+var pop1_state='N';
+var pop2_state='N';
+var pop3_state='N';
+var pop4_state='N';
+
+var pop1=<?=$pop1;?>;
+var pop2=<?=$pop2;?>;
+var pop3=<?=$pop3;?>;
+var pop4=<?=$pop4;?>;
+var currentU=<?=$codeU?>;
+
+
+$(document).ready(function(){ 
+  //POP1
+$('#pop1').click(function(){
+         if(pop1_state=='N')
+       {
+          $('#pop1').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
+          pop1_state='Y';
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:pop1,CodeU:currentU,action:pop1_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+
+       }   
+      else if(pop1_state=='Y')
+       {
+          $('#pop1').empty().append("<i class='far fa-heart ff'></i> Enregistrer");
+          pop1_state='N';
+
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:pop1,CodeU:currentU,action:pop1_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+       }
+      });   
+//POP2
+      $('#pop2').click(function(){
+         if(pop2_state=='N')
+       {
+          $('#pop2').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
+          pop2_state='Y';
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:pop2,CodeU:currentU,action:pop2_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+
+       }   
+      else if(pop2_state=='Y')
+       {
+          $('#pop2').empty().append("<i class='far fa-heart ff'></i> Enregistrer");
+          pop2_state='N';
+
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:pop2,CodeU:currentU,action:pop2_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+       }
+      });   
+
+
+//POP3      
+
+$('#pop3').click(function(){
+         if(pop3_state=='N')
+       {
+          $('#pop3').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
+          pop3_state='Y';
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:pop3,CodeU:currentU,action:pop3_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+
+       }   
+      else if(pop3_state=='Y')
+       {
+          $('#pop3').empty().append("<i class='far fa-heart ff'></i> Enregistrer");
+          pop3_state='N';
+
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:pop3,CodeU:currentU,action:pop3_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+       }
+      });   
+//POP4
+$('#pop3').click(function(){
+         if(pop4_state=='N')
+       {
+          $('#pop4').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
+          pop4_state='Y';
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:pop4,CodeU:currentU,action:pop4_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+
+       }   
+      else if(pop4_state=='Y')
+       {
+          $('#pop4').empty().append("<i class='far fa-heart ff'></i> Enregistrer");
+          pop4_state='N';
+
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:pop4,CodeU:currentU,action:pop4_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+       }
+      });   
+
+
+   });   
+   
+</script>
+
+<script>
+//enregister top rated script
+
+var rated1_state='N';
+var rated2_state='N';
+var rated3_state='N';
+
+
+var rated1=<?=$rated1;?>;
+var rated2=<?=$rated2;?>;
+var rated3=<?=$rated3;?>;
+
+
+
+
+$(document).ready(function(){ 
+  //rated1
+$('#rated1').click(function(){
+         if(rated1_state=='N')
+       {
+          $('#rated1').empty().append("<i class='fas fa-heart ff rf'></i>");
+          rated1_state='Y';
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:rated1,CodeU:currentU,action:rated1_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+
+       }   
+      else if(rated1_state=='Y')
+       {
+          $('#rated1').empty().append("<i class='far fa-heart ff tpr'></i>");
+          rated1_state='N';
+
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:rated1,CodeU:currentU,action:rated1_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+       }
+      });   
+ //rated2   
+
+ $('#rated2').click(function(){
+         if(rated2_state=='N')
+       {
+          $('#rated2').empty().append("<i class='fas fa-heart ff rf'></i>");
+          rated2_state='Y';
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:rated2,CodeU:currentU,action:rated2_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+
+       }   
+      else if(rated2_state=='Y')
+       {
+          $('#rated2').empty().append("<i class='far fa-heart ff tpr'></i>");
+          rated2_state='N';
+
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:rated2,CodeU:currentU,action:rated2_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+       }
+      });
+//rated 3
+      $('#rated3').click(function(){
+         if(rated3_state=='N')
+       {
+          $('#rated3').empty().append("<i class='fas fa-heart ff rf'></i>");
+          rated3_state='Y';
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:rated3,CodeU:currentU,action:rated3_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+
+       }   
+      else if(rated3_state=='Y')
+       {
+          $('#rated3').empty().append("<i class='far fa-heart ff tpr'></i>");
+          rated3_state='N';
+
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:rated3,CodeU:currentU,action:rated3_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+       }
+      });      
+
+});
+</script>
+
+
+<script>
+
+var ultra1_state='N';
+var ultra2_state='N';
+var ultra3_state='N';
+
+
+var ultra1=<?=$ultra1;?>;
+var ultra2=<?=$ultra2;?>;
+var ultra3=<?=$ultra3;?>;
+
+
+
+
+$(document).ready(function(){ 
+  //ultra1
+$('#ultra1').click(function(){
+         if(ultra1_state=='N')
+       {
+          $('#ultra1').empty().append("<i class='fas fa-heart ff rf'></i>");
+          ultra1_state='Y';
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:ultra1,CodeU:currentU,action:ultra1_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+
+       }   
+      else if(ultra1_state=='Y')
+       {
+          $('#ultra1').empty().append("<i class='far fa-heart ff tpr'></i>");
+          ultra1_state='N';
+
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:ultra1,CodeU:currentU,action:ultra1_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+       }
+      });   
+//ultra2
+$('#ultra2').click(function(){
+         if(ultra2_state=='N')
+       {
+          $('#ultra2').empty().append("<i class='fas fa-heart ff rf'></i>");
+          ultra2_state='Y';
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:ultra2,CodeU:currentU,action:ultra2_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+
+       }   
+      else if(ultra2_state=='Y')
+       {
+          $('#ultra2').empty().append("<i class='far fa-heart ff tpr'></i>");
+          ultra2_state='N';
+
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:ultra2,CodeU:currentU,action:ultra2_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+       }
+      });   
+
+//ultra3
+$('#ultra3').click(function(){
+         if(ultra3_state=='N')
+       {
+          $('#ultra3').empty().append("<i class='fas fa-heart ff rf'></i>");
+          ultra3_state='Y';
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:ultra3,CodeU:currentU,action:ultra3_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+
+       }   
+      else if(ultra3_state=='Y')
+       {
+          $('#ultra3').empty().append("<i class='far fa-heart ff tpr'></i>");
+          ultra3_state='N';
+
+          $.ajax({  
+                 url:"SaveL.php",   
+                 method:"POST",
+                 data:{CodeL:ultra3,CodeU:currentU,action:ultra3_state},
+                 success:function(data){  
+
+                  }
+                 });
+
+       }
+      });        
+
+    });
+</script>
+<script>
+
+var nbr_cards=<?=$line_cnt;?>;
+
+document.getElementById('ultra1').style.display='none';
+if(nbr_cards==2)
+document.getElementById('ultra2').style.display='none';
+if(nbr_cards==3)
+{
+  document.getElementById('ultra2').style.display='none';
+ document.getElementById('ultra3').style.display='none';
+}
+$(document).ready(function(){ 
+
+    $('#Ultr_Img1').mouseenter(function(){
+      document.getElementById('ultra1').style.display='block';
+       
+      });   
+      $('#Ultr_Img1').mouseleave(function(){
+      document.getElementById('ultra1').style.display='none';
+       
+      });      
+    });     
+</script>

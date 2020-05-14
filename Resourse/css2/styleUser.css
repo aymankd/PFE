@@ -23232,7 +23232,41 @@ h2 {
 }
 .pop_save
 {
-  width:30%;
+  width:50%;
+  max-width:100%;
   background-color: aquamarine;
   border-color: aquamarine;
+}
+.rated_sv
+{
+  margin-left:80%;
+  margin-top:0px;
+  margin-bottom:0px;
+  margin-right:0px;
+  border-radius:100%;
+  height: 40px;
+  width: 40px;
+}
+
+.ultra_save
+{
+  margin-left:85%;
+  margin-top:5%;
+  margin-bottom:0px;
+  margin-right:0px;
+  border-radius:100%;
+  height: 40px;
+  width: 40px; 
+  background-color: whitesmoke;
+ 
+  border:0px;
+}
+
+.rf{
+  color: #1596df;
+}
+.tpr
+{
+  color: #1596df;
+  
 }
