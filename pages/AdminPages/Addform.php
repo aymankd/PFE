@@ -357,7 +357,7 @@ if(isset($_POST['EnrFrm']))
 	<link rel="stylesheet" href="../../Resourse/vendors/base/vendor.bundle.base.css">
 	 
 	<link rel="stylesheet" type="text/css" href="../../Resourse/CSS/semantic.min.css">
-    <link href="../../vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../../Resourse/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- endinject -->
     <!-- plugin css for this page -->
@@ -663,7 +663,7 @@ if(isset($_POST['EnrFrm']))
 												<?=$equi ;?>
 												<div class='form-check'>
 													<label class='form-check-label'>
-													<a data-toggle="modal" data-target="#exampleModal"><i class="far fa-plus-square"></i>+</a>
+													<a data-toggle="modal" data-target="#exampleModal"><i class="far fa-plus-square"> Autre équipements</i></a>
 													</label>
 												</div>
 											</div>	
@@ -739,7 +739,7 @@ if(isset($_POST['EnrFrm']))
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Ajouter d'autres equipements</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -748,8 +748,8 @@ if(isset($_POST['EnrFrm']))
         ...
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary">Confirmer</button>
       </div>
     </div>
   </div>
