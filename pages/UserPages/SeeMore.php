@@ -2404,7 +2404,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL,CodeU:CodeU,action:saved,CodeP:CodeP},
+                 data:{CodeL:CodeL,CodeU:CodeU,action:saved},
                  success:function(data){  
 
                   }
@@ -2420,7 +2420,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL,CodeU:CodeU,action:saved,CodeP:CodeP},
+                 data:{CodeL:CodeL,CodeU:CodeU,action:saved},
                  success:function(data){  
 
                   }
@@ -2596,7 +2596,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL1,CodeU:CodeU,action:SavedL1,CodeP:CodeP},
+                 data:{CodeL:CodeL1,CodeU:CodeU,action:SavedL1},
                  success:function(data){  
 
                   }
@@ -2612,7 +2612,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL1,CodeU:CodeU,action:SavedL1,CodeP:CodeP},
+                 data:{CodeL:CodeL1,CodeU:CodeU,action:SavedL1},
                  success:function(data){  
 
                   }
@@ -2631,7 +2631,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL2,CodeU:CodeU,action:SavedL2,CodeP:CodeP},
+                 data:{CodeL:CodeL2,CodeU:CodeU,action:SavedL2},
                  success:function(data){  
 
                   }
@@ -2647,7 +2647,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL2,CodeU:CodeU,action:SavedL2,CodeP:CodeP},
+                 data:{CodeL:CodeL2,CodeU:CodeU,action:SavedL2},
                  success:function(data){  
 
                   }
@@ -2667,7 +2667,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL3,CodeU:CodeU,action:SavedL3,CodeP:CodeP},
+                 data:{CodeL:CodeL3,CodeU:CodeU,action:SavedL3},
                  success:function(data){  
 
                   }
@@ -2683,7 +2683,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL3,CodeU:CodeU,action:SavedL3,CodeP:CodeP},
+                 data:{CodeL:CodeL3,CodeU:CodeU,action:SavedL3},
                  success:function(data){  
 
                   }
@@ -2702,7 +2702,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL4,CodeU:CodeU,action:SavedL4,CodeP:CodeP},
+                 data:{CodeL:CodeL4,CodeU:CodeU,action:SavedL4},
                  success:function(data){  
 
                   }
@@ -2718,7 +2718,7 @@ $(document).ready(function(){
           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
-                 data:{CodeL:CodeL4,CodeU:CodeU,action:SavedL4,CodeP:CodeP},
+                 data:{CodeL:CodeL4,CodeU:CodeU,action:SavedL4},
                  success:function(data){  
 
                   }
