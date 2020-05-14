@@ -207,8 +207,8 @@ a.list-group-item, .list-group-item-action {
             <div class="wizard">
                 <nav class="list-group list-group-flush">
                    
-                <a class="list-group-item active " href="GestionProp.php"><i class="fe-icon-user text-muted"></i>Information génerale</a>
-                    <a class="list-group-item " href="GestionProp2.php"><i class="fe-icon-map-pin text-muted"></i>Sécurité</a>
+                <a class="list-group-item " href="GestionProp.php"><i class="fe-icon-user text-muted"></i>Information génerale</a>
+                <a class="list-group-item active"><i class="fe-icon-map-pin text-muted"></i>Sécurité</a>
                 </nav>
             </div>
         </div>

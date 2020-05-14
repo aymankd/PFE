@@ -661,6 +661,11 @@ if(isset($_POST['EnrFrm']))
 										<div class="dropdown-content force-scroll">
 											<div class="radioEq">
 												<?=$equi ;?>
+												<div class='form-check'>
+													<label class='form-check-label'>
+													<a data-toggle="modal" data-target="#exampleModal"><i class="far fa-plus-square"></i>+</a>
+													</label>
+												</div>
 											</div>	
 										</div>
 									</div> 
@@ -688,20 +693,6 @@ if(isset($_POST['EnrFrm']))
 								</div>
 							</div>
 
-
-						
-<!--
-							<div class="form-group row">
-								<div class="col-sm-9">
-								<label for="exampleInputPassword2" class="col-sm-3 col-form-label">Equipements </label>
-									<button type="button" class="form-control btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> <span class="caret"></span></button>
-									<ul class="form-control dropdown-menu">
-									<div class="radioEq">
-										<?=$equi ;?>
-									</div>	
-                               </ul>
-								</div>
-							</div>-->
 							<div class="form-group row">
 								<div class="col-sm-9">
 								<label for="exampleInputPassword2" class="col-sm-3 col-form-label"><i class="fas fa-file-prescription"></i>  Règlement </label>
@@ -743,6 +734,26 @@ if(isset($_POST['EnrFrm']))
 	<input type="text" id="i_varable" name="i_var" hidden>
 
 </form>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 		<footer class="footer">
 			<div class="footer-wrap">

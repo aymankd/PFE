@@ -557,18 +557,18 @@ if($resN->num_rows!=0)
                       <?=$ProfileP?>
                     </a>
                     <form method="post" class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item">
-                          <i class="mdi mdi-account text-primary"></i>
-                          Mon Compte
-                        </a>
-                        <a class="dropdown-item">
-                          <i class="mdi mdi-home-modern text-primary"></i>
-                          Les Logement
-                        </a>
-                        <button name="logoutbtn" class="dropdown-item">
-                        <i class="mdi mdi-logout text-primary"></i>
-                        Logout
-                        </button>
+                      <a href="../Gestions/prop/gestionProp.php" class="dropdown-item">
+                        <i class="mdi mdi-account text-primary"></i>
+                        Mon Compte
+                      </a>
+                      <a href="../Gestions/Logement/GestionLog.php" class="dropdown-item">
+                        <i class="mdi mdi-home-modern text-primary"></i>
+                        Les Logement
+                      </a>
+                      <button name="logoutbtn" class="dropdown-item">
+                      <i class="mdi mdi-logout text-primary"></i>
+                      Logout
+                      </button>
                     </form>
                   </li>
               </ul>

@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!--  This file has been downloaded from https://bootdey.com  -->
-    <!--  All snippets are MIT license https://bootdey.com/license -->
-    <title>Bootdey.com</title>
+    <title>ESRENT</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
@@ -208,8 +206,8 @@ a.list-group-item, .list-group-item-action {
                 <nav class="list-group list-group-flush">
                    
                    
-                    <a class="list-group-item active" href="GestionProp2.php"><i class="fe-icon-map-pin text-muted"></i>Information génerale</a>
-                    <a class="list-group-item " href="GestionProp.php"><i class="fe-icon-user text-muted"></i>Sécurité </a>
+                    <a class="list-group-item active" ><i class="fe-icon-map-pin text-muted"></i>Information génerale</a>
+                    <a class="list-group-item " href="GestionProp2.php"><i class="fe-icon-user text-muted"></i>Sécurité </a>
                 </nav>
             </div>
         </div>
