@@ -22818,3 +22818,20 @@ height: 30px;
   /*! width: 247px; */
   height: 30px;
 }
+#map{
+
+  z-index: 0; 
+}
+#sss1{
+  position: relative;
+  z-index: 1; /* The z-index should be higher than Google Maps */
+  width:42%;
+}
+#sss2{
+  width:100%;
+  margin-right: 0px;
+}
+#mn{
+  position: relative;
+  z-index: 7; 
+}
