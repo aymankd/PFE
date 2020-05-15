@@ -23126,3 +23126,102 @@ height: 200px;
     margin-top: 1px;
     margin-left: 10px;
 }
+
+/*css for adding other elements*/
+
+* {
+  box-sizing: border-box;
+}
+
+/* Style the list (remove margins and bullets, etc) */
+.equiLst {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Style the list items */
+.equiLst .equiEl {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block;
+  position: relative;
+}
+
+/* Add a light grey background color on hover */
+.equiLst .equiEl:hover {
+  background-color: #eee;
+}
+
+/* Style the close button (span) */
+.closeE {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  padding: 12px 16px;
+  transform: translate(0%, -50%);
+}
+
+.closeE:hover {background: #bbb;}
+
+.addEqui{
+  margin-top:0px;
+  margin-bottom:0px;
+  margin-left:97%;
+  color:#0046da;
+}
+.hrEqui{
+  margin-bottom:0px;
+}
+
+
+
+         /*ajouter description d'equipement
+           /* Dropdown Button */
+.dropbtnE {
+  background-color: #4CAF50;
+  color: white !important;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-contentE {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-contentE a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-contentE a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdownE:hover .dropdown-contentE {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdownE:hover .dropbtnE {background-color: #3e8e41;} 
+
