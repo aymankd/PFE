@@ -4,6 +4,18 @@ if( !isset($_SESSION['username']) || $_SESSION['type'] != "admin" )
 {
   header("location:../../homeP.php");
 }
+$servername = "localhost";
+$userservername = "root";
+$database = "pfe";
+
+
+// Create connection
+$conn = new mysqli($servername, $userservername,"", $database);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
 
 //remplisage des données d'utilisateur courrant
 $src="";
