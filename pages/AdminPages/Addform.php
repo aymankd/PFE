@@ -144,7 +144,8 @@ if(isset($_POST['EnrFrm']))
 				          for ($i = 0; $i < 8; $i++) {
 				              $pa = $pa.$characters[rand(0, strlen($characters))];
 				          }
-				          $pa=sha1($pa);
+						  $pa=sha1($pa);
+						  $datetoreq2 = $datenow->format('Y-m-d');
 							$type="pro";
 					        $reqI = "INSERT INTO `utilisateur`(`username`, `email`, `pass`, `type`,`date`) VALUES (?,?,?,?,?)";
 					        $statementI=$conn->prepare($reqI);
