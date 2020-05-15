@@ -2,7 +2,7 @@
 session_start();
 if( isset($_SESSION['username']))
 {
-  header("location:../..homeP.php");
+  header("location:../../homeP.php");
 }
 
   $servername = "localhost";
@@ -23,7 +23,6 @@ $errorpass="";
 
 if(isset($_POST['connect']))
  {
-  
   $login = $_POST["login"];
   $password = $_POST["password"];
   $password = sha1($password);
@@ -34,24 +33,25 @@ if(isset($_POST['connect']))
   $res=$statement->get_result();
   $row=$res->fetch_assoc();
   
-  if(($res->num_rows==1) && ($row['pass']==$password))
+  if(($res->num_rows==1) && ($row['pass']==$password) && ($row['type']=='pro'))
   {
     $CodeU=$row['CodeU'];
     session_regenerate_id();
+    $_SESSION['usercode'] = $CodeU;
     $_SESSION['username']=$row['username'];
     $_SESSION['type']=$row['type'];
     session_write_close();
-    header("Location:../PropPages/Prop.php");
-
-
+    header("Location:BeHost.php");
   }else if ($res->num_rows!=1)
   {
     $errorlogin="<i class='fas fa-exclamation-circle'></i> email ou username inexistant";
+  }else if($row['type'] !='pro')
+  {
+    $errorpass="<i class='fas fa-exclamation-circle'></i> type de compte differant de proprietaire";    
   }else if ($row['pass']!=$password)
   {
     $errorpass="<i class='fas fa-exclamation-circle'></i> password error";
   }
-
 
  }
 
@@ -121,7 +121,7 @@ if(isset($_POST['connect']))
                     </button>
                   </div>
                   <div class="text-center mt-4 font-weight-light">
-                  Vous n'avez pas de compte? <a href="register.php" class="text-primary">Créer</a>
+                  Vous n'avez pas de compte? <a href="RegisterHote.php" class="text-primary">Créer</a>
                   </div>
                 </form>
               </div>

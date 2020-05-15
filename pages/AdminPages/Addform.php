@@ -16,7 +16,7 @@ if( !isset($_SESSION['username']) || $_SESSION['type'] != "admin" )
   $database = "pfe";
   $msg="";
   $alert="";
-
+  $CodeL="";
 
 // Create connection
 $conn = new mysqli($servername, $userservername,"", $database);
@@ -144,9 +144,11 @@ if(isset($_POST['EnrFrm']))
 				          for ($i = 0; $i < 8; $i++) {
 				              $pa = $pa.$characters[rand(0, strlen($characters))];
 				          }
-				          $pa=sha1($pa);
+						  $pa=sha1($pa);
+						  $datenow = new DateTime(date('Y-m-d'));
+						  $datetoreq2 = $datenow->format('Y-m-d');
 							$type="pro";
-					        $reqI = "INSERT INTO `utilisateur`(`username`, `email`, `pass`, `type`) VALUES (?,?,?,?)";
+					        $reqI = "INSERT INTO `utilisateur`(`username`, `email`, `pass`, `type`,`date`) VALUES (?,?,?,?,?)";
 					        $statementI=$conn->prepare($reqI);
 					        $statementI->bind_param("sssss",$CIN,$Email,$pa,$type,$datetoreq2);
 					        $statementI->execute();
@@ -277,7 +279,6 @@ if(isset($_POST['EnrFrm']))
 						}
 			}
 
-
 			if ($Accval=="Ok" && $CodeU!=null)
 			{
 				$datenow = new DateTime(date('Y-m-d'));
@@ -340,6 +341,21 @@ if(isset($_POST['EnrFrm']))
 			   <span aria-hidden="true">&times;</span>
 			   </button>
 			   </div>';
+
+			   $insertAutreEqui=" var nbr_equi=titres.length;
+								  var codeLE=".$CodeL.";
+			                      var jsonTitres = JSON.stringify(titres);
+			                      var jsonDescs = JSON.stringify(descs);
+			                      if(nbr_equi>0)
+			                        {
+			                     	 $.ajax({  
+				                 			    url:'Add_autreEQ.php',   
+					 	                		method:'POST',
+								                data:{Titres:jsonTitres,Descs:jsonDescs,CodeL:codeLE},
+							 	                success:function(data){  
+								            }
+								            });
+			                                } ";
 			}
 
 }
@@ -745,11 +761,33 @@ if(isset($_POST['EnrFrm']))
         </button>
       </div>
       <div class="modal-body">
-        ...
+	    <ul class="equiLst">
+		  
+		    <div id="originalEL">	
+                <li class="equiEl">
+		            <h5>Equipement1</h5>		
+				    <input type="text" id="ORtitre" placeholder="Titre">&nbsp;
+			        <div class='dropdown dropdownE'>
+				    	<a class='dropbtn dropbtnE'>ajouter description</a>
+                        <div  class='dropdown-content dropdown-contentE'>
+							<h5>Description</h5>
+                           <textarea name='' id='ORdesc'></textarea>
+                        </div>
+                    </div> 
+			      
+			      <span class="closeE">x</span>
+			    </li>
+			</div> 	
+			<div id="addedEL">
+            </div>				
+			<hr class="hrEqui">
+			<i class="fas fa-plus-circle addEqui" id="addEqui"></i>
+			
+        </ul> 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary">Confirmer</button>
+        <button id="cnfrm" type="button" class="btn btn-primary">Confirmer</button>
       </div>
     </div>
   </div>
@@ -849,12 +887,75 @@ $( '.dropdown-menu a' ).on( 'click', function( event ) {
 
 	</script>
 
+
+<script>
+$(document).ready(function(){ 
+	/* Get all elements with class="close" 
+var closebtns = document.getElementsByClassName("closeE");
+var i;
+
+/* Loop through the elements, and hide the parent, when clicked on 
+for (i = 0; i < closebtns.length; i++) {
+  closebtns[i].addEventListener("click", function() {
+  this.parentElement.style.display = 'none';
+});
+}*/
+});
+</script>
+
+<script>
+var idhr='';
+$(document).ready(function(){
+
+	$(document).on('click','.closeE',function(){
+		idhr='hr'+$(this).attr('id') ;
+		this.parentElement.style.display = 'none';
+		document.getElementById(idhr).style.display = 'none';
+		
+    });
+});
+</script>
+
+<script>
+	idEquiEL=1;
+	$(document).ready(function(){ 
+		$('#addEqui').click(function(){
+			document.getElementById('addedEL').insertAdjacentHTML("beforeend","<hr id='hr"+idEquiEL+"' ><li class='equiEl'> <h5>Equipement1</h5><input id='titre"+idEquiEL+"' type='text' placeholder='Titre'>&nbsp;<div class='dropdown dropdownE'><a class='dropbtn dropbtnE'>ajouter description</a><div  class='dropdown-content dropdown-contentE'><h5>Description</h5><textarea name='' id='desc"+idEquiEL+"'></textarea></div> </div><span id='"+idEquiEL+"' class='closeE'>x</span></li>");
+			idEquiEL=idEquiEL+1;
+		});
+	});
+</script>
+
+<script>
+	var titres=new Array();
+	var descs=new Array();
+	var index;
+	var titre;
+	var desc;
+	var idtitre;
+	var iddesc;
+	$(document).ready(function(){
+        $('#cnfrm').click(function(){
+			titres[0]=$('#ORtitre').val(); 
+			descs[0]=$('#ORdesc').val();
+			for(index=1;index<idEquiEL;index++)
+			  {   
+				idtitre='#titre'+index;  
+				iddesc='#desc'+index;
+				titre= $(idtitre).val();  
+				desc= $(iddesc).val();
+				titres[index]=titre;
+			    descs[index]=desc;
+			  }
+			});
+	});
+</script>
+
+
+
+<script>
+ <?=$insertAutreEqui;?>
+</script>
+
   </body>
 </html>
-
-<?php
-
-
-
-
-?>

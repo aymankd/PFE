@@ -2,7 +2,7 @@
 session_start();
 if( isset($_SESSION['username']))
 {
-  header("location:../..homeP.php");
+  header("location:../../indexx.php");
 }
   $servername = "localhost";
   $userservername = "root";
@@ -21,7 +21,7 @@ $msg_errE="";
 $msg_errU="";
 if(isset($_POST['Sign']))
     {
- 	  $inUsername=$_POST['Username'];
+ 	    $inUsername=$_POST['Username'];
       $inEmail=$_POST['Email'];
       $inPass=$_POST['PasswordIn'];
       $inPass=sha1($inPass);
@@ -50,25 +50,14 @@ if(isset($_POST['Sign']))
         if(!empty($_POST['agree']))
         //Insertion des données 
         {
-          $reqI = "INSERT INTO `utilisateur`(`username`, `email`, `pass`, `type`) VALUES (?,?,?,'proprietaire')";
+          $reqI = "INSERT INTO `utilisateur`(`username`, `email`, `pass`, `type`) VALUES (?,?,?,'pro')";
           $statementI=$conn->prepare($reqI);
           $statementI->bind_param("sss",$inUsername,$inEmail,$inPass); 
           $statementI->execute();
-
-          //get code d'utilisateur
-
-          $reqC = "SELECT * from utilisateur where username=?";
-          $statementC=$conn->prepare($reqC);
-          $statementC->bind_param("s",$inUsername); 
-          $statementC->execute();
-          $statementC->execute();
-          $resC=$statementC->get_result();
-          $rowC=$resC->fetch_assoc();
-          $CodeC=$rowC['CodeU'];
-
-        //  echo "CIN:".$inCIN."<br>Tel:".$inTel."<br>Adresse:".$inAdr."<br>Nom:".$inNom."<br>Prenom:".$inPrnm;
+          $CodeC=$conn->insert_id;
 
           session_regenerate_id();
+          $_SESSION['usercode'] = $CodeC; 
 	        $_SESSION['username']=$inUsername;
 	        $_SESSION['type']='proprietaire';
 	        session_write_close();
@@ -77,7 +66,7 @@ if(isset($_POST['Sign']))
           $statementI1->bind_param("isssss",$CodeC,$inCIN,$inAdr,$inNom,$inPrnm,$inTel);
           $statementI1->execute();
 
-          header("Location:../samples/BeHost.php");
+          header("Location:BeHost.php");
         }
         else{
           echo"You didnt agree to the terms";
@@ -188,7 +177,7 @@ if(isset($_POST['Sign']))
                     <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" name="Sign">SIGN UP</button>
                   </div>
                   <div class="text-center mt-4 font-weight-light">
-                    Already have an account? <a href="login.php" class="text-primary">Login</a>
+                    Already have an account? <a href="LoginHote.php" class="text-primary">Login</a>
                   </div>
                 </form>
               </div>

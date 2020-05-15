@@ -1,4 +1,39 @@
+<?php
+session_start();
+$servername = "localhost";
+$userservername = "root";
+$database = "pfe";
+$msg="";
+$alert="";
 
+
+// Create connection
+$conn = new mysqli($servername, $userservername,"", $database);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+///////////////remplicage des equipment///////////////
+$equi="";
+$req = "SELECT * FROM equipement";
+$statement=$conn->prepare($req);
+$statement->execute();
+$res=$statement->get_result();
+while ($row = mysqli_fetch_array($res)) 
+{
+	$equi .= 
+"	<div class='form-check'>
+	<label class='form-check-label'>
+	<input type='checkbox' name='check_list[]' value=".$row['CodeE']." class='form-check-input' >
+	".$row['nom']."
+	</label>
+	</div>
+";
+}
+
+
+?>
 <!doctype html>
 <!--Code By Webdevtrick ( https://webdevtrick.com )-->
 <html lang="en" >
@@ -8,9 +43,10 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
   <link href='../../Resourse/Behost/style.css' rel='stylesheet'>
-  <link href='../../Resourse/Behost/dropdown.css.css' rel='stylesheet'>
+  <link href='../../Resourse/Behost/dropdown.css' rel='stylesheet'>
   <link href='../../Resourse/Behost/images.css' rel='stylesheet'>
   <link href='../../Resourse/Behost/file.css' rel='stylesheet'>
+
 </head>
 <body>
  
@@ -29,7 +65,7 @@
           <div class="col-12 col-lg-8 ml-auto mr-auto mb-4">
             <div class="multisteps-form__progress">
               
-              <button class="multisteps-form__progress-btn js-active" type="button" title="User Info">Informations personnelles & logement</button>
+              <button class="multisteps-form__progress-btn js-active" type="button" title="User Info">Informations personnelles</button>
               <button class="multisteps-form__progress-btn" type="button" title="Address">Images</button>
               <button class="multisteps-form__progress-btn" type="button" title="Order Info">Legalite</button>
               <button class="multisteps-form__progress-btn" type="button" title="Message">Fin </button>
@@ -40,41 +76,7 @@
           <div class="col-12 col-lg-8 m-auto">
             <form class="multisteps-form__form">
               <div class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
-
-              <h3 class="multisteps-form__title">Informations logement</h3>
-              <div class="form-row mt-4">
-              <div class="form-row mt-4">
-                    <div class="col-12 col-sm-6">
-					<input type="text" class="form-control" name="prixL" id="exampleInputEmail2" placeholder="nom">
-                    </div>
-                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-					<input type="text" class="form-control" name="sprfc" id="exampleInputEmail2" placeholder="prenom">
-                    </div>
-                  </div>
-                  
-                  </div>
-                  
-                  <div class="form-row mt-4">
-                    <div class="col-12 col-sm-6">
-					<input type="text" class="form-control" name="prixL" id="exampleInputEmail2" placeholder="CIN">
-                    </div>
-                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-					<input type="text" class="form-control" name="sprfc" id="exampleInputEmail2" placeholder="Numero">
-                    </div>
-                  </div>
-                  <div class="form-row mt-4">
-					  <input class="form-control" type="text" placeholder="Adresse" />
-				   </div>
-</br>
-                  <hr>
-                  </br>
-
-
-
-
-                  
                 <h3 class="multisteps-form__title">Informations personnelles</h3>
-             
                 <div class="multisteps-form__content">
 
 			<div class="form-row mt-4">
@@ -129,10 +131,10 @@
 										<button class="dropbtn form-control btn btn-default btn-sm dropdown-toggle ">Dropdown</button>
 										<div class="dropdown-content force-scroll">
 											<div class="radioEq">
-											<?=$equi ;?>
+												<?=$equi ;?>
 											</div>	
 										</div>
-									</div> 
+									</div>
 								</div>
 							</div> 
 
@@ -157,20 +159,11 @@
                   </div>
 
 
-
-
-
-
-                  
                   <div class="button-row d-flex mt-4">
                     <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
                   </div>
-                  
                 </div>
-                
               </div>
-
-              
  
               <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
                 <h3 class="multisteps-form__title">Importer vos images</h3>
@@ -246,11 +239,8 @@
       </div>
     </div>
   </div>
-  
 </div>
  
-
-
 <script  src="../../Resourse/Behost/js.js"></script>
 <script src="../../Resourse/Behost/uploadimg.js"></script>
 <script src="../../Resourse/js2/fileUpload.js"></script>
