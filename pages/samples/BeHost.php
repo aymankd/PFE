@@ -28,7 +28,8 @@
         <div class="row">
           <div class="col-12 col-lg-8 ml-auto mr-auto mb-4">
             <div class="multisteps-form__progress">
-              <button class="multisteps-form__progress-btn js-active" type="button" title="User Info">Informations personnelles</button>
+              
+              <button class="multisteps-form__progress-btn js-active" type="button" title="User Info">Informations personnelles & logement</button>
               <button class="multisteps-form__progress-btn" type="button" title="Address">Images</button>
               <button class="multisteps-form__progress-btn" type="button" title="Order Info">Legalite</button>
               <button class="multisteps-form__progress-btn" type="button" title="Message">Fin </button>
@@ -39,7 +40,41 @@
           <div class="col-12 col-lg-8 m-auto">
             <form class="multisteps-form__form">
               <div class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
+
+              <h3 class="multisteps-form__title">Informations logement</h3>
+              <div class="form-row mt-4">
+              <div class="form-row mt-4">
+                    <div class="col-12 col-sm-6">
+					<input type="text" class="form-control" name="prixL" id="exampleInputEmail2" placeholder="nom">
+                    </div>
+                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+					<input type="text" class="form-control" name="sprfc" id="exampleInputEmail2" placeholder="prenom">
+                    </div>
+                  </div>
+                  
+                  </div>
+                  
+                  <div class="form-row mt-4">
+                    <div class="col-12 col-sm-6">
+					<input type="text" class="form-control" name="prixL" id="exampleInputEmail2" placeholder="CIN">
+                    </div>
+                    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+					<input type="text" class="form-control" name="sprfc" id="exampleInputEmail2" placeholder="Numero">
+                    </div>
+                  </div>
+                  <div class="form-row mt-4">
+					  <input class="form-control" type="text" placeholder="Adresse" />
+				   </div>
+</br>
+                  <hr>
+                  </br>
+
+
+
+
+                  
                 <h3 class="multisteps-form__title">Informations personnelles</h3>
+             
                 <div class="multisteps-form__content">
 
 			<div class="form-row mt-4">
@@ -122,11 +157,20 @@
                   </div>
 
 
+
+
+
+
+                  
                   <div class="button-row d-flex mt-4">
                     <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
                   </div>
+                  
                 </div>
+                
               </div>
+
+              
  
               <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
                 <h3 class="multisteps-form__title">Importer vos images</h3>
@@ -202,8 +246,11 @@
       </div>
     </div>
   </div>
+  
 </div>
  
+
+
 <script  src="../../Resourse/Behost/js.js"></script>
 <script src="../../Resourse/Behost/uploadimg.js"></script>
 <script src="../../Resourse/js2/fileUpload.js"></script>

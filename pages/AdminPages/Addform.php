@@ -277,7 +277,6 @@ if(isset($_POST['EnrFrm']))
 						}
 			}
 
-
 			if ($Accval=="Ok" && $CodeU!=null)
 			{
 				$datenow = new DateTime(date('Y-m-d'));
