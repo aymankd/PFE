@@ -43,7 +43,7 @@ while ($row = mysqli_fetch_array($res))
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
   <link href='../../Resourse/Behost/style.css' rel='stylesheet'>
-  <link href='../../Resourse/Behost/dropdown.css.css' rel='stylesheet'>
+  <link href='../../Resourse/Behost/dropdown.css' rel='stylesheet'>
   <link href='../../Resourse/Behost/images.css' rel='stylesheet'>
   <link href='../../Resourse/Behost/file.css' rel='stylesheet'>
 
