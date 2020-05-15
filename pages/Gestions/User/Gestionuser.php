@@ -205,10 +205,15 @@ margin-top: 60px;
 
 
 }
-#file{
+#upload_image{
   display: none;
 }
     </style>
+
+
+<link rel="stylesheet" href="../../Resourse/cssSm/bootstrap-select.min.css">
+
+
 </head>
 <body>
 <div class="container mt-5">
@@ -223,9 +228,16 @@ margin-top: 60px;
                      
                      <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Daniel Adams" class="target" style="z-index:-1;">
                      </div>
-                     <div class="penclass" style="z-index:1;" >
-                     <label for="file" class="pen"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2" style="padding: 3px;margin-left: 1px;"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></label>
-                     <input type="file" id="file" /> 
+                     <div class="penclass panel-body" style="z-index:1;" >
+                     <label for="upload_image" class="pen"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2" style="padding: 3px;margin-left: 1px;"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></label>
+                      <input type="file" name="upload_image" id="upload_image" accept="image/*" />
+                      <div id="uploaded_image"></div>
+
+    
+
+
+
+
                     </div>
                      
                      <div class="author-card-details" style="z-index:0;">
@@ -281,33 +293,91 @@ margin-top: 60px;
     </div>
 </div>
 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<div id="uploadimageModal" class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Upload & Crop Image</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-8 text-center">
+            <div id="image_demo" style="width:350px; margin-top:30px"></div>
+          </div>
+          <div class="col-md-4" style="padding-top:30px;">
+            <br />
+            <button class="vanilla-rotate" data-deg="-90">Rotate Left</button>
+            <br />
+            <br/>
+            <button class="btn btn-success crop_image">Crop & Upload Image</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
 <script type="text/javascript">
 	
 </script>
 </script>
 
 <script>
-    $(function () {
-
-"use strict";
-
-function url(input) {
-    if (input.files && input.files[0]) {
-
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $(".target").attr("src", e.target.result);
-        };
-
-        reader.readAsDataURL(input.files[0]);
-
-    }
-}
-$("#file").change(function () {
-    url(this);
+ vanilla = $("#image_demo").croppie({
+  enableExif: true,
+  viewport: { width: 200, height: 200, type: "circle" }, // circle or square
+  boundary: { width: 300, height: 300 },
+  showZoomer: false,
+  enableOrientation: true
 });
+$("#upload_image").on("change", function() {
+  var reader = new FileReader();
+  reader.onload = function(event) {
+    vanilla
+      .croppie("bind", {
+        url: event.target.result
+      })
+      .then(function() {
+        // console.log('jQuery bind complete');
+      });
+  };
+  reader.readAsDataURL(this.files[0]);
+  $("#uploadimageModal").modal("show");
 });
+$(".crop_image").click(function(event) {
+  vanilla
+    .croppie("result", {
+      type: "canvas",
+      size: "original",
+      quality: 1
+    })
+    .then(function(response) {
+      $.ajax({
+        url: "croppieupload.php",
+        type: "POST",
+        data: { image: response },
+        success: function(data) {
+          $("#uploadimageModal").modal("hide");
+          $("#uploaded_image").html(data);
+        }
+      });
+    });
+});
+$(".vanilla-rotate").on("click", function(event) {
+  vanilla.rotate(parseInt($(this).data("deg")));
+});
+
 </script>
 </body>
 </html>
