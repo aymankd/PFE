@@ -145,6 +145,7 @@ if(isset($_POST['EnrFrm']))
 				              $pa = $pa.$characters[rand(0, strlen($characters))];
 				          }
 						  $pa=sha1($pa);
+						  $datenow = new DateTime(date('Y-m-d'));
 						  $datetoreq2 = $datenow->format('Y-m-d');
 							$type="pro";
 					        $reqI = "INSERT INTO `utilisateur`(`username`, `email`, `pass`, `type`,`date`) VALUES (?,?,?,?,?)";
