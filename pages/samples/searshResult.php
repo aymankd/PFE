@@ -411,21 +411,33 @@ while ($rowL = mysqli_fetch_array($resL))
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="nreportDropdown">
                 <div id="MrM" class="switch-field">
-                  <p class="mb-0 font-weight-medium float-left dropdown-header">Price</p> <br><br>
+                  <p class="mb-0 font-weight-medium float-left dropdown-header">Colocation</p> <br><br>
 
                   <a class="dropdown-item">
                
-                   <input type="radio" id="radio-O" name="switch-twoM" value="yes"/>
-                   <label for="radio-l">Studio</label>
-                   <input type="radio" id="radio-three" name="switch-twoM" value="no"  />
-                   <label for="radio-l">Apartement</label>
-                      
-                
-
-
+                   <input type="radio" id="radio-Oui" name="switch-on" value="yes"/>
+                   <label for="radio-Oui">OUI</label>
+                   <input type="radio" id="radio-non" name="switch-on"  value="yes" />
+                   <label for="radio-non">NON</label>
                   </a>
-               
                   <br>
+                  <p class="mb-0 font-weight-medium float-left dropdown-header">Logement pour étudiant</p> <br><br>
+
+                  <a class="dropdown-item">
+               
+                   <input type="radio" id="radio-LOui" name="switch-Logement" value="Lyes"/>
+                   <label for="radio-LOui">OUI</label>
+                   <input type="radio" id="radio-Lnon" name="switch-Logement"  value="Lyes" />
+                   <label for="radio-Lnon">NON</label>
+                  </a>
+                  <br>
+                  <p class="mb-0 font-weight-medium float-left dropdown-header">proche de quelle etablisement</p> <br><br>
+
+                  <a class="dropdown-item">
+                  <span contentEditable="true" id="txtUserName" class="form-control"></span>
+                  </a>
+                    
+                    
                 </div>
                 <div class="footer">
                  <button type="button" class="btn btn-dark">Fermer</button>
@@ -558,7 +570,36 @@ while ($rowL = mysqli_fetch_array($resL))
                 <br>
                 </div>
 
+                <div id="MrMS" class="switch-field modalContent">
+                <p class="mb-0 font-weight-medium float-left dropdown-header">Colocation</p> <br><br>
 
+<a class="dropdown-item">
+
+ <input type="radio" id="radio-Oui2" name="switch-on2" value="yes2"/>
+ <label for="radio-Oui2">OUI</label>
+ <input type="radio" id="radio-non2" name="switch-on2"  value="yes2" />
+ <label for="radio-non2">NON</label>
+</a>
+<br>
+<p class="mb-0 font-weight-medium float-left dropdown-header">Logement pour étudiant</p> <br><br>
+
+<a class="dropdown-item">
+
+ <input type="radio" id="radio-LOui2" name="switch-Logemen2t" value="Lyes2"/>
+ <label for="radio-LOui2">OUI</label>
+ <input type="radio" id="radio-Lnon2" name="switch-Logement2"  value="Lyes2" />
+ <label for="radio-Lnon2">NON</label>
+</a>
+<br>
+<p class="mb-0 font-weight-medium float-left dropdown-header">proche de quelle etablisement</p> <br><br>
+
+<a class="dropdown-item">
+<span contentEditable="true" id="txtUserName2" class="form-control"></span>
+<br>
+</a>
+  
+  
+                </div>
                  
                
       </div>
