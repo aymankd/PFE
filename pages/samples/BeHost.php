@@ -8,9 +8,13 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
   <link href='../../Resourse/Behost/style.css' rel='stylesheet'>
-  <link href='../../Resourse/Behost/dropdown.css.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../Resourse/Behost/toggles.css">
+
   <link href='../../Resourse/Behost/images.css' rel='stylesheet'>
   <link href='../../Resourse/Behost/file.css' rel='stylesheet'>
+
+  <link rel="stylesheet" href="../../Resourse/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../Resourse/vendors/base/vendor.bundle.base.css">
 </head>
 <body>
  
@@ -128,9 +132,22 @@
 									<div class="dropdown">
 										<button class="dropbtn form-control btn btn-default btn-sm dropdown-toggle ">Dropdown</button>
 										<div class="dropdown-content force-scroll">
-											<div class="radioEq">
-											<?=$equi ;?>
-											</div>	
+                    <label class="Xa">One
+  <input type="checkbox" checked="checked">
+  <span class="checkmark"></span>
+</label>
+<label class="Xa">Two
+  <input type="checkbox">
+  <span class="checkmark"></span>
+</label>
+<label class="Xa">Three
+  <input type="checkbox">
+  <span class="checkmark"></span>
+</label>
+<label class="Xa">Four
+  <input type="checkbox">
+  <span class="checkmark"></span>
+</label>
 										</div>
 									</div> 
 								</div>
