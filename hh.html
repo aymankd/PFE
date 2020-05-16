@@ -1,87 +1,119 @@
+<style>
+  label.cabinet{
+	display: block;
+	cursor: pointer;
+}
+
+label.cabinet input.file{
+	position: relative;
+	height: 100%;
+	width: auto;
+	opacity: 0;
+	-moz-opacity: 0;
+  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+  margin-top:-30px;
+}
+
+#upload-demo{
+	width: 250px;
+	height: 250px;
+  padding-bottom:25px;
+}
+figure figcaption {
+    position: absolute;
+    bottom: 0;
+    color: #fff;
+    width: 100%;
+    padding-left: 9px;
+    padding-bottom: 5px;
+    text-shadow: 0 0 10px #000;
+}
+</style>
+
 <div class="container">
-    <h3 align="center">Image Crop & Upload using JQuery with PHP Ajax</h3>
-    <br />
-    <br />
-    <div class="panel panel-default">
-      <div class="panel-heading">Select Profile Image</div>
-      <div class="panel-body" align="center">
-        <input type="file" name="upload_image" id="upload_image" accept="image/*" />
-        <br />
-        <div id="uploaded_image"></div>
-      </div>
-    </div>
-  </div>
-  <div id="uploadimageModal" class="modal" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Upload & Crop Image</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-8 text-center">
-              <div id="image_demo" style="width:350px; margin-top:30px"></div>
-            </div>
-            <div class="col-md-4" style="padding-top:30px;">
-              <br />
-              <button class="vanilla-rotate" data-deg="-90">Rotate Left</button>
-              <br />
-              <br/>
-              <button class="btn btn-success crop_image">Crop & Upload Image</button>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="row">
+								<div class="col-xs-12">
+									<label class="cabinet center-block">
+										<figure>
+											<img src="" class="gambar img-responsive img-thumbnail" id="item-img-output" />
+										  <figcaption><i class="fa fa-camera"></i></figcaption>
+								    </figure>
+										<input type="file" class="item-img file center-block" name="file_photo"/>
+									</label>
+								</div>
+							</div>
+</div>
 
-  <script>
-    vanilla = $("#image_demo").croppie({
-  enableExif: true,
-  viewport: { width: 200, height: 200, type: "circle" }, // circle or square
-  boundary: { width: 300, height: 300 },
-  showZoomer: false,
-  enableOrientation: true
-});
-$("#upload_image").on("change", function() {
-  var reader = new FileReader();
-  reader.onload = function(event) {
-    vanilla
-      .croppie("bind", {
-        url: event.target.result
-      })
-      .then(function() {
-        // console.log('jQuery bind complete');
-      });
-  };
-  reader.readAsDataURL(this.files[0]);
-  $("#uploadimageModal").modal("show");
-});
-$(".crop_image").click(function(event) {
-  vanilla
-    .croppie("result", {
-      type: "canvas",
-      size: "original",
-      quality: 1
-    })
-    .then(function(response) {
-      $.ajax({
-        url: "croppieupload.php",
-        type: "POST",
-        data: { image: response },
-        success: function(data) {
-          $("#uploadimageModal").modal("hide");
-          $("#uploaded_image").html(data);
-        }
-      });
-    });
-});
-$(".vanilla-rotate").on("click", function(event) {
-  vanilla.rotate(parseInt($(this).data("deg")));
-});
+<div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+							<div class="modal-header">
+							  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							  <h4 class="modal-title" id="myModalLabel">
+							  </h4>
+							</div>
+							<div class="modal-body">
+				            <div id="upload-demo" class="center-block"></div>
+				      </div>
+							 <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" id="cropImageBtn" class="btn btn-primary">Crop</button>
+      </div>
+						    </div>
+						  </div>
+            </div>
+            
 
-  </script>
+            <script>
+              // Start upload preview image
+$(".gambar").attr("src", "https://user.gadjian.com/static/images/personnel_boy.png");
+						var $uploadCrop,
+						tempFilename,
+						rawImg,
+						imageId;
+						function readFile(input) {
+				 			if (input.files && input.files[0]) {
+				              var reader = new FileReader();
+					            reader.onload = function (e) {
+									$('.upload-demo').addClass('ready');
+									$('#cropImagePop').modal('show');
+						            rawImg = e.target.result;
+					            }
+					            reader.readAsDataURL(input.files[0]);
+					        }
+					        else {
+						        swal("Sorry - you're browser doesn't support the FileReader API");
+						    }
+						}
+
+						$uploadCrop = $('#upload-demo').croppie({
+							viewport: {
+								width: 150,
+								height: 200,
+							},
+							enforceBoundary: false,
+							enableExif: true
+						});
+						$('#cropImagePop').on('shown.bs.modal', function(){
+							// alert('Shown pop');
+							$uploadCrop.croppie('bind', {
+				        		url: rawImg
+				        	}).then(function(){
+				        		console.log('jQuery bind complete');
+				        	});
+						});
+
+						$('.item-img').on('change', function () { imageId = $(this).data('id'); tempFilename = $(this).val();
+																										 $('#cancelCropBtn').data('id', imageId); readFile(this); });
+						$('#cropImageBtn').on('click', function (ev) {
+							$uploadCrop.croppie('result', {
+								type: 'base64',
+								format: 'jpeg',
+								size: {width: 150, height: 200}
+							}).then(function (resp) {
+								$('#item-img-output').attr('src', resp);
+								$('#cropImagePop').modal('hide');
+							});
+						});
+				// End upload preview image
+            </script>

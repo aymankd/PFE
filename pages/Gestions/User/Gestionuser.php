@@ -205,13 +205,30 @@ margin-top: 60px;
 
 
 }
-#upload_image{
+#file{
   display: none;
+}
+
+
+#file{
+	width: 250px;
+	height: 250px;
+  padding-bottom:25px;
+}
+figure figcaption {
+    position: absolute;
+    bottom: 0;
+    color: #fff;
+    width: 100%;
+    padding-left: 9px;
+    padding-bottom: 5px;
+    text-shadow: 0 0 10px #000;
 }
     </style>
 
 
 <link rel="stylesheet" href="../../Resourse/cssSm/bootstrap-select.min.css">
+
 
 
 </head>
@@ -229,8 +246,9 @@ margin-top: 60px;
                      <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Daniel Adams" class="target" style="z-index:-1;">
                      </div>
                      <div class="penclass panel-body" style="z-index:1;" >
-                     <label for="upload_image" class="pen"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2" style="padding: 3px;margin-left: 1px;"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></label>
-                      <input type="file" name="upload_image" id="upload_image" accept="image/*" />
+                     <label for="file" class="pen"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2" style="padding: 3px;margin-left: 1px;"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></label>
+                      <input type="file" id="file"  class="item-img file center-block"  name="file_photo"/>
+                     
                       <div id="uploaded_image"></div>
 
     
@@ -293,91 +311,34 @@ margin-top: 60px;
     </div>
 </div>
 
-<div id="uploadimageModal" class="modal" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Upload & Crop Image</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-8 text-center">
-            <div id="image_demo" style="width:350px; margin-top:30px"></div>
-          </div>
-          <div class="col-md-4" style="padding-top:30px;">
-            <br />
-            <button class="vanilla-rotate" data-deg="-90">Rotate Left</button>
-            <br />
-            <br/>
-            <button class="btn btn-success crop_image">Crop & Upload Image</button>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
+<div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						     	<div class="modal-header">
+                   <h4 class="modal-title" id="myModalLabel">  </h4>
+							       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							         
+                  </div>
+                  
+						    	<div class="modal-body">
+				            <div id="upload-demo" class="center-block"></div>
+                  </div>
+                  
+						   	  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                     <button type="button" id="cropImageBtn" class="btn btn-primary">Crop</button>
+                   </div>
+						      </div>
+                </div>
+              </div>
 </div>
 
 
 
 
 
-
-
-
-<script type="text/javascript">
-	
-</script>
-</script>
-
-<script>
- vanilla = $("#image_demo").croppie({
-  enableExif: true,
-  viewport: { width: 200, height: 200, type: "circle" }, // circle or square
-  boundary: { width: 300, height: 300 },
-  showZoomer: false,
-  enableOrientation: true
-});
-$("#upload_image").on("change", function() {
-  var reader = new FileReader();
-  reader.onload = function(event) {
-    vanilla
-      .croppie("bind", {
-        url: event.target.result
-      })
-      .then(function() {
-        // console.log('jQuery bind complete');
-      });
-  };
-  reader.readAsDataURL(this.files[0]);
-  $("#uploadimageModal").modal("show");
-});
-$(".crop_image").click(function(event) {
-  vanilla
-    .croppie("result", {
-      type: "canvas",
-      size: "original",
-      quality: 1
-    })
-    .then(function(response) {
-      $.ajax({
-        url: "croppieupload.php",
-        type: "POST",
-        data: { image: response },
-        success: function(data) {
-          $("#uploadimageModal").modal("hide");
-          $("#uploaded_image").html(data);
-        }
-      });
-    });
-});
-$(".vanilla-rotate").on("click", function(event) {
-  vanilla.rotate(parseInt($(this).data("deg")));
-});
-
-</script>
+<script src="croppie.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+<script src='https://foliotek.github.io/Croppie/croppie.js'></script>
 </body>
 </html>
