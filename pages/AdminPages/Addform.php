@@ -17,7 +17,9 @@ if( !isset($_SESSION['username']) || $_SESSION['type'] != "admin" )
   $msg="";
   $alert="";
   $CodeL="";
-
+  $titre='';
+  $desc='';
+  $nbr_equi='';
 // Create connection
 $conn = new mysqli($servername, $userservername,"", $database);
 
@@ -74,6 +76,7 @@ $img=array();
 if(isset($_POST['EnrFrm']))
 {
 	$AccType=$_POST['rad1'];
+	$colloc=$_POST['radColloc'];
 	$LogeType=$_POST['logetype'];
 	$PdfFile=file_get_contents($_FILES["pdf"]["tmp_name"]);
 	$i=$_POST['i_var'];
@@ -97,9 +100,11 @@ if(isset($_POST['EnrFrm']))
 	$prix=$_POST['prixL'];
 	$sprfc=$_POST['sprfc'];
 	$reglement=$_POST['Reg'];
+	$pour_etu=$_POST['radEtu'];
+	$etab=$_POST['etab'];
 
 	$checkedItems=$_POST['check_list'];
-
+    $nbr_orEqui=sizeof($checkedItems);
 
 
 
@@ -141,7 +146,7 @@ if(isset($_POST['EnrFrm']))
 
 				          $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 				          $pa = '';
-				          for ($i = 0; $i < 8; $i++) {
+				          for ($j = 0; $j < 8; $j++) {
 				              $pa = $pa.$characters[rand(0, strlen($characters))];
 				          }
 						  $pa=sha1($pa);
@@ -285,9 +290,9 @@ if(isset($_POST['EnrFrm']))
 				$datetoreq = $datenow->format('Y-m-d');
 				//creation logement [creation Studio || Apparetement()],creation images,creation file
 				$Forseatch=metaphone($nomL).' '.metaphone($Desc).' '.metaphone($adresseL);
-				$req = "INSERT INTO `logement`(`CodeP`, `nom`, `adress`, `description`, `reglement`,`prix`,`superficie`,`SL_adr_nom`, `type`, `status`, `date`) VALUES (?,?,?,?,?,?,?,?,?,'valide',?)";
+				$req = "INSERT INTO `logement`(`CodeP`, `nom`, `adress`, `description`, `reglement`,`prix`,`superficie`,`collocation`,`pour_etudiant`,`etabe_proche`,`SL_adr_nom`, `type`, `status`, `date`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,'valide',?)";
 			    $statement=$conn->prepare($req);
-			    $statement->bind_param("issssdisss",$CodeU,$nomL,$adresseL,$Desc,$reglement,$prix,$sprfc,$Forseatch,$LogeType,$datetoreq);
+			    $statement->bind_param("issssdissssss",$CodeU,$nomL,$adresseL,$Desc,$reglement,$prix,$sprfc,$colloc,$pour_etu,$etab,$Forseatch,$LogeType,$datetoreq);
 			    $statement->execute();
 				$reqI = "SELECT CodeL FROM logement where nom=? ";
 			    $statementI=$conn->prepare($reqI);
@@ -327,13 +332,16 @@ if(isset($_POST['EnrFrm']))
 			        $statement->execute();							
 				}
 				//creation equipement
-				foreach ($checkedItems as $CodeEqu) {
+				if($nbr_orEqui>0)
+				
+				{
+					foreach ($checkedItems as $CodeEqu) {
 					$req = "INSERT INTO `eqlo`(`CodeE`, `CodeL`) VALUES (?,?)";
 			        $statement=$conn->prepare($req);
 			        $statement->bind_param("si",$CodeEqu,$CodeL);
 			        $statement->execute();													
+				    }
 				}
-
 
 			   $alert='<div class="alert alert-success alert-dismissible fade show" role="alert">
 			   <strong>Succes:</strong> Logement ajouté avec succes.
@@ -342,20 +350,28 @@ if(isset($_POST['EnrFrm']))
 			   </button>
 			   </div>';
 
-			   $insertAutreEqui=" var nbr_equi=titres.length;
-								  var codeLE=".$CodeL.";
-			                      var jsonTitres = JSON.stringify(titres);
-			                      var jsonDescs = JSON.stringify(descs);
-			                      if(nbr_equi>0)
-			                        {
-			                     	 $.ajax({  
-				                 			    url:'Add_autreEQ.php',   
-					 	                		method:'POST',
-								                data:{Titres:jsonTitres,Descs:jsonDescs,CodeL:codeLE},
-							 	                success:function(data){  
-								            }
-								            });
-			                                } ";
+			    $titres = $_POST['titre'];
+				$descs = $_POST['desc'];
+
+				$nbr_equi=sizeof($titres);
+
+				$iT=0;
+			if($nbr_equi>0)
+			  {
+			   for($iT=0;$iT<$nbr_equi;$iT++)
+                {
+                   $titre=$titres[$iT];
+				   $desc=$descs[$iT];
+				   if($titre!='')
+                   {
+					$rT="INSERT INTO `autre_equi`(`CodeL`,`titre`,`description`) VALUES (?,?,?)";
+                    $sT=$conn->prepare($rT);
+                    $sT->bind_param("iss",$CodeL,$titre,$desc);
+				    $sT->execute();
+				   }
+                }
+			  }
+			
 			}
 
 }
@@ -679,7 +695,7 @@ if(isset($_POST['EnrFrm']))
 												<?=$equi ;?>
 												<div class='form-check'>
 													<label class='form-check-label'>
-													<a data-toggle="modal" data-target="#exampleModal"><i class="far fa-plus-square"> Autre équipements</i></a>
+													<a data-toggle="modal" id='openEqM' data-target="#exampleModal"><i class="far fa-plus-square"> Autre équipements</i></a>
 													</label>
 												</div>
 											</div>	
@@ -687,6 +703,68 @@ if(isset($_POST['EnrFrm']))
 									</div> 
 								</div>
 							</div> 
+							<div class="form-group row" >
+						     	
+									<div class="col-sm-9">
+									    <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Collocation</label>
+									    <div class="radioC">
+						                    <div class="rowR">
+                                                <div class="col-6 rtyy">
+							                        <div class="form-check">
+								                        <label class="form-check-label rtyy">
+								                           <input type="radio"  name="radColloc" value="non" class="form-check-input" checked>
+							                             	Non
+							                        	</label>
+							                        </div>
+						                        </div>
+						
+                                                <div class="col-6 rtyy">	
+							                        <div class="form-check">
+								                        <label class="form-check-label rtyy">
+								                           <input type="radio"  name="radColloc" value="oui" class="form-check-input" >
+								                           Oui
+								                        </label>
+							                     	</div>
+					                            </div>
+                                            </div>
+						                </div>
+									</div>
+							</div>
+							<div class="form-group row" >
+						     	
+									<div class="col-sm-9">
+									    <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Logemment pour étudiants</label>
+									    <div class="radioE">
+						                    <div class="rowR">
+                                                <div class="col-6 rtyy2">
+							                        <div class="form-check">
+								                        <label class="form-check-label rtyy2">
+								                           <input type="radio" id="hideI"  name="radEtu" value="non" class="form-check-input" checked>
+							                             	Non
+														</label>
+														
+														
+							                        </div>
+						                        </div>
+						
+                                                <div class="col-6 rtyy3">	
+							                        <div class="form-check">
+								                        <label class="form-check-label rtyy3">
+								                           <input type="radio" id="showI" name="radEtu" value="oui" class="form-check-input" >
+								                           Oui
+								                        </label>
+							                     	</div>
+					                            </div>
+                                            </div>
+						                </div>
+									</div>
+							</div>
+							<div id='dv_etab' class="form-group row" >
+									<div class="col-sm-9">
+									<label for="exampleInputPassword2" class="col-sm-3 col-form-label">Proche de quel établisement?</label>
+								    	<input type="text" class="form-control" name="etab" id="etab_proche " placeholder="établisement ">
+									</div>
+								</div>
 							<div id="PieceInput">
 								<div class="form-group row" >
 									<div class="col-sm-9">
@@ -744,12 +822,12 @@ if(isset($_POST['EnrFrm']))
 
 	<div class="btns">
 		<button class="btn btn X" name="CancelFrm">Annuler</button>
-		<button class="btn btn X" name="EnrFrm" >Ajouter</button>
+		<button id="addlog"class="btn btn X" name="EnrFrm" >Ajouter</button>
 	</div>
 
 	<input type="text" id="i_varable" name="i_var" hidden>
 
-</form>
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -764,19 +842,7 @@ if(isset($_POST['EnrFrm']))
 	    <ul class="equiLst">
 		  
 		    <div id="originalEL">	
-                <li class="equiEl">
-		            <h5>Equipement1</h5>		
-				    <input type="text" id="ORtitre" placeholder="Titre">&nbsp;
-			        <div class='dropdown dropdownE'>
-				    	<a class='dropbtn dropbtnE'>ajouter description</a>
-                        <div  class='dropdown-content dropdown-contentE'>
-							<h5>Description</h5>
-                           <textarea name='' id='ORdesc'></textarea>
-                        </div>
-                    </div> 
-			      
-			      <span class="closeE">x</span>
-			    </li>
+			<li class='equiEl'> <h5>Equipement1</h5><input type='text' name='titre[]' id='ORtitre' placeholder='Titre'>&nbsp;<div class='dropdown dropdownE'><a class='dropbtn dropbtnE'>ajouter description</a><div  class='dropdown-content dropdown-contentE'><h5>Description</h5><textarea name='desc[]' id='ORdesc'></textarea></div></div> <span class='closeE'>x</span></li> 
 			</div> 	
 			<div id="addedEL">
             </div>				
@@ -786,13 +852,13 @@ if(isset($_POST['EnrFrm']))
         </ul> 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button id="clsEqui" type="button" class="btn btn-secondary" data-dismiss="modal" >Annuler</button>
         <button id="cnfrm" type="button" class="btn btn-primary">Confirmer</button>
       </div>
     </div>
   </div>
 </div>
-
+</form>
 		<footer class="footer">
 			<div class="footer-wrap">
 				<div class="w-100 clearfix">
@@ -803,8 +869,7 @@ if(isset($_POST['EnrFrm']))
 		</footer>
 		
     
- 
- 
+
  
  
     <!-- base:js -->
@@ -889,73 +954,70 @@ $( '.dropdown-menu a' ).on( 'click', function( event ) {
 
 
 <script>
-$(document).ready(function(){ 
-	/* Get all elements with class="close" 
-var closebtns = document.getElementsByClassName("closeE");
-var i;
-
-/* Loop through the elements, and hide the parent, when clicked on 
-for (i = 0; i < closebtns.length; i++) {
-  closebtns[i].addEventListener("click", function() {
-  this.parentElement.style.display = 'none';
-});
-}*/
-});
-</script>
-
-<script>
 var idhr='';
+var idEquiEL=2;
 $(document).ready(function(){
 
 	$(document).on('click','.closeE',function(){
+		
 		idhr='hr'+$(this).attr('id') ;
-		this.parentElement.style.display = 'none';
-		document.getElementById(idhr).style.display = 'none';
+		this.parentElement.remove(); //style.display = 'none';
+		document.getElementById(idhr).remove(); //style.display = 'none';
+		idEquiEL=idEquiEL-1;
+		
+		
 		
     });
 });
 </script>
 
 <script>
-	idEquiEL=1;
+	
+	
 	$(document).ready(function(){ 
 		$('#addEqui').click(function(){
-			document.getElementById('addedEL').insertAdjacentHTML("beforeend","<hr id='hr"+idEquiEL+"' ><li class='equiEl'> <h5>Equipement1</h5><input id='titre"+idEquiEL+"' type='text' placeholder='Titre'>&nbsp;<div class='dropdown dropdownE'><a class='dropbtn dropbtnE'>ajouter description</a><div  class='dropdown-content dropdown-contentE'><h5>Description</h5><textarea name='' id='desc"+idEquiEL+"'></textarea></div> </div><span id='"+idEquiEL+"' class='closeE'>x</span></li>");
+			document.getElementById('addedEL').insertAdjacentHTML("beforeend","<hr id='hr"+idEquiEL+"' ><li class='equiEl'> <h5>Equipement"+idEquiEL+"</h5><input name='titre[]' id='titre"+idEquiEL+"' type='text' placeholder='Titre'>&nbsp;<div class='dropdown dropdownE'><a class='dropbtn dropbtnE'>ajouter description</a><div  class='dropdown-content dropdown-contentE'><h5>Description</h5><textarea name='desc[]' id='desc"+idEquiEL+"'></textarea></div> </div><span id='"+idEquiEL+"' class='closeE'>x</span></li>");
 			idEquiEL=idEquiEL+1;
 		});
-	});
+});	
+
 </script>
 
 <script>
-	var titres=new Array();
-	var descs=new Array();
-	var index;
-	var titre;
-	var desc;
-	var idtitre;
-	var iddesc;
-	$(document).ready(function(){
-        $('#cnfrm').click(function(){
-			titres[0]=$('#ORtitre').val(); 
-			descs[0]=$('#ORdesc').val();
-			for(index=1;index<idEquiEL;index++)
-			  {   
-				idtitre='#titre'+index;  
-				iddesc='#desc'+index;
-				titre= $(idtitre).val();  
-				desc= $(iddesc).val();
-				titres[index]=titre;
-			    descs[index]=desc;
-			  }
-			});
-	});
+$(document).ready(function(){ 
+	document.getElementById('dv_etab').style.display='none';
+		$('#clsEqui').click(function(){
+			
+			$("#addedEL").empty(); 
+			$("#originalEL").empty();
+			idEquiEL=2;
+			
+		});
+
+		$('#showI').click(function(){
+			
+			document.getElementById('dv_etab').style.display='block';
+			
+		});
+		$('#hideI').click(function(){
+			
+			document.getElementById('dv_etab').style.display='none';
+			
+		});
+});	
+
 </script>
-
-
 
 <script>
- <?=$insertAutreEqui;?>
+/*$(document).ready(function(){ 
+		$('#openEqM').click(function(){
+			
+			document.getElementById('originalEL').insertAdjacentHTML("beforeend","<li class='equiEl'> <h5>Equipement1</h5><input type='text' name='titre[]' id='ORtitre' placeholder='Titre'>&nbsp;<div class='dropdown dropdownE'><a class='dropbtn dropbtnE'>ajouter description</a><div  class='dropdown-content dropdown-contentE'><h5>Description</h5><textarea name='desc[]' id='ORdesc'></textarea></div></div> <span class='closeE'>x</span></li>"); 
+			
+		});
+});	*/
 </script>
+
 
   </body>
 </html>

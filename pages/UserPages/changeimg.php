@@ -18,6 +18,7 @@ $codeU = $_SESSION['usercode'];
 if(isset($_POST['acc']))
 {
     $img=file_get_contents($_FILES["img"]["tmp_name"]);
+    echo $img;
     $req="UPDATE `utilisateur` SET `imageP`=? WHERE CodeU=?";
     $statement=$conn->prepare($req);
     $statement->bind_param("si",$img,$codeU);
