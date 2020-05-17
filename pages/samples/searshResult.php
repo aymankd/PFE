@@ -285,11 +285,11 @@ while ($rowL = mysqli_fetch_array($resL))
             
             <li id="Drp_prix" class="nav-item dropdown d-lg-flex d-none">
               <a class="dropdown-toggle show-dropdown-arrow btn btn-inverse-primary btn-sm" id="nreportDropdown" href="#" data-toggle="dropdown">
-                Price
+                Prix
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"  aria-labelledby="nreportDropdown">
                 <div id="PM">
-                  <p class="mb-0 font-weight-medium float-left dropdown-header">Price</p> <br><br>
+                  <p class="mb-0 font-weight-medium float-left dropdown-header">Prix</p> <br><br>
                     <a class="dropdown-item">
                       <input type="text" class="form-control" placeholder="MIN" id="Imin" value="0" aria-label="search" aria-describedby="MIN">
                     </a>
@@ -317,7 +317,7 @@ while ($rowL = mysqli_fetch_array($resL))
                   <a class="dropdown-item">
                         
                     <input type="radio" id="radio-O" name="switch-two" value="All" checked/>
-	                  <label for="radio-O">All</label>
+	                  <label for="radio-O">TOUS</label>
 	                  <input type="radio" id="radio-one" name="switch-two" value="1" />
 	                  <label for="radio-one">1</label>
 	                  <input type="radio" id="radio-two" name="switch-two" value="2" />
@@ -352,7 +352,7 @@ while ($rowL = mysqli_fetch_array($resL))
 
                   <a class="dropdown-item">
                  
-                   <input type="radio" id="rad0" name="switchs-two3" value="All" checked/> <label for="rad0">All</label>
+                   <input type="radio" id="rad0" name="switchs-two3" value="All" checked/> <label for="rad0">TOUS</label>
                    <input type="radio" id="rad1" name="switchs-two3" value="1" /> <label for="rad1">1</label>
                    <input type="radio" id="rad2" name="switchs-two3" value="2" /> <label for="rad2">2</label>
                    <input type="radio" id="rad3" name="switchs-two3" value="3" /> <label for="rad3">3</label>
@@ -384,7 +384,7 @@ while ($rowL = mysqli_fetch_array($resL))
                     <a class="dropdown-item">
                 
                       <input type="radio" id="radio-Oee" name="switch-two4" value="All" checked/>
-                      <label for="radio-Oee">All</label>
+                      <label for="radio-Oee">TOUS</label>
                       <input type="radio" id="radio-Oe" name="switch-two4" value="studio"/>
                       <label for="radio-Oe">Studio</label>
                       <input type="radio" id="radio-fin" name="switch-two4" value="Apartement" />
@@ -411,21 +411,36 @@ while ($rowL = mysqli_fetch_array($resL))
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="nreportDropdown">
                 <div id="MrM" class="switch-field">
-                  <p class="mb-0 font-weight-medium float-left dropdown-header">Price</p> <br><br>
+                  <p class="mb-0 font-weight-medium float-left dropdown-header">Colocation</p> <br><br>
 
                   <a class="dropdown-item">
-               
-                   <input type="radio" id="radio-O" name="switch-twoM" value="yes"/>
-                   <label for="radio-l">Studio</label>
-                   <input type="radio" id="radio-three" name="switch-twoM" value="no"  />
-                   <label for="radio-l">Apartement</label>
-                      
-                
 
-
+                   <input type="radio" id="allC" name="switch-Collo"  value="All" checked/>
+                   <label for="allC">TOUS</label>
+                   <input type="radio" id="Cradio-Oui" name="switch-Collo" value="oui"/>
+                   <label for="Cradio-Oui">OUI</label>
+                   <input type="radio" id="Cradio-non" name="switch-Collo"  value="non" />
+                   <label for="Cradio-non" >NON</label>
                   </a>
-               
                   <br>
+                  <p class="mb-0 font-weight-medium float-left dropdown-header">Logement pour étudiant</p> <br><br>
+
+                  <a class="dropdown-item">
+                   <input type="radio" id="allEtu" name="switch-Etu"  value="All" checked/>
+                   <label for="allEtu">TOUS</label>
+                   <input type="radio" id="radio-LOui" name="switch-Etu" value="oui"/>
+                   <label for="radio-LOui">OUI</label>
+                   <input type="radio" id="radio-Lnon" name="switch-Etu"  value="non" />
+                   <label for="radio-Lnon">NON</label>
+                  </a>
+                  <br>
+                  <p id='titre_etable' class="mb-0 font-weight-medium float-left dropdown-header">proche de quelle etablisement</p> <br><br>
+
+                  <a class="dropdown-item">
+                  <span contentEditable="true" name='etable' id="etable" class="form-control" required></span>
+                  </a>
+                    
+                    
                 </div>
                 <div class="footer">
                  <button type="button" class="btn btn-dark">Fermer</button>
@@ -473,7 +488,7 @@ while ($rowL = mysqli_fetch_array($resL))
     
                       
                       <div class="modalContent" id="PMS">
-                        <p class="mb-0 font-weight-medium float-left dropdown-header">Price</p> <br><br>
+                        <p class="mb-0 font-weight-medium float-left dropdown-header">Prix</p> <br><br>
 
                         <a class="dropdown-item">
                         
@@ -494,7 +509,7 @@ while ($rowL = mysqli_fetch_array($resL))
                         <a class="dropdown-item">
                         
                         <input type="radio" id="radio-OS" name="switch-twoS" value="All" checked/>
-	                         	<label for="radio-OS">All</label>
+	                         	<label for="radio-OS">TOUS</label>
 	                        	<input type="radio" id="radio-oneS" name="switch-twoS" value="1" />
 	                         	<label for="radio-oneS">1</label>
 	                         	<input type="radio" id="radio-twoS" name="switch-twoS" value="2" />
@@ -514,7 +529,7 @@ while ($rowL = mysqli_fetch_array($resL))
 
                   <a class="dropdown-item">
                  
-                  <input type="radio" id="rad0S" name="switchs-two3S" value="All" checked/> <label for="rad0S">All</label>
+                  <input type="radio" id="rad0S" name="switchs-two3S" value="All" checked/> <label for="rad0S">TOUS</label>
                   <input type="radio" id="rad1S" name="switchs-two3S" value="1" /> <label for="rad1S">1</label>
                   <input type="radio" id="rad2S" name="switchs-two3S" value="2" /> <label for="rad2S">2</label>
                   <input type="radio" id="rad3S" name="switchs-two3S" value="3" /> <label for="rad3S">3</label>
@@ -530,7 +545,7 @@ while ($rowL = mysqli_fetch_array($resL))
                   <a class="dropdown-item">
                 
                   <input type="radio" id="radio-OeeS" name="switch-two4S" value="All" checked/>
-                       <label for="radio-OeeS">All</label>
+                       <label for="radio-OeeS">TOUS</label>
                   <input type="radio" id="radio-OeS" name="switch-two4S" value="studio"/>
                        <label for="radio-OeS">Studio</label>
                       <input type="radio" id="radio-finS" name="switch-two4S" value="Apartement" />
@@ -540,31 +555,46 @@ while ($rowL = mysqli_fetch_array($resL))
                
                 <br>
                 </div>
-                <div id="MrMS" class="switch-field modalContent">
-                <p class="mb-0 font-weight-medium float-left dropdown-header">Price</p> <br><br>
-
-                  <a class="dropdown-item">
-               
-                  <input type="radio" id="radio-StS" name="switch-twoMS" value="yes"/>
-                       <label for="radio-StS">Studio</label>
-                      <input type="radio" id="radio-ApS" name="switch-twoMS" value="no"  />
-                       <label for="radio-ApS">Apartement</label>
-                      
                 
 
+                <div id="MrMS" class="switch-field modalContent">
+                    <p class="mb-0 font-weight-medium float-left dropdown-header">Colocation</p> <br><br>
 
-                </a>
-               
-                <br>
+                    <a class="dropdown-item">
+                      <input type="radio" id="CollocRadMA" name="CollocRadM" value="All" checked/>
+                      <label for="CollocRadMA">TOUS</label>
+                      <input type="radio" id="CollocRadMO" name="CollocRadM" value="oui"/>
+                      <label for="CollocRadMO">OUI</label>
+                      <input type="radio" id="CollocRadMN" name="CollocRadM"  value="non" />
+                      <label for="CollocRadMN">NON</label>
+                    </a>
+                    <br>
+                    <p class="mb-0 font-weight-medium float-left dropdown-header">Logement pour étudiant</p> <br><br>
+
+                    <a class="dropdown-item">
+                      <input type="radio" id="CollocEtuMA" name="CollocEtuM" value="All" checked/>
+                      <label for="CollocEtuMA">TOUS</label>
+                      <input type="radio" id="CollocEtuMO" name="CollocEtuM" value="oui"/>
+                      <label for="CollocEtuMO">OUI</label>
+                      <input type="radio" id="CollocEtuMN" name="CollocEtuM"  value="non" />
+                      <label for="CollocEtuMN">NON</label>
+                    </a>
+                    <br>
+                    <p id="etable_mdl_ttl" class="mb-0 font-weight-medium float-left dropdown-header">proche de quelle etablisement</p> <br><br>
+
+                    <a class="dropdown-item">
+                     <span contentEditable="true" id="etable_mdl" name="etable_mdl" class="form-control" required></span>
+                     <br>
+                    </a>
+  
+  
                 </div>
-
-
                  
                
       </div>
       <div class="modal-footer">
         <button id="filters_cls" type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-        <button id="aply_modal" onclick='applyfilters()'  class="btn btn-primary">Appliquer</button>
+        <button id="aply_modal"   class="btn btn-primary">Appliquer</button>
       </div>
     </div>
   </div>
@@ -637,22 +667,48 @@ while ($rowL = mysqli_fetch_array($resL))
 
 
 <script>  
-
-
+           var Min ; 
+           var Max;
+           var Nbr_pr;
+           var Nbr_Ch;
+           var TL_Type; 
+           var srch;
+           var colloc;
+           var etu_prch;
+           var etabli;
  $(document).ready(function(){  
       $('#rf').click(function(){  
-           var Max = document.getElementById("Imax").value; 
-           var Min = document.getElementById("Imin").value; 
-           var Nbr_pr=document.querySelector('#NPM input[name="switch-two"]:checked').value;
-           var Nbr_Ch=document.querySelector('#NCM input[name="switchs-two3"]:checked').value;
-           var TL_Type=document.querySelector('#TM input[name="switch-two4"]:checked').value; 
-           var srch=document.querySelector('#SR input[name="q"]').value;
-
+             Max = document.getElementById("Imax").value; 
+             Min = document.getElementById("Imin").value; 
+             Nbr_pr=document.querySelector('#NPM input[name="switch-two"]:checked').value;
+             Nbr_Ch=document.querySelector('#NCM input[name="switchs-two3"]:checked').value;
+             TL_Type=document.querySelector('#TM input[name="switch-two4"]:checked').value; 
+             srch=document.querySelector('#SR input[name="q"]').value;
+             colloc=document.querySelector('#MrM input[name="switch-Collo"]:checked').value;
+             etu_prch=document.querySelector('#MrM input[name="switch-Etu"]:checked').value;
+            
+           if(etu_prch!='non')
+            {
+              etabli=document.querySelector('#MrM span[name="etable"]').textContent;
+            }
+           else
+            {
+              etabli='';
+            } 
 
            $.ajax({  
                 url:"FilteredSearch.php?rech=<?=$_GET['rech']?>",  
                 method:"POST",  
-                data:{Pmax:Max,Pmin:Min,NP:Nbr_pr,NC:Nbr_Ch,TL:TL_Type,search:srch},  
+                data:{Pmax:Max,
+                      Pmin:Min,
+                      NP:Nbr_pr,
+                      NC:Nbr_Ch,
+                      TL:TL_Type,
+                      search:srch,
+                      colloc:colloc,
+                      etu_prch:etu_prch,
+                      etab:etabli
+                      },  
                 success:function(data){  
                      $('#nC').html(data);  
 
@@ -690,6 +746,29 @@ while ($rowL = mysqli_fetch_array($resL))
                      else if(TL_Type=='Apartement') 
                        $("#radio-finS").prop("checked", true);  
 
+                       if(etu_prch=='All')
+                      {
+                       $("#CollocEtuMA").prop("checked", true);
+                       document.getElementById('etable_mdl').style.display='none';
+                       document.getElementById('etable_mdl_ttl').style.display='none';
+                      } 
+                     else if(etu_prch=='oui') 
+                      {
+                       $("#CollocEtuMO").prop("checked", true); 
+                       document.getElementById('etable_mdl').style.display='block';
+                       document.getElementById('etable_mdl_ttl').style.display='block';
+                      } 
+                   else if(etu_prch=='non') 
+                    {
+                     $("#CollocEtuMN").prop("checked", true);
+                     document.getElementById('etable_mdl').style.display='none';
+                       document.getElementById('etable_mdl_ttl').style.display='none';
+
+                    }
+
+
+                       
+
                     $("#IminS").val(Min);  
                     $("#ImaxS").val(Max); 
 
@@ -713,32 +792,51 @@ while ($rowL = mysqli_fetch_array($resL))
 } 
    </script>
 
-<script>  
 
 
-
-
-function applyfilters(){
-           var MaxS = document.getElementById("ImaxS").value; 
-           var MinS = document.getElementById("IminS").value; 
-           var Nbr_prS=document.querySelector('#NPMS input[name="switch-twoS"]:checked').value;
-           var Nbr_ChS=document.querySelector('#NCMS input[name="switchs-two3S"]:checked').value;
-           var TL_TypeS=document.querySelector('#TMS input[name="switch-two4S"]:checked').value; 
-           var srchS=document.querySelector('#SR input[name="q"]').value;
+<script>
+var MaxS;
+var MinS;
+var Nbr_prS;
+var Nbr_ChS;
+var TL_TypeS;
+var srchS;
+var collocS;
+var etu_prchS;
+var etabliS;
+$(document).ready(function(){  
+      $('#aply_modal').click(function(){  
+          MaxS = document.getElementById("ImaxS").value; 
+          MinS = document.getElementById("IminS").value; 
+          Nbr_prS=document.querySelector('#NPMS input[name="switch-twoS"]:checked').value;
+          Nbr_ChS=document.querySelector('#NCMS input[name="switchs-two3S"]:checked').value;
+          TL_TypeS=document.querySelector('#TMS input[name="switch-two4S"]:checked').value; 
+          srchS=document.querySelector('#SR input[name="q"]').value;
+          collocS=document.querySelector('#MrMS input[name="CollocRadM"]:checked').value;
+          etu_prchS=document.querySelector('#MrMS input[name="CollocEtuM"]:checked').value;
+            
+           if(etu_prchS!='non')
+            {
+              etabliS=document.querySelector('#MrMS span[name="etable_mdl"]').textContent;
+            }
+           else
+            {
+              etabliS='';
+            } 
 
 
            $.ajax({  
                 url:"FilteredSearch.php?rech=<?=$_GET['rech']?>",  
                 method:"POST",  
-                data:{Pmax:MaxS,Pmin:MinS,NP:Nbr_prS,NC:Nbr_ChS,TL:TL_TypeS,search:srchS},  
-                success:function(data){  
-                     $('#nC').html(data);  
-                }  
-           });  
+                data:{Pmax:MaxS,Pmin:MinS,NP:Nbr_prS,NC:Nbr_ChS,TL:TL_TypeS,search:srchS,
+                      colloc:collocS,
+                      etu_prch:etu_prchS,
+                      etab:etabliS},  
+                success:function(data){ 
+                   
+                     $('#nC').html(data); 
 
-
-
-           if(Nbr_prS=='All')
+                     if(Nbr_prS=='All')
                        $("#radio-O").prop("checked", true);
                      else if(Nbr_prS=='1') 
                        $("#radio-one").prop("checked", true); 
@@ -772,13 +870,34 @@ function applyfilters(){
                      else if(TL_TypeS=='Apartement') 
                        $("#radio-fin").prop("checked", true);  
 
+
+                     
+                    if(etu_prchS=='All')
+                     {
+                       $("#allEtu").prop("checked", true);
+                       document.getElementById('etable').style.display='none';
+                       document.getElementById('titre_etable').style.display='none';
+                     }  
+                   else if(etu_prchS=='oui') 
+                     {
+                      $("#radio-LOui").prop("checked", true); 
+                      document.getElementById('etable').style.display='block';
+                      document.getElementById('titre_etable').style.display='block';
+                     }
+                   else if(etu_prchS=='non') 
+                    {
+                     $("#radio-Lnon").prop("checked", true);
+                     document.getElementById('etable').style.display='none';
+                     document.getElementById('titre_etable').style.display='none';
+                    } 
+
                     $("#Imin").val(MinS);  
-                    $("#Imax").val(MaxS); 
-
-          }
-
-          
-
+                    $("#Imax").val(MaxS);
+                    $('#modalEquip').modal('hide');
+                }  
+           });
+      });
+    });  
 </script>
 
 <script>
@@ -821,3 +940,50 @@ $(window).on('resize', function() {
 */
 </script>
 
+<script>
+ $(document).ready(function(){  
+        document.getElementById('etable').style.display='none';
+        document.getElementById('titre_etable').style.display='none';
+
+        document.getElementById('etable_mdl').style.display='none';
+        document.getElementById('etable_mdl_ttl').style.display='none';
+
+
+
+      $('#radio-Lnon').click(function(){
+        document.getElementById('etable').style.display='none';
+        document.getElementById('titre_etable').style.display='none';
+      });
+
+      $('#radio-LOui').click(function(){
+        document.getElementById('etable').style.display='block';
+        document.getElementById('titre_etable').style.display='block';
+      });
+
+      $('#allEtu').click(function(){
+        document.getElementById('etable').style.display='none';
+        document.getElementById('titre_etable').style.display='none';
+      });
+
+
+
+
+      $('#CollocEtuMN').click(function(){
+        document.getElementById('etable_mdl').style.display='none';
+        document.getElementById('etable_mdl_ttl').style.display='none';
+      });
+
+      $('#CollocEtuMO').click(function(){
+        document.getElementById('etable_mdl').style.display='block';
+        document.getElementById('etable_mdl_ttl').style.display='block';
+      });
+
+      $('#CollocEtuMA').click(function(){
+        document.getElementById('etable_mdl').style.display='none';
+        document.getElementById('etable_mdl_ttl').style.display='none';
+      });
+    });    
+
+
+    
+</script>

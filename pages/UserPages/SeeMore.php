@@ -47,6 +47,12 @@ $type=$rowL["type"];
 $lat=$rowL["lat"];
 $lng=$rowL["lng"];
 $lat_lng_empty="";
+$collocation=$rowL["collocation"];
+$pour_etudiant=$rowL["pour_etudiant"];
+$etabe_proche=$rowL["etabe_proche"];
+
+$etud_info='';
+$colloc_info='';
 if($lat==NULL ||$lng==NULL)
  {
    $lat_lng_empty="empty";
@@ -77,7 +83,34 @@ else
    $rowAp=$resAp->fetch_assoc();
    $nbrP=$rowAp["nbrP"];
 }
-
+if($collocation=='oui')
+  {
+   $colloc_info.="
+   <h4>Colocation<br></h4>
+   <p>Ce logement est une colocation qui peut étre partagé par ".$nbrP." personnes.</p>
+  ";
+  }
+else 
+  {
+   $colloc_info="
+   </h4>Colocation<br></h4>
+   <p>Ce logement n'est pas une colocation</p>
+  ";
+  }  
+if($pour_etudiant=='oui')
+  {
+     $etud_info.="<h4>Avis aux étudiants<br></h4>
+     <p>Ce logement peut étre louer par les étudiants.<br></p>";
+     if($etabe_proche!=''||$etabe_proche!=NULL)
+      {
+         $etud_info.="<p>Etablissement proche du logement: ".$etabe_proche."</p>";
+      }
+  }  
+else  
+{
+   $etud_info.="<h4>Avis aux étudiants<br></h4>
+     <p>Ce logement ne peut pas étre louer par les étudiants.<br></p>";
+}
 //recuperation des images du logement
 $reqI="SELECT * FROM image where CodeL=?";
 $statementI=$conn->prepare($reqI);
@@ -1784,9 +1817,18 @@ if(($rowSR=$resSR->fetch_assoc()))
                            <h4>Description</h4>
                            <p>
                            <?=$desc?>
-                           </p>
                            <br>
-                           <p>Superficie: <?=$sup?> m²</p>
+                           </p>
+                           
+                           <p style="color:blue;"><i class="fas fa-ruler-combined" style="margin-right:9px;"></i>Superficie: <?=$sup?> m² <br>
+                           <i class="fas fa-door-open" style="margin-right:4px;"></i>Nombre de chambre: <?=$nbrC?>   <br>
+                               <i style="font-size:25px;margin-right:12px;" class="fas fa-male"></i>Nombre de locataire: <?=$nbrC?>  
+                           </p>
+
+                           <br>
+                           <p><?=$colloc_info?></p>
+                           <br>
+                           <p><?=$etud_info?></p>
                         </div>
                         <hr>
                         <div class="spe-a">
