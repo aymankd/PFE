@@ -317,7 +317,7 @@ while ($rowL = mysqli_fetch_array($resL))
                   <a class="dropdown-item">
                         
                     <input type="radio" id="radio-O" name="switch-two" value="All" checked/>
-	                  <label for="radio-O">All</label>
+	                  <label for="radio-O">TOUS</label>
 	                  <input type="radio" id="radio-one" name="switch-two" value="1" />
 	                  <label for="radio-one">1</label>
 	                  <input type="radio" id="radio-two" name="switch-two" value="2" />
@@ -352,7 +352,7 @@ while ($rowL = mysqli_fetch_array($resL))
 
                   <a class="dropdown-item">
                  
-                   <input type="radio" id="rad0" name="switchs-two3" value="All" checked/> <label for="rad0">All</label>
+                   <input type="radio" id="rad0" name="switchs-two3" value="All" checked/> <label for="rad0">TOUS</label>
                    <input type="radio" id="rad1" name="switchs-two3" value="1" /> <label for="rad1">1</label>
                    <input type="radio" id="rad2" name="switchs-two3" value="2" /> <label for="rad2">2</label>
                    <input type="radio" id="rad3" name="switchs-two3" value="3" /> <label for="rad3">3</label>
@@ -384,7 +384,7 @@ while ($rowL = mysqli_fetch_array($resL))
                     <a class="dropdown-item">
                 
                       <input type="radio" id="radio-Oee" name="switch-two4" value="All" checked/>
-                      <label for="radio-Oee">All</label>
+                      <label for="radio-Oee">TOUS</label>
                       <input type="radio" id="radio-Oe" name="switch-two4" value="studio"/>
                       <label for="radio-Oe">Studio</label>
                       <input type="radio" id="radio-fin" name="switch-two4" value="Apartement" />
@@ -416,7 +416,7 @@ while ($rowL = mysqli_fetch_array($resL))
                   <a class="dropdown-item">
 
                    <input type="radio" id="allC" name="switch-Collo"  value="All" checked/>
-                   <label for="allC">touts</label>
+                   <label for="allC">TOUS</label>
                    <input type="radio" id="Cradio-Oui" name="switch-Collo" value="oui"/>
                    <label for="Cradio-Oui">OUI</label>
                    <input type="radio" id="Cradio-non" name="switch-Collo"  value="non" />
@@ -427,7 +427,7 @@ while ($rowL = mysqli_fetch_array($resL))
 
                   <a class="dropdown-item">
                    <input type="radio" id="allEtu" name="switch-Etu"  value="All" checked/>
-                   <label for="allEtu">touts</label>
+                   <label for="allEtu">TOUS</label>
                    <input type="radio" id="radio-LOui" name="switch-Etu" value="oui"/>
                    <label for="radio-LOui">OUI</label>
                    <input type="radio" id="radio-Lnon" name="switch-Etu"  value="non" />
@@ -509,7 +509,7 @@ while ($rowL = mysqli_fetch_array($resL))
                         <a class="dropdown-item">
                         
                         <input type="radio" id="radio-OS" name="switch-twoS" value="All" checked/>
-	                         	<label for="radio-OS">All</label>
+	                         	<label for="radio-OS">TOUS</label>
 	                        	<input type="radio" id="radio-oneS" name="switch-twoS" value="1" />
 	                         	<label for="radio-oneS">1</label>
 	                         	<input type="radio" id="radio-twoS" name="switch-twoS" value="2" />
@@ -529,7 +529,7 @@ while ($rowL = mysqli_fetch_array($resL))
 
                   <a class="dropdown-item">
                  
-                  <input type="radio" id="rad0S" name="switchs-two3S" value="All" checked/> <label for="rad0S">All</label>
+                  <input type="radio" id="rad0S" name="switchs-two3S" value="All" checked/> <label for="rad0S">TOUS</label>
                   <input type="radio" id="rad1S" name="switchs-two3S" value="1" /> <label for="rad1S">1</label>
                   <input type="radio" id="rad2S" name="switchs-two3S" value="2" /> <label for="rad2S">2</label>
                   <input type="radio" id="rad3S" name="switchs-two3S" value="3" /> <label for="rad3S">3</label>
@@ -545,7 +545,7 @@ while ($rowL = mysqli_fetch_array($resL))
                   <a class="dropdown-item">
                 
                   <input type="radio" id="radio-OeeS" name="switch-two4S" value="All" checked/>
-                       <label for="radio-OeeS">All</label>
+                       <label for="radio-OeeS">TOUS</label>
                   <input type="radio" id="radio-OeS" name="switch-two4S" value="studio"/>
                        <label for="radio-OeS">Studio</label>
                       <input type="radio" id="radio-finS" name="switch-two4S" value="Apartement" />
@@ -562,7 +562,7 @@ while ($rowL = mysqli_fetch_array($resL))
 
                     <a class="dropdown-item">
                       <input type="radio" id="CollocRadMA" name="CollocRadM" value="All" checked/>
-                      <label for="CollocRadMA">ALL</label>
+                      <label for="CollocRadMA">TOUS</label>
                       <input type="radio" id="CollocRadMO" name="CollocRadM" value="oui"/>
                       <label for="CollocRadMO">OUI</label>
                       <input type="radio" id="CollocRadMN" name="CollocRadM"  value="non" />
@@ -573,7 +573,7 @@ while ($rowL = mysqli_fetch_array($resL))
 
                     <a class="dropdown-item">
                       <input type="radio" id="CollocEtuMA" name="CollocEtuM" value="All" checked/>
-                      <label for="CollocEtuMA">ALL</label>
+                      <label for="CollocEtuMA">TOUS</label>
                       <input type="radio" id="CollocEtuMO" name="CollocEtuM" value="oui"/>
                       <label for="CollocEtuMO">OUI</label>
                       <input type="radio" id="CollocEtuMN" name="CollocEtuM"  value="non" />
@@ -746,22 +746,25 @@ while ($rowL = mysqli_fetch_array($resL))
                      else if(TL_Type=='Apartement') 
                        $("#radio-finS").prop("checked", true);  
 
-                       if(colloc=='All')
-                       $("#CollocRadMA").prop("checked", true);
-                     else if(colloc=='oui') 
-                       $("#CollocRadMO").prop("checked", true); 
-                     else if(colloc=='non') 
-                       $("#CollocRadMN").prop("checked", true);
-
-                    
-                       
-
                        if(etu_prch=='All')
+                      {
                        $("#CollocEtuMA").prop("checked", true);
+                       document.getElementById('etable_mdl').style.display='none';
+                       document.getElementById('etable_mdl_ttl').style.display='none';
+                      } 
                      else if(etu_prch=='oui') 
+                      {
                        $("#CollocEtuMO").prop("checked", true); 
-                     else if(etu_prch=='non') 
-                       $("#CollocEtuMN").prop("checked", true);
+                       document.getElementById('etable_mdl').style.display='block';
+                       document.getElementById('etable_mdl_ttl').style.display='block';
+                      } 
+                   else if(etu_prch=='non') 
+                    {
+                     $("#CollocEtuMN").prop("checked", true);
+                     document.getElementById('etable_mdl').style.display='none';
+                       document.getElementById('etable_mdl_ttl').style.display='none';
+
+                    }
 
 
                        
@@ -868,22 +871,25 @@ $(document).ready(function(){
                        $("#radio-fin").prop("checked", true);  
 
 
-                     if(collocS=='All')
-                       $("#allC").prop("checked", true);
-                     else if(collocS=='oui') 
-                       $("#Cradio-Oui").prop("checked", true); 
-                     else if(collocS=='non') 
-                       $("#Cradio-non").prop("checked", true);
-
-                    
-                       
-
-                      if(etu_prchS=='All')
+                     
+                    if(etu_prchS=='All')
+                     {
                        $("#allEtu").prop("checked", true);
-                     else if(etu_prchS=='oui') 
-                       $("#radio-LOui").prop("checked", true); 
-                     else if(etu_prchS=='non') 
-                       $("#radio-Lnon").prop("checked", true);
+                       document.getElementById('etable').style.display='none';
+                       document.getElementById('titre_etable').style.display='none';
+                     }  
+                   else if(etu_prchS=='oui') 
+                     {
+                      $("#radio-LOui").prop("checked", true); 
+                      document.getElementById('etable').style.display='block';
+                      document.getElementById('titre_etable').style.display='block';
+                     }
+                   else if(etu_prchS=='non') 
+                    {
+                     $("#radio-Lnon").prop("checked", true);
+                     document.getElementById('etable').style.display='none';
+                     document.getElementById('titre_etable').style.display='none';
+                    } 
 
                     $("#Imin").val(MinS);  
                     $("#Imax").val(MaxS);
@@ -936,7 +942,14 @@ $(window).on('resize', function() {
 
 <script>
  $(document).ready(function(){  
-  
+        document.getElementById('etable').style.display='none';
+        document.getElementById('titre_etable').style.display='none';
+
+        document.getElementById('etable_mdl').style.display='none';
+        document.getElementById('etable_mdl_ttl').style.display='none';
+
+
+
       $('#radio-Lnon').click(function(){
         document.getElementById('etable').style.display='none';
         document.getElementById('titre_etable').style.display='none';
@@ -948,8 +961,8 @@ $(window).on('resize', function() {
       });
 
       $('#allEtu').click(function(){
-        document.getElementById('etable').style.display='block';
-        document.getElementById('titre_etable').style.display='block';
+        document.getElementById('etable').style.display='none';
+        document.getElementById('titre_etable').style.display='none';
       });
 
 
@@ -966,8 +979,8 @@ $(window).on('resize', function() {
       });
 
       $('#CollocEtuMA').click(function(){
-        document.getElementById('etable_mdl').style.display='block';
-        document.getElementById('etable_mdl_ttl').style.display='block';
+        document.getElementById('etable_mdl').style.display='none';
+        document.getElementById('etable_mdl_ttl').style.display='none';
       });
     });    
 
