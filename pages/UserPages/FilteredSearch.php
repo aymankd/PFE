@@ -22,31 +22,62 @@ $Pmax=$_POST['Pmax'];
 $NP=$_POST['NP'];
 $NC=$_POST['NC'];
 $TL=$_POST['TL'];
+$CLC=$_POST['colloc'];
+$EPR=$_POST['etu_prch'];
+$ETB=$_POST['etab'];
+//echo "Min:$Pmin ,  MAX:$Pmax  , NP:$NP  , NC:$NC ,TL:$TL, CLC:$CLC , EPR:$EPR  , ETB:$ETB ";
 
-$reqR="SELECT * from logement where(status='valide') and (SL_adr_nom like '%$rech%') and (prix between $Pmin and $Pmax)";
-if($NP!="All")
- {
-   $reqR=$reqR." AND ((CodeL in (SELECT CodeS from studio where nbrP=$NP )) or (CodeL in (SELECT Codeapp from appartement where nbrP=$NP)))";
- }
-if($TL!="All")
- {
-   if($TL=="studio")
-     {
-       $reqR=$reqR." AND (type='Studio')";
-     }
-   else
-     {
-       $reqR=$reqR." AND (type='Appartement')";
-       if($NC!="All")
-       	 {
-       	 	$reqR=$reqR." AND (CodeL in (SELECT Codeapp from appartement where nbrC=$NC))";
-       	 }
-     } 
- }
-if($NC!="All")
- {
-   $reqR=$reqR." AND (CodeL in (SELECT Codeapp from appartement where nbrC=$NC))";
- } 
+$reqR="SELECT * from logement where (`status`='valide') and (`SL_adr_nom` like '%$rech%') and (`prix` between $Pmin and $Pmax)";
+
+    if($NP!="All")
+    {
+      $reqR=$reqR." AND ( (CodeL in (SELECT CodeS from studio where nbrP=$NP )) or (CodeL in (SELECT Codeapp from appartement where nbrP=$NP)))";
+    }
+    if($TL!="All")
+    {
+      if($TL=="studio")
+        {
+          $reqR=$reqR." AND (type='studio')";
+        }
+      else if($TL=="Appartement")
+        {
+          $reqR=$reqR." AND (type='Appartement')";
+          if($NC=="All")
+            {
+              $reqR=$reqR." AND (CodeL in (SELECT Codeapp from appartement where nbrC=$NC))";
+            }
+        } 
+    }
+    if($NC!="All")
+            {
+              $reqR=$reqR." AND (CodeL in (SELECT Codeapp from appartement where nbrC=$NC))";
+            }
+    
+    if($CLC!="All")  
+    {
+      $reqR=$reqR." AND (collocation='$CLC')";
+    }
+    if($EPR=="oui")  
+    {
+      $reqR=$reqR." AND (pour_etudiant='oui')";
+      if($ETB!="")  
+       {
+         $reqR=$reqR." AND (etabe_proche='$ETB')";
+       } 
+     
+    }
+    else if($EPR=="non")
+    {
+      $reqR=$reqR." AND (pour_etudiant='non')";
+    }
+    else if($EPR=="All")
+    {
+      $reqR=$reqR." AND (pour_etudiant='non' or pour_etudiant='oui' )";
+    }
+
+
+    
+     
 $statementR=$conn->prepare($reqR);
 //$statement->bind_param("s",$Srech);
 $statementR->execute();
