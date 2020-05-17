@@ -26,7 +26,51 @@ $rowIU=$resIU->fetch_assoc();
 if($rowIU['imageP']!=NULL)
   $src="../profilpic.php?UN=".$USN;
 else
-	$src="../../../Resourse/imgs/ProfileHolder.jpg";
+  $src="../../../Resourse/imgs/ProfileHolder.jpg";
+$username=$rowIU['username'];
+$email=$rowIU['email'];
+$password_conf=$rowIU['pass'];
+$id=$rowIU['CodeU'];
+
+$req="SELECT * FROM `admin` WHERE CodeAd=?";
+$statement=$conn->prepare($req);
+$statement->bind_param("i",$id);
+$statement->execute();
+$res=$statement->get_result();
+$row=$res->fetch_assoc();
+$nom=$row['nom'];
+$prenom=$row['prenom'];
+$CIN=$row['CIN'];
+  if(isset($_POST['modif']))
+   {$nomin=$_POST['nom'];
+    $prenomin=$_POST['prenom'];
+    $CINin=$_POST['CIN'];
+    $usernamein=$_POST['username'];
+    $emailin=$_POST['email'];
+    $passwordin=$_POST['password'];
+
+    $passwordin=sha1($passwordin);
+    if($passwordin==$password_conf)
+    {if ( !(($usernamein==$username) && ($nomin==$nom) && ($prenomin==$prenom) && ($CINin==$CIN) && ($emailin==$email)) )
+      {
+        $req="UPDATE `utilisateur` SET `username`=?,`email`=? WHERE CodeU=?";
+        $statement=$conn->prepare($req);
+        $statement->bind_param("sss",$usernamein,$emailin,$id);
+        $statement->execute();
+        $req="UPDATE `admin` SET `nom`=?,`prenom`=?,`CIN`=? WHERE CodeAd=?";
+        $statement=$conn->prepare($req);
+        $statement->bind_param("ssss",$nomin,$prenomin,$CINin,$id);
+        $statement->execute();     
+        session_regenerate_id();
+        $_SESSION['username'] = $usernamein;
+        session_write_close();
+        header("Location: GestionAdmin.php");
+      }
+    }
+    else
+    echo "erreur en password entrer ";
+    
+   }
 
 ?>
 <html lang="en">
@@ -35,6 +79,7 @@ else
     <!--  This file has been downloaded from https://bootdey.com  -->
     <!--  All snippets are MIT license https://bootdey.com/license -->
     <title>Bootdey.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css'>
     <style type="text/css">
@@ -215,7 +260,6 @@ a.list-group-item, .list-group-item-action {
     background-color: transparent;
     content: '';
 }
-
 .penclass {
     background-color: #464dee;;
     border-radius: 100px;
@@ -238,12 +282,29 @@ margin-top: 60px;
 #file{
   display: none;
 }
+
+
+#file{
+	width: 250px;
+	height: 250px;
+  padding-bottom:25px;
+}
+figure figcaption {
+    position: absolute;
+    bottom: 0;
+    color: #fff;
+    width: 100%;
+    padding-left: 9px;
+    padding-bottom: 5px;
+    text-shadow: 0 0 10px #000;
+}
     </style>
 </head>
 <body>
 <div class="container mt-5">
     <div class="row">
         <div class="col-lg-4 pb-5">
+            <!-- Account Sidebar-->
             <!-- Account Sidebar-->
             <div class="author-card pb-3">
                 <div class="author-card-cover"  style="background-image: url(https://demo.createx.studio/createx-html/img/widgets/author/cover.jpg);"><a class="btn btn-style-1 btn-white btn-sm" href="#" data-toggle="tooltip" title="" data-original-title="You currently have 290 Reward points to spend"><i class="fa fa-award text-md"></i>&nbsp;User</a></div>
@@ -255,57 +316,72 @@ margin-top: 60px;
                         <label for="file" class="pen"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2" style="padding: 3px;margin-left: 1px;"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></label>
                         <input type="file" id="file" name="upload_image" accept="image/*" /> 
                     </div>
+                    
                     <div class="author-card-details" style="z-index:0;">
+                    
                         <h5 class="author-card-name text-lg" style="z-index:0;">Hemdan to9ba</h5><span class="author-card-position">Joined February 06, 2017</span>
                     </div>
+                    
                 </div>
             </div>
             <div class="wizard">
-                <nav class="list-group list-group-flush">
-                   
-                   
-                    <a class="list-group-item active" ><i class="fe-icon-map-pin text-muted"></i>Information génerale</a>
-                    <a class="list-group-item " href="GestionAdmin2.php"><i class="fe-icon-user text-muted"></i>Sécurité </a>
+                <nav class="list-group list-group-flush"> 
+                  <a class="list-group-item active " href="GestionAdmin.php"><i class="fe-icon-user text-muted"></i>Information génerale</a>
+                  <a class="list-group-item " href="GestionAdmin2.php"><i class="fe-icon-map-pin text-muted"></i>Sécurité</a>
                 </nav>
             </div>
         </div>
         <!-- Profile Settings-->
         <div class="col-lg-8 pb-5">
-            <form class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="account-fn">User Name</label>
-                        <input class="form-control" type="text" id="account-fn" value="daniel" required="">
-                    </div>
-                </div>
-               
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="account-pass">New Password</label>
-                        <input class="form-control" type="password" id="account-pass">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="account-confirm-pass">Confirm Password</label>
-                        <input class="form-control" type="password" id="account-confirm-pass">
-                    </div>
-                </div>
-                <div class="col-12">
-                    <hr class="mt-2 mb-3">
-                    <div class="d-flex flex-wrap justify-content-between align-items-center">
-                        <div class="custom-control custom-checkbox d-block">
-                            <input class="custom-control-input" type="checkbox" id="subscribe_me" checked="">
-                            <label class="custom-control-label" for="subscribe_me">Confirmation</label>
-                        </div>
-                        <button class="btn btn-style-1 btn-primary" type="button" data-toast="" data-toast-position="topRight" data-toast-type="success" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!" data-toast-message="Your profile updated successfuly.">Enregister</button>
-                    </div>
-                </div>
+            <form class="row" method="POST">
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="account-fn">nom</label>
+                      <input class="form-control" type="text" id="account-fn" name="nom" value="<?=$nom;?>" required="">
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="account-fn">prenom</label>
+                      <input class="form-control" type="text" id="account-fn" name="prenom" value="<?=$prenom;?>" required="">
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="account-fn">CIN</label>
+                      <input class="form-control" type="text" id="account-fn" name="CIN" value="<?=$CIN;?>" required="">
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="account-fn">nom d'utilisateur</label>
+                      <input class="form-control" type="text" id="account-fn" name="username" value="<?=$username;?>" required="">
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="account-ln">E-mail</label>
+                      <input class="form-control" type="email" id="account-ln" name="email" value="<?=$email;?>" required="">
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="account-email">mot de pass de confirmation</label>
+                      <input class="form-control" type="password" name="password" id="account-email" >
+                  </div>
+              </div>
+              <div class="col-12">
+                  <hr class="mt-2 mb-3">
+                  <div class="d-flex flex-wrap justify-content-between align-items-center">
+                      <label for="account-email"><br></label>
+                      <button class="btn btn-style-1 btn-primary" name="modif" data-toast="" data-toast-position="topRight" data-toast-type="success" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!" data-toast-message="Your profile updated successfuly.">Enregister</button>
+                  </div>
+              </div>
             </form>
         </div>
     </div>
 </div>
-<div id="uploadimageModal" class="modal" role="dialog">
+    <div id="uploadimageModal" class="modal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">

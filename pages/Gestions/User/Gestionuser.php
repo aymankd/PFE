@@ -26,7 +26,35 @@ $rowIU=$resIU->fetch_assoc();
 if($rowIU['imageP']!=NULL)
   $src="../profilpic.php?UN=".$USN;
 else
-	$src="../../../Resourse/imgs/ProfileHolder.jpg";
+  $src="../../../Resourse/imgs/ProfileHolder.jpg";
+$username=$rowIU['username'];
+$email=$rowIU['email'];
+$password_conf=$rowIU['pass'];
+$id=$rowIU['CodeU'];
+
+  if(isset($_POST['modif']))
+   {
+    $usernamein=$_POST['username'];
+    $emailin=$_POST['email'];
+    $passwordin=$_POST['password'];
+    $passwordin=sha1($passwordin);
+    if($passwordin==$password_conf)
+    {if ( !(($usernamein==$username) && ($emailin==$email)) )
+      {
+        $req="UPDATE `utilisateur` SET `username`=?,`email`=? WHERE CodeU=?";
+        $statement=$conn->prepare($req);
+        $statement->bind_param("sss",$usernamein,$emailin,$id);
+        $statement->execute();
+        session_regenerate_id();
+        $_SESSION['username'] = $usernamein;
+        session_write_close();
+        header("Location: Gestionuser.php");
+      }
+    }
+    else
+    echo "erreur en password entrer ";
+    
+   }
 
 ?>
 <html lang="en">
@@ -36,7 +64,7 @@ else
     <!--  All snippets are MIT license https://bootdey.com/license -->
     <title>Bootdey.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet' href='https://mythemestore.com/friend-finder/css/bootstrap.min.css'>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css'>
     <style type="text/css">
     	body{
@@ -290,23 +318,23 @@ figure figcaption {
         </div>
         <!-- Profile Settings-->
         <div class="col-lg-8 pb-5">
-            <form class="row">
+            <form class="row" method="POST">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="account-fn">Prénom</label>
-                        <input class="form-control" type="text" id="account-fn" value="NABIL" required="">
+                        <label for="account-fn">nom d'utilisateur</label>
+                        <input class="form-control" type="text" id="account-fn" name="username" value="<?=$username;?>" required="">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="account-ln">Nom</label>
-                        <input class="form-control" type="text" id="account-ln" value="BAKOUR" required="">
+                        <label for="account-ln">E-mail</label>
+                        <input class="form-control" type="email" id="account-ln" name="email" value="<?=$email;?>" required="">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="account-email">E-mail</label>
-                        <input class="form-control" type="email" id="account-email" value="BAKOUR.NABIL@example.com" disabled="">
+                        <label for="account-email">mot de pass de confirmation</label>
+                        <input class="form-control" type="password" name="password" id="account-email" >
                     </div>
                 </div>
              
@@ -314,11 +342,8 @@ figure figcaption {
                 <div class="col-12">
                     <hr class="mt-2 mb-3">
                     <div class="d-flex flex-wrap justify-content-between align-items-center">
-                        <div class="custom-control custom-checkbox d-block">
-                            <input class="custom-control-input" type="checkbox" id="subscribe_me" checked="">
-                            <label class="custom-control-label" for="subscribe_me">Confirmation</label>
-                        </div>
-                        <button class="btn btn-style-1 btn-primary" type="button" data-toast="" data-toast-position="topRight" data-toast-type="success" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!" data-toast-message="Your profile updated successfuly.">Enregister</button>
+                        <label for="account-email"><br></label>
+                        <button class="btn btn-style-1 btn-primary" name="modif" data-toast="" data-toast-position="topRight" data-toast-type="success" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!" data-toast-message="Your profile updated successfuly.">Enregister</button>
                     </div>
                 </div>
             </form>

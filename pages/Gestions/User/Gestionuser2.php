@@ -27,6 +27,30 @@ if($rowIU['imageP']!=NULL)
   $src="../profilpic.php?UN=".$USN;
 else
 	$src="../../../Resourse/imgs/ProfileHolder.jpg";
+  $password_conf=$rowIU['pass'];
+  $id=$rowIU['CodeU'];
+  if(isset($_POST['modif']))
+  {
+    $newpass=$_POST['newpass'];
+    $confnewpass=$_POST['confnewpass'];
+    $oldpass=$_POST['oldpass'];
+    $oldpass=sha1($oldpass);
+    if($oldpass==$password_conf)
+    {
+      if($newpass==$confnewpass)
+        {
+          $newpass=sha1($newpass);
+          $req="UPDATE `utilisateur` SET `pass`=? WHERE CodeU=?";
+          $statement=$conn->prepare($req);
+          $statement->bind_param("ss",$newpass,$id);
+          $statement->execute();
+          header("Location: Gestionuser2.php");
+        }else
+        echo"erreur nouveau mot de passe";
+    }else
+    echo"ancien mot de passe erreur";
+  }
+
 
 ?>
 <html lang="en">
@@ -36,7 +60,7 @@ else
     <!--  All snippets are MIT license https://bootdey.com/license -->
     <title>Bootdey.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet' href='https://mythemestore.com/friend-finder/css/bootstrap.min.css'>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css'>
     <style type="text/css">
     	body{
@@ -271,34 +295,30 @@ margin-top: 60px;
         </div>
         <!-- Profile Settings-->
         <div class="col-lg-8 pb-5">
-            <form class="row">
+            <form class="row" method="POST">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="account-fn">User Name</label>
-                        <input class="form-control" type="text" id="account-fn" value="t9i9iba" required="">
+                        <label for="account-fn">nouveau mot de pass</label>
+                        <input class="form-control" type="password" name="newpass" id="account-fn" required="">
                     </div>
                 </div>
                
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="account-pass">New Password</label>
-                        <input class="form-control" type="password" id="account-pass">
+                        <label for="account-pass">confirmation du nouveau mot de pass</label>
+                        <input class="form-control" type="password" name="confnewpass" id="account-pass">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="account-confirm-pass">Confirm Password</label>
-                        <input class="form-control" type="password" id="account-confirm-pass">
+                        <label for="account-confirm-pass">ancien mot de pass</label>
+                        <input class="form-control" type="password" name="oldpass" id="account-confirm-pass">
                     </div>
                 </div>
                 <div class="col-12">
                     <hr class="mt-2 mb-3">
                     <div class="d-flex flex-wrap justify-content-between align-items-center">
-                        <div class="custom-control custom-checkbox d-block">
-                            <input class="custom-control-input" type="checkbox" id="subscribe_me" checked="">
-                            <label class="custom-control-label" for="subscribe_me">Confirmation</label>
-                        </div>
-                        <button class="btn btn-style-1 btn-primary" type="button" data-toast="" data-toast-position="topRight" data-toast-type="success" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!" data-toast-message="Your profile updated successfuly.">Enregister</button>
+                        <button class="btn btn-style-1 btn-primary" name="modif" data-toast="" data-toast-position="topRight" data-toast-type="success" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!" data-toast-message="Your profile updated successfuly.">Enregister</button>
                     </div>
                 </div>
             </form>
