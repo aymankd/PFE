@@ -764,7 +764,7 @@ while($rowR3= mysqli_fetch_array($resR3))
                     <?=$ProfileP?>
                   </a>
                   <form method="post" class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item">
+                    <a class="dropdown-item" href="../Gestions/User/Gestionuser.php">
                       <i class="mdi mdi-account text-primary"></i>
                       Mon Compte
                     </a>

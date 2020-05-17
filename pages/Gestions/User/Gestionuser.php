@@ -24,7 +24,7 @@ $statementIU->execute();
 $resIU=$statementIU->get_result();
 $rowIU=$resIU->fetch_assoc();
 if($rowIU['imageP']!=NULL)
-  $src="profilpic.php?UN=".$USN;
+  $src="../profilpic.php?UN=".$USN;
 else
 	$src="../../../Resourse/imgs/ProfileHolder.jpg";
 
@@ -391,18 +391,14 @@ figure figcaption {
       formData.append('file', $('#file')[0].files[0]);
 
       $.ajax({  
-          url:"updateImage.php",  
+          url:"../updateImage.php",  
           method:"POST",
           data:{image:resp,iduser:idUser},
           success:function(data){
             $('#uploadimageModal').modal('hide');
             $('#item-img-output').attr('src', resp);
-            console.log(data);
           }
           });
-      //location.reload();
-			//$('#item-img-output').attr('src', resp);
-			//
 		});
   });
   $(".vanilla-rotate").on("click", function(event) {

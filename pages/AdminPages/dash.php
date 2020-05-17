@@ -314,7 +314,11 @@ while ($row = mysqli_fetch_array($res))
                     <?=$ProfileP?>
                   </a>
                   <form method="post" class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                      <a class="dropdown-item">
+				  	  <a href="../Gestions/Admin/gestionAdmin.php" class="dropdown-item">
+                        <i class="mdi mdi-account text-primary"></i>
+                        Mon Compte
+                      </a>
+					  <a class="dropdown-item">
                         <i class="mdi mdi-settings text-primary"></i>
                         Settings
                       </a>

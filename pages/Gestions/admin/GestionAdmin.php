@@ -1,13 +1,42 @@
 <?php
+session_start();
+
+if( !isset($_SESSION['username']) || $_SESSION['type'] != "admin" )
+{
+  header("location:../../../indexx.php");
+}
+
+$servername = "localhost";
+$userservername = "root";
+$database = "pfe";
+// Create connection
+$conn = new mysqli($servername, $userservername,"", $database);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+$USN=$_SESSION['username'];
+$reqIU="SELECT * FROM utilisateur WHERE username=?";
+$statementIU=$conn->prepare($reqIU);
+$statementIU->bind_param("s",$USN);
+$statementIU->execute();
+$resIU=$statementIU->get_result();
+$rowIU=$resIU->fetch_assoc();
+if($rowIU['imageP']!=NULL)
+  $src="../profilpic.php?UN=".$USN;
+else
+	$src="../../../Resourse/imgs/ProfileHolder.jpg";
+
 ?>
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>ESRENT</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!--  This file has been downloaded from https://bootdey.com  -->
+    <!--  All snippets are MIT license https://bootdey.com/license -->
+    <title>Bootdey.com</title>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css'>
     <style type="text/css">
     	body{
     background:#eee;    
@@ -55,8 +84,6 @@
   z-index: 5;
 }
 .author-card .author-card-profile .author-card-avatar, .author-card .author-card-profile .author-card-details {
-    
-
   display: table-cell;
   vertical-align: middle;
 }
@@ -212,39 +239,33 @@ margin-top: 60px;
   display: none;
 }
     </style>
-
-
 </head>
 <body>
 <div class="container mt-5">
     <div class="row">
         <div class="col-lg-4 pb-5">
             <!-- Account Sidebar-->
-            <div class="author-card pb-3"  style="z-index:0;">
-                <div class="author-card-cover" style="background-image: url(https://demo.createx.studio/createx-html/img/widgets/author/cover.jpg);"><a class="btn btn-style-1 btn-white btn-sm" href="#" data-toggle="tooltip" title="" data-original-title="You currently have 290 Reward points to spend"><i class="fa fa-award text-md"></i>&nbsp;Admin</a></div>
-                <div class="author-card-profile" >
-                     
-                    <div class="author-card-avatar" style="z-index:0;">
-                    
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Daniel Adams" class="target" style="z-index:-1;">
+            <div class="author-card pb-3">
+                <div class="author-card-cover"  style="background-image: url(https://demo.createx.studio/createx-html/img/widgets/author/cover.jpg);"><a class="btn btn-style-1 btn-white btn-sm" href="#" data-toggle="tooltip" title="" data-original-title="You currently have 290 Reward points to spend"><i class="fa fa-award text-md"></i>&nbsp;User</a></div>
+                <div class="author-card-profile" > 
+                    <div class="author-card-avatar" style="z-index:0;"> 
+                        <img id="item-img-output" src="<?=$src ;?>" alt="Daniel Adams" class="target" style="z-index:-1;">
                     </div>
                     <div class="penclass" style="z-index:1;" >
-                    <label for="file" class="pen"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2" style="padding: 3px;margin-left: 1px;"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></label>
-                    <input type="file" id="file" /> 
-                   </div>
-                    
+                        <label for="file" class="pen"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2" style="padding: 3px;margin-left: 1px;"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></label>
+                        <input type="file" id="file" name="upload_image" accept="image/*" /> 
+                    </div>
                     <div class="author-card-details" style="z-index:0;">
-                    
                         <h5 class="author-card-name text-lg" style="z-index:0;">Hemdan to9ba</h5><span class="author-card-position">Joined February 06, 2017</span>
                     </div>
-                    
                 </div>
             </div>
             <div class="wizard">
                 <nav class="list-group list-group-flush">
                    
-                <a class="list-group-item active " href="GestionAdmin"><i class="fe-icon-user text-muted"></i>Information génerale</a>
-                    <a class="list-group-item " href="GestionAdmin2.php"><i class="fe-icon-map-pin text-muted"></i>Sécurité</a>
+                   
+                    <a class="list-group-item active" ><i class="fe-icon-map-pin text-muted"></i>Information génerale</a>
+                    <a class="list-group-item " href="GestionAdmin2.php"><i class="fe-icon-user text-muted"></i>Sécurité </a>
                 </nav>
             </div>
         </div>
@@ -253,24 +274,23 @@ margin-top: 60px;
             <form class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="account-fn">Prénom</label>
-                        <input class="form-control" type="text" id="account-fn" value="Hemdan" required="">
+                        <label for="account-fn">User Name</label>
+                        <input class="form-control" type="text" id="account-fn" value="daniel" required="">
+                    </div>
+                </div>
+               
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="account-pass">New Password</label>
+                        <input class="form-control" type="password" id="account-pass">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="account-ln">Nom</label>
-                        <input class="form-control" type="text" id="account-ln" value="to9ba" required="">
+                        <label for="account-confirm-pass">Confirm Password</label>
+                        <input class="form-control" type="password" id="account-confirm-pass">
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="account-email">E-mail</label>
-                        <input class="form-control" type="email" id="account-email" value="Hemdan.to9ba@example.com" disabled="">
-                    </div>
-                </div>
-             
-           
                 <div class="col-12">
                     <hr class="mt-2 mb-3">
                     <div class="d-flex flex-wrap justify-content-between align-items-center">
@@ -285,33 +305,86 @@ margin-top: 60px;
         </div>
     </div>
 </div>
-
-<script src="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-	
-</script>
-
-<script>
-    $(function () {
-
-"use strict";
-
-function url(input) {
-    if (input.files && input.files[0]) {
-
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $(".target").attr("src", e.target.result);
-        };
-
-        reader.readAsDataURL(input.files[0]);
-
-    }
-}
-$("#file").change(function () {
-    url(this);
-});
-});
-</script>
+<div id="uploadimageModal" class="modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Upload & Crop Image</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-8 text-center">
+                <div id="image_demo" style="width:350px; margin-top:30px"></div>
+              </div>
+              <div class="col-md-4" style="padding-top:30px;">
+                <br />
+                <button class="vanilla-rotate" data-deg="-90">Rotate Left</button>
+                <br />
+                <br/>
+                <button id="cropImageBtn" class="btn btn-success crop_image">Crop & Upload Image</button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.js'></script>
+  <script src='https://mythemestore.com/friend-finder/js/bootstrap.min.js'></script>
+  <script >
+    vanilla = $("#image_demo").croppie({
+	enableExif: true,
+	viewport: { width: 200, height: 200, type: "circle" }, // circle or square
+	boundary: { width: 300, height: 300 },
+	showZoomer: false,
+	enableOrientation: true
+  });
+  $("#file").on("change", function() {
+	var reader = new FileReader();
+	reader.onload = function(event) {
+	  vanilla
+		.croppie("bind", {
+		  url: event.target.result
+		})
+		.then(function() {
+		  // console.log('jQuery bind complete');
+		});
+	};
+	reader.readAsDataURL(this.files[0]);
+	$("#uploadimageModal").modal("show");
+  });
+  $("#cropImageBtn").click(function(event) {
+	vanilla.croppie('result', {
+			type: 'base64',
+			format: 'jpeg'
+			
+		}).then(function (resp) {
+      idUser=<?=$_SESSION['usercode'];?>;
+
+      var formData = new FormData();
+      formData.append('file', $('#file')[0].files[0]);
+
+      $.ajax({  
+          url:"../updateImage.php",  
+          method:"POST",
+          data:{image:resp,iduser:idUser},
+          success:function(data){
+            $('#uploadimageModal').modal('hide');
+            $('#item-img-output').attr('src', resp);
+          }
+          });
+		});
+  });
+  $(".vanilla-rotate").on("click", function(event) {
+	vanilla.rotate(parseInt($(this).data("deg")));
+  });
+
+  </script>
+
 </html>
