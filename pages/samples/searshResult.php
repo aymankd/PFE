@@ -434,7 +434,7 @@ while ($rowL = mysqli_fetch_array($resL))
                    <label for="radio-Lnon">NON</label>
                   </a>
                   <br>
-                  <p id='titre_etable' class="mb-0 font-weight-medium float-left dropdown-header">proche de quelle etablisement</p> <br><br>
+                  <p id='titre_etable' class="mb-0 font-weight-medium float-left dropdown-header">proche de quel etablisement</p> <br><br>
 
                   <a class="dropdown-item">
                   <span contentEditable="true" name='etable' id="etable" class="form-control" required></span>
@@ -580,7 +580,7 @@ while ($rowL = mysqli_fetch_array($resL))
                       <label for="CollocEtuMN">NON</label>
                     </a>
                     <br>
-                    <p id="etable_mdl_ttl" class="mb-0 font-weight-medium float-left dropdown-header">proche de quelle etablisement</p> <br><br>
+                    <p id="etable_mdl_ttl" class="mb-0 font-weight-medium float-left dropdown-header">proche de quel etablisement</p> <br><br>
 
                     <a class="dropdown-item">
                      <span contentEditable="true" id="etable_mdl" name="etable_mdl" class="form-control" required></span>

@@ -2088,8 +2088,8 @@ if(($rowSR=$resSR->fetch_assoc()))
          </div>
       </div>
       <div class="modal-footer">
-        <button id="rate-btn" type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="rate-btn" type="button" class="btn btn-primary">Confirmer</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
       </div>
     </div>
   </div>

@@ -36,8 +36,66 @@ $conn = new mysqli($servername, $userservername,"", $database);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
+$codeU = $_SESSION['usercode'];
+//Notifications de demande d'avis:
+  $user_notis='';
+  $avis_modal='';
+  $nbr_nts=0;
+  $reqNAV="SELECT * from avis_clients where CodeU=?";
+  $statementNAV=$conn->prepare($reqNAV);
+  $statementNAV->bind_param("i",$codeU);
+  $statementNAV->execute();
+  $resNAV=$statementNAV->get_result();
+  if(!($rowNAV=$resNAV->fetch_assoc()))
+   {
+     $user_notis.="<a id='donner_avis' data-toggle='modal' data-target='#modalLikeThis2' class='dropdown-item preview-item'>
+     <div class='preview-thumbnail'>
+       <div class='preview-icon bg-success'>
+        <i class='fas fa-map-marked-alt'></i>
+       </div>
+     </div>
+     <div class='preview-item-content'>
+       <h6 class='preview-subject font-weight-normal'>Vous trouvez notre site utile? Laisser nous un avis</h6>
+     </div>
+   </a>";
+   $nbr_nts=$nbr_nts+1;
+   }
+   if($user_notis!='')
+    {
+      $avis_modal.="
+                      <div class='modal' id='modalLikeThis2' tabindex='-1' role='dialog' >
+                      
+                       <div class='modal-dialog-centered' role='document' style='width:40%;margin-left:30%;margin-top:2%;'>
+      
+                          <div class='modal-content'>
+                           
+                           <div class='modal-body' >
+                            
+                             <br>
+                              <div class='avis'>
+                                <p for='comment' style=''>Donner un avis</p>
+                                <textarea name='the-textarea' id='the-textarea' maxlength='300' placeholder='laisser nous savoir se que vous penssez de notre site...' autofocus ></textarea>
+                                <div id='the-count'>
+                                  <span id='current'>0</span>
+                                  <span id='maximum'>/ 300</span>
+                                </div>
+              
+                              </div>
+                             
+                           </div>
+                            <div class='modal-footer'>
+                              <button type='submit' id='env_avis' type='button' class='btn btn-primary'>Envoyer</button>
+                              <button type='cls_avis' class='btn btn-secondary' data-dismiss='modal'>Annuler</button>
+                            </div>
+                             
+                          </div>
+                        </div>
+                        
+                      </div>
+                    ";
+    }
 
-
+    
 
 //remplisage des données d'utilisateur courrant
 $src="";
@@ -688,45 +746,7 @@ while($rowR3= mysqli_fetch_array($resR3))
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                   <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <div class="preview-icon bg-success">
-                          <i class="mdi mdi-information mx-0"></i>
-                        </div>
-                    </div>
-                    <div class="preview-item-content">
-                        <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                        <p class="font-weight-light small-text mb-0 text-muted">
-                          Just now
-                        </p>
-                    </div>
-                  </a>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <div class="preview-icon bg-warning">
-                          <i class="mdi mdi-settings mx-0"></i>
-                        </div>
-                    </div>
-                    <div class="preview-item-content">
-                        <h6 class="preview-subject font-weight-normal">Settings</h6>
-                        <p class="font-weight-light small-text mb-0 text-muted">
-                          Private message
-                        </p>
-                    </div>
-                  </a>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <div class="preview-icon bg-info">
-                          <i class="mdi mdi-account-box mx-0"></i>
-                        </div>
-                    </div>
-                    <div class="preview-item-content">
-                        <h6 class="preview-subject font-weight-normal">New user registration</h6>
-                        <p class="font-weight-light small-text mb-0 text-muted">
-                          2 days ago
-                        </p>
-                    </div>
-                  </a>
+                    <?=$user_notis?>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -867,9 +887,36 @@ while($rowR3= mysqli_fetch_array($resR3))
     </div>
 <br>
 
+<style>
+textarea {
+  width: 100%;
+  min-height: 100px;
+  resize: none;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  color: #666;
+  box-shadow: inset 0 0 0.25rem #ddd;
+}
+textarea:focus {
+  outline: none;
+  border: 1px solid #d0d0d0;
+  box-shadow: inset 0 0 0.5rem #d0d0d0;
+}
+textarea[placeholder] {
+  font-style: italic;
+  font-size: 0.875rem;
+}
 
+#the-count {
+  float: right;
+  padding: 0.1rem 0 0 0;
+  font-size: 0.875rem;
+}
 
+</style>
 
+<?=$avis_modal;?>
 
     <?=$chatboxs; ?>
 
@@ -1455,4 +1502,75 @@ $(document).on('click','.imgdisp',function(){
       
   });
 });  
+</script>
+
+<script>
+var characterCount=0;
+$('textarea').keyup(function() {
+    
+     characterCount = $(this).val().length,
+        current = $('#current'),
+        maximum = $('#maximum'),
+        theCount = $('#the-count');
+      
+    current.text(characterCount);
+   
+    
+    /*This isn't entirely necessary, just playin around*/
+    if (characterCount < 70) {
+      current.css('color', '#666');
+    }
+    if (characterCount > 70 && characterCount < 90) {
+      current.css('color', '#6d5555');
+    }
+    if (characterCount > 90 && characterCount < 100) {
+      current.css('color', '#793535');
+    }
+    if (characterCount > 100 && characterCount < 120) {
+      current.css('color', '#841c1c');
+    }
+    if (characterCount > 120 && characterCount < 139) {
+      current.css('color', '#8f0001');
+    }
+    
+    if (characterCount >= 140) {
+      maximum.css('color', '#8f0001');
+      current.css('color', '#8f0001');
+      theCount.css('font-weight','bold');
+    } else {
+      maximum.css('color','#666');
+      theCount.css('font-weight','normal');
+    }
+    
+        
+  });
+
+</script>
+
+
+<script>
+var avis;
+var Code_client="<?=$codeU?>";
+$(document).ready(function(){
+ 
+  $('#env_avis').click(function(){
+    //$('#modalLikeThis2').modal('hide');
+    if(characterCount>0)
+    {
+      avis=document.getElementById("the-textarea").value;
+      $.ajax({  
+                 url:"insertAvis.php",   
+                 method:"POST",
+                 data:{comment:avis,CodeU:Code_client},
+                 success:function(data){  
+                          
+                  }
+                 });
+    }
+    
+  });
+});
+
+
+
 </script>
