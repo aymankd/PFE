@@ -8,7 +8,7 @@ if(isset($_POST['logoutbtn']))
 }
 if( !isset($_SESSION['username']) || $_SESSION['type'] != "admin" )
 {
-  header("location:../../homeP.php");
+  header("location:../../indexx.php");
 }
 $servername = "localhost";
 $userservername = "root";
@@ -379,7 +379,7 @@ while ($row = mysqli_fetch_array($res))
                   </a>
               </li>
               <li class="nav-item">
-                  <a href="../pages/tables/basic-table.html" class="nav-link">
+                  <a href="DemandeLoc.php" class="nav-link">
                     <i class="mdi mdi-checkbox-multiple-marked menu-icon"></i>
                     <span class="menu-title">Demandes</span>
                     <i class="menu-arrow"></i>
