@@ -29,6 +29,16 @@ else
 	$src="../../../Resourse/imgs/ProfileHolder.jpg";
   $password_conf=$rowIU['pass'];
   $id=$rowIU['CodeU'];
+  $date=new DateTime($rowIU['date']);
+  $dateToin = $date->format('F d, Y');
+  $req="SELECT * FROM `proprietaire` WHERE CodeP=?";
+$statement=$conn->prepare($req);
+$statement->bind_param("i",$id);
+$statement->execute();
+$res=$statement->get_result();
+$row=$res->fetch_assoc();
+$nom=$row['nom'];
+$prenom=$row['prenom'];
   if(isset($_POST['modif']))
   {
     $newpass=$_POST['newpass'];
@@ -60,7 +70,7 @@ else
     <!--  All snippets are MIT license https://bootdey.com/license -->
     <title>Bootdey.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='https://mythemestore.com/friend-finder/css/bootstrap.min.css'>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css'>
     <style type="text/css">
     	body{
@@ -262,15 +272,19 @@ margin-top: 60px;
 #file{
   display: none;
 }
+.inputs-marg
+{
+  margin-top:5%;
+}
     </style>
 </head>
 <body>
 <div class="container mt-5">
-    <div class="row">
+    <div class="row inputs-marg">
         <div class="col-lg-4 pb-5">
             <!-- Account Sidebar-->
             <div class="author-card pb-3">
-                <div class="author-card-cover"  style="background-image: url(https://demo.createx.studio/createx-html/img/widgets/author/cover.jpg);"><a class="btn btn-style-1 btn-white btn-sm" href="#" data-toggle="tooltip" title="" data-original-title="You currently have 290 Reward points to spend"><i class="fa fa-award text-md"></i>&nbsp;User</a></div>
+                <div class="author-card-cover"  style="background-image: url(https://demo.createx.studio/createx-html/img/widgets/author/cover.jpg);"><a class="btn btn-style-1 btn-white btn-sm" href="#" data-toggle="tooltip" title="" data-original-title="You currently have 290 Reward points to spend"><i class="fa fa-award text-md"></i>&nbsp;Proprietaire</a></div>
                 <div class="author-card-profile" > 
                     <div class="author-card-avatar" style="z-index:0;"> 
                         <img id="item-img-output" src="<?=$src ;?>" alt="Daniel Adams" class="target" style="z-index:-1;">
@@ -279,8 +293,8 @@ margin-top: 60px;
                         <label for="file" class="pen"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2" style="padding: 3px;margin-left: 1px;"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></label>
                         <input type="file" id="file" name="upload_image" accept="image/*" /> 
                     </div>
-                    <div class="author-card-details" style="z-index:0;">
-                        <h5 class="author-card-name text-lg" style="z-index:0;">Hemdan to9ba</h5><span class="author-card-position">Joined February 06, 2017</span>
+                    <div class="author-card-details" style="z-index:0;">                    
+                        <h5 class="author-card-name text-lg" style="z-index:0;"><?=$nom?> <?=$prenom?></h5><span class="author-card-position">Joined <?=$dateToin?></span>
                     </div>
                 </div>
             </div>
@@ -316,6 +330,10 @@ margin-top: 60px;
                 <div class="col-12">
                     <hr class="mt-2 mb-3">
                     <div class="d-flex flex-wrap justify-content-between align-items-center">
+                        <div class="custom-control custom-checkbox d-block" style="visibility:hidden">
+                            <input class="custom-control-input" type="checkbox" id="subscribe_me" checked="">
+                            <label class="custom-control-label" for="subscribe_me">Confirmation</label>
+                        </div>
                         <button class="btn btn-style-1 btn-primary" name="modif" data-toast="" data-toast-position="topRight" data-toast-type="success" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!" data-toast-message="Your profile updated successfuly.">Enregister</button>
                     </div>
                 </div>
@@ -358,7 +376,7 @@ margin-top: 60px;
   <script >
     vanilla = $("#image_demo").croppie({
 	enableExif: true,
-	viewport: { width: 200, height: 200, type: "circle" }, // circle or square
+	viewport: { width: 200, height: 200, type: "square" }, // circle or square
 	boundary: { width: 300, height: 300 },
 	showZoomer: false,
 	enableOrientation: true
