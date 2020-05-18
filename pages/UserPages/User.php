@@ -36,8 +36,66 @@ $conn = new mysqli($servername, $userservername,"", $database);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
+$codeU = $_SESSION['usercode'];
+//Notifications de demande d'avis:
+  $user_notis='';
+  $avis_modal='';
+  $nbr_nts=0;
+  $reqNAV="SELECT * from avis_clients where CodeU=?";
+  $statementNAV=$conn->prepare($reqNAV);
+  $statementNAV->bind_param("i",$codeU);
+  $statementNAV->execute();
+  $resNAV=$statementNAV->get_result();
+  if(!($rowNAV=$resNAV->fetch_assoc()))
+   {
+     $user_notis.="<a id='donner_avis' data-toggle='modal' data-target='#modalLikeThis2' class='dropdown-item preview-item'>
+     <div class='preview-thumbnail'>
+       <div class='preview-icon bg-success'>
+        <i class='fas fa-map-marked-alt'></i>
+       </div>
+     </div>
+     <div class='preview-item-content'>
+       <h6 class='preview-subject font-weight-normal'>Vous trouvez notre site utile? Laisser nous un avis</h6>
+     </div>
+   </a>";
+   $nbr_nts=$nbr_nts+1;
+   }
+   if($user_notis!='')
+    {
+      $avis_modal.="
+                      <div class='modal' id='modalLikeThis2' tabindex='-1' role='dialog' >
+                      
+                       <div class='modal-dialog-centered' role='document' style='width:40%;margin-left:30%;margin-top:2%;'>
+      
+                          <div class='modal-content'>
+                           
+                           <div class='modal-body' >
+                            
+                             <br>
+                              <div class='avis'>
+                                <p for='comment' style=''>Donner un avis</p>
+                                <textarea name='the-textarea' id='the-textarea' maxlength='300' placeholder='laisser nous savoir se que vous penssez de notre site...' autofocus ></textarea>
+                                <div id='the-count'>
+                                  <span id='current'>0</span>
+                                  <span id='maximum'>/ 300</span>
+                                </div>
+              
+                              </div>
+                             
+                           </div>
+                            <div class='modal-footer'>
+                              <button type='submit' id='env_avis' type='button' class='btn btn-primary'>Envoyer</button>
+                              <button type='cls_avis' class='btn btn-secondary' data-dismiss='modal'>Annuler</button>
+                            </div>
+                             
+                          </div>
+                        </div>
+                        
+                      </div>
+                    ";
+    }
 
-
+    
 
 //remplisage des données d'utilisateur courrant
 $src="";
@@ -258,7 +316,7 @@ if(mysqli_num_rows($resR1)==0)
                             <div class='shadow-desc'>
                               <div class='blog-meta'>
                                 <span class='bg-aqua'><a title=''>".$ultra_type."</a></span>
-                                <h4><a href='garden-single.html' title=''>".$ultra_titre."</a></h4>
+                                <h4><a href='SeeMore.php?smr=".$ultra_CodeL."' title=''>".$ultra_titre."</a></h4>
                                 <small><a href='' title=''>".$ultra_prix."</a></small>
                                 <small><a href='' title=''>".$ultra_nomP."</a></small>
                               </div>
@@ -278,7 +336,7 @@ if(mysqli_num_rows($resR1)==0)
                             <div class='shadow-desc'>
                               <div class='blog-meta'>
                                 <span class='bg-aqua'><a  title=''>".$ultra_type."</a></span>
-                                <h4><a href='garden-single.html' title=''>".$ultra_titre."</a></h4>
+                                <h4><a href='SeeMore.php?smr=".$ultra_CodeL."' title=''>".$ultra_titre."</a></h4>
                                 <small><a href='garden-single.html' title=''>".$ultra_prix."</a></small>
                                 <small><a href='' title=''>".$ultra_nomP."</a></small>
                               </div>
@@ -298,7 +356,7 @@ if(mysqli_num_rows($resR1)==0)
             <div class='shadow-desc'>
               <div class='blog-meta'>
                 <span class='bg-aqua'><a title=''>".$ultra_type."</a></span>
-                <h4><a href='garden-single.html' title=''>".$ultra_titre."</a></h4>
+                <h4><a href='SeeMore.php?smr=".$ultra_CodeL."' title=''>".$ultra_titre."</a></h4>
                 <small><a href='' title=''>".$ultra_prix."</a></small>
                 <small><a href='' title=''>".$ultra_nomP."</a></small>
               </div>
@@ -357,7 +415,7 @@ while(($rowR1= mysqli_fetch_array($resR1)))
       $rowI=$resI->fetch_assoc();
       $ultra_IdI=$rowI['CodeImg'];
       $image="genere_image.php?id=$ultra_IdI";
-
+      
       
       if($line_cnt==1)
        { 
@@ -370,7 +428,7 @@ while(($rowR1= mysqli_fetch_array($resR1)))
                             <div class='shadow-desc'>
                               <div class='blog-meta'>
                                 <span class='bg-aqua'><a  title=''>".$ultra_type."</a></span>
-                                <h4><a href='garden-single.html' title=''>".$ultra_titre."</a></h4>
+                                <h4><a href='SeeMore.php?smr=".$ultra_CodeL."' title=''>".$ultra_titre."</a></h4>
                                 <small><a href='' title=''>".$ultra_prix."</a></small>
                                 <small><a href='' title=''>".$ultra_nomP."</a></small>
                                 
@@ -391,7 +449,7 @@ while(($rowR1= mysqli_fetch_array($resR1)))
                             <div class='shadow-desc'>
                               <div class='blog-meta'>
                                 <span class='bg-aqua'><a title=''>".$ultra_type."</a></span>
-                                <h4><a href='garden-single.html' title=''>".$ultra_titre."</a></h4>
+                                <h4><a href='SeeMore.php?smr=".$ultra_CodeL."' title=''>".$ultra_titre."</a></h4>
                                 <small><a href='' title=''>".$ultra_prix."</a></small>
                                 <small><a href='' title=''>".$ultra_nomP."</a></small>
                               </div>
@@ -411,7 +469,7 @@ while(($rowR1= mysqli_fetch_array($resR1)))
             <div class='shadow-desc'>
               <div class='blog-meta'>
                 <span class='bg-aqua'><a title=''>".$ultra_type."</a></span>
-                <h4><a href='garden-single.html' title=''>".$ultra_titre."</a></h4>
+                <h4><a href='SeeMore.php?smr=".$ultra_CodeL."' title=''>".$ultra_titre."</a></h4>
                 <small><a href='' title=''>".$ultra_prix."</a></small>
                 <small><a href='' title=''>".$ultra_nomP."</a></small>
               </div>
@@ -480,7 +538,7 @@ while($rowR2= mysqli_fetch_array($resR2))
       if($nbr_rated==1)
        { 
          $top_rated.="<div class='col-half'>
-                      <div class='project animate-box' style='background-image:url(".$image.");'>
+                      <div id='".$rated_CodeL."' class='project animate-box imgdisp' style='background-image:url(".$image.");'>
                         <div class='desc'>
                         
                          <span>".$rated_nomP."</span>
@@ -496,10 +554,10 @@ while($rowR2= mysqli_fetch_array($resR2))
       else if($nbr_rated==2)
        {
          $top_rated.="<div class='col-half'>
-                      <div class='project-grid animate-box' style='background-image:url(".$image.");'>
-                      <button id='rated".$nbr_rated."' class='rated_sv' ><i class='far fa-heart tpr'></i></button>
+                      <div id='".$rated_CodeL."' class='project-grid animate-box imgdisp' style='background-image:url(".$image.");'>
                         <div class='desc'>
                           <span>".$rated_nomP."</span>
+                          <button id='rated".$nbr_rated."' class='rated_sv1' ><i class='far fa-heart tpr'></i></button>
                           <h3>".$rated_titre."</h3>
                           <span>Prix : ".$rated_prix."dh</h3>
                         </div>
@@ -509,10 +567,10 @@ while($rowR2= mysqli_fetch_array($resR2))
       else if($nbr_rated==3)
        {
           $top_rated.="
-                      <div class='project-grid animate-box' style='background-image:url(".$image.");'>
-                      <button id='rated".$nbr_rated."' class='rated_sv' ><i class='far fa-heart tpr'></i></button>
+                      <div id='".$rated_CodeL."' class='project-grid animate-box imgdisp' style='background-image:url(".$image.");'>
                         <div class='desc'>
                           <span>".$rated_nomP."</span>
+                          <button id='rated".$nbr_rated."' class='rated_sv1' ><i class='far fa-heart tpr'></i></button>
                           <h3>".$rated_titre."</h3>
                           <span>Prix : ".$rated_prix."dh</h3>
                         </div>
@@ -587,8 +645,16 @@ while($rowR3= mysqli_fetch_array($resR3))
       $statementI->execute();
       $resI=$statementI->get_result();
       $rowI=$resI->fetch_assoc();
-      $pop_IdI=$rowI['CodeImg'];
-      $image="genere_image.php?id=$pop_IdI";
+      $num_row=$resI->num_rows;
+      if($num_row>0)
+      {
+        $pop_IdI=$rowI['CodeImg'];
+        $image="genere_image.php?id=$pop_IdI";
+      }
+      else
+      {
+        $image="../../Resourse/imgs/userimgs/home-holder.jpg";
+      }
  
       $top_vues.="<article>
                     <div class='card'>
@@ -680,45 +746,7 @@ while($rowR3= mysqli_fetch_array($resR3))
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                   <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <div class="preview-icon bg-success">
-                          <i class="mdi mdi-information mx-0"></i>
-                        </div>
-                    </div>
-                    <div class="preview-item-content">
-                        <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                        <p class="font-weight-light small-text mb-0 text-muted">
-                          Just now
-                        </p>
-                    </div>
-                  </a>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <div class="preview-icon bg-warning">
-                          <i class="mdi mdi-settings mx-0"></i>
-                        </div>
-                    </div>
-                    <div class="preview-item-content">
-                        <h6 class="preview-subject font-weight-normal">Settings</h6>
-                        <p class="font-weight-light small-text mb-0 text-muted">
-                          Private message
-                        </p>
-                    </div>
-                  </a>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <div class="preview-icon bg-info">
-                          <i class="mdi mdi-account-box mx-0"></i>
-                        </div>
-                    </div>
-                    <div class="preview-item-content">
-                        <h6 class="preview-subject font-weight-normal">New user registration</h6>
-                        <p class="font-weight-light small-text mb-0 text-muted">
-                          2 days ago
-                        </p>
-                    </div>
-                  </a>
+                    <?=$user_notis?>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -859,9 +887,36 @@ while($rowR3= mysqli_fetch_array($resR3))
     </div>
 <br>
 
+<style>
+textarea {
+  width: 100%;
+  min-height: 100px;
+  resize: none;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  color: #666;
+  box-shadow: inset 0 0 0.25rem #ddd;
+}
+textarea:focus {
+  outline: none;
+  border: 1px solid #d0d0d0;
+  box-shadow: inset 0 0 0.5rem #d0d0d0;
+}
+textarea[placeholder] {
+  font-style: italic;
+  font-size: 0.875rem;
+}
 
+#the-count {
+  float: right;
+  padding: 0.1rem 0 0 0;
+  font-size: 0.875rem;
+}
 
+</style>
 
+<?=$avis_modal;?>
 
     <?=$chatboxs; ?>
 
@@ -945,21 +1000,21 @@ var pop2_state='N';
 var pop3_state='N';
 var pop4_state='N';
 
-var pop1=<?=$pop1;?>;
-var pop2=<?=$pop2;?>;
-var pop3=<?=$pop3;?>;
-var pop4=<?=$pop4;?>;
-var currentU=<?=$codeU?>;
+var pop1='<?=$pop1;?>';
+var pop2='<?=$pop2;?>';
+var pop3='<?=$pop3;?>';
+var pop4='<?=$pop4;?>';
+var currentU='<?=$codeU?>';
 
 
 $(document).ready(function(){ 
   //POP1
 $('#pop1').click(function(){
          if(pop1_state=='N')
-       {
-          $('#pop1').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
-          pop1_state='Y';
-          $.ajax({  
+          {
+           $('#pop1').empty().append("<i class='fas fa-heart ff'></i> Enregistré");
+           pop1_state='Y';
+           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
                  data:{CodeL:pop1,CodeU:currentU,action:pop1_state},
@@ -969,7 +1024,7 @@ $('#pop1').click(function(){
                  });
 
 
-       }   
+          }   
       else if(pop1_state=='Y')
        {
           $('#pop1').empty().append("<i class='far fa-heart ff'></i> Enregistrer");
@@ -990,7 +1045,7 @@ $('#pop1').click(function(){
       $('#pop2').click(function(){
          if(pop2_state=='N')
        {
-          $('#pop2').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
+          $('#pop2').empty().append("<i class='fas fa-heart ff'></i> Enregistré");
           pop2_state='Y';
           $.ajax({  
                  url:"SaveL.php",   
@@ -1026,7 +1081,7 @@ $('#pop1').click(function(){
 $('#pop3').click(function(){
          if(pop3_state=='N')
        {
-          $('#pop3').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
+          $('#pop3').empty().append("<i class='fas fa-heart ff'></i> Enregistré");
           pop3_state='Y';
           $.ajax({  
                  url:"SaveL.php",   
@@ -1056,10 +1111,10 @@ $('#pop3').click(function(){
        }
       });   
 //POP4
-$('#pop3').click(function(){
+$('#pop4').click(function(){
          if(pop4_state=='N')
        {
-          $('#pop4').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
+          $('#pop4').empty().append("<i class='fas fa-heart ff'></i> Enregistré");
           pop4_state='Y';
           $.ajax({  
                  url:"SaveL.php",   
@@ -1101,6 +1156,10 @@ var rated1_state='N';
 var rated2_state='N';
 var rated3_state='N';
 
+var rated1_clicked='N';
+var rated2_clicked='N';
+var rated3_clicked='N';
+
 
 var rated1=<?=$rated1;?>;
 var rated2=<?=$rated2;?>;
@@ -1112,6 +1171,7 @@ var rated3=<?=$rated3;?>;
 $(document).ready(function(){ 
   //rated1
 $('#rated1').click(function(){
+       rated1_clicked='Y';
          if(rated1_state=='N')
        {
           $('#rated1').empty().append("<i class='fas fa-heart ff rf'></i>");
@@ -1121,7 +1181,7 @@ $('#rated1').click(function(){
                  method:"POST",
                  data:{CodeL:rated1,CodeU:currentU,action:rated1_state},
                  success:function(data){  
-
+                  
                   }
                  });
 
@@ -1146,6 +1206,7 @@ $('#rated1').click(function(){
  //rated2   
 
  $('#rated2').click(function(){
+  rated2_clicked='Y';
          if(rated2_state=='N')
        {
           $('#rated2').empty().append("<i class='fas fa-heart ff rf'></i>");
@@ -1179,6 +1240,7 @@ $('#rated1').click(function(){
       });
 //rated 3
       $('#rated3').click(function(){
+        rated3_clicked='Y';
          if(rated3_state=='N')
        {
           $('#rated3').empty().append("<i class='fas fa-heart ff rf'></i>");
@@ -1221,6 +1283,10 @@ var ultra1_state='N';
 var ultra2_state='N';
 var ultra3_state='N';
 
+var ultra1_clicked='N';
+var ultra2_clicked='N';
+var ultra3_clicked='N';
+
 
 var ultra1=<?=$ultra1;?>;
 var ultra2=<?=$ultra2;?>;
@@ -1232,6 +1298,7 @@ var ultra3=<?=$ultra3;?>;
 $(document).ready(function(){ 
   //ultra1
 $('#ultra1').click(function(){
+           ultra1_clicked='Y';
          if(ultra1_state=='N')
        {
           $('#ultra1').empty().append("<i class='fas fa-heart ff rf'></i>");
@@ -1265,6 +1332,7 @@ $('#ultra1').click(function(){
       });   
 //ultra2
 $('#ultra2').click(function(){
+          ultra2_clicked='Y';
          if(ultra2_state=='N')
        {
           $('#ultra2').empty().append("<i class='fas fa-heart ff rf'></i>");
@@ -1299,6 +1367,7 @@ $('#ultra2').click(function(){
 
 //ultra3
 $('#ultra3').click(function(){
+        ultra3_clicked='Y';
          if(ultra3_state=='N')
        {
           $('#ultra3').empty().append("<i class='fas fa-heart ff rf'></i>");
@@ -1349,11 +1418,159 @@ $(document).ready(function(){
 
     $('#Ultr_Img1').mouseenter(function(){
       document.getElementById('ultra1').style.display='block';
-       
       });   
       $('#Ultr_Img1').mouseleave(function(){
       document.getElementById('ultra1').style.display='none';
-       
-      });      
+      });  
+
+
+
+      $('#Ultr_Img2').mouseenter(function(){
+      document.getElementById('ultra2').style.display='block';
+      });   
+      $('#Ultr_Img2').mouseleave(function(){
+      document.getElementById('ultra2').style.display='none';
+      });   
+
+
+
+       $('#Ultr_Img3').mouseenter(function(){
+      document.getElementById('ultra3').style.display='block';
+      });   
+      $('#Ultr_Img3').mouseleave(function(){
+      document.getElementById('ultra3').style.display='none';
+      }); 
     });     
+</script>
+
+<script>
+$(document).ready(function(){ 
+$('#Ultr_Img1').click(function(){
+        if(ultra1_clicked=='Y')
+         {
+          ultra1_clicked='N';
+         } 
+         else
+         {
+          
+          window.location.href = "SeeMore.php?smr="+ultra1;
+         }
+      });
+
+
+      $('#Ultr_Img2').click(function(){
+        if(ultra2_clicked=='Y')
+         {
+          ultra2_clicked='N';
+         } 
+         else
+         {
+          
+          window.location.href = "SeeMore.php?smr="+ultra2;
+         }
+      });  
+
+      $('#Ultr_Img3').click(function(){
+        if(ultra3_clicked=='Y')
+        {
+          ultra3_clicked='N';
+        }
+        else
+        {
+          window.location.href = "SeeMore.php?smr="+ultra3;
+        }
+      });    
+    });    
+</script>
+
+<script>
+var idImg;
+$(document).ready(function(){
+
+$(document).on('click','.imgdisp',function(){
+  
+      idImg=$(this).attr('id') ;
+      if(rated1_clicked=='Y' || rated2_clicked=='Y' || rated3_clicked=='Y' )
+       {
+        rated1_clicked='N';
+        rated2_clicked='N';
+        rated3_clicked='N';
+       }
+      else{
+        window.location.href = "SeeMore.php?smr="+idImg;
+       }
+      
+  });
+});  
+</script>
+
+<script>
+var characterCount=0;
+$('textarea').keyup(function() {
+    
+     characterCount = $(this).val().length,
+        current = $('#current'),
+        maximum = $('#maximum'),
+        theCount = $('#the-count');
+      
+    current.text(characterCount);
+   
+    
+    /*This isn't entirely necessary, just playin around*/
+    if (characterCount < 70) {
+      current.css('color', '#666');
+    }
+    if (characterCount > 70 && characterCount < 90) {
+      current.css('color', '#6d5555');
+    }
+    if (characterCount > 90 && characterCount < 100) {
+      current.css('color', '#793535');
+    }
+    if (characterCount > 100 && characterCount < 120) {
+      current.css('color', '#841c1c');
+    }
+    if (characterCount > 120 && characterCount < 139) {
+      current.css('color', '#8f0001');
+    }
+    
+    if (characterCount >= 140) {
+      maximum.css('color', '#8f0001');
+      current.css('color', '#8f0001');
+      theCount.css('font-weight','bold');
+    } else {
+      maximum.css('color','#666');
+      theCount.css('font-weight','normal');
+    }
+    
+        
+  });
+
+</script>
+
+
+<script>
+var avis;
+var Code_client="<?=$codeU?>";
+$(document).ready(function(){
+ 
+  $('#env_avis').click(function(){
+    //$('#modalLikeThis2').modal('hide');
+    if(characterCount>0)
+    {
+      avis=document.getElementById("the-textarea").value;
+      $.ajax({  
+                 url:"insertAvis.php",   
+                 method:"POST",
+                 data:{comment:avis,CodeU:Code_client},
+                 success:function(data){  
+                          
+                  }
+                 });
+    }
+    
+  });
+});
+
+
+
 </script>

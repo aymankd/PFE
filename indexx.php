@@ -1,5 +1,72 @@
 
+<?php
+$servername = "localhost";
+$userservername = "root";
+$database = "pfe";
 
+
+// Create connection
+$conn = new mysqli($servername, $userservername,"", $database);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+$avis='';
+$reqAvi="SELECT * FROM `avis_clients` WHERE showCM='oui' LIMIT 3 ";
+$statementAvi=$conn->prepare($reqAvi);
+$statementAvi->execute();
+$resAvi=$statementAvi->get_result();
+while(($rowAvi= mysqli_fetch_array($resAvi)))
+{
+	$CodeU=$rowAvi['CodeU'];
+	$comment=$rowAvi['commentaire'];
+	$src='';
+	$ProfileP='';
+
+	$reqAvii="SELECT * FROM utilisateur WHERE CodeU=?";
+	$statementAvii=$conn->prepare($reqAvii);
+	$statementAvii->bind_param("i",$CodeU);
+    $statementAvii->execute();
+	$resAvii=$statementAvii->get_result();
+	$rowAvii=$resAvii->fetch_assoc();
+	$user_n=$rowAvii['username'];
+	if($rowAvii['imageP']!=NULL)
+     {
+      $src="pages/samples/profilpic.php?UN=$user_n";
+	  //$ProfileP="<img src='".$src."' />";
+     }
+    else
+     {
+	  $src="Resourse/imgs/ProfileHolder.jpg";
+	 // $ProfileP="<img src='".$src."' />";
+     }
+
+
+	
+
+	$avis.="<div class='row'>
+	            <div class='col-md-10 col-md-offset-1'>
+		            <div class='row'>
+		 	            <div class='col-md-12 animate-box'>
+		                 	<div class='testimony'>
+								<div class='inner text-center'>
+								<img src='".$src."' />
+								 </div>
+				             	<blockquote>
+				         		    <p>&ldquo; ".$comment." &rdquo;</p>
+					             	<p class='author'><cite>&mdash; ".$user_n."</cite></p>
+				            	</blockquote>
+				            </div>
+			            </div>
+		            </div>
+	            </div>
+            </div>";
+}
+
+
+
+?>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -141,23 +208,7 @@ Vous ne manquerez donc jamais rien..</p>
 					<h2>Clients satisfaits</h2>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
-					<div class="row">
-						<div class="col-md-12 animate-box">
-							<div class="testimony">
-								<div class="inner text-center">
-									<img src="Resourse/images/list-img-05.png" alt="testimony">
-								</div>
-								<blockquote>
-									<p>&ldquo;Beautiful spacious and well located studio! Very good advice. The bed is super comfortable. To recommend.&rdquo;</p>
-									<p class="author"><cite>&mdash; Client</cite></p>
-								</blockquote>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<?=$avis;?>
 		</div>
 	</div>
 
