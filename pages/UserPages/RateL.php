@@ -22,6 +22,11 @@ $s=$conn->prepare($r);
 $s->bind_param("iiis",$CodeL,$CodeR,$rating,$comment);
 $s->execute();
 
+$r="UPDATE `logement` SET `rating`=? WHERE CodeL=?";
+$s=$conn->prepare($r);
+$s->bind_param("ii",$rating,$CodeL);
+$s->execute();
+
 $tm_stmp=date('Y-m-d H:i:s', time());
 $r="INSERT INTO `user_notis`(`CodeU`, `CodeP`,`action`,`CodeL`,`status`,`date`) VALUES (?,?,'rated',?,'new',?)";
 $s=$conn->prepare($r);

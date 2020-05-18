@@ -95,7 +95,7 @@ if($collocation=='oui')
 else 
   {
    $colloc_info="
-   </h4>Colocation<br></h4>
+   <h4>Colocation<br></h4>
    <p>Ce logement n'est pas une colocation</p>
   ";
   }  
@@ -1108,7 +1108,28 @@ $eqn=1;
 $equiprv1="";
 $equiprv2="";
 $equiLST="";
+$equiLST2="";
 $CodeE="";
+
+$reqEQAT="SELECT * from autre_equi  where CodeL=? ";
+$statementEQAT=$conn->prepare($reqEQAT);
+$statementEQAT->bind_param("i",$CodeL);
+$statementEQAT->execute();
+$resEQAT=$statementEQAT->get_result();
+$eqTitre='';
+$eqDesc='';
+while($rowEQAT=mysqli_fetch_array($resEQAT))
+{
+   $eqTitre=$rowEQAT['titre'];
+   $eqDesc=$rowEQAT['description'];
+
+   $equiLST2.="  <hr>
+   <div class='_czm8crp'>".$eqTitre."</div> 
+   <div class='_1jlnvra2'>".$eqDesc."</div>";
+   $nbrEQ=$nbrEQ+1;
+}
+
+
 
 $reqEQ="SELECT CodeE from equipement  where nom='Wi-Fi' ";
 $statementEQ=$conn->prepare($reqEQ);
@@ -1252,7 +1273,7 @@ while(($rowEQ=mysqli_fetch_array($resEQ)) )
    
    $equiLST.="<hr>
               <div class='_czm8crp'>".$nomEQ."</div> 
-              <div class='_1jlnvra2'>Description d'equipement</div>";
+          ";
   
  }
 
@@ -1699,7 +1720,7 @@ else{
                                  <?=$equiprv2?>
                               </li><br>
                               <div class="col-md-12">
-                                    <a type="button" href="#" aria-busy="false" class="equipment" data-toggle="modal" data-target="#modalEquip">Afficher les <?=$nbrEQ?> équipements</a>
+                                    <a type="button" href="#" aria-busy="false" class="equipment" data-toggle="modal" data-target="#modalEquip"><?php if($nbrEQ!=0){if($nbrEQ>1){echo"Afficher les $nbrEQ autres équipements";}else if($nbrEQ=1){echo"Afficher un autre équipements";} }?></a>
                                  </div>
                            </ul>
                         </div>
@@ -1878,6 +1899,7 @@ else{
         <div class="_1p0spma2">Standard</div>
         <div class="_1lhxpmp">
             <?=$equiLST?>
+            <?=$equiLST2?>
          </div>
          <hr>
          

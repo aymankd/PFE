@@ -93,7 +93,7 @@ if($collocation=='oui')
 else 
   {
    $colloc_info="
-   </h4>Colocation<br></h4>
+   <h4>Colocation<br></h4>
    <p>Ce logement n'est pas une colocation</p>
   ";
   }  
@@ -1142,7 +1142,26 @@ $eqn=1;
 $equiprv1="";
 $equiprv2="";
 $equiLST="";
+$equiLST2="";
 $CodeE="";
+
+$reqEQAT="SELECT * from autre_equi  where CodeL=? ";
+$statementEQAT=$conn->prepare($reqEQAT);
+$statementEQAT->bind_param("i",$CodeL);
+$statementEQAT->execute();
+$resEQAT=$statementEQAT->get_result();
+$eqTitre='';
+$eqDesc='';
+while($rowEQAT=mysqli_fetch_array($resEQAT))
+{
+   $eqTitre=$rowEQAT['titre'];
+   $eqDesc=$rowEQAT['description'];
+
+   $equiLST2.="  <hr>
+   <div class='_czm8crp'>".$eqTitre."</div> 
+   <div class='_1jlnvra2'>".$eqDesc."</div>";
+   $nbrEQ=$nbrEQ+1;
+}
 
 $reqEQ="SELECT CodeE from equipement  where nom='Wi-Fi' ";
 $statementEQ=$conn->prepare($reqEQ);
@@ -2027,6 +2046,7 @@ if(($rowSR=$resSR->fetch_assoc()))
         <div class="_1p0spma2">Standard</div>
         <div class="_1lhxpmp">
           <?=$equiLST?>
+          <?=$equiLST2?>
          </div>
          <hr>
          
