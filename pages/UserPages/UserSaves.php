@@ -218,6 +218,7 @@ else
     $resS1=$statementS1->get_result(); 
     $rowS1=$resS1->fetch_assoc();
     $TitreS=$rowS1['nom'];
+    $TypeS=$rowS1['type'];
     $PrixS=$rowS1['prix'];
     $CodePS=$rowS1['CodeP'];
     $reqS1="SELECT * from utilisateur where CodeU=?";
@@ -236,19 +237,20 @@ else
     $rowI=$resI->fetch_assoc();
     $id_img=$rowI['CodeImg'];
     $srcL="genere_image.php?id=$id_img";
-
+    $nbrimg=0;
      if($pos==1)
       {
-        $saves.="   <div class='left-side'>
+        $nbrimg=$nbrimg+1;
+        $saves.=" <div class='row'>  <div class='left-side'>
                         <div class='masonry-box post-media'>
                             <img  src='".$srcL."' alt='' class='img-fluid'>
-                            <div class='shadoweffect'>
+                            <div id='".$rowS['CodeL']."' class='shadoweffect imgdisp'>
                                 <div class='shadow-desc'>
                                     <div class='blog-meta'>
-                                      <span class='bg-aqua'><a href='blog-category-01.html' title=''>Gardening</a></span>
+                                      <span class='bg-aqua'><a href='' title=''>".$TypeS."</a></span>
                                       <h4><a href='SeeMore.php?smr=".$rowS['CodeL']."' title=''>".$TitreS."</a></h4>
-                                      <small><a href='garden-single.html' title=''>".$PrixS." DH</small>
-                                      <small><a href='#' title=''>by ".$UsernameS."</a></small>
+                                      <small><a href='' title=''>".$PrixS." DH</small>
+                                      <small><a href='' title=''>by ".$UsernameS."</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->
                              </div><!-- end shadow -->
@@ -258,16 +260,17 @@ else
       }
      else if($pos==2)
       {
+        $nbrimg=$nbrimg+1;
         $saves.="   <div class='center-side'>
                         <div class='masonry-box post-media'>
                             <img  src='".$srcL."' alt='' class='img-fluid'>
-                            <div class='shadoweffect'>
+                            <div id='".$rowS['CodeL']."' class='shadoweffect imgdisp'>
                                 <div class='shadow-desc'>
                                     <div class='blog-meta'>
-                                      <span class='bg-aqua'><a href='blog-category-01.html' title=''>Gardening</a></span>
-                                      <h4><a href='garden-single.html' title=''>".$TitreS."</a></h4>
-                                      <small><a href='garden-single.html' title=''>".$PrixS."</a></small>
-                                      <small><a href='#' title=''>by ".$UsernameS."</a></small>
+                                      <span class='bg-aqua'><a href='' title=''>".$TypeS."</a></span>
+                                      <h4><a href='SeeMore.php?smr=".$rowS['CodeL']."' title=''>".$TitreS."</a></h4>
+                                      <small><a href='' title=''>".$PrixS."</a></small>
+                                      <small><a href='' title=''>by ".$UsernameS."</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->
                              </div><!-- end shadow -->
@@ -277,21 +280,23 @@ else
       }
      else if($pos==3)
       {
+        $nbrimg=$nbrimg+1;
          $saves.="   <div class='right-side-side'>
                         <div class='masonry-box post-media'>
-                            <img  src='".$srcL."' alt='' class='img-fluid'>
-                            <div class='shadoweffect'>
+                            <img   src='".$srcL."' alt='' class='img-fluid'>
+                            <div id='".$rowS['CodeL']."' class='shadoweffect imgdisp'>
                                 <div class='shadow-desc'>
                                     <div class='blog-meta'>
-                                      <span class='bg-aqua'><a href='blog-category-01.html' title=''>Gardening</a></span>
-                                      <h4><a href='garden-single.html' title=''".$TitreS."</a></h4>
-                                      <small><a href='garden-single.html' title=''>".$PrixS."</a></small>
-                                      <small><a href='#' title=''>by ".$UsernameS."</a></small>
+                                      <span class='bg-aqua'><a href='' title=''>".$TypeS."</a></span>
+                                      <h4><a href='SeeMore.php?smr=".$rowS['CodeL']."' title=''>".$TitreS."</a></h4>
+                                      <small><a href='' title=''>".$PrixS."</a></small>
+                                      <small><a href='' title=''>by ".$UsernameS."</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->
                              </div><!-- end shadow -->
                         </div><!-- end post-media -->
-                    </div><!-- end right-side -->";
+                    </div><!-- end right-side --></div>";
+                    
          $pos=1;
       }
    
@@ -539,6 +544,17 @@ else
     </script>
     <?=$jsScript; ?>
 
+<script>
+var idImg;
+$(document).ready(function(){
+
+$(document).on('click','.imgdisp',function(){
+  
+      idImg=$(this).attr('id') ;
+      window.location.href = "SeeMore.php?smr="+idImg;
+  });
+});  
+</script>
 
 </body>
 </html>

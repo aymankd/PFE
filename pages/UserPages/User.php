@@ -258,7 +258,7 @@ if(mysqli_num_rows($resR1)==0)
                             <div class='shadow-desc'>
                               <div class='blog-meta'>
                                 <span class='bg-aqua'><a title=''>".$ultra_type."</a></span>
-                                <h4><a href='garden-single.html' title=''>".$ultra_titre."</a></h4>
+                                <h4><a href='SeeMore.php?smr=".$ultra_CodeL."' title=''>".$ultra_titre."</a></h4>
                                 <small><a href='' title=''>".$ultra_prix."</a></small>
                                 <small><a href='' title=''>".$ultra_nomP."</a></small>
                               </div>
@@ -278,7 +278,7 @@ if(mysqli_num_rows($resR1)==0)
                             <div class='shadow-desc'>
                               <div class='blog-meta'>
                                 <span class='bg-aqua'><a  title=''>".$ultra_type."</a></span>
-                                <h4><a href='garden-single.html' title=''>".$ultra_titre."</a></h4>
+                                <h4><a href='SeeMore.php?smr=".$ultra_CodeL."' title=''>".$ultra_titre."</a></h4>
                                 <small><a href='garden-single.html' title=''>".$ultra_prix."</a></small>
                                 <small><a href='' title=''>".$ultra_nomP."</a></small>
                               </div>
@@ -298,7 +298,7 @@ if(mysqli_num_rows($resR1)==0)
             <div class='shadow-desc'>
               <div class='blog-meta'>
                 <span class='bg-aqua'><a title=''>".$ultra_type."</a></span>
-                <h4><a href='garden-single.html' title=''>".$ultra_titre."</a></h4>
+                <h4><a href='SeeMore.php?smr=".$ultra_CodeL."' title=''>".$ultra_titre."</a></h4>
                 <small><a href='' title=''>".$ultra_prix."</a></small>
                 <small><a href='' title=''>".$ultra_nomP."</a></small>
               </div>
@@ -357,7 +357,7 @@ while(($rowR1= mysqli_fetch_array($resR1)))
       $rowI=$resI->fetch_assoc();
       $ultra_IdI=$rowI['CodeImg'];
       $image="genere_image.php?id=$ultra_IdI";
-
+      
       
       if($line_cnt==1)
        { 
@@ -370,7 +370,7 @@ while(($rowR1= mysqli_fetch_array($resR1)))
                             <div class='shadow-desc'>
                               <div class='blog-meta'>
                                 <span class='bg-aqua'><a  title=''>".$ultra_type."</a></span>
-                                <h4><a href='garden-single.html' title=''>".$ultra_titre."</a></h4>
+                                <h4><a href='SeeMore.php?smr=".$ultra_CodeL."' title=''>".$ultra_titre."</a></h4>
                                 <small><a href='' title=''>".$ultra_prix."</a></small>
                                 <small><a href='' title=''>".$ultra_nomP."</a></small>
                                 
@@ -391,7 +391,7 @@ while(($rowR1= mysqli_fetch_array($resR1)))
                             <div class='shadow-desc'>
                               <div class='blog-meta'>
                                 <span class='bg-aqua'><a title=''>".$ultra_type."</a></span>
-                                <h4><a href='garden-single.html' title=''>".$ultra_titre."</a></h4>
+                                <h4><a href='SeeMore.php?smr=".$ultra_CodeL."' title=''>".$ultra_titre."</a></h4>
                                 <small><a href='' title=''>".$ultra_prix."</a></small>
                                 <small><a href='' title=''>".$ultra_nomP."</a></small>
                               </div>
@@ -411,7 +411,7 @@ while(($rowR1= mysqli_fetch_array($resR1)))
             <div class='shadow-desc'>
               <div class='blog-meta'>
                 <span class='bg-aqua'><a title=''>".$ultra_type."</a></span>
-                <h4><a href='garden-single.html' title=''>".$ultra_titre."</a></h4>
+                <h4><a href='SeeMore.php?smr=".$ultra_CodeL."' title=''>".$ultra_titre."</a></h4>
                 <small><a href='' title=''>".$ultra_prix."</a></small>
                 <small><a href='' title=''>".$ultra_nomP."</a></small>
               </div>
@@ -480,7 +480,7 @@ while($rowR2= mysqli_fetch_array($resR2))
       if($nbr_rated==1)
        { 
          $top_rated.="<div class='col-half'>
-                      <div class='project animate-box' style='background-image:url(".$image.");'>
+                      <div id='".$rated_CodeL."' class='project animate-box imgdisp' style='background-image:url(".$image.");'>
                         <div class='desc'>
                         
                          <span>".$rated_nomP."</span>
@@ -496,10 +496,10 @@ while($rowR2= mysqli_fetch_array($resR2))
       else if($nbr_rated==2)
        {
          $top_rated.="<div class='col-half'>
-                      <div class='project-grid animate-box' style='background-image:url(".$image.");'>
-                      <button id='rated".$nbr_rated."' class='rated_sv' ><i class='far fa-heart tpr'></i></button>
+                      <div id='".$rated_CodeL."' class='project-grid animate-box imgdisp' style='background-image:url(".$image.");'>
                         <div class='desc'>
                           <span>".$rated_nomP."</span>
+                          <button id='rated".$nbr_rated."' class='rated_sv1' ><i class='far fa-heart tpr'></i></button>
                           <h3>".$rated_titre."</h3>
                           <span>Prix : ".$rated_prix."dh</h3>
                         </div>
@@ -509,10 +509,10 @@ while($rowR2= mysqli_fetch_array($resR2))
       else if($nbr_rated==3)
        {
           $top_rated.="
-                      <div class='project-grid animate-box' style='background-image:url(".$image.");'>
-                      <button id='rated".$nbr_rated."' class='rated_sv' ><i class='far fa-heart tpr'></i></button>
+                      <div id='".$rated_CodeL."' class='project-grid animate-box imgdisp' style='background-image:url(".$image.");'>
                         <div class='desc'>
                           <span>".$rated_nomP."</span>
+                          <button id='rated".$nbr_rated."' class='rated_sv1' ><i class='far fa-heart tpr'></i></button>
                           <h3>".$rated_titre."</h3>
                           <span>Prix : ".$rated_prix."dh</h3>
                         </div>
@@ -587,8 +587,16 @@ while($rowR3= mysqli_fetch_array($resR3))
       $statementI->execute();
       $resI=$statementI->get_result();
       $rowI=$resI->fetch_assoc();
-      $pop_IdI=$rowI['CodeImg'];
-      $image="genere_image.php?id=$pop_IdI";
+      $num_row=$resI->num_rows;
+      if($num_row>0)
+      {
+        $pop_IdI=$rowI['CodeImg'];
+        $image="genere_image.php?id=$pop_IdI";
+      }
+      else
+      {
+        $image="../../Resourse/imgs/userimgs/home-holder.jpg";
+      }
  
       $top_vues.="<article>
                     <div class='card'>
@@ -945,21 +953,21 @@ var pop2_state='N';
 var pop3_state='N';
 var pop4_state='N';
 
-var pop1=<?=$pop1;?>;
-var pop2=<?=$pop2;?>;
-var pop3=<?=$pop3;?>;
-var pop4=<?=$pop4;?>;
-var currentU=<?=$codeU?>;
+var pop1='<?=$pop1;?>';
+var pop2='<?=$pop2;?>';
+var pop3='<?=$pop3;?>';
+var pop4='<?=$pop4;?>';
+var currentU='<?=$codeU?>';
 
 
 $(document).ready(function(){ 
   //POP1
 $('#pop1').click(function(){
          if(pop1_state=='N')
-       {
-          $('#pop1').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
-          pop1_state='Y';
-          $.ajax({  
+          {
+           $('#pop1').empty().append("<i class='fas fa-heart ff'></i> Enregistré");
+           pop1_state='Y';
+           $.ajax({  
                  url:"SaveL.php",   
                  method:"POST",
                  data:{CodeL:pop1,CodeU:currentU,action:pop1_state},
@@ -969,7 +977,7 @@ $('#pop1').click(function(){
                  });
 
 
-       }   
+          }   
       else if(pop1_state=='Y')
        {
           $('#pop1').empty().append("<i class='far fa-heart ff'></i> Enregistrer");
@@ -990,7 +998,7 @@ $('#pop1').click(function(){
       $('#pop2').click(function(){
          if(pop2_state=='N')
        {
-          $('#pop2').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
+          $('#pop2').empty().append("<i class='fas fa-heart ff'></i> Enregistré");
           pop2_state='Y';
           $.ajax({  
                  url:"SaveL.php",   
@@ -1026,7 +1034,7 @@ $('#pop1').click(function(){
 $('#pop3').click(function(){
          if(pop3_state=='N')
        {
-          $('#pop3').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
+          $('#pop3').empty().append("<i class='fas fa-heart ff'></i> Enregistré");
           pop3_state='Y';
           $.ajax({  
                  url:"SaveL.php",   
@@ -1056,10 +1064,10 @@ $('#pop3').click(function(){
        }
       });   
 //POP4
-$('#pop3').click(function(){
+$('#pop4').click(function(){
          if(pop4_state=='N')
        {
-          $('#pop4').empty().append("<i class='fas fa-heart ff'></i> Enregistrée");
+          $('#pop4').empty().append("<i class='fas fa-heart ff'></i> Enregistré");
           pop4_state='Y';
           $.ajax({  
                  url:"SaveL.php",   
@@ -1101,6 +1109,10 @@ var rated1_state='N';
 var rated2_state='N';
 var rated3_state='N';
 
+var rated1_clicked='N';
+var rated2_clicked='N';
+var rated3_clicked='N';
+
 
 var rated1=<?=$rated1;?>;
 var rated2=<?=$rated2;?>;
@@ -1112,6 +1124,7 @@ var rated3=<?=$rated3;?>;
 $(document).ready(function(){ 
   //rated1
 $('#rated1').click(function(){
+       rated1_clicked='Y';
          if(rated1_state=='N')
        {
           $('#rated1').empty().append("<i class='fas fa-heart ff rf'></i>");
@@ -1121,7 +1134,7 @@ $('#rated1').click(function(){
                  method:"POST",
                  data:{CodeL:rated1,CodeU:currentU,action:rated1_state},
                  success:function(data){  
-
+                  
                   }
                  });
 
@@ -1146,6 +1159,7 @@ $('#rated1').click(function(){
  //rated2   
 
  $('#rated2').click(function(){
+  rated2_clicked='Y';
          if(rated2_state=='N')
        {
           $('#rated2').empty().append("<i class='fas fa-heart ff rf'></i>");
@@ -1179,6 +1193,7 @@ $('#rated1').click(function(){
       });
 //rated 3
       $('#rated3').click(function(){
+        rated3_clicked='Y';
          if(rated3_state=='N')
        {
           $('#rated3').empty().append("<i class='fas fa-heart ff rf'></i>");
@@ -1221,6 +1236,10 @@ var ultra1_state='N';
 var ultra2_state='N';
 var ultra3_state='N';
 
+var ultra1_clicked='N';
+var ultra2_clicked='N';
+var ultra3_clicked='N';
+
 
 var ultra1=<?=$ultra1;?>;
 var ultra2=<?=$ultra2;?>;
@@ -1232,6 +1251,7 @@ var ultra3=<?=$ultra3;?>;
 $(document).ready(function(){ 
   //ultra1
 $('#ultra1').click(function(){
+           ultra1_clicked='Y';
          if(ultra1_state=='N')
        {
           $('#ultra1').empty().append("<i class='fas fa-heart ff rf'></i>");
@@ -1265,6 +1285,7 @@ $('#ultra1').click(function(){
       });   
 //ultra2
 $('#ultra2').click(function(){
+          ultra2_clicked='Y';
          if(ultra2_state=='N')
        {
           $('#ultra2').empty().append("<i class='fas fa-heart ff rf'></i>");
@@ -1299,6 +1320,7 @@ $('#ultra2').click(function(){
 
 //ultra3
 $('#ultra3').click(function(){
+        ultra3_clicked='Y';
          if(ultra3_state=='N')
        {
           $('#ultra3').empty().append("<i class='fas fa-heart ff rf'></i>");
@@ -1349,11 +1371,88 @@ $(document).ready(function(){
 
     $('#Ultr_Img1').mouseenter(function(){
       document.getElementById('ultra1').style.display='block';
-       
       });   
       $('#Ultr_Img1').mouseleave(function(){
       document.getElementById('ultra1').style.display='none';
-       
-      });      
+      });  
+
+
+
+      $('#Ultr_Img2').mouseenter(function(){
+      document.getElementById('ultra2').style.display='block';
+      });   
+      $('#Ultr_Img2').mouseleave(function(){
+      document.getElementById('ultra2').style.display='none';
+      });   
+
+
+
+       $('#Ultr_Img3').mouseenter(function(){
+      document.getElementById('ultra3').style.display='block';
+      });   
+      $('#Ultr_Img3').mouseleave(function(){
+      document.getElementById('ultra3').style.display='none';
+      }); 
     });     
+</script>
+
+<script>
+$(document).ready(function(){ 
+$('#Ultr_Img1').click(function(){
+        if(ultra1_clicked=='Y')
+         {
+          ultra1_clicked='N';
+         } 
+         else
+         {
+          
+          window.location.href = "SeeMore.php?smr="+ultra1;
+         }
+      });
+
+
+      $('#Ultr_Img2').click(function(){
+        if(ultra2_clicked=='Y')
+         {
+          ultra2_clicked='N';
+         } 
+         else
+         {
+          
+          window.location.href = "SeeMore.php?smr="+ultra2;
+         }
+      });  
+
+      $('#Ultr_Img3').click(function(){
+        if(ultra3_clicked=='Y')
+        {
+          ultra3_clicked='N';
+        }
+        else
+        {
+          window.location.href = "SeeMore.php?smr="+ultra3;
+        }
+      });    
+    });    
+</script>
+
+<script>
+var idImg;
+$(document).ready(function(){
+
+$(document).on('click','.imgdisp',function(){
+  
+      idImg=$(this).attr('id') ;
+      if(rated1_clicked=='Y' || rated2_clicked=='Y' || rated3_clicked=='Y' )
+       {
+        rated1_clicked='N';
+        rated2_clicked='N';
+        rated3_clicked='N';
+       }
+      else{
+        window.location.href = "SeeMore.php?smr="+idImg;
+       }
+      
+  });
+});  
 </script>
