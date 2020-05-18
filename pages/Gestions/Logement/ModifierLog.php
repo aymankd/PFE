@@ -1,5 +1,226 @@
+<?php
+session_start();
+if( !isset($_SESSION['username']) || $_SESSION['type'] != "pro" )
+{
+  header("location:../../../indexx.php");
+}
 
-<!DOCTYPE HTML>
+$servername = "localhost";
+$userservername = "root";
+$database = "pfe";
+$result="";
+$equi="";
+
+// Create connection
+$conn = new mysqli($servername, $userservername,"", $database);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+$CodeL=$_GET['idL'];
+//remplicage des input
+$req = "SELECT * FROM logement where CodeL=?";
+$statement=$conn->prepare($req);
+$statement->bind_param("s",$CodeL);
+$statement->execute();
+$res=$statement->get_result();
+$row=$res->fetch_assoc();
+$nomL = $row['nom'];
+$desc = $row['description'];
+$prix = $row['prix'];
+$sprf = $row['superficie'];
+$Adress = $row['adress'];
+$Reglement = $row['reglement'];
+$logtype=$row['type'];
+$nbrL="";
+$nbrP="";
+$locinput="";
+if($logtype=='Studio')
+{
+   $req = "SELECT * FROM studio where CodeS=?";
+   $statement=$conn->prepare($req);
+   $statement->bind_param("s",$CodeL);
+   $statement->execute();
+   $res=$statement->get_result();
+   $row=$res->fetch_assoc();
+   $nbrP = $row['nbrP'];
+}else if($logtype=='Appartement')
+{
+   $req = "SELECT * FROM appartement where Codeapp=?";
+   $statement=$conn->prepare($req);
+   $statement->bind_param("s",$CodeL);
+   $statement->execute();
+   $res=$statement->get_result();
+   $row=$res->fetch_assoc();
+   $nbrP = $row['nbrP'];
+   $nbrL = $row['nbrC'];
+   $locinput='
+      <div class="col-12 col-sm-6">
+         <input class="form-control" type="text" value="'.$nbrL.'" name="nbrL" required />
+      </div>';
+
+}
+
+
+//selection equipment
+   $req = "SELECT * FROM equipement";
+   $statement=$conn->prepare($req);
+   $statement->execute();
+   $res=$statement->get_result();
+   while ($row = mysqli_fetch_array($res)) 
+   {
+      $nomE=$row['nom'];
+      $codeEq=$row['CodeE'];
+      $reqL = "SELECT * from eqlo where CodeL=? and CodeE=? ";
+      $statementL=$conn->prepare($reqL);
+      $statementL->bind_param("ss",$CodeL,$codeEq);
+      $statementL->execute();
+      $resL=$statementL->get_result();
+      if($resL->num_rows==1)
+      {
+         $equi .= 
+         "
+         <hr>
+         <label class='container'>".$nomE."
+            <input type='checkbox' onclick='updateEq(".$CodeL.",".$codeEq.")' checked='true'>
+            <span class='checkmark'></span>
+         </label>
+         ";
+      }else
+      {
+         $equi .= 
+         "
+         <hr>
+         <label class='container'>".$nomE."
+            <input type='checkbox' onclick='updateEq(".$CodeL.",".$codeEq.")' >
+            <span class='checkmark'></span>
+         </label>
+         ";
+      }
+   }
+   $equi.="<hr>";
+   
+//remplicage des images
+   $images="";
+   $req = "SELECT * FROM image where CodeL=?";
+   $statement=$conn->prepare($req);
+   $statement->bind_param("s",$CodeL);
+   $statement->execute();
+   $res=$statement->get_result();
+   $i=1;
+   while ($row = mysqli_fetch_array($res)) 
+   {
+      if($i==1)
+      {
+         $images.="
+         <div class='row'>
+          <div class='col-sm-4'>
+            <div class='bloc-text-image'>
+              <img src='genere_image_log.php?id=".$row['CodeImg']."'>
+              <a onclick='delImg(".$row['CodeImg'].");location.reload();'><i class='delete far fa-times-circle'></i></a>
+            </div>
+          </div>
+         ";
+         $i=2;
+      }else if($i==2)
+      {
+         $images.="
+          <div class='col-sm-4'>
+            <div class='bloc-text-image'>
+              <img src='genere_image_log.php?id=".$row['CodeImg']."'>
+              <a onclick='delImg(".$row['CodeImg'].");location.reload();'><i class='delete far fa-times-circle'></i></a>
+            </div>
+          </div>
+         </div>
+         ";
+         $i=1;
+      }
+   }
+   if($i==1)
+   {
+      $images.="
+      <div class='row'>
+         <div class='col-sm-4'>
+         <script class='jsbin' src='https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js'></script>
+         <div class='file-upload'>
+            <div class='image-upload-wrap'>
+               <input class='file-upload-input' type='file' onchange='readURL(this);' accept='image/*' />
+               <div class='drag-text'>
+                        <h3>Ajouter image</h3>
+               </div>
+            </div>
+            <div class='file-upload-content'>
+               <img class='file-upload-image'  alt='your image' />
+               <div class='image-title-wrap'>
+                  <a onclick='removeUpload()'><i style='color:#FF0000;' class='far fa-times-circle'></i></a>
+                  <a onclick='valideUpload(".$CodeL.")'><i style='color:#32CD32;' class='far fa-check-circle'></i></i></a>
+               </div>
+            </div>
+         </div>
+      </div>
+      ";
+      $i=2;
+   }else if($i==2)
+   {
+      $images.="
+         <div class='col-sm-4'>
+         <script class='jsbin' src='https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js'></script>
+         <div class='file-upload'>
+            <div class='image-upload-wrap'>
+               <input class='file-upload-input' type='file' onchange='readURL(this);' accept='image/*' />
+               <div class='drag-text'>
+                        <h3>Ajouter image</h3>
+               </div>
+            </div>
+            <div class='file-upload-content'>
+               <img class='file-upload-image'  alt='your image' />
+               <div class='image-title-wrap'>
+               <a onclick='removeUpload()'><i style='color:#FF0000;' class='far fa-times-circle'></i></a>
+               <a onclick='valideUpload(".$CodeL.")'><i style='color:#32CD32;' class='far fa-check-circle'></i></i></a>
+               </div>
+
+            </div>
+         </div>
+      </div>
+      ";
+      $i=1;
+   }
+
+
+//modifier information 
+   if(isset($_POST['modif']))
+   {
+      $nomLinp = $_POST['nomL'];
+      $descinp = $_POST['desc'];
+      $prixinp = $_POST['prix'];
+      $Adressinp = $_POST['Adress'];
+      $Reglementinp = $_POST['Reg'];
+      $sprfinp = $_POST['sprfc'];
+
+      $nbrPinp = $_POST['nbrP'];
+
+      if($logtype=='Studio'){
+         $req = "UPDATE `studio` SET `nbrP`=? where CodeS=?";
+         $statement=$conn->prepare($req);
+         $statement->bind_param("ii",$nbrPinp,$CodeL);
+         $statement->execute();							
+      }else if($logtype=='Appartement'){
+         $nbrLinp = $_POST['nbrL'];
+         $req = "UPDATE `appartement` SET `nbrP`=?,`nbrC`=? where Codeapp=?";
+         $statement=$conn->prepare($req);
+         $statement->bind_param("iii",$nbrPinp,$nbrLinp,$CodeL);
+         $statement->execute();
+      }
+      $req = "UPDATE `logement` SET `nom`=?,`description`=?,`prix`=?,`superficie`=?,`adress`=?,`reglement`=? where CodeL=?";
+      $statement=$conn->prepare($req);
+      $statement->bind_param("sssssss",$nomLinp,$descinp,$prixinp,$sprfinp,$Adressinp,$Reglementinp,$CodeL);
+      $statement->execute();
+      header('location: ModifierLog.php?idL='.$CodeL);
+   }
+   
+
+?>
 <html lang="en">
    <head>
       <meta charset="UTF-8">
@@ -16,7 +237,6 @@
       <!--main css-->
       <link rel="stylesheet" href="../../../Resourse/CssModiferLog/style.css">
       <link rel="stylesheet" href="../../../Resourse/CssModiferLog/bootstrap-select.min.css">
-      <link rel="stylesheet" href="../../../Resourse/CssModiferLog/slick.min.css">
       <link rel="stylesheet" href="../../../Resourse/CssModiferLog/select2.min.css">
       <!--responsive css-->
       <link rel="stylesheet" href="../../../Resourse/CssModiferLog/responsive.css">
@@ -24,8 +244,76 @@
       <!--ChatBox-->
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-      <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
+
       <link rel="stylesheet" href="../../../Resourse/css3/chatbox.css">
+      <style>
+      .container {
+         display: block;
+         position: relative;
+         padding-left: 35px;
+         margin-bottom: 12px;
+         cursor: pointer;
+         font-size: 22px;
+         -webkit-user-select: none;
+         -moz-user-select: none;
+         -ms-user-select: none;
+         user-select: none;
+         }
+
+         /* Hide the browser's default checkbox */
+         .container .inputchec {
+         position: absolute;
+         opacity: 0;
+         cursor: pointer;
+         height: 0;
+         width: 0;
+         }
+
+         /* Create a custom checkbox */
+         .checkmark {
+         position: absolute;
+         top: 0;
+         left: 0;
+         height: 25px;
+         width: 25px;
+         background-color: #eee;
+         }
+
+         /* On mouse-over, add a grey background color */
+         .container:hover input ~ .checkmark {
+         background-color: #ccc;
+         }
+
+         /* When the checkbox is checked, add a blue background */
+         .container input:checked ~ .checkmark {
+         background-color: #2196F3;
+         }
+
+         /* Create the checkmark/indicator (hidden when not checked) */
+         .checkmark:after {
+         content: "";
+         position: absolute;
+         display: none;
+         }
+
+         /* Show the checkmark when checked */
+         .container input:checked ~ .checkmark:after {
+         display: block;
+         }
+
+         /* Style the checkmark/indicator */
+         .container .checkmark:after {
+         left: 9px;
+         top: 5px;
+         width: 5px;
+         height: 10px;
+         border: solid white;
+         border-width: 0 3px 3px 0;
+         -webkit-transform: rotate(45deg);
+         -ms-transform: rotate(45deg);
+         transform: rotate(45deg);
+         }
+      </style>
 
    </head>
    <body >
@@ -42,7 +330,7 @@
                         <span class="icon-bar"></span> 
                         <span class="icon-bar"></span> 
                         </button>
-                        <a href="index.html" class="navbar-brand"><img src="../../Resourse/images/logo-1.png" alt="" /></a>
+                        <a href="index.html" class="navbar-brand"><img src="../../../Resourse/images/logo-1.png" alt="" /></a>
                      </div>
                      <form class="navbar-form navbar-left web-sh">
                         <div class="form">
@@ -84,141 +372,90 @@
                      <h4>Images</h4>
 
 
+                     <?=$images;?>
 
-<div class="container images">
-<div class="row">
-  <div class="col-sm-4"><div class="bloc-text-image">
-  <img src="http://codecondo.com/wp-content/uploads/2014/02/11-Free-jQuery-Photo-Gallery-Lightbox-Plugins.jpg">
-  <div class="description">
-    Petit text d'intro
-    <div class="hide">encore plus de texte !</div>
-  </div>
-</div>
-</div>
-  <div class="col-sm-4"><div class="bloc-text-image">
-  <img src="http://codecondo.com/wp-content/uploads/2014/02/11-Free-jQuery-Photo-Gallery-Lightbox-Plugins.jpg">
-  <div class="description">
-    Petit text d'intro
-    <div class="hide">encore plus de texte !</div>
-  </div>
-</div>
-</div>
-</div>
-<div class="row">
-  <div class="col-sm-4"><div class="bloc-text-image">
-  <img src="http://codecondo.com/wp-content/uploads/2014/02/11-Free-jQuery-Photo-Gallery-Lightbox-Plugins.jpg">
-  <div class="description">
-    Petit text d'intro
-    <div class="hide">encore plus de texte !</div>
-  </div>
-</div>
-</div>
-  <div class="col-sm-4"><div class="bloc-text-image">
-  <img src="http://codecondo.com/wp-content/uploads/2014/02/11-Free-jQuery-Photo-Gallery-Lightbox-Plugins.jpg">
-  <div class="description">
-    Petit text d'intro
-    <div class="hide">encore plus de texte !</div>
-  </div>
-</div>
-</div>
-</div>
-<div class="row">
-  <div class="col-sm-4"><div class="bloc-text-image">
-  <img src="http://codecondo.com/wp-content/uploads/2014/02/11-Free-jQuery-Photo-Gallery-Lightbox-Plugins.jpg">
-  <div class="description">
-    Petit text d'intro
-    <div class="hide">encore plus de texte !</div>
-  </div>
-</div>
-</div>
-  <div class="col-sm-4">
-  <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<div class="file-upload">
-
-  <div class="image-upload-wrap">
-    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
-    <div class="drag-text">
-      <h3>Ajouter image</h3>
-    </div>
-  </div>
-  <div class="file-upload-content">
-    <img class="file-upload-image" src="#" alt="your image" />
-    <div class="image-title-wrap">
-      <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-    </div>
-  </div>
-</div>
-</div>
-</div>
+   </div>
 </div>
 
-
-                  <hr>  
+                  <form method="POST">
+                     <hr>  
                         <div class="dex-a">
-                        <br>     <h4>Description</h4>
-                           <div class="form-group">
+                           <h4>nom</h4>
+                           <div class="form-row mt-4">
+                              <input class="form-control" type="text" value="<?=$nomL?>" name="nomL" required/>
+                           </div>
+                        </div>            
+                        <div class="dex-a">
+                           <h4>Description</h4>
+                           <div class="form-row mt-4">
+                              <textarea class="form-control" rows="3" name="desc"required><?=$desc?></textarea>
+                           </div>
+                        </div>
+                        <div class="dex-a">
+                           <h4>Prix & superficie</h4>
+                           <div class="form-row mt-4">
+                              <div class="col-12 col-sm-6">
+                                 <input class="form-control" type="text" value="<?=$prix?>" name="prix" required/>
+                              </div>
+                              <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                 <input type="text" class="form-control" value="<?=$sprf?>" name="sprfc"  placeholder="sprfc"required>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="dex-a">
+                           <br>
+                           <h4>nombre locataire & piece</h4>
+                           <div class="form-row mt-4">
+                              <?=$locinput?>
+                              <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                 <input type="text" class="form-control" value="<?=$nbrP?>" name="nbrP" placeholder="sprfc" required>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="dex-a">
+                           <br>
+                           <h4>Adress</h4>
+                           <div class="form-row mt-4">
+                              <input class="form-control" type="text" value="<?=$Adress?>" name="Adress" required />
+                           </div>
+                        </div>            
+                        <div class="dex-a">
+                           <h4>Reglement</h4>
+                           <div class="form-row mt-4">
+                              <textarea class="form-control" rows="3" name="Reg" required><?=$Reglement?></textarea>
+                           </div>
+                        </div>
+                        <div class="dex-a">
+                           <button class="btn btn-primary btn-block" name="modif">Modifier</button>
+                        </div>
+                  </form>
 
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <hr>
+                        <div class="spe-a">
+                           <h4>Équipements</h4>
+                              <div class="form-row mt-4">
+                                    <a type="button" data-toggle="modal" data-target="#modalEquip"><i class="fas fa-pen"></i></a>
+                                    <a type="button" aria-busy="false" class="equipment" data-toggle="modal" data-target="#modalEquip" >Modifer les équipements</a>
                               </div>
                         </div>
                         <hr>
                         <div class="spe-a">
-                           <h4>Équipements</h4>
-                           <ul>
-                              <li class="clearfix">
-                                 <div class="col-md-4">
-                                    <h5><svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style="height: 19px; width: 19px; fill: currentcolor;"><path d="m12 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0 5a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm5.92-5.78a.5.5 0 1 1 -.84.55c-1.19-1.81-3.07-2.77-5.08-2.77s-3.89.96-5.08 2.78a.5.5 0 0 1 -.84-.55c1.38-2.1 3.58-3.23 5.92-3.23s4.54 1.13 5.92 3.23zm2.98-3.03a.5.5 0 1 1 -.79.61c-1.66-2.14-5.22-3.8-8.11-3.8-2.83 0-6.26 1.62-8.12 3.82a.5.5 0 0 1 -.76-.65c2.05-2.42 5.75-4.17 8.88-4.17 3.19 0 7.05 1.8 8.9 4.19zm2.95-2.33a.5.5 0 0 1 -.71-.02c-2.94-3.07-6.71-4.84-11.14-4.84s-8.2 1.77-11.14 4.85a.5.5 0 0 1 -.72-.69c3.12-3.27 7.14-5.16 11.86-5.16s8.74 1.89 11.86 5.16a.5.5 0 0 1 -.02.71z" fill-rule="evenodd"></path></svg>     WI-FI</h5>
+                              <h4>Legalité</h4>
+                              <div class="form-row mt-4">
+                                 <a type="button" onclick="openpap()" ><i class="fas fa-eye"></i></a>
+                                 <a type="button" aria-busy="false" class="equipment" onclick="openpap()" >Voir les papier de legalité</a><br>
+                                 <input class='file-upload-input' type='file' onchange='readfile(this);' accept='application/pdf' />
+                                 <div class=''>
+                                    <h3>
+                                       <a type="button"><i class="fas fa-pen"></i></a>
+                                       <a type="button" aria-busy="false" class="equipment" >Modifier les papier de legalité</a>
+                                       <br>
+                                       <a type="button" onclick='valideUploadFile(<?=$CodeL;?>); ' style="display:">Accepté <i class="far fa-check-circle"></i></a>
+                                    </h3>
                                  </div>
-                                 <div class="col-md-8">
-                                 <h5><svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style="height: 19px; width: 19px; fill: currentcolor;"><path d="m10.5 0a .5.5 0 0 0 -.5.5v7a .5.5 0 0 1 -.49.5h-1.51v-7.5a.5.5 0 1 0 -1 0v7.5h-1.51a.5.5 0 0 1 -.49-.5v-7a .5.5 0 1 0 -1 0v7c0 .83.67 1.5 1.49 1.5h1.51v5c0 .03.01.06.02.09a1.49 1.49 0 0 0 -1.02 1.41v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.66-.43-1.21-1.02-1.41.01-.03.02-.06.02-.09v-5h1.51a1.5 1.5 0 0 0 1.49-1.5v-7a .5.5 0 0 0 -.5-.5zm-2.5 15.5v7a .5.5 0 0 1 -.5.5.5.5 0 0 1 -.5-.5v-7c0-.28.22-.5.5-.5s.5.22.5.5zm11.5-15.5h-2c-1.4 0-2.5 1.07-2.5 2.5v7c0 1.43 1.1 2.5 2.5 2.5h1.5v2.09a1.49 1.49 0 0 0 -.5-.09c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-22.5zm-2 11c-.86 0-1.5-.63-1.5-1.5v-7c0-.87.65-1.5 1.5-1.5h1.5v10zm1.5 11.5a.5.5 0 0 1 -.5.5.5.5 0 0 1 -.5-.5v-7c0-.28.22-.5.5-.5s.5.22.5.5z" fill-rule="evenodd"></path></svg>     Cuisine</h5>
-                                 </div>
-                              </li>
-                              <li class="clearfix">
-                                 <div class="col-md-4">
-                                   <!--empty-->
-                                 </div>
-                                 <div class="col-md-8">
-                                    <!--empty-->
-                                 </div>
-                              </li>
-                              <li class="clearfix">
-                                 <div class="col-md-4">
-                                    <h5><svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style="height: 19px; width: 19px; fill: currentcolor;"><path d="m20 11h-19.5a.5.5 0 0 0 -.5.5v2c0 5.79 4.24 10.5 9.5 10.5 3.43 0 6.41-2.01 8.08-5h2.42a4 4 0 0 0 0-8zm-10.5 12c-4.68 0-8.5-4.24-8.5-9.5v-1.5h17v1.5c0 5.26-3.82 9.5-8.5 9.5zm10.5-5h-1.93c.59-1.37.93-2.89.93-4.5v-1.5h1a3 3 0 0 1 0 6zm-11.9-13.7c-.96-1.28-.96-2.53-.37-3.58a2.7 2.7 0 0 1 .42-.57.5.5 0 0 1 .71.71 1.73 1.73 0 0 0 -.25.35c-.41.73-.41 1.55.3 2.49 1.5 2 1.6 3.85.48 5.13a.5.5 0 1 1 -.75-.66c.79-.89.71-2.22-.53-3.87zm-4.49 1.03c-.77-.89-.77-1.85-.31-2.7a2.5 2.5 0 0 1 .32-.46.5.5 0 1 1 .74.67c-.04.04-.1.13-.18.26-.28.52-.28 1.04.15 1.54 2.12 2 2.16 3.22.45 4.29a.5.5 0 1 1 -.53-.85c1.09-.68 1.08-1.12-.64-2.75zm9 0c-.77-.89-.77-1.85-.31-2.7a2.5 2.5 0 0 1 .32-.46.5.5 0 1 1 .74.67c-.04.04-.1.13-.18.26-.28.52-.28 1.04.15 1.54 2.12 2 2.16 3.22.45 4.29a.5.5 0 0 1 -.53-.85c1.09-.68 1.08-1.12-.64-2.75z" fill-rule="evenodd"></path></svg>  Petit déjeuner</h5>
-                                 </div>
-                                 <div class="col-md-8">
-                                 <h5><svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style="height: 19px; width: 19px; fill: currentcolor;"><path d="m23.99 18.38-.5-2a .5.5 0 0 0 -.49-.38h-22a .5.5 0 0 0 -.49.38l-.5 2a .5.5 0 0 0 .49.62h23a .5.5 0 0 0 .49-.62zm-1.13-.38h-21.72l.25-1h21.22zm-21.36-3h21a .5.5 0 0 0 .5-.53c-.21-3.22-1.22-5.47-3-5.47a4911.8 4911.8 0 0 0 -8.8 0h-1.71c-.2 0-.26-.08-.19-.27a9.59 9.59 0 0 1 .17-.48c.13-.34.27-.68.43-1 .41-.79.82-1.25 1.1-1.25h10.5c.87 0 1.43-.7 1.4-1.52s-.64-1.48-1.55-1.48h-11.35c-3.84 0-7.29 4.4-8.99 11.38a.5.5 0 0 0 .49.62zm8.5-11h11.35c.35 0 .55.21.56.52.01.29-.14.48-.4.48h-10.51c-.8 0-1.42.68-1.99 1.8a10.74 10.74 0 0 0 -.65 1.61c-.31.82.23 1.59 1.13 1.59h1.71a33801.74 33801.74 0 0 1 8.8 0c .94 0 1.71 1.58 1.95 4h-19.8c1.65-6.21 4.7-10 7.85-10zm5 8a1 1 0 1 1 2 0 1 1 0 0 1 -2 0zm3 0a1 1 0 1 1 2 0 1 1 0 0 1 -2 0z" fill-rule="evenodd"></path></svg>  Fer a repasser</h5>
-
-                                 </div>
-                              </li><br>
-                              <div class="col-md-12">
-                                    <a type="button" href="#" aria-busy="false" class="equipment" data-toggle="modal" data-target="#modalEquip">Modifer les équipements</a>
-                                 </div>
-                           </ul>
+                              </div>
                         </div>
                      </div>
-                  </div>
-
-
-                  <div class="similar-box">
-                     <h2>Similiar results</h2>
-                     
-                     <div class="row cat-pd">
-                 
-                     </div>
-
-                     <div class="row cat-pd">
-                       
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-3 col-sm-12">
-                  <div class="price-box-right">
-                     <h4>Prix</h4>
-                     <h3> Dh</h3><hr>
-                  
-                    
-                     
-                     <a id="ChatPro" class="badge badge-primary">Contacter Hote</a>
                   </div>
                </div>
             </div>
@@ -237,41 +474,11 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="_1p0spma2">Standard</div>
         <div class="_1lhxpmp">
-           <div class="_czm8crp"> Wi-Fi</div>
            <div style="margin-top: 8px;">
-              <div class="_1jlnvra2">Accès permanent dans le logement</div> 
-              <hr>
-              <div class="_czm8crp">Television</div> 
-              <hr>
-              <div class="_czm8crp">Fer à repasser</div> 
-              <hr>
-              <div class="_czm8crp">Équipements de base</div> 
-              <div class="_1jlnvra2">Serviettes, draps, savon et papier toilette</div> 
-              <hr>
-              <div class="_czm8crp">Chauffage</div> 
-              <div class="_1jlnvra2">Chauffage central ou radiateur électrique</div> 
-              <hr>
-              <div class="_czm8crp">Climatisation</div> 
-              
-              <hr>
-              <div class="_czm8crp">Eau chaude</div> 
-              <hr>
-              <div class="_czm8crp">Detecteur de fumée</div> 
-              <hr>
-              <div class="_czm8crp">Kit de premiers secours</div> 
-              <hr>
-              <div class="_czm8crp">gg</div> 
-              <hr>
-              <div class="_czm8crp">gg</div> 
-              <hr>
-              <div class="_czm8crp">gg</div> 
-            </div>
+            <?=$equi ;?>
+           </div>
          </div>
-         <hr>
-         
-
       </div>
       <div class="modal-footer">
         <!--just for the color -->
@@ -279,81 +486,113 @@
     </div>
   </div>
 </div>
-
-<!--Modal-->
-
-
-<div class="modal" id="modalLikeThis2" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true"></span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-   
-      <section class="avenue-messenger" id="Chat" style="display:none">
-         <div class="menu">
-            <div class="button" id="CloseChat" title="End Chat"></div> 
-         </div>
-         <div class="agent-face">
-            <div class="half">
-            <img class="agent circle" src="Proprofile.php?id=" alt="profile">
-            </div>
-         </div>
-         <div class="chat" >
-            <div class="chat-title">
-            <h1></h1>
-            <h2>RE/MAX</h2>
-            </div>
-            <div class="messages" >
-            <div class="messages-content mCustomScrollbar _mCS_1 mCS_no_scrollbar" >
-
-            </div>
-            </div>
-            <div class="message-box">
-               <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
-               <button type="submit" id="send" class="message-submit">Send</button>
-            </div>
-         </div>
-
-      </section>
-
-      
-
-
    </body>
    
 
    
-   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-   <script src='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js'></script>
 
 
    
       <!--bootstrap js--> 
       <script src="../../../Resourse/js2/uploadimg.js"></script>
       <script src="../../../Resourse/js4/bootstrap.min.js"></script> 
-      <script src="../../../Resourse/js4/bootstrap-select.min.js"></script>
+
       <script src="../../../Resourse/js4/slick.min.js"></script> 
       <script src="../../../Resourse/js4/select2.full.min.js"></script> 
       <script src="../../../Resourse/js4/wow.min.js"></script> 
-      <!--custom js--> 
-      <script src="../../../Resourse/js4/custom.js"></script>
-      <script src="../../../Resourse/CssModiferLog/jsdeleteimg.js"></script>
-      <script src="../../../Resourse/CssModiferLog/jsaddimage.js"></script>
+      <!--custom js-->
+      <script>
+      //ouvrir le fichier legalité
+         function openpap() { 
+            window.open("genere_file.php?id=<?=$CodeL;?>", "_blank");
+         }
+      //update les equipement
+         function updateEq(L,E) { 
+            $.ajax({  
+                  url:"UpdateEq.php",  
+                  method:"GET",  
+                  data:{codeL:L,codeE:E}
+            });
+         }
+      //ouvrir le fichier legalité
+         function delImg(codeImg) { 
+            $.ajax({  
+                  url:"delete_image.php",  
+                  method:"GET",  
+                  data:{id:codeImg}
+            });
+         }
+      //lire l'image
+      var imageToval,File;
+         function readURL(input) {
+            if (input.files && input.files[0]) {
+         
+               var reader = new FileReader();
+         
+               reader.onload = function(e) {
+               $('.image-upload-wrap').hide();
+               imageToval=e.target.result;
+               $('.file-upload-image').attr('src', e.target.result);
+               $('.file-upload-content').show();
+         
+               $('.image-title').html(input.files[0].name);
+               };
+         
+               reader.readAsDataURL(input.files[0]);
+         
+            } else {
+               removeUpload();
+            }
+         }
+         function readfile(input) {
+            if (input.files && input.files[0]) {
+               var reader = new FileReader();
+               reader.onload = function(e) {
+                  File=e.target.result;
+               };
+               reader.readAsDataURL(input.files[0]);
+            } else {
+               removeUpload();
+            }
+         }
+         
+         function valideUpload(Log) {
+            $.ajax({  
+                  url:"Add_image.php",  
+                  method:"POST",  
+                  data:{img:imageToval,codeL:Log},
+          success:function(data){
+            location.reload();
+          }
+            });
+         }
+         function valideUploadFile(Log) {
+            $.ajax({  
+                  url:"update_pdf.php",  
+                  method:"POST",  
+                  data:{file:File,codeL:Log},
+                  success:function(data){
+                     console.log(data);
+                     location.reload();
+                  }
+               });
+         }
 
+         function removeUpload() {
+            location.reload();
+            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+            $('.file-upload-content').hide();
+            $('.image-upload-wrap').show();
+            
+         }
+         $('.image-upload-wrap').bind('dragover', function () {
+                  $('.image-upload-wrap').addClass('image-dropping');
+               });
+               $('.image-upload-wrap').bind('dragleave', function () {
+                  $('.image-upload-wrap').removeClass('image-dropping');
+         });
+
+         
+         
+      </script>
 </html>
