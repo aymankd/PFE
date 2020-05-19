@@ -419,7 +419,7 @@ while(($rowR1= mysqli_fetch_array($resR1)))
       if($num_rowI>0)
       {
         $ultra_IdI=$rowI['CodeImg'];
-        $image="genere_image.php?id=$pop_IdI";
+        $image="genere_image.php?id=$ultra_IdI";
       }
       else
       {
@@ -546,7 +546,7 @@ while($rowR2= mysqli_fetch_array($resR2))
       if($num_rowI>0)
       {
         $rated_IdI=$rowI['CodeImg'];
-        $image="genere_image.php?id=$pop_IdI";
+        $image="genere_image.php?id=$rated_IdI";
       }
       else
       {
