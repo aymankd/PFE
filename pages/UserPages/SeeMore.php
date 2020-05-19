@@ -2867,25 +2867,6 @@ $(window).on('resize', function() {
 </script>
 
 
-<script>
-var act='<?=$act?>';
-$(document).ready(function(){ 
-   if(act='EVL')
-   {
-      $('#modalLikeThis2').modal('show');
-   }
-   else if(act='ENR')
-   {
 
-   }
-  else if(act='CH')
-   {
-      chat.style="display:block";
-      updateScrollbar();
-   }
-
-
-});
-</script>
 
 </html>
