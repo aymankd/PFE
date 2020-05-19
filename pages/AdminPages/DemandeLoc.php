@@ -1,4 +1,5 @@
 <?php 
+/*
 session_start();
 if(isset($_POST['logoutbtn'])) 
 {
@@ -9,6 +10,7 @@ if( !isset($_SESSION['username']) || $_SESSION['type'] != "admin" )
 {
   header("location:../../homeP.php");
 }
+*/
 $servername = "localhost";
 $userservername = "root";
 $database = "pfe";
@@ -67,7 +69,7 @@ else
     <!-- End plugin css for this page -->
     <!-- inject:css -->
    
-    <link rel="stylesheet" href="../../Resourse/css2/style.css">
+    <link rel="stylesheet" href="../../Resourse/css2Dma/style.css">
     <link rel="stylesheet" href="../../Resourse/CSS/DL.css">
     <link rel="stylesheet" href="../../Resourse/CSS/bootstrap.min.css">
 
@@ -210,7 +212,9 @@ else
            <br>
 <div class='card-wrap'>
   <div class='card'>
-    <div class='set-image'><p>Straight fold</p></div>
+    <div class='set-image'>
+      <img id="imagetkherbiqa"src="../../Resourse/images/lag-60.png" alt="Cinque Terre" width="398" height="249">
+</div>
     <h5 class="card-title">Titre</h5>
         <p class="card-text"> <i class="fas fa-tags CA"></i>1000 Dh  &nbsp;<i class="fas fa-male CA"></i> 3  &nbsp; <i class="fas fa-warehouse CA"></i> 100 m²</p>
 
