@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 $UN=$_GET['UN'];
-$req = "SELECT * FROM utilisateur where username=?";
+$req = "SELECT * FROM utilisateur where username=BINARY?";
 $statement=$conn->prepare($req);
 $statement->bind_param("s",$UN);
 $statement->execute();

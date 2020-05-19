@@ -26,7 +26,7 @@ if(isset($_POST['connect']))
   $login = $_POST["login"];
   $password = $_POST["password"];
   $password = sha1($password);
-  $req = "SELECT * from utilisateur where  email=? or username=? ";
+  $req = "SELECT * from utilisateur where  email=BINARY? or username=BINARY? ";
   $statement=$conn->prepare($req);
   $statement->bind_param("ss",$login,$login);
   $statement->execute();
