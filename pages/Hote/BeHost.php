@@ -11,7 +11,7 @@ $userservername = "root";
 $database = "pfe";
 $msg="";
 $alert="";
-
+$script="";
 
 // Create connection
 $conn = new mysqli($servername, $userservername,"", $database);
@@ -107,6 +107,11 @@ if(isset($_POST['EnrFrm']))
     <span aria-hidden="true">&times;</span>
     </button>
     </div>';
+    $script="
+    setTimeout(function(){
+       location.replace('../PropPages/Prop.php');
+      }, 2500);
+    ";
 
 
 }
@@ -325,6 +330,7 @@ function showPiece(x)
 				document.getElementById('PieceInput').style.display='none';
 			  }
 		}
+    <?=$script;?>
 </script>
 <script  src="../../Resourse/Behost/js.js"></script>
 <script src="../../Resourse/Behost/uploadimg.js"></script>

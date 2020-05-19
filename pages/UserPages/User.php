@@ -311,7 +311,7 @@ if(mysqli_num_rows($resR1)==0)
         $ultra_rec.=" <div class='left-side'>
                         <div class='masonry-box post-media'>
                           <img src='".$image."' alt='' class='img-fluid'>
-                          <div class='shadoweffect'>
+                          <div id='Ultr_Img".$line_cnt."' class='shadoweffect'>
                           <button id='ultra".$line_cnt."' class='ultra_save'><i class='far fa-heart rf'></i></button>
                             <div class='shadow-desc'>
                               <div class='blog-meta'>
@@ -330,7 +330,7 @@ if(mysqli_num_rows($resR1)==0)
        {
         $ultra_rec.=" <div class='center-side'>
                         <div class='masonry-box post-media'>
-                          <img src='".$image."' alt='' class='img-fluid'>
+                          <img id='Ultr_Img".$line_cnt."' src='".$image."' alt='' class='img-fluid'>
                           <div class='shadoweffect'>
                           <button id='ultra".$line_cnt."' class='ultra_save'><i class='far fa-heart rf'></i></button>
                             <div class='shadow-desc'>
@@ -351,7 +351,7 @@ if(mysqli_num_rows($resR1)==0)
         $ultra_rec.=" <div class='right-side'>
         <div class='masonry-box post-media'>
           <img src='".$image."' alt='' class='img-fluid'>
-          <div class='shadoweffect'>
+          <div id='Ultr_Img".$line_cnt."' class='shadoweffect'>
           <button id='ultra".$line_cnt."' class='ultra_save'><i class='far fa-heart rf'></i></button>
             <div class='shadow-desc'>
               <div class='blog-meta'>
@@ -386,6 +386,7 @@ while(($rowR1= mysqli_fetch_array($resR1)))
 {
       $line_cnt=$line_cnt+1;
       $ultra_CodeL=$rowR1['idL'];
+      
       //info du logement courant
       $reqIL="SELECT * FROM logement where CodeL=?";
       $statementIL=$conn->prepare($reqIL);
@@ -413,8 +414,19 @@ while(($rowR1= mysqli_fetch_array($resR1)))
       $statementI->execute();
       $resI=$statementI->get_result();
       $rowI=$resI->fetch_assoc();
-      $ultra_IdI=$rowI['CodeImg'];
-      $image="genere_image.php?id=$ultra_IdI";
+      $num_rowI=$resI->num_rows;
+      
+      if($num_rowI>0)
+      {
+        $ultra_IdI=$rowI['CodeImg'];
+        $image="genere_image.php?id=$pop_IdI";
+      }
+      else
+      {
+        $image="../../Resourse/imgs/userimgs/home-holder.jpg";
+      }
+
+      
       
       
       if($line_cnt==1)
@@ -444,7 +456,7 @@ while(($rowR1= mysqli_fetch_array($resR1)))
         $ultra_rec.=" <div class='center-side'>
                         <div class='masonry-box post-media'>
                           <img src='".$image."' alt='' class='img-fluid'>
-                          <div class='shadoweffect'>
+                          <div  id='Ultr_Img".$line_cnt."' class='shadoweffect'>
                           <button id='ultra".$line_cnt."' class='ultra_save'><i class='far fa-heart rf'></i></button>
                             <div class='shadow-desc'>
                               <div class='blog-meta'>
@@ -464,7 +476,7 @@ while(($rowR1= mysqli_fetch_array($resR1)))
         $ultra_rec.=" <div class='right-side'>
         <div class='masonry-box post-media'>
           <img src='".$image."' alt='' class='img-fluid'>
-          <div class='shadoweffect'>
+          <div id='Ultr_Img".$line_cnt."' class='shadoweffect'>
           <button id='ultra".$line_cnt."' class='ultra_save'><i class='far fa-heart rf'></i></button>
             <div class='shadow-desc'>
               <div class='blog-meta'>
@@ -529,8 +541,17 @@ while($rowR2= mysqli_fetch_array($resR2))
       $statementI->execute();
       $resI=$statementI->get_result();
       $rowI=$resI->fetch_assoc();
-      $rated_IdI=$rowI['CodeImg'];
-      $image="genere_image.php?id=$rated_IdI";
+      $num_rowI=$resI->num_rows;
+      
+      if($num_rowI>0)
+      {
+        $rated_IdI=$rowI['CodeImg'];
+        $image="genere_image.php?id=$pop_IdI";
+      }
+      else
+      {
+        $image="../../Resourse/imgs/userimgs/home-holder.jpg";
+      }
       
       
       

@@ -153,6 +153,15 @@ $rowP=$resP->fetch_assoc();
 
 $Pnom=$rowP["nom"];
 $Pprenom=$rowP["prenom"];
+
+
+$reqP="SELECT * from utilisateur where CodeU=?";
+$statementP=$conn->prepare($reqP);
+$statementP->bind_param("i",$rowL["CodeP"]);
+$statementP->execute();
+$resP=$statementP->get_result();
+$rowP=$resP->fetch_assoc();
+$LU=$rowP["username"];
 //Selection des 4 logements similaires
 $srcC="";
 $CodeO1=0;
@@ -1619,7 +1628,7 @@ else{
                <div class="col-md-12">
                   <div class="prod-page-title">
                      <h2 class="titreOne"><?=$Titre?></h2>
-                     <p>Par <span><?=$Pnom?> <?=$Pprenom?></span></p>
+                     <p>Par <span><?=$Pnom?> <?=$Pprenom?> (<?=$LU?>)</span></p>
                   </div>
                </div>
             </div>

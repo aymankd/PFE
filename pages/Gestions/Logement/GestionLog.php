@@ -1,5 +1,69 @@
 
-<!DOCTYPE html>
+<?php
+session_start();
+
+if( !isset($_SESSION['username']) || $_SESSION['type'] != "pro" )
+{
+  header("location:../../indexx.php");
+}
+
+$servername = "localhost";
+$userservername = "root";
+$database = "pfe";
+$result="";
+
+// Create connection
+$conn = new mysqli($servername, $userservername,"", $database);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+$codeU=$_SESSION['usercode'];
+
+$reqIU="SELECT * FROM proprietaire WHERE CodeP=?";
+$statementIU=$conn->prepare($reqIU);
+$statementIU->bind_param("s",$codeU);
+$statementIU->execute();
+$resUI=$statementIU->get_result();
+$rowUI=$resUI->fetch_assoc();
+$nomPro=$rowUI['nom']." ".$rowUI['prenom'];
+
+
+
+$reqL = "SELECT * from logement where CodeP=? ";
+$statementL=$conn->prepare($reqL);
+$statementL->bind_param("s",$codeU);
+$statementL->execute();
+$resL=$statementL->get_result();
+while ($rowL = mysqli_fetch_array($resL)) 
+{
+  $nom = $rowL['nom'];
+  $price=$rowL['prix'];
+  $CodeL=$rowL['CodeL'];
+  $result.='
+  <div class="center-side">
+    <div class="masonry-box post-media">
+        <img src="genere_image.php?id='.$CodeL.'" alt="" class="img-fluid">
+        <div class="shadoweffect">
+            <div class="shadow-desc">
+                <div class="blog-meta">
+                <span class="bg-aqua"><a href="Modifierlog.php?idL='.$CodeL.'" title="">Modifier</a></span>
+                    <h4><a title="">'.$nom.'</a></h4>
+                    <small><a title="">Prix : '.$price.' dh</a></small>
+                    <small><a title="">by '.$nomPro.'</a></small>
+                </div><!-- end meta -->
+            </div><!-- end shadow-desc -->
+        </div><!-- end shadow -->
+    </div><!-- end post-media -->
+  </div><!-- end left-side -->
+  ';
+
+}
+
+
+
+?>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -158,53 +222,7 @@
 <section class="section first-section">
             <div class="container-fluid">
                 <div class="masonry-blog clearfix">
-                    <div class="left-side">
-                        <div class="masonry-box post-media">
-                             <img src="../../../Resourse/images/lag-60.png" alt="" class="img-fluid">
-                             <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                        <span class="bg-aqua"><a href="Modifierlog.php" title="">Modifier</a></span>
-                                        <h4><a href="garden-single.html" title="">Apart1</a></h4>
-                                        <small><a href="garden-single.html" title="">Prix : 1600 dh</a></small>
-                                        <small><a href="#" title="">by khalid</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                            </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end left-side -->
-
-                    <div class="center-side">
-                        <div class="masonry-box post-media">
-                             <img src="../../../Resourse/images/lag-61.png" alt="" class="img-fluid">
-                             <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                    <span class="bg-aqua"><a href="Modifierlog.php" title="">Modifier</a></span>
-                                        <h4><a href="garden-single.html" title="">Apart2</a></h4>
-                                        <small><a href="garden-single.html" title="">Prix : 1605 dh</a></small>
-                                        <small><a href="#" title="">by nabil</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                            </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end left-side -->
-
-                    <div class="right-side hidden-md-down">
-                        <div class="masonry-box post-media">
-                             <img src="../../../Resourse/images/lag-63.png" alt="" class="img-fluid">
-                             <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                    <span class="bg-aqua"><a href="Modifierlog.php" title="">Modifier</a></span>
-                                        <h4><a href="garden-single.html" title="">Apart3</a></h4>
-                                        <small><a href="garden-single.html" title="">Prix : 1800 dh</a></small>
-                                        <small><a href="#" title="">by ayman</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                             </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end right-side -->
+                    <?=$result; ?>
                 </div><!-- end masonry -->
             </div>
         </section>
