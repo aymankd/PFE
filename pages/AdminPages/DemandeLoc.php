@@ -8,7 +8,7 @@ if(isset($_POST['logoutbtn']))
 }
 if( !isset($_SESSION['username']) || $_SESSION['type'] != "admin" )
 {
-  header("location:../../homeP.php");
+  header("location:../../indexx.php");
 }
 
 $servername = "localhost";
@@ -47,6 +47,99 @@ else
 	$src="../../Resourse/imgs/ProfileHolder.jpg";
 	$ProfileP="<img src='".$src."' alt='profile'/>";
 }
+
+$logements="";
+$stat="valide";
+$reqL="SELECT * FROM `logement` where status!=?";
+$statementL=$conn->prepare($reqL);
+$statementL->bind_param("s",$stat);
+$statementL->execute();
+$resL=$statementL->get_result();
+$i=1;
+
+while ($rowL = mysqli_fetch_array($resL))
+{
+  $codeL=$rowL['CodeL'];
+  $nom = $rowL['nom'];
+  $adress = $rowL['adress'];
+  $description = $rowL['description'];
+  $sup=$rowL['superficie'];
+  $prix=$rowL['prix'];
+  $LogeType = $rowL['type'];
+  $status=$rowL['status'];
+
+    if($i==1)
+      $logements.='<div class="row">';  
+    $i++;
+    
+  if($LogeType=="Appartement")
+  {//appartement
+    $req = "SELECT * FROM appartement where Codeapp=?";
+    $statement=$conn->prepare($req);
+    $statement->bind_param("i",$codeL);
+    $statement->execute();
+    $res=$statement->get_result();
+    $row=$res->fetch_assoc();
+    $rooms=$row['nbrC'];
+    $nbrP=$row['nbrP'];
+    $logements.='
+    <div class="card">
+      <div class="set-image">
+        <img id="imagetkherbiqa" src="genere_image.php?id='.$codeL.'" style="margin-left: -1px;" alt="Cinque Terre" width="398" height="249">
+  </div>
+      <h5 class="card-title">'.$nom.'</h5>
+          <p class="card-text"> <i class="fas fa-tags CA"></i>'.$prix.' Dh  &nbsp;<i class="fas fa-male CA"></i> '.$nbrP.'  &nbsp; <i class="fas fa-bed CA"></i> '.$rooms.' &nbsp; <i class="fas fa-warehouse CA"></i> '.$sup.' m²</p>
+  
+          <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> '.$adress.' </p>
+            <br>
+          <p class="cpara">'.$description.'</p> <br>
+             
+          <a href="Requestdetails.php?idL='.$codeL.'" class="btn btn-primary btn_cnslt">Consulter</a>
+  
+      <div class="ribbon-wrapper-1">
+        <div class="ribbon-1">'.$status.'</div>
+      </div>
+    </div>
+    ';
+  }else if($LogeType=="Studio")
+  {//studio
+    $req = "SELECT * FROM studio where CodeS=?";
+    $statement=$conn->prepare($req);
+    $statement->bind_param("i",$codeL);
+    $statement->execute();
+    $res=$statement->get_result();
+    $row=$res->fetch_assoc();
+    $nbrP=$row['nbrP'];
+    $logements.='
+    <div class="card">
+      <div class="set-image">
+        <img id="imagetkherbiqa" src="genere_image.php?id='.$codeL.'" style="margin-left: -1px;" alt="Cinque Terre" width="398" height="249">
+  </div>
+      <h5 class="card-title">'.$nom.'</h5>
+          <p class="card-text"> <i class="fas fa-tags CA"></i>'.$prix.' Dh  &nbsp;<i class="fas fa-male CA"></i> '.$nbrP.'  &nbsp; <i class="fas fa-warehouse CA"></i> '.$sup.' m²</p>
+  
+          <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> '.$adress.' </p>
+            <br>
+          <p class="cpara">'.$description.'</p> <br>
+             
+          <a href="Requestdetails.php?idL='.$codeL.'" class="btn btn-primary btn_cnslt">Consulter</a>
+  
+      <div class="ribbon-wrapper-1">
+        <div class="ribbon-1">'.$status.'</div>
+      </div>
+    </div>
+    ';
+  }
+  if($i==3)
+  {
+    $logements.='</div>';  
+    $i=1;
+  }  
+
+
+
+}
+/////
 
 
  ?>
@@ -210,26 +303,9 @@ else
 
            <!--PAGE content-->
            <br>
-<div class='card-wrap'>
-  <div class='card'>
-    <div class='set-image'>
-      <img id="imagetkherbiqa"src="../../Resourse/images/lag-60.png"  style="margin-left: -1px;" alt="Cinque Terre" width="398" height="249">
-</div>
-    <h5 class="card-title">Titre</h5>
-        <p class="card-text"> <i class="fas fa-tags CA"></i>1000 Dh  &nbsp;<i class="fas fa-male CA"></i> 3  &nbsp; <i class="fas fa-bed CA"></i> 3 &nbsp; <i class="fas fa-warehouse CA"></i> 100 m²</p>
-
-        <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> Adresse </p>
-          <br>
-        <p class="cpara">Description</p> <br>
-           
-        <a href="#" class="btn btn-primary btn_cnslt">Consulter</a>
-
-    <div class='ribbon-wrapper-1'>
-      <div class='ribbon-1'>Tkhrbi9a</div>
-    </div>
-  </div>
-  
-</div>
+          <div class='card-wrap'>
+          <?=$logements; ?>
+          </div>
 
 				<!-- partial:partials/_footer.html -->
 				<footer class="footer">

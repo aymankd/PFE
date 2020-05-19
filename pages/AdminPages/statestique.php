@@ -7,7 +7,7 @@ if(isset($_POST['logoutbtn']))
 }
 if( !isset($_SESSION['username']) || $_SESSION['type'] != "admin" )
 {
-  header("location:../../homeP.php");
+  header("location:../../indexx.php");
 }
 $servername = "localhost";
 $userservername = "root";

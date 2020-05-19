@@ -2,7 +2,7 @@
 session_start();
 if( !isset($_SESSION['username']) || $_SESSION['type'] != "admin" )
 {
-  header("location:../../homeP.php");
+  header("location:../../indexx.php");
 }
 $servername = "localhost";
 $userservername = "root";
@@ -20,6 +20,7 @@ if ($conn->connect_error) {
 //remplisage des données d'utilisateur courrant
 $src="";
 $ProfileP="";
+$CodeL=$_GET['idL'];
 $USN=$_SESSION['username'];
 $reqIU="SELECT * FROM utilisateur WHERE username=?";
 $statementIU=$conn->prepare($reqIU);
@@ -29,7 +30,7 @@ $resIU=$statementIU->get_result();
 $rowIU=$resIU->fetch_assoc();
 if($rowIU['imageP']!=NULL)
 {
-  	$src="../Samples/profilpic.php?UN=$USN";
+  $src="../Samples/profilpic.php?UN=$USN";
 	$ProfileP="<img src='".$src."' alt='profile'/>";
 }
 else
@@ -37,6 +38,101 @@ else
 	$src="../../Resourse/imgs/ProfileHolder.jpg";
 	$ProfileP="<img src='".$src."' alt='profile'/>";
 }
+
+
+
+
+
+
+//remplicage des images
+$images="";
+$req = "SELECT * FROM image where CodeL=?";
+$statement=$conn->prepare($req);
+$statement->bind_param("s",$CodeL);
+$statement->execute();
+$res=$statement->get_result();
+$i=1;
+while ($row = mysqli_fetch_array($res)) 
+{
+      $images.="
+      <img src='genere_image_log.php?id=".$row['CodeImg']."' alt='image' class='imagepage mySlides' style='width: 430px; border-radius: 10px; display: block;'>
+      ";
+}
+
+//remplicage des champ
+$reqIU="SELECT * FROM `logement` WHERE CodeL=?";
+$statementIU=$conn->prepare($reqIU);
+$statementIU->bind_param("s",$CodeL);
+$statementIU->execute();
+$resIU=$statementIU->get_result();
+$rowIU=$resIU->fetch_assoc();
+$codeP=$rowIU['CodeP'];
+
+$nom = $rowIU['nom'];
+$adress = $rowIU['adress'];
+$description = $rowIU['description'];
+$sup=$rowIU['superficie'];
+$prix=$rowIU['prix'];
+
+$reqIU="SELECT * FROM `proprietaire` WHERE CodeP=?";
+$statementIU=$conn->prepare($reqIU);
+$statementIU->bind_param("s",$codeP);
+$statementIU->execute();
+$resIU=$statementIU->get_result();
+$rowIU=$resIU->fetch_assoc();
+$nomP = $rowIU['nom'];
+$prenomP = $rowIU['prenom'];
+$CIN = $rowIU['CIN'];
+$Tel=$rowIU['tel'];
+
+
+if(isset($_POST['refus']))
+  {
+    $motif=$_POST['motif'];
+    echo $motif;
+    $req = "INSERT INTO `demande`(`codeP`, `motiv`, `CodeL`) VALUES (?,?,?)";
+    $statement=$conn->prepare($req);
+    $statement->bind_param("sss",$codeP,$motif,$CodeL);
+    $statement->execute();
+    header("location:dash.php");
+  }
+  if(isset($_POST['accept']))
+  {
+    echo 6;
+    $req = "DELETE FROM `demande` WHERE `CodeL`=?";
+    $statement=$conn->prepare($req);
+    $statement->bind_param("s",$CodeL);
+    $statement->execute();
+    $sta="valide";
+    $req = "UPDATE `logement` SET `status`=? WHERE `CodeL`=?";
+    $statement=$conn->prepare($req);
+    $statement->bind_param("ss",$sta,$CodeL);
+    $statement->execute();
+
+    header("location:dash.php");
+  }
+
+
+
+$reqIU="SELECT * FROM utilisateur WHERE CodeU=?";
+$statementIU=$conn->prepare($reqIU);
+$statementIU->bind_param("s",$codeP);
+$statementIU->execute();
+$resIU=$statementIU->get_result();
+$rowIU=$resIU->fetch_assoc();
+if($rowIU['imageP']!=NULL)
+{
+  $src="../Samples/profilpic.php?UN=$USN";
+}
+else
+{
+	$src="../../Resourse/imgs/ProfileHolder.jpg";
+}
+
+
+
+
+
 
 ?>
 <!DOCTYPE html>
@@ -305,60 +401,52 @@ else
 				  <div class="grid-container">
 
   <div class="image">	
-
- 
-  <div class="w3-content w3-display-container" style="max-width:800px">
-  <img src="../../Resourse/images/tr3.png "  alt="image" class="imagepage mySlides"  style="width: 430px;border-radius: 10px;" >
-
-  <img src="../../Resourse/images/tr4.png "  alt="image" class="imagepage mySlides" style="width: 430px;border-radius: 10px;" >
-  <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
-    <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
-    <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
-    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
-    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
-    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
+    <div class="w3-content w3-display-container" style="max-width:800px">
+      
+      <?=$images;?>
+      <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
+        <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
+        <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
+      </div>
+    </div>
   </div>
-</div>		
-  
-</div>
-  <div class="form"> <form class="forms-sample">
+  <div class="form"> <div class="forms-sample">
 
 <div class="form-group row">
   <label for="exampleInputUsername2" class="col-sm-3 col-form-label">prix</label>
   <div class="col-sm-9">
-	<input type="text" class="form-control" id="exampleInputUsername2" placeholder="prix">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Nombre de personne</label>
-  <div class="col-sm-9">
-	<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Nombre de personne">
+	<input type="text" class="form-control" disabled id="exampleInputUsername2" value="<?=$prix;?>" placeholder="prix">
   </div>
 </div>
 <div class="form-group row">
   <label for="exampleInputMobile" class="col-sm-3 col-form-label">Superficie</label>
   <div class="col-sm-9">
-	<input type="text" class="form-control" id="exampleInputMobile" placeholder="Superficie">
+	<input type="text" class="form-control" disabled id="exampleInputMobile" value="<?=$sup;?>" placeholder="Superficie">
   </div>
 </div>
 <div class="form-group row">
   <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Description</label>
   <div class="col-sm-9">
-  <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>  </div>
+  <textarea class="form-control" disabled id="exampleTextarea1" rows="4"><?=$description;?></textarea></div>
 </div>
 <div class="form-group row">
   <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Adresse</label>
   <div class="col-sm-9">
-	<input type="password" class="form-control" id="exampleInputConfirmPassword2" placeholder="Adresse">
+	<input type="text" disabled class="form-control" id="exampleInputConfirmPassword2" value="<?=$adress;?>" placeholder="Adresse">
   </div>
 </div>
 
 
-</form>
+</div>
 <div class="form-check form-check-flat form-check-primary">
   <label class="consulter">
-	Pice de légalité : <a href="url">Consulter</a>
+	Pice de légalité : <a href="" onclick="openpap()">Consulter</a>
   </label>
+  <script>
+           function openpap() { 
+            window.open("genere_file.php?id=<?=$CodeL;?>", "_blank");
+         }
+  </script>
 </div>
 </div>
 
@@ -374,45 +462,52 @@ else
                   <h4 class="card-title">Information de propriétaire</h4>
                  
 				  <div class="grid-container2">
-<div class="pic">		  <img src="../../Resourse/images/list-img-01.png"  alt="image" class="imagepage" style="width: 120px;border-radius: 10px;" >
+<div class="pic">		  <img src="<?=$src;?>"  alt="image" class="imagepage" style="width: 120px;border-radius: 10px;" >
 </div>
-  <div class="form2"> <form class="forms-sample">
+  <div class="form2"> <div class="forms-sample">
 
-<div class="form-group row">
-  <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Username</label>
-  <div class="col-sm-9">
-	<input type="text" class="form-control" id="exampleInputUsername2" placeholder="Username">
-  </div>
-</div>
+
 <div class="form-group row">
   <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Nom</label>
   <div class="col-sm-9">
-	<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Nom">
+	<input type="text" disabled class="form-control" id="exampleInputEmail2" value="<?=$nomP;?>" placeholder="Nom">
   </div>
 </div>
 <div class="form-group row">
   <label for="exampleInputMobile" class="col-sm-3 col-form-label">Prenom</label>
   <div class="col-sm-9">
-	<input type="text" class="form-control" id="exampleInputMobile" placeholder="Prenom">
+	<input type="text" disabled class="form-control" id="exampleInputMobile" value="<?=$prenomP;?>" placeholder="Prenom">
   </div>
 </div>
 <div class="form-group row">
   <label for="exampleInputMobile" class="col-sm-3 col-form-label">CIN</label>
   <div class="col-sm-9">
-	<input type="text" class="form-control" id="exampleInputMobile" placeholder="CIN">
+	<input type="text" disabled class="form-control" id="exampleInputMobile" value="<?=$CIN;?>" placeholder="CIN">
   </div>
 </div>
 <div class="form-group row">
-  <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Email</label>
+  <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Tel</label>
   <div class="col-sm-9">
-  <input type="text" class="form-control" id="exampleInputMobile" placeholder="Email">
+  <input type="text" disabled class="form-control" id="exampleInputMobile" value="<?=$Tel;?>" placeholder="Email">
 </div>
 
 
-</form>
-<div class="buttnsss">
-<button type="submit" class="btn btn-primary mr-2">Accepter</button>
-                    <button class="btn btn-light">Refuser</button></div>
+</div>
+                  <form method="post" class="buttnsss">
+  	                <button class="btn btn-primary mr-2" name="accept" >Accepter</button>
+                  </form>
+                  <br>
+                  <form method="post">
+                  <div class="form-group row">
+                    <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Motife de refus</label>
+                    <div class="col-sm-9">
+                    <textarea class="form-control" name="motif" required id="exampleTextarea1" rows="4"></textarea></div>
+                  </div>
+
+                  <div class="buttnsss">
+                    <button class="btn btn-light mr-2" name="refus">Refuser</button>
+                  </div>
+                  </form>
 </div>
 
 </div>

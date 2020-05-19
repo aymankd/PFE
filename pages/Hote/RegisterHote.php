@@ -59,7 +59,7 @@ if(isset($_POST['Sign']))
           session_regenerate_id();
           $_SESSION['usercode'] = $CodeC; 
 	        $_SESSION['username']=$inUsername;
-	        $_SESSION['type']='proprietaire';
+	        $_SESSION['type']='pro';
 	        session_write_close();
           $reqI1 = "INSERT INTO `proprietaire`(`CodeP`,`CIN`, `adress`, `nom`, `prenom`,`tel`) VALUES (?,?,?,?,?,?)";
           $statementI1=$conn->prepare($reqI1);

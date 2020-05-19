@@ -63,7 +63,7 @@ if(isset($_POST['EnrFrm']))
     $datenow = new DateTime(date('Y-m-d'));
     $datetoreq = $datenow->format('Y-m-d');
     $Forseatch=metaphone($nomL).' '.metaphone($Desc).' '.metaphone($adresseL);
-    $req = "INSERT INTO `logement`(`CodeP`, `nom`, `adress`, `description`, `reglement`,`prix`,`superficie`,`SL_adr_nom`, `type`, `status`, `date`) VALUES (?,?,?,?,?,?,?,?,?,'valide',?)";
+    $req = "INSERT INTO `logement`(`CodeP`, `nom`, `adress`, `description`, `reglement`,`prix`,`superficie`,`SL_adr_nom`, `type`, `status`, `date`) VALUES (?,?,?,?,?,?,?,?,?,'Ajoute',?)";
     $statement=$conn->prepare($req);
     $statement->bind_param("issssdisss",$CodeU,$nomL,$adresseL,$Desc,$reglement,$prix,$sprfc,$Forseatch,$LogeType,$datetoreq);
     $statement->execute();
