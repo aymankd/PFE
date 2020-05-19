@@ -51,7 +51,7 @@ $codeU = $_SESSION['usercode'];
      $user_notis.="<a id='donner_avis' data-toggle='modal' data-target='#modalLikeThis2' class='dropdown-item preview-item'>
      <div class='preview-thumbnail'>
        <div class='preview-icon bg-success'>
-        <i class='fas fa-map-marked-alt'></i>
+       <i class='fas fa-comment'></i>
        </div>
      </div>
      <div class='preview-item-content'>
@@ -1572,10 +1572,12 @@ $('textarea').keyup(function() {
 <script>
 var avis;
 var Code_client="<?=$codeU?>";
+var element = document.getElementById("modalLikeThis2");
+    
 $(document).ready(function(){
  
   $('#env_avis').click(function(){
-    //$('#modalLikeThis2').modal('hide');
+    
     if(characterCount>0)
     {
       avis=document.getElementById("the-textarea").value;
@@ -1584,7 +1586,14 @@ $(document).ready(function(){
                  method:"POST",
                  data:{comment:avis,CodeU:Code_client},
                  success:function(data){  
-                          
+                   element.parentNode.removeChild(element);
+                   $('.modal').remove();
+                   $('.modal-backdrop').remove();
+                   $('body').removeClass( "modal-open" );
+                   $('#donner_avis').remove();
+                   
+                   
+                   //$('div.modal-backdrop.hide').removeChild;
                   }
                  });
     }

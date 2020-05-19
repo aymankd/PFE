@@ -18,7 +18,10 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 //recuperation du code du logement
+$act='no';
 $CodeL=$_GET["smr"];
+if(isset($_GET["act"]))
+$act=$_GET["act"];
 ////////////////System de vues////////////
 $datenow = new DateTime(date('Y-m-d'));
 $dateNow = $datenow->format('Y-m-d');
@@ -2861,6 +2864,28 @@ $(window).on('resize', function() {
 });
 
 
+</script>
+
+
+<script>
+var act='<?=$act?>';
+$(document).ready(function(){ 
+   if(act='EVL')
+   {
+      $('#modalLikeThis2').modal('show');
+   }
+   else if(act='ENR')
+   {
+
+   }
+  else if(act='CH')
+   {
+      chat.style="display:block";
+      updateScrollbar();
+   }
+
+
+});
 </script>
 
 </html>
