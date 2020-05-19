@@ -26,7 +26,7 @@ if(isset($_POST['connect']))
   $login = $_POST["login"];
   $password = $_POST["password"];
   $password = sha1($password);
-  $req = "SELECT * from utilisateur where  email=? or username=? ";
+  $req = "SELECT * from utilisateur where  email=BINARY? or username=BINARY? ";
   $statement=$conn->prepare($req);
   $statement->bind_param("ss",$login,$login);
   $statement->execute();
@@ -42,7 +42,7 @@ if(isset($_POST['connect']))
     $_SESSION['type']=$row['type'];
     session_write_close();
      if($_SESSION['type'] == "normal")
-        header("Location:../UserPages/SeeMore.php?smr=".$_GET['smr']);
+        header("Location:../UserPages/SeeMore.php?smr=".$_GET['smr']."&act=".$_GET['act']);
       else if($_SESSION['type'] == "admin")
       header("Location:../AdminPages/dash.php");
       else if($_SESSION['type'] == "pro")

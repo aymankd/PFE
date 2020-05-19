@@ -1673,7 +1673,7 @@ else{
                          
                            </div>
                            <div class="right-dit-p">
-                             <a href="#" class="badge badge-primary">Contacter Hote</a>
+                             <a href="loginRT.php?smr=<?=$CodeL?>&act=CH" class="badge badge-primary">Contacter Hote</a>
                            </div>
                         </div>   
 
@@ -1682,8 +1682,8 @@ else{
                            <div class="left-dit-p">
 
                               <div class="prod-btn"> 
-                                 <a href="loginRT.php?smr=<?=$CodeL?>"><i class="far fa-star"></i> Évaluer</a>                               
-                                 <a href="loginSV.php?smr=<?=$CodeL?>"><i class="far fa-heart"></i> Enregister</a>                               
+                                 <a href="loginRT.php?smr=<?=$CodeL?>$act='EVL'"><i class="far fa-star"></i> Évaluer</a>                               
+                                 <a href="loginSV.php?smr=<?=$CodeL?>&act='ENR'"><i class="far fa-heart"></i> Enregister</a>                               
                                  <p><?=$nbrsaves?> personnes ont enregistrer cet logement </p>
                               </div>                             
                            </div>
@@ -1886,7 +1886,7 @@ else{
                   <div id="price-box" class="price-box-right">
                      <h4>Prix</h4>
                      <h3><?=$prix?> Dh</h3><hr>
-                     <a href="#" class="badge badge-primary">Contacter Hote</a>
+                     <a href="loginRT.php?smr=<?=$CodeL?>&act=CH" class="badge badge-primary">Contacter Hote</a>
                   </div>
                </div>        
             </div>
