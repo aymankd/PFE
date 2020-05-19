@@ -151,6 +151,15 @@ $rowP=$resP->fetch_assoc();
 $Pnom=$rowP["nom"];
 $Pprenom=$rowP["prenom"];
 
+
+$reqP="SELECT * from utilisateur where CodeU=?";
+$statementP=$conn->prepare($reqP);
+$statementP->bind_param("i",$rowL["CodeP"]);
+$statementP->execute();
+$resP=$statementP->get_result();
+$rowP=$resP->fetch_assoc();
+$LU=$rowP["username"];
+
 //Selection des 4 logements similaires
 $srcC="";
 $CodeO1=0;
@@ -2229,7 +2238,7 @@ if(($rowSR=$resSR->fetch_assoc()))
          </div>
          <div class="chat" >
             <div class="chat-title">
-            <h1><?=$Pnom?> <?=$Pprenom?></h1>
+            <h1><?=$Pnom?> <?=$Pprenom?> (<?=$LU?>)</h1>
             <h2>RE/MAX</h2>
             </div>
             <div class="messages" >

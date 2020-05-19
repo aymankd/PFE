@@ -64,7 +64,209 @@ while(($rowAvi= mysqli_fetch_array($resAvi)))
             </div>";
 }
 
+$ultra1=0;
+$ultra2=0;
+$ultra3=0;
+$line_cnt=0;
+$ultra_rec='';
+//$reqR1="SELECT * from logement where CodeL is in(SELECT CodeL from pack where type='Ultra')";
+$reqR1="SELECT idL,COUNT(*) AS total_rcm FROM log_recomm where idL in(SELECT CodeL from pack where type='ultra') GROUP BY idL ORDER BY total_rcm  limit 3";
+$statementR1=$conn->prepare($reqR1);
+$statementR1->execute();
+$resR1=$statementR1->get_result();
 
+if(mysqli_num_rows($resR1)==0)
+{
+
+$reqRS="SELECT * FROM logement where CodeL in(SELECT CodeL from pack where type='ultra') limit 3";
+$statementRS=$conn->prepare($reqRS);
+$statementRS->execute();
+$resRS=$statementRS->get_result();
+while($rowRS= mysqli_fetch_array($resRS))
+{
+   $line_cnt=$line_cnt+1;
+   $ultra_CodeL=$rowRS['CodeL'];
+ 
+   //info du logement courant
+   $reqIL="SELECT * FROM logement where CodeL=?";
+   $statementIL=$conn->prepare($reqIL);
+   $statementIL->bind_param('i',$ultra_CodeL);
+   $statementIL->execute();
+   $resIL=$statementIL->get_result();
+   $rowIL=$resIL->fetch_assoc();
+   $ultra_titre=$rowIL['nom'];
+   $ultra_type=$rowIL['type'];
+   $ultra_prix=$rowIL['prix'];
+   $ultra_CodeP=$rowIL['CodeP'];
+   //info prop
+   $reqN="SELECT * from utilisateur where CodeU=?";
+   $statementN=$conn->prepare($reqN);
+   $statementN->bind_param("i",$ultra_CodeP);
+   $statementN->execute();
+   $resN=$statementN->get_result();
+   $rowN=$resN->fetch_assoc();
+   $ultra_nomP=$rowN['username'];
+
+   //image du logement
+   $reqI="SELECT * FROM image where CodeL=? Limit 1";
+   $statementI=$conn->prepare($reqI);
+   $statementI->bind_param("i",$ultra_CodeL);
+   $statementI->execute();
+   $resI=$statementI->get_result();
+   $rowI=$resI->fetch_assoc();
+   $ultra_IdI=$rowI['CodeImg'];
+   $image="genere_image.php?id=$ultra_IdI";
+
+   
+   
+   if($line_cnt==1)
+	{ 
+	 $ultra_rec.="  <div class='col-half'>
+	                    <div id='Ultr_Img".$line_cnt."' class='project animate-box' style='background-image:url(". $image.");'>
+		                    <div class='desc'>
+			                        <span>".$ultra_nomP."</span>
+			                        <h3>".$ultra_titre."</h3>
+			                        <span>Prix : ".$ultra_prix." dh</h3>
+		                     </div>
+	                    </div>
+                    </div>";
+	 $ultra1=$ultra_CodeL;              
+	}
+   else if($line_cnt==2)
+	{
+	 $ultra_rec.="  <div class='col-half'>
+	                    <div id='Ultr_Img".$line_cnt."' class='project-grid animate-box' style='background-image:url(". $image.");'>
+		                    <div class='desc'>
+		                        <span>".$ultra_nomP."</span>
+			                    <h3>".$ultra_titre."</h3>
+		                        <span>Prix : ".$ultra_prix." dh</h3>
+	                        </div>
+	                    </div>";
+	 $ultra2=$ultra_CodeL;                 
+	} 
+   else if($line_cnt==3)
+	{
+	 $ultra_rec.="  <div id='Ultr_Img".$line_cnt."' class='project-grid animate-box' style='background-image:url(". $image.");'>
+	                    <div class='desc'>
+	                       <span>".$ultra_nomP."</span>
+		                   <h3>".$ultra_titre."</h3>
+		                   <span>Prix : ".$ultra_prix." dh</h3>
+	                    </div>
+                    </div>
+                  </div>"; 
+   $ultra3=$ultra_CodeL;   
+	} 
+
+	$datenow = new DateTime(date('Y-m-d'));
+   $dateNow = $datenow->format('Y-m-d');
+
+   $reqV = "INSERT INTO `log_recomm`(`idL`, `date`) VALUES (?,?)";
+   $statementV=$conn->prepare($reqV);
+   $statementV->bind_param("ss",$ultra_CodeL,$dateNow);
+   $statementV->execute(); 
+
+ }
+
+}
+
+else
+{
+$line_cnt=0;
+while(($rowR1= mysqli_fetch_array($resR1)))
+{
+   $line_cnt=$line_cnt+1;
+   $ultra_CodeL=$rowR1['idL'];
+   
+   //info du logement courant
+   $reqIL="SELECT * FROM logement where CodeL=?";
+   $statementIL=$conn->prepare($reqIL);
+   $statementIL->bind_param('i',$ultra_CodeL);
+   $statementIL->execute();
+   $resIL=$statementIL->get_result();
+   $rowIL=$resIL->fetch_assoc();
+   $ultra_titre=$rowIL['nom'];
+   $ultra_type=$rowIL['type'];
+   $ultra_prix=$rowIL['prix'];
+   $ultra_CodeP=$rowIL['CodeP'];
+   //info prop
+   $reqN="SELECT * from utilisateur where CodeU=?";
+   $statementN=$conn->prepare($reqN);
+   $statementN->bind_param("i",$ultra_CodeP);
+   $statementN->execute();
+   $resN=$statementN->get_result();
+   $rowN=$resN->fetch_assoc();
+   $ultra_nomP=$rowN['username'];
+
+   //image du logement
+   $reqI="SELECT * FROM image where CodeL=? Limit 1";
+   $statementI=$conn->prepare($reqI);
+   $statementI->bind_param("i",$ultra_CodeL);
+   $statementI->execute();
+   $resI=$statementI->get_result();
+   $rowI=$resI->fetch_assoc();
+   $num_rowI=$resI->num_rows;
+   
+   if($num_rowI>0)
+   {
+	 $ultra_IdI=$rowI['CodeImg'];
+	 $image="genere_image.php?id=$ultra_IdI";
+   }
+   else
+   {
+	 $image="../../Resourse/imgs/userimgs/home-holder.jpg";
+   }
+
+   
+   
+   
+   if($line_cnt==1)
+	{ 
+		$ultra_rec.="  <div class='col-half'>
+		<div id='Ultr_Img".$line_cnt."' class='project animate-box' style='background-image:url(". $image.");'>
+			<div class='desc'>
+					<span>".$ultra_nomP."</span>
+					<h3>".$ultra_titre."</h3>
+					<span>Prix : ".$ultra_prix." dh</h3>
+			 </div>
+		</div>
+	</div>";
+	 $ultra1=$ultra_CodeL;                 
+	}
+   else if($line_cnt==2)
+	{
+		$ultra_rec.="  <div class='col-half'>
+		<div id='Ultr_Img".$line_cnt."' class='project-grid animate-box' style='background-image:url(". $image.");'>
+			<div class='desc'>
+				<span>".$ultra_nomP."</span>
+				<h3>".$ultra_titre."</h3>
+				<span>Prix : ".$ultra_prix." dh</h3>
+			</div>
+		</div>";
+	 $ultra2=$ultra_CodeL;                 
+	} 
+   else if($line_cnt==3)
+	{
+		$ultra_rec.="  <div id='Ultr_Img".$line_cnt."' class='project-grid animate-box' style='background-image:url(". $image.");'>
+		<div  class='desc'>
+		   <span>".$ultra_nomP."</span>
+		   <h3>".$ultra_titre."</h3>
+		   <span>Prix : ".$ultra_prix." dh</h3>
+		</div>
+	</div>
+  </div>"; 
+   $ultra3=$ultra_CodeL;
+	} 
+
+	$datenow = new DateTime(date('Y-m-d'));
+   $dateNow = $datenow->format('Y-m-d');
+
+   $reqV = "INSERT INTO `log_recomm`(`idL`, `date`) VALUES (?,?)";
+   $statementV=$conn->prepare($reqV);
+   $statementV->bind_param("ss",$ultra_CodeL,$dateNow);
+   $statementV->execute(); 
+
+}
+}
 
 ?>
 <!DOCTYPE HTML>
@@ -174,31 +376,7 @@ Vous ne manquerez donc jamais rien..</p>
 			</div>
 		</div>
 		<div class="project-content">
-			<div class="col-half">
-				<div class="project animate-box" style="background-image:url(Resourse/images/lag-60.png);">
-					<div class="desc">
-						<span>Mr Alami dodo</span>
-						<h3>Appartement1</h3>
-						<span>Prix : 5000dh</h3>
-					</div>
-				</div>
-			</div>
-			<div class="col-half">
-				<div class="project-grid animate-box" style="background-image:url(Resourse/images/lag-61.png);">
-					<div class="desc">
-					<span>Mr Alami dodo</span>
-						<h3>Appartement1</h3>
-						<span>Prix : 5000dh</h3>
-					</div>
-				</div>
-				<div class="project-grid animate-box" style="background-image:url(Resourse/images/tr3.png);">
-					<div class="desc">
-					<span>Mr Alami dodo</span>
-						<h3>Appartement1</h3>
-						<span>Prix : 5000dh</h3>
-					</div>
-				</div>
-			</div>
+			<?=$ultra_rec;?>
 		</div>
 	</div>
 	<div id="fh5co-testimonial" class="fh5co-bg-section">
@@ -291,6 +469,37 @@ Vous ne manquerez donc jamais rien..</p>
 	<script src="Resourse/newhome/js/jquery.waypoints.min.js"></script>
 	<!-- Main -->
 	<script src="Resourse/newhome/js/main.js"></script>
+
+
+<script>
+
+var ultra1=<?=$ultra1;?>;
+var ultra2=<?=$ultra2;?>;
+var ultra3=<?=$ultra3;?>;
+$(document).ready(function(){ 
+      $('#Ultr_Img1').click(function(){
+
+          window.location.href = "pages/samples/SeeMore.php?smr="+ultra1;
+         
+      });
+
+
+      $('#Ultr_Img2').click(function(){
+
+          
+          window.location.href = "pages/samples/SeeMore.php?smr="+ultra2;
+         
+      });  
+
+      $('#Ultr_Img3').click(function(){
+
+          window.location.href = "pages/samples/SeeMore.php?smr="+ultra3;
+        
+      });    
+    });    
+</script>
+
+
 
 	</body>
 </html>
