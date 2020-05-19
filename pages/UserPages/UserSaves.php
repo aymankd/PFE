@@ -7,7 +7,7 @@ if(isset($_POST['logoutbtn']))
 }
 if( !isset($_SESSION['username']) || $_SESSION['type'] != "normal" )
 {
-  header("location:../../homeP.php");
+  header("location:../../indexx.php");
 }
 
 
