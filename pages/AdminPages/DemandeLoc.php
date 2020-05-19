@@ -1,5 +1,5 @@
 <?php 
-/*
+
 session_start();
 if(isset($_POST['logoutbtn'])) 
 {
@@ -10,7 +10,7 @@ if( !isset($_SESSION['username']) || $_SESSION['type'] != "admin" )
 {
   header("location:../../homeP.php");
 }
-*/
+
 $servername = "localhost";
 $userservername = "root";
 $database = "pfe";
@@ -70,8 +70,8 @@ else
     <!-- inject:css -->
    
     <link rel="stylesheet" href="../../Resourse/css2Dma/style.css">
-    <link rel="stylesheet" href="../../Resourse/CSS/DL.css">
-    <link rel="stylesheet" href="../../Resourse/CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="../../Resourse/css2Dma/DL.css">
+    <link rel="stylesheet" href="../../Resourse/css2Dma/bootstrap.min.css">
 
     <!-- endinject -->
     <link rel="shortcut icon" href="../../Resourse/images/favicon.png" />
@@ -213,10 +213,10 @@ else
 <div class='card-wrap'>
   <div class='card'>
     <div class='set-image'>
-      <img id="imagetkherbiqa"src="../../Resourse/images/lag-60.png" alt="Cinque Terre" width="398" height="249">
+      <img id="imagetkherbiqa"src="../../Resourse/images/lag-60.png"  style="margin-left: -1px;" alt="Cinque Terre" width="398" height="249">
 </div>
     <h5 class="card-title">Titre</h5>
-        <p class="card-text"> <i class="fas fa-tags CA"></i>1000 Dh  &nbsp;<i class="fas fa-male CA"></i> 3  &nbsp; <i class="fas fa-warehouse CA"></i> 100 m²</p>
+        <p class="card-text"> <i class="fas fa-tags CA"></i>1000 Dh  &nbsp;<i class="fas fa-male CA"></i> 3  &nbsp; <i class="fas fa-bed CA"></i> 3 &nbsp; <i class="fas fa-warehouse CA"></i> 100 m²</p>
 
         <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> Adresse </p>
           <br>
