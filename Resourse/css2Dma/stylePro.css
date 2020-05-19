@@ -8716,7 +8716,7 @@ body {
   line-height: 1.5;
   color: #6c7293;
   text-align: left;
-  
+  background-color: #fff;
 }
 
 [tabindex="-1"]:focus {
@@ -8852,7 +8852,6 @@ figure {
 img {
   vertical-align: middle;
   border-style: none;
-  margin-left: 90px;
 }
 
 svg {
@@ -9243,18 +9242,8 @@ pre code {
 .row {
   display: flex;
   flex-wrap: wrap;
-
   margin-right: -15px;
   margin-left: -15px;
-}
-.rowR {
-  display: flex;
-  flex-wrap: wrap;
-  width: 200px;
-  margin-left: 480px;
- 
-  /*margin-right: -15px;
-  margin-left: -15px;*/
 }
 
 .no-gutters {
@@ -9278,7 +9267,6 @@ pre code {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
-  
 }
 
 .col {
@@ -9473,8 +9461,8 @@ pre code {
     max-width: 8.33333%;
   }
   .col-sm-2 {
-    flex: 0 0 30.66667%;
-    max-width: 30.66667%;
+    flex: 0 0 16.66667%;
+    max-width: 16.66667%;
   }
   .col-sm-3 {
     flex: 0 0 25%;
@@ -9484,7 +9472,6 @@ pre code {
     flex: 0 0 33.33333%;
     max-width: 33.33333%;
   }
- 
   .col-sm-5 {
     flex: 0 0 41.66667%;
     max-width: 41.66667%;
@@ -9503,8 +9490,7 @@ pre code {
   }
   .col-sm-9 {
     flex: 0 0 75%;
-    max-width: 55%;
-    margin-left: 350px;
+    max-width: 75%;
   }
   .col-sm-10 {
     flex: 0 0 83.33333%;
@@ -10399,7 +10385,7 @@ pre code {
 .form-control::-ms-expand, .typeahead::-ms-expand,
 .tt-query::-ms-expand,
 .tt-hint::-ms-expand {
-  background-color: rgb(53, 52, 52);
+  background-color: transparent;
   border: 0;
 }
 
@@ -10408,7 +10394,7 @@ pre code {
 .tt-hint:focus {
   color: #495057;
   background-color: #fff;
-  border-color: #505152;
+  border-color: #80bdff;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
@@ -10544,12 +10530,10 @@ textarea.tt-hint {
   position: absolute;
   margin-top: 0.3rem;
   margin-left: -1.25rem;
-  
 }
 
 .form-check-input:disabled ~ .form-check-label {
-  color: #4b4d4e;
-  
+  color: #a7afb7;
 }
 
 .form-check-label {
@@ -10955,11 +10939,6 @@ fieldset:disabled a.btn {
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #464dee;
-  border-color: #464dee;
-}
-.btn.btn.X{
   color: #fff;
   background-color: #464dee;
   border-color: #464dee;
@@ -13083,7 +13062,6 @@ input[type="button"].btn-block {
 .card-body {
   flex: 1 1 auto;
   padding: 1.25rem;
- 
 }
 
 .card-title {
@@ -18367,7 +18345,6 @@ body {
   -moz-box-shadow: none;
   box-shadow: none;
   outline: 0;
-
 }
 
 a,
@@ -18380,7 +18357,6 @@ h5,
 p,
 span {
   text-shadow: none;
- /* width: 100%;*/
 }
 
 [type=button]:focus,
@@ -20261,13 +20237,11 @@ code {
 
 .card .card-body {
   padding: 1.875rem 1.875rem;
-
 }
 
 @media (max-width: 991px) {
   .card .card-body {
     padding: 1.5rem;
-    
   }
 }
 
@@ -20415,16 +20389,13 @@ code {
   margin-left: 1.75rem;
   font-size: 1rem;
   line-height: 1.5;
-  font-weight: bold;
 }
 
 .rtl .form-check .form-check-label {
   margin-left: 0;
   margin-right: 1.75rem;
 }
-.form-check-label input[type=radio] {
-  display: inline;
-}
+
 .form-check .form-check-label input {
   position: absolute;
   top: 0;
@@ -20435,7 +20406,6 @@ code {
   cursor: pointer;
   opacity: 0;
   filter: alpha(opacity=0);
-
 }
 
 .rtl .form-check .form-check-label input {
@@ -20736,12 +20706,10 @@ code {
 .form-control, .typeahead,
 .tt-query,
 .tt-hint {
-  border: 1px solid rgb(176, 176, 177);
+  border: 1px solid #f1f6f8;
   font-weight: 400;
   font-size: 0.875rem;
   height: auto;
-  width: 475px;
-  height:40px;
 }
 
 select.form-control, select.typeahead,
@@ -20860,8 +20828,6 @@ select.border-dark.tt-hint:focus {
   line-height: 1.4rem;
   vertical-align: top;
   margin-bottom: .5rem;
-  font-weight: bold;
-  max-width: 100%;
 }
 
 .form-group.has-danger .form-control, .form-group.has-danger .typeahead,
@@ -21939,7 +21905,6 @@ dl li {
   background: transparent;
   border-radius: 0;
   font-size: .9375rem;
-  width:320px;
 }
 
 .auth form .auth-form-btn {
@@ -21981,7 +21946,7 @@ dl li {
 }
 
 .main-panel {
-
+  background: #f0f3f6;
   width: 100%;
   transition: width 0.25s ease, margin 0.25s ease;
   min-height: calc(100vh - 56px);
@@ -22206,7 +22171,7 @@ dl li {
   padding: 0;
 }
 
-.horizontal-menu .top-navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group .textarea .form-control, .horizontal-menu .top-navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group .typeahead,
+.horizontal-menu .top-navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group .form-control, .horizontal-menu .top-navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group .typeahead,
 .horizontal-menu .top-navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group .tt-query,
 .horizontal-menu .top-navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group .tt-hint {
   margin-left: .5rem;
@@ -22522,8 +22487,6 @@ dl li {
   .horizontal-menu .bottom-navbar .page-navigation > .nav-item:hover > .nav-link .menu-title {
     color: #464dee;
     transition: color 1s ease;
-
-    
   }
   .horizontal-menu .bottom-navbar .page-navigation > .nav-item:hover > .nav-link .menu-arrow {
     -moz-transform: rotate(-180deg);
@@ -22835,406 +22798,4 @@ dl li {
   }
 }
 
-/*# mycss */
-.navbar-brand.brand-logo{
-        margin-left:600px;
-}
-.btn.btn-link{
-  color: #464dee;
-    transition: color 1s ease;
-
-    font-size: 0.937rem;
-    font-weight: 600;
-    display: block;
-}
-
-
-/* accordion css */ 
-.accordion {
-  background-color: #0dccac;
-  color: rgb(255, 255, 255);
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  text-align: left;
-  outline: none;
-  transition: 0.4s;
-  font-weight: bold;
-  font-size: 14px;
-}
-
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.accordion:hover {
-/*  background-color: #ccc;*/
-background-color: #0ba88e;
-}
-
-/* Style the accordion panel. Note: hidden by default */
-.panel {
-  padding: 0 18px;
-  background-color: white;
-  display: none;
-  overflow: hidden;
-}
-.panel{
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-/*upload btn*/
-body
-{
-  background-color:#f5f5f5;
-}
-.imagePreview {
-    width: 100%;
-    height: 180px;
-    background-position: center center;
-  background:url(http://cliquecities.com/assets/no-image-e3699ae23f866f6cbdf8ba2443ee5c4e.jpg);
-  background-color:#fff;
-    background-size: cover;
-  background-repeat:no-repeat;
-    display: inline-block;
-  box-shadow:0px -3px 6px 2px rgba(0,0,0,0.2);
-}
-.btn-primary
-{
-  display:block;
-  border-radius:0px;
-  box-shadow:0px 4px 6px 2px rgba(0,0,0,0.2);
-  margin-top:-5px;
-}
-.imgUp
-{
-  margin-bottom:15px;
-}
-.del
-{
-  position:absolute;
-  top:0px;
-  right:15px;
-  width:30px;
-  height:30px;
-  text-align:center;
-  line-height:30px;
-  background-color:rgba(255,255,255,0.6);
-  cursor:pointer;
-}
-.imgAdd
-{
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  background-color:#4bd7ef;
-  color:#fff;
-  box-shadow:0px 0px 2px 1px rgba(0,0,0,0.2);
-  text-align:center;
-  line-height:30px;
-  margin-top:0px;
-  cursor:pointer;
-  font-size:15px;
-}
-
-
-
-/*file upload*/
-#preview-container {
-    margin: 50px auto;
-    width: 600px;
-}
-
-#upload-dialog {
-    padding: 5px;
-    border: 1px solid #336699;
-    background-color: white;
-    color: #336699;
-    background: none;
-    font-size: inherit;
-    font-family: inherit;
-    outline: none;
-    display: inline-block;
-    vertical-align: middle;
-    cursor: pointer;
-    border-radius: 2px;
-}
-
-#pdf-file {
-    display: none;
-}
-
-#pdf-loader {
-	display: none;
-	vertical-align: middle;
-	color: #cccccc;
-    font-size: 12px;
-}
-
-#pdf-preview {
-    display: none;
-    vertical-align: middle;
-    border: 1px solid rgba(0,0,0,0.2);
-    border-radius: 2px;
-}
-
-#pdf-name {
-    display: none;
-    vertical-align: middle;
-    color: #336699;
-    margin: 0 15px;
-    max-width: 200px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-#upload-button {
-    padding: 5px;
-    border: 1px solid #336699;
-    background-color: #336699;
-    color: white;
-    font-size: inherit;
-    font-family: inherit;
-    outline: none;
-    display: none;
-    vertical-align: middle;
-    cursor: pointer;
-    border-radius: 2px;
-}
-
-#cancel-pdf {
-    display: none;
-    vertical-align: middle;
-    padding: 0px;
-    border: none;
-    color: #777777;
-    background-color: white;
-    font-size: inherit;
-    font-family: inherit;
-    outline: none;
-    vertical-align: middle;
-    cursor: pointer;
-    margin: 0 0 0 15px;
-}
-
-
-/*forms css*/
-
-.formNew{
-  margin-left: 60px;
-  margin-right: 60px;
-}
-
-
-#row{
-    margin-left: 500px;
-    margin-right: 400px;
-
-    position: relative;
-   
-}
-
-.btns{
-  margin-top: 20px;
-  margin-left: 550px;
-  margin-bottom: 20px;
-}
-/*
-.form-brdr{
-  border-width: 29px;
-  border-color: red;
-  border-style: solid;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 150px;
-  margin-right: 150px;
-}*/
-
-/*
-.form-control.dropdown-menu{
-  background-color: white;
-  
-  position: relative;
-  margin-bottom: 1500px;
-}*/
-.radioEq{
-  position: relative !important;
-  display:list-item;
-
-  background-color: white;
-  border: 1px;
-border-color: black;
-width: 475px;
-margin-bottom: 150px;
-}
-.force-scroll {
-
-overflow-y: scroll;
-
-height: 200px;
-
-}
- /* Dropdown Button */
- .dropbtn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 18px 20px;
-  text-decoration: none;
-  display: block;
-  margin-bottom: 150px;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {display: block;}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #a7a8a7;} 
-.msg_err{
-  color: brown;
-  font-family: Roboto ;
-  border-top: 1px;
-  border-left:7px;
-}
-.form-group-err {
-    margin-bottom: 4px;
-    margin-top: 1px;
-    margin-left: 10px;
-}
-
-/*css for adding other elements*/
-
-* {
-  box-sizing: border-box;
-}
-
-/* Style the list (remove margins and bullets, etc) */
-.equiLst {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* Style the list items */
-.equiLst .equiEl {
-  border: 1px solid #ddd;
-  margin-top: -1px; /* Prevent double borders */
-  background-color: #f6f6f6;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px;
-  color: black;
-  display: block;
-  position: relative;
-}
-
-/* Add a light grey background color on hover */
-.equiLst .equiEl:hover {
-  background-color: #eee;
-}
-
-/* Style the close button (span) */
-.closeE {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  right: 0%;
-  padding: 12px 16px;
-  transform: translate(0%, -50%);
-}
-
-.closeE:hover {background: #bbb;}
-
-.addEqui{
-  margin-top:0px;
-  margin-bottom:0px;
-  margin-left:97%;
-  color:#0046da;
-}
-.hrEqui{
-  margin-bottom:0px;
-}
-
-
-
-         /*ajouter description d'equipement
-           /* Dropdown Button */
-.dropbtnE {
-  background-color: #4CAF50;
-  color: white !important;
-  padding: 10px;
-  font-size: 16px;
-  border: none;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-contentE {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-contentE a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-contentE a:hover {background-color: #ddd;}
-
-/* Show the dropdown menu on hover */
-.dropdownE:hover .dropdown-contentE {display: block;}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdownE:hover .dropbtnE {background-color: #3e8e41;} 
-
-.radioC,.rtyy{
-margin-left: -194px;
-}
-.rtyy2{
-  margin-left: -385px;
-  }
-  .rtyy3{
-    margin-left: -194px;
-    }
-
-
-
- 
+/*# sourceMappingURL=maps/style.css.map */
