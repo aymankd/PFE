@@ -24,11 +24,12 @@ $offset=$_POST['offset'];
 
   //loading first page of comments comments 
   $Comments="";
-  $reqCM="SELECT * from ratings where CodeL=? limit 5 OFFSET ? ";
+  $reqCM="SELECT * from ratings where CodeL=? and comment is not NULL limit ?,5 ";
   $statementCM=$conn->prepare($reqCM);
   $statementCM->bind_param("ii",$CodeL,$offset);
   $statementCM->execute();
-  $resCM=$statementCM->get_result();  
+  $resCM=$statementCM->get_result();
+   
   while(($rowCM=mysqli_fetch_array($resCM)))
    {
       $CodeCU=$rowCM['CodeU'];
@@ -120,7 +121,8 @@ $offset=$_POST['offset'];
                   <hr class='cmt'>";
    }
 
-
+   $num_comments=$resCM->num_rows; 
+   $response2 = array('num_comments'=>$num_comments);
 ?>
 
 <html>

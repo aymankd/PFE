@@ -109,7 +109,7 @@ while(($rowNS = mysqli_fetch_array($resNS)))
 
 }
 $result2=$nbr_noti;
-$response2 = array('result2'=>$result2, 'echo' => $new_user_notis);
+$response2 = array('result2'=>$result2);
 
 echo json_encode($response2);
 

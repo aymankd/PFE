@@ -1455,7 +1455,7 @@ if($nbrCMT==0)
    $Comments="<div id='no-cmt-img'><img src='../../Resourse/imgs/userimgs/noComment.png'></div><br><h3 id='no-cmt-txt'>Pas de commantaires</h3><hr>";
 }
 else{
-$reqCM="SELECT * from ratings where CodeL=? limit 5";
+$reqCM="SELECT * from ratings where CodeL=? and comment is not null";
 $statementCM=$conn->prepare($reqCM);
 $statementCM->bind_param("i",$CodeL);
 $statementCM->execute();
@@ -1531,23 +1531,21 @@ while(($rowCM=mysqli_fetch_array($resCM)))
 
    $Comments.= "
                 <div class='row'>
-                 <div class='col-md-2'>".$ProfilePCMU
-                   
-                   ."
-                 </div>
+                  <div class='col-md-2'>".$ProfilePCMU."</div>
                  <div class='col-md-10'>
                    <p>
-                   <a class='float-left' href='https://maniruzzaman-akash.blogspot.com/p/contact.html'><strong>".$UserCMU."</strong></a>
-                  
-                   ".$starsCMU."
+                   <a class='float-left' ><strong>".$UserCMU."</strong></a>
+                   
+                    ".$starsCMU."
 
-                   </p>
-                   <div class='clearfix'></div>
+                    </p>
+                   
                      <p>".$comment."</p>
                      
                    </div>
                  </div>
-                </div>
+                
+                
                 <hr class='cmt'>";
  }
 }
@@ -2004,8 +2002,7 @@ if(($rowSR=$resSR->fetch_assoc()))
                                     <div id="cmt-grp">
 	                                  <?=$Comments?>
                                     </div>
-                                    <button id='left'><i class="far fa-arrow-alt-circle-left"></i></button>
-                                    <button id='right'><i class="far fa-arrow-alt-circle-right"></i></button>
+                                    
                                  </div>
          
                               </div> 
@@ -2541,69 +2538,7 @@ function initMap(){
 
 </script>
 
-<script>
-var page=1;
-var limit=5;
-var offset=0;
-var pages=<?=$pages?>; 
 
-$(document).ready(function(){ 
-   if(page==1)
-     {
-       document.getElementById('left').style.display='none'; 
-     }
-   if(pages<=1)
-     {
-      document.getElementById('right').style.display='none';
-     }  
-
-     $('#right').click(function(){
-      offset=offset+5;
-
-      $.ajax({  
-                url:"../samples/getComments.php",  
-                method:"POST",  
-                data:{limit:limit,offset:offset,CodeL:<?=$CodeL?>},  
-                success:function(data){  
-                     $('#cmt-grp').html(data);  
-                }  
-           });
-
-      page=page+1;
-      if(page>1)
-       {
-        document.getElementById('left').style.display='block'; 
-       }
-      if(pages<=page)
-       {
-         document.getElementById('right').style.display='none'; 
-       } 
-     });  
-
-     $('#left').click(function(){
-      offset=offset-5;
-      
-      $.ajax({  
-                url:"../samples/getComments.php",  
-                method:"POST",  
-                data:{limit:limit,offset:offset,CodeL:<?=$CodeL?>},  
-                success:function(data){  
-                     $('#cmt-grp').html(data);  
-                }  
-           });
-      page=page-1;
-      if(page==1)
-     {
-       document.getElementById('left').style.display='none'; 
-     }
-     if(pages>=page)
-       {
-         document.getElementById('right').style.display='block'; 
-       }
-     });     
-});
-
-</script>
 
 <script>
 
