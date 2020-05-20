@@ -117,7 +117,7 @@ if(isset($_POST['connect']))
                         Gardez-moi connecté!
                       </label>
                     </div>
-                    <a href="#" class="auth-link text-black">Mot de passe oublié?</a>
+                    <a href="enter_email.php" class="auth-link text-black">Mot de passe oublié?</a>
                   </div>
                   <div class="mb-2">
                     <button type="button" class="btn btn-block btn-facebook auth-form-btn">
