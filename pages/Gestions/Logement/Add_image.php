@@ -35,5 +35,12 @@ $statement->execute();
 
 unlink($imageName);
 
+$sta="modification";
+$req = "UPDATE `logement` SET `status`=? WHERE `CodeL`=?";
+$statement=$conn->prepare($req);
+$statement->bind_param("ss",$sta,$codeL);
+$statement->execute();
+
+
 
 ?>

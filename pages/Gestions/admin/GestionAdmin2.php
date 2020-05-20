@@ -354,10 +354,6 @@ margin-top: 60px;
                 <div id="image_demo" style="width:350px; margin-top:30px"></div>
               </div>
               <div class="col-md-4" style="padding-top:30px;">
-                <br />
-                <button class="vanilla-rotate" data-deg="-90">Rotate Left</button>
-                <br />
-                <br/>
                 <button id="cropImageBtn" class="btn btn-success crop_image">Crop & Upload Image</button>
               </div>
             </div>

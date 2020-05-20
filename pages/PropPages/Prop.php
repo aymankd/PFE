@@ -255,7 +255,7 @@ $resN=$statementN->get_result();
 if($resN->num_rows!=0)
   {
     $notif='
-    <a class="dropdown-item preview-item" href="ToSuperLog.php">
+    <a class="dropdown-item preview-item" href="Packs.php">
     <div class="preview-thumbnail">
         <div class="preview-icon bg-success">
           <i class="mdi mdi-information mx-0"></i>
@@ -409,14 +409,35 @@ if($resN->num_rows!=0)
                       </a>";
                     //  $nbr_nts=$nbr_nts+1;
      }
-    /* $reqUp="UPDATE `user_notis` SET status='loaded'  where idN=?";
-     $statementUp=$conn->prepare($reqUp);
-     $statementUp->bind_param("i",$nt_code);
-     $statementUp->execute();*/
+    
 
   }
-  
-  
+  $modifnotif="";
+    $reqNT="SELECT * FROM `demande` where codeP=?";
+    $statementNT=$conn->prepare($reqNT);
+    $statementNT->bind_param("i",$codeU);
+    $statementNT->execute();
+    $resNT=$statementNT->get_result();
+    while(($rowNT = mysqli_fetch_array($resNT)))
+    {
+
+      $modifnotif.='
+      <a class="dropdown-item preview-item" href="../Gestions/Logement/ModifierLog.php?idL='.$rowNT['CodeL'].'">
+        <div class="preview-thumbnail">
+          <div class="preview-icon bg-info">
+            <i class="mdi mdi-home-modern mx-0"></i>
+          </div>
+        </div>
+        <div class="preview-item-content">
+            <h6 class="preview-subject font-weight-normal">demande de modification</h6>
+            <p class="font-weight-light small-text mb-0 text-muted">
+              '.$rowNT['motiv'].'
+            </p>
+        </div>
+      </a>
+      ';
+    }
+
 
 ?>
 
@@ -478,7 +499,8 @@ if($resN->num_rows!=0)
                     <div id="loaded_user_notis">
                       
                     </div>
-
+                    
+                    <?=$modifnotif?>
                     <div id="old_user_notis">
                     <?=$user_notis?>   
                     </div>

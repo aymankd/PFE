@@ -18,4 +18,6 @@ $req = "DELETE FROM image where CodeImg=?";
 $statement=$conn->prepare($req);
 $statement->bind_param("i",$id);
 $statement->execute();
+
+
 ?>

@@ -228,9 +228,6 @@ $SupLog.="
 
 
 ?>
-
-
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->

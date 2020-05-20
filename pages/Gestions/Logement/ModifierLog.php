@@ -212,9 +212,10 @@ if($logtype=='Studio')
          $statement->bind_param("iii",$nbrPinp,$nbrLinp,$CodeL);
          $statement->execute();
       }
-      $req = "UPDATE `logement` SET `nom`=?,`description`=?,`prix`=?,`superficie`=?,`adress`=?,`reglement`=? where CodeL=?";
+      $sta="modification";
+      $req = "UPDATE `logement` SET `status`=?,`nom`=?,`description`=?,`prix`=?,`superficie`=?,`adress`=?,`reglement`=? where CodeL=?";
       $statement=$conn->prepare($req);
-      $statement->bind_param("sssssss",$nomLinp,$descinp,$prixinp,$sprfinp,$Adressinp,$Reglementinp,$CodeL);
+      $statement->bind_param("ssssssss",$sta,$nomLinp,$descinp,$prixinp,$sprfinp,$Adressinp,$Reglementinp,$CodeL);
       $statement->execute();
       header('location: ModifierLog.php?idL='.$CodeL);
    }
