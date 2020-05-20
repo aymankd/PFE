@@ -301,8 +301,19 @@ if(mysqli_num_rows($resR1)==0)
       $statementI->execute();
       $resI=$statementI->get_result();
       $rowI=$resI->fetch_assoc();
-      $ultra_IdI=$rowI['CodeImg'];
-      $image="genere_image.php?id=$ultra_IdI";
+      $num_rowI=$resI->num_rows;
+      
+      if($num_rowI>0)
+      {
+        $ultra_IdI=$rowI['CodeImg'];
+        $image="genere_image.php?id=$ultra_IdI";
+      }
+      else
+      {
+        $image="../../Resourse/imgs/userimgs/home-holder.jpg";
+      }
+     /* $ultra_IdI=$rowI['CodeImg'];
+      $image="genere_image.php?id=$ultra_IdI";*/
 
       
       

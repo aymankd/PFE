@@ -91,9 +91,7 @@ if (isset($_POST['reset-password'])) {
            else 
             header('location: pending.php?email=' . $email);
 
-            $mail->send();
-
-
+            
           /////////////////////////////////////////////////////////////////////////////////////
         }else if ($res->num_rows==0){
             $errmsg= "<h5 class='msg_err'><i class='fas fa-exclamation-circle'></i>  Désolé, cet email ne correspond a aucun de nos utilisateurs</h5>";
