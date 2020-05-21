@@ -89,6 +89,7 @@ while($rowR = mysqli_fetch_array($resR))
   $nom = $rowR['nom'];
   $adress = $rowR['adress'];
   $description = $rowR['description'];
+  $description=substr($description,0,150)."...";
   $price=$rowR['prix'];
   $sup=$rowR['superficie'];
   $prix=$rowR['prix'];
@@ -220,7 +221,7 @@ while($rowR = mysqli_fetch_array($resR))
         <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> '.$adress.' </p>
           <br>
         <p class="cpara">'.$description.'</p> <br>
-          <a href="#" class="btn btn-primary">Voir plus</a>
+          <a href="SeeMore.php?smr='.$CodeL.'" class="btn btn-primary">Voir plus</a>
       </div>
   </article>';
     
