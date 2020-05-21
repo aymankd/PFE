@@ -601,7 +601,7 @@ if($resN->num_rows!=0)
                         <div class="col-lg-6 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                            <h4 class="card-title">Statestique de vue</h4>
+                            <h4 class="card-title">Statistiques des vues</h4>
                             <canvas id="lineChart" width="682" height="340" class="chartjs-render-monitor" style="display: block; height: 227px; width: 455px;"></canvas>
                             </div>
                         </div>
@@ -609,7 +609,7 @@ if($resN->num_rows!=0)
                         <div class="col-lg-6 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                            <h4 class="card-title">Statestique de recommandation</h4>
+                            <h4 class="card-title">Statistiques des recommandations</h4>
                             <canvas id="barChart" style="display: block; height: 227px; width: 455px;" width="682" height="340" class="chartjs-render-monitor"></canvas>
                             </div>
                         </div>
