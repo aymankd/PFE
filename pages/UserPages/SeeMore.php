@@ -1744,7 +1744,7 @@ if(($rowSR=$resSR->fetch_assoc()))
                         <span class="icon-bar"></span> 
                         <span class="icon-bar"></span> 
                         </button>
-                        <a href="index.html" class="navbar-brand"><img src="../../Resourse/images/logo-1.png" alt="" /></a>
+                        <a href="#" class="navbar-brand"><img src="../../Resourse/images/logo-1.png" alt="" /></a>
                      </div>
                      <form class="navbar-form navbar-left web-sh">
                         <div class="form">

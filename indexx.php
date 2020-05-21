@@ -321,14 +321,14 @@ while(($rowR1= mysqli_fetch_array($resR1)))
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-2">
-					<div id="fh5co-logo"><a href="index.html">ESRENT</a></div>
+					<div id="fh5co-logo"><a href="indexx.php">ESRENT</a></div>
 				</div>
 				<div class="col-xs-10 text-right menu-1">
 					<ul>
 						
 						<li><a href="pages/Hote/LoginHote.php">Devenez hôte</a></li>
-						<li><a href="help.html">Aide</a></li>			
-						<li><a href="contact.html">Contact</a></li>
+						<li><a href="#">Aide</a></li>			
+						<li><a href="#">Contact</a></li>
 						<li class="btn-cta"><a href="pages/samples/register.php"><span>Inscription</span></a></li>
 						<li class="btn-cta"><a href="pages/samples/login.php"><span>Connexion</span></a></li>
 					</ul>

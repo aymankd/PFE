@@ -226,10 +226,7 @@ if($LogeType=="Appartement")
              
               <li class="nav-item nav-profile dropdown">
               <div class="rightSh">
-          <a href="pages/samples/register.php" class="itemXE">Devenez hôte</a>
-          <a href="pages/samples/register.php" class="itemXE">Aide</a>
-          <a href="pages/samples/register.php" class="itemXE">Inscription</a>
-          <a href="pages/samples/login.php"  class="itemXE" >Connexion</a>
+        
          
           </div>
                
@@ -616,6 +613,7 @@ if($LogeType=="Appartement")
 
 
 
+
 </body>
 
 <script type="text/javascript">
@@ -662,6 +660,10 @@ if($LogeType=="Appartement")
   <script src="../../Resourse/js2/dashboard.js"></script>
 
  
+
+
+
+  
 </html>
 
 

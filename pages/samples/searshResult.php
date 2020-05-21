@@ -220,16 +220,16 @@ while ($rowL = mysqli_fetch_array($resL))
           <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between">
           
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo" href="dash.html"><img src="../../Resourse/images/logo-1.png" alt="logo"/></a>
+                <a class="navbar-brand brand-logo" href="#"><img src="../../Resourse/images/logo-1.png" alt="logo"/></a>
             </div>
             <ul class="navbar-nav navbar-nav-right">
                
                 <li class="nav-item nav-profile dropdown">
                 <div class="rightSh">
-            <a href="pages/samples/register.php" class="itemXE">Devenez hôte</a>
-            <a href="pages/samples/register.php" class="itemXE">Aide</a>
-            <a href="pages/samples/register.php" class="itemXE">Inscription</a>
-            <a href="pages/samples/login.php"  class="itemXE" >Connexion</a>
+            <a href="register.php" class="itemXE">Devenez hôte</a>
+            <a href="#" class="itemXE">Aide</a>
+            <a href="register.php" class="itemXE">Inscription</a>
+            <a href="login.php"  class="itemXE" >Connexion</a>
            
             </div>
                  
