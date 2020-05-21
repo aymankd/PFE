@@ -1218,13 +1218,13 @@ header .navbar-default .navbar-header {
 /*-- Copyright --*/
 
 .copyright {
-	background: #ffffff;
+	/*! background: #ffffff; */
 }
 
 .copyright p {
 	margin-top: 20px;
 	font-size: 14px;
-	color: #636363;
+	color: #fff;
 }
 
 .copyright p img {

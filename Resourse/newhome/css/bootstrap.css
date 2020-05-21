@@ -892,6 +892,9 @@ pre code {
   .container {
     width: 1170px;
   }
+  #footertext {
+    margin-top: 110px !important;
+}
 }
 
 .container-fluid {

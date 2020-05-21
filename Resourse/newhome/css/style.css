@@ -16,7 +16,7 @@ body {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.7;
-  color: #828282;
+  color: #fff;
   background: #fff;
 }
 
@@ -50,7 +50,7 @@ body {
 }
 
 a {
-  color: #0C9CEE;
+  color: #FFF;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
@@ -67,7 +67,7 @@ p {
 }
 
 h1, h2, h3, h4, h5, h6, figure {
-  color: #000;
+  color: #fff;
   font-family: "Work Sans", Arial, sans-serif;
   font-weight: 400;
   margin: 0 0 20px 0;
@@ -1054,8 +1054,12 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 #fh5co-footer {
-
   background-color: transparent;
+  background-image: url('../images/footerBack.jpg');
+  background-repeat: no-repeat;
+}
+#footertext {
+  margin-top: 110px !important;
 }
 
 #fh5co-footer .fh5co-footer-links {
@@ -1070,7 +1074,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 #fh5co-footer .fh5co-footer-links li a {
-  color: #000;
+  color: #fff;
   text-decoration: none;
 }
 

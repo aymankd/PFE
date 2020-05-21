@@ -755,7 +755,7 @@ while($rowR3= mysqli_fetch_array($resR3))
 
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
   <link rel="stylesheet" href="../../Resourse/css3/chatbox.css">
-
+  <link rel="stylesheet" href="../../Resourse/Allfooters/Style.css">
   <link href="../../Resourse/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
   </head>
@@ -1019,6 +1019,60 @@ textarea[placeholder] {
     
     </script>
     <?=$jsScript; ?>
+
+
+    <footer id="fh5co-footer" role="contentinfo">
+		<div class="container" id="footertext">
+			<div class="row row-pb-md">
+				<div class="col-md-4 fh5co-widget">
+					<h3  style="color:white;">ESRENT</h3>
+					<p  style="color:white;">Site web qui permetra aux client de trouver facilement un logement qui respect leurs criteres de qualité et aux propriétaire d'atendre un grand nombre de loueurs potentiels</p>
+					<p><a href="#"  style="color:white;">Learn More</a></p>
+				</div>
+				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
+					<ul class="fh5co-footer-links">
+						<li><a href="#">À PROPOS</a></li>
+						<li><a href="#">Contact</a></li>
+						<li><a href="#">termes</a></li>
+						<li><a href="#">Aidez-moi</a></li>
+				
+					</ul>
+				</div>
+
+				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
+					<ul class="fh5co-footer-links">
+						<li><a href="#">PAGES</a></li>
+						<li><a href="#">Accueil</a></li>
+						<li><a href="#">recherche avancée</a></li>
+						<li><a href="#">Handbook</a></li>
+						<li><a href="#">voir plus</a></li>
+					</ul>
+				</div>
+
+				
+			</div>
+
+			<div class="row copyright">
+				<div class="col-md-12 text-center">
+					<p>
+						<small class="block"  style="color:white;">&copy; 2020 ESRENT</small> 
+						<small class="block"  style="color:white;"> All Rights Reserved.</small>
+					</p>
+					<p>
+						<ul class="fh5co-social-icons">
+							<li><a href="#"><i class="icon-twitter"></i></a></li>
+							<li><a href="#"><i class="icon-facebook"></i></a></li>
+							<li><a href="#"><i class="icon-linkedin"></i></a></li>
+							<li><a href="#"><i class="icon-dribbble"></i></a></li>
+						</ul>
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+
+
 
 
 </body>
