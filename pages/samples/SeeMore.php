@@ -198,7 +198,7 @@ if($type=="Appartement")
         {
          //données du Logement courrant
          $CodeLC=$rowC['CodeL'];
-         $srcC="genere_image.php?id=$CodeLC";
+         $srcC="genere_one_image.php?id=$CodeLC";
          $prixC=$rowC['prix'];
          $TitreC=$rowC['nom'];
          $adresseC=$rowC['adress'];
@@ -306,7 +306,7 @@ if($type=="Appartement")
            { 
               //données du Logement courrant
              $CodeLC=$rowC['CodeL'];            
-             $srcC="genere_image.php?id=$CodeLC";
+             $srcC="genere_one_image.php?id=$CodeLC";
              $prixC=$rowC['prix'];
              $TitreC=$rowC['nom'];
              $adresseC=$rowC['adress'];
@@ -395,7 +395,7 @@ if($type=="Appartement")
           { 
              //données du Logement courrant
             $CodeLC=$rowC['CodeL'];
-            $srcC="genere_image.php?id=$CodeLC";
+            $srcC="genere_one_image.php?id=$CodeLC";
             $prixC=$rowC['prix'];
             $TitreC=$rowC['nom'];
             $adresseC=$rowC['adress'];
@@ -453,7 +453,7 @@ if($type=="Appartement")
          $rowC=$resC->fetch_assoc();
           //données du Logement courrant
           $CodeLC=$rowC['CodeL'];
-          $srcC="genere_image.php?id=$CodeLC";
+          $srcC="genere_one_image.php?id=$CodeLC";
           $prixC=$rowC['prix'];
           $TitreC=$rowC['nom'];
           $adresseC=$rowC['adress'];
@@ -513,7 +513,7 @@ if($type=="Appartement")
        {
           //données du Logement courrant
           $CodeLC=$rowCR['CodeL'];
-          $srcC="genere_image.php?id=$CodeLC";
+          $srcC="genere_one_image.php?id=$CodeLC";
           $prixC=$rowCR['prix'];
           $TitreC=$rowCR['nom'];
           $adresseC=$rowCR['adress'];
@@ -665,7 +665,7 @@ else if($type=="studio")
           {
            //données du Logement courrant
            $CodeLC=$rowC['CodeL'];
-           $srcC="genere_image.php?id=$CodeLC";
+           $srcC="genere_one_image.php?id=$CodeLC";
            $prixC=$rowC['prix'];
            $TitreC=$rowC['nom'];
            $adresseC=$rowC['adress'];
@@ -772,7 +772,7 @@ else if($type=="studio")
              { 
                 //données du Logement courrant
                $CodeLC=$rowC['CodeL'];
-               $srcC="genere_image.php?id=$CodeLC";
+               $srcC="genere_one_image.php?id=$CodeLC";
                $prixC=$rowC['prix'];
                $TitreC=$rowC['nom'];
                $adresseC=$rowC['adress'];
@@ -860,7 +860,7 @@ else if($type=="studio")
             { 
                //données du Logement courrant
               $CodeLC=$rowC['CodeL'];
-              $srcC="genere_image.php?id=$CodeLC";
+              $srcC="genere_one_image.php?id=$CodeLC";
               $prixC=$rowC['prix'];
               $TitreC=$rowC['nom'];
               $adresseC=$rowC['adress'];
@@ -917,7 +917,7 @@ else if($type=="studio")
            $rowC=$resC->fetch_assoc();
             //données du Logement courrant
             $CodeLC=$rowC['CodeL'];
-            $srcC="genere_image.php?id=$CodeLC";
+            $srcC="genere_one_image.php?id=$CodeLC";
             $prixC=$rowC['prix'];
             $TitreC=$rowC['nom'];
             $adresseC=$rowC['adress'];
@@ -976,7 +976,7 @@ else if($type=="studio")
          {
             //données du Logement courrant
             $CodeLC=$rowCR['CodeL'];
-            $srcC="genere_image.php?id=$CodeLC";
+            $srcC="genere_one_image.php?id=$CodeLC";
             $prixC=$rowCR['prix'];
             $TitreC=$rowCR['nom'];
             $adresseC=$rowCR['adress'];
