@@ -553,14 +553,14 @@ if(isset($_POST['EnrFrm']))
 							<div class="form-group row">
 							<div class="col-sm-9">
 							<label for="exampleInputUsername2" class="col-sm-3 col-form-label"><i class="fas fa-user"></i>  Nom</label>
-								<input type="text" class="form-control" name="nomP" id="exampleInputUsername2" pattern="[A-Za-z ]" placeholder="Nom">
+								<input type="text" class="form-control" name="nomP" id="exampleInputUsername2" pattern="[A-Za-z ]+" placeholder="Nom">
 							</div>
 							</div>
 						
 							<div class="form-group row">
 							<div class="col-sm-9">
 							<label for="exampleInputEmail2" class="col-sm-3 col-form-label"> <i class="fas fa-user"></i>  Prenom</label>
-								<input type="text" class="form-control" name="PrenomP" id="exampleInputEmail2" pattern="[A-Za-z ]" placeholder="Prenom">
+								<input type="text" class="form-control" name="PrenomP" id="exampleInputEmail2" pattern="[A-Za-z ]+" placeholder="Prenom">
 							</div>
 							</div>
 
@@ -568,7 +568,7 @@ if(isset($_POST['EnrFrm']))
 							<div class="col-sm-9">
 							<label for="exampleInputMobile" class="col-sm-3 col-form-label"><i class="fas fa-fingerprint"></i>  CIN</label>
 
-								<input  type="text" class="form-control" name="CIN" pattern="[A-Za-z0-9 ]" id="exampleInputMobile" placeholder="CIN">
+								<input  type="text" class="form-control" name="CIN" pattern="[A-Za-z0-9 ]+" id="exampleInputMobile" placeholder="CIN">
 							</div>
 							</div>
 
@@ -576,7 +576,7 @@ if(isset($_POST['EnrFrm']))
 							<div class="col-sm-9">
 							<label for="exampleInputPassword2" class="col-sm-3 col-form-label"><i class="fas fa-phone"></i>  Tel</label>
 
-								<input type="text" class="form-control" name="Tel" pattern="[0-9]" id="exampleInputPassword2" placeholder="Tel">
+								<input type="text" class="form-control" name="Tel" pattern="[0-9]+" id="exampleInputPassword2" placeholder="Tel">
 							</div>
 							</div>
 
@@ -584,7 +584,7 @@ if(isset($_POST['EnrFrm']))
 								<div class="col-sm-9">
 								<label for="exampleInputPassword2" class="col-sm-3 col-form-label"><i class="fas fa-map-marker-alt"></i>  Adresse</label>
 
-								<input type="text" class="form-control" pattern="[A-Za-z0-9 ]" name="Adr" id="exampleInputPassword2" placeholder="Adresse">
+								<input type="text" class="form-control" pattern="[A-Za-z0-9 ]+" name="Adr" id="exampleInputPassword2" placeholder="Adresse">
 								</div>
 							</div>
 
@@ -592,7 +592,7 @@ if(isset($_POST['EnrFrm']))
 							<div class="col-sm-9">
 							<label for="exampleInputPassword2" class="col-sm-3 col-form-label"><i class="fas fa-envelope"></i>  Email</label>
 
-								<input type="email" class="form-control" name="Email" id="exampleInputPassword2" placeholder="Email">
+								<input type="email" class="form-control" name="Email" id="exampleInputPassword2" placeholder="Email" required>
 							</div>
 							</div>
 
@@ -601,7 +601,7 @@ if(isset($_POST['EnrFrm']))
 							<div class="form-group row" >
 								<div class="col-sm-9">
 								<label for="exampleInputUsername2" class="col-sm-3 col-form-label"><i class="fas fa-user"></i>  Username</label>
-								<input type="text" class="form-control" name="Username" pattern="[A-Za-z0-9 ]" id="exampleInputUsername2" placeholder="Username">
+								<input type="text" class="form-control" name="Username" pattern="[A-Za-z0-9 ]+" id="exampleInputUsername2" placeholder="Username">
 								</div>
 							</div>
 						</div>
@@ -641,28 +641,28 @@ if(isset($_POST['EnrFrm']))
 							<div class="form-group row">
 							<div class="col-sm-9">
 							<label for="exampleInputEmail2" class="col-sm-3 col-form-label"><i class="fas fa-user"></i>  Nom</label><br>
-								<input type="text" class="form-control" name="nomL" id="exampleInputEmail2" pattern="[A-Za-z ]" placeholder="Nom">
+								<input type="text" class="form-control" name="nomL" id="exampleInputEmail2" pattern="[A-Za-z ]+" placeholder="Nom">
 							</div>
 							</div>
 
 							<div class="form-group row">
 							<div class="col-sm-9">
 							<label for="exampleTextarea1" class="col-sm-3 col-form-label"><i class="fas fa-comment"></i>  Description</label><br>
-								<textarea class="form-control" name="Desc" pattern="[A-Za-z0-9 ]" id="exampleTextarea1" rows="4"></textarea>
+								<textarea class="form-control" name="Desc" pattern="[A-Za-z0-9 ]+" id="exampleTextarea1" rows="4"></textarea>
 							</div>
 							</div>
 
 							<div class="form-group row">
 							<div class="col-sm-9">
 							<label for="exampleInputEmail2" class="col-sm-3 col-form-label"><i class="fas fa-tag"></i> Prix</label><br>
-								<input type="text" class="form-control" name="prixL" pattern="[0-9]" id="exampleInputEmail2" placeholder="Prix">
+								<input type="text" class="form-control" name="prixL" pattern="[0-9]+" id="exampleInputEmail2" placeholder="Prix">
 							</div>
 							</div>
 
 							<div class="form-group row">
 							<div class="col-sm-9">
 							<label for="exampleInputEmail2" class="col-sm-3 col-form-label"><i class="fas fa-user"></i>  Superficie</label><br>
-								<input type="text" class="form-control" name="sprfc" pattern="[0-9]" id="exampleInputEmail2" placeholder="sprfc">
+								<input type="text" class="form-control" name="sprfc" pattern="[0-9]+" id="exampleInputEmail2" placeholder="sprfc">
 							</div>
 							</div>
 
