@@ -1698,8 +1698,10 @@ else{
                            </p>
                            
                            <p style="color:blue;"><i class="fas fa-ruler-combined" style="margin-right:9px;"></i>Superficie: <?=$sup?> m² <br>
-                           <i class="fas fa-door-open" style="margin-right:4px;"></i>Nombre de chambre: <?=$nbrC?>   <br>
-                               <i style="font-size:25px;margin-right:12px;" class="fas fa-male"></i>Nombre de locataire: <?=$nbrC?>  
+                           <?php if($type=='Appartement'){
+                              echo "<i class='fas fa-door-open' style='margin-right:4px;'></i>Nombre de chambre: <?=$nbrC?>   <br>";
+                           }?>
+                               <i style="font-size:25px;margin-right:12px;" class="fas fa-male"></i>Nombre de locataire: <?=$nbrP?>  
                            </p>
 
                            <br>

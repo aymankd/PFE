@@ -35,6 +35,7 @@ $CodeL = $rowL['CodeL'];
 $nom = $rowL['nom'];
 $adress = $rowL['adress'];
 $description = $rowL['description'];
+$description=substr($string,0,150)."...";
 $price=$rowL['prix'];
 $sup=$rowL['superficie'];
 $prix=$rowL['prix'];
