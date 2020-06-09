@@ -237,6 +237,14 @@ if($resN->num_rows!=0)
     <link rel="stylesheet" href="../../Resourse/LocationPage/css/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="../../Resourse/LocationPage/images/favicon.png" />
+
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+  
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+  <script type="text/javascript" >window.ENV_VARIABLE = 'https://developer.here.com'</script><script src='https://developer.here.com/javascript/src/iframeheight.js'></script>
   </head>
   <body>
     <div class="container-scroller">
@@ -417,31 +425,33 @@ if($resN->num_rows!=0)
     </div>
     <!-- container-scroller -->
     <!-- base:js -->
-    <script src="../../Resourse/LocationPage/vendors/base/vendor.bundle.base.js"></script>
+   
     <!-- endinject -->
     <!-- Plugin js for this page-->
     <!-- End plugin js for this page-->
     <!-- inject:js -->
-    <script src="../../Resourse/LocationPage/js/template.js"></script>
+   
     <!-- endinject -->
     <!-- plugin js for this page -->
     <!-- End plugin js for this page -->
   
     <!-- Custom js for this page-->
-    <script src="../../Resourse/LocationPage/js/dashboard.js"></script>
+  
     <!-- End custom js for this page-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js"></script>
 
 
     <script type="text/javascript">
-        var map;
+       // var map;
         var clck=0;
-        var marker;
+       // var marker;
         var cnfrm_state='Y';
         
+
+
         function initMap() {                            
-            var latitude = 34.0531 ; // latitude
+          /* var latitude = 34.0531 ; // latitude
             var longitude =-6.79846; //longtitude
             
             var myLatLng = {lat: latitude, lng: longitude};
@@ -453,7 +463,7 @@ if($resN->num_rows!=0)
               gestureHandling: 'none',
               zoomControl: false
             });
-        // obtenire la positoin et placement d'un marker
+         // obtenire la positoin et placement d'un marker
             google.maps.event.addListener(map,'dblclick',function(event) {
               document.getElementById("cl").disabled = false;
               document.getElementById("cnfrm").disabled = false;
@@ -473,27 +483,120 @@ if($resN->num_rows!=0)
             });    
         
             
-           
+           */
         }
         </script>
 
 <script >
-        $(document).ready(function(){
+       $(document).ready(function(){
            
             $('#ntm').click(function () {
-              map.setOptions({
+
+                behavior.enable(H.mapevents.Behavior.WHEELZOOM);
+                behavior.enable(H.mapevents.Behavior.DRAGGING);
+
+            /*  map.setOptions({
                 disableDoubleClickZoom: true, 
               gestureHandling: 'greedy',
               zoomControl: true
-              });
+              });*/
             });
 
         });
         </script>
 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWv8pHQtbrov613r_RMqCjZ_nOrz2y7HM&callback=initMap"
-        async defer></script>
+      <!--  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWv8pHQtbrov613r_RMqCjZ_nOrz2y7HM&callback=initMap"
+        async defer></script> -->
+        <script>
 
+/**
+ * Moves the map to display over Berlin
+ *
+ * @param  {H.Map} map      A HERE Map instance within the application
+ */
+function moveMapTohouse(map){
+  map.setCenter({lat:34.0531, lng:-6.79846});
+  map.setZoom(14);
+  behavior.disable(H.mapevents.Behavior.WHEELZOOM);
+  behavior.disable(H.mapevents.Behavior.DBLTAPZOOM);
+  behavior.disable(H.mapevents.Behavior.DRAGGING);
+   
+
+}
+
+/**
+ * Boilerplate map initialization code starts below:
+ */
+
+//Step 1: initialize communication with the platform
+// In your own code, replace variable window.apikey with your own apikey
+var platform = new H.service.Platform({
+  apikey:'gNAS-hI7AKsqytfacNxMU-WZqMQa_Zn-nunnoU2p6s4'
+});
+var defaultLayers = platform.createDefaultLayers();
+
+//Step 2: initialize a map - this map is centered over Europe
+var map = new H.Map(document.getElementById('map'),
+  defaultLayers.vector.normal.map,{
+  center: {lat:33.589886, lng:-7.603869},
+  zoom: 8,
+  pixelRatio: window.devicePixelRatio || 1
+});
+
+// add a resize listener to make sure that the map occupies the whole container
+window.addEventListener('resize', () => map.getViewPort().resize());
+
+//Step 3: make the map interactive
+// MapEvents enables the event system
+// Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+// Create the default UI components
+var ui = H.ui.UI.createDefault(map, defaultLayers);
+
+// Now use the map as required...
+window.onload = function () {
+  moveMapTohouse(map);
+}
+
+var coord; 
+var homeMarker;
+//var homeIcon = new H.map.Icon("../../Resourse/imgs/adresse.png");
+
+        function setUpClickListener(map) {
+           // Attach an event listener to map display
+           // obtain the coordinates and display in an alert box.
+                map.addEventListener('tap', function (evt) {
+                    coord = map.screenToGeo(evt.currentPointer.viewportX,
+                    evt.currentPointer.viewportY);
+                    lat=coord.lat;
+                    lng=coord.lng.toFixed(4);
+                    document.getElementById("cl").disabled = false;
+                    document.getElementById("cnfrm").disabled = false;
+                    cnfrm_state='N';
+                    
+                    
+                  
+                   if(clck==0)
+                    {
+                        clck=clck+1;
+                        homeMarker =new H.map.Marker({lat:lat, lng:lng}) ;
+                        map.addObject(homeMarker);
+                        
+                    }
+                   else 
+                  { 
+                    homeMarker.setGeometry({lat:lat, lng:lng});
+                    clck=clck+1;
+                   // map.removeObject(homeMarker);
+                  }
+
+                });
+        }
+
+        setUpClickListener(map);
+    
+  </script>
         
         <script>
 document.getElementById("notifs").addEventListener('click', function (event) 
@@ -630,6 +733,9 @@ nt_clsd="Y";
    var lat;
    document.getElementById("cnfrm").disabled = true;
     $('#cl').click(function(){
+        behavior.disable(H.mapevents.Behavior.WHEELZOOM);
+  behavior.disable(H.mapevents.Behavior.DBLTAPZOOM);
+  behavior.disable(H.mapevents.Behavior.DRAGGING);
       if(navigator.geolocation)
         {
           navigator.geolocation.getCurrentPosition(function(position){
@@ -638,7 +744,7 @@ nt_clsd="Y";
             lng=position.coords.longitude;
             document.getElementById("cl").disabled = true;
             document.getElementById("cnfrm").disabled = false;
-             cnfrm_state='N';
+            cnfrm_state='N';
             
           /* $.ajax({  
                 url:"isertLngLat.php?",  
