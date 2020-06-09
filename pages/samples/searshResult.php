@@ -35,6 +35,7 @@ while ($rowL = mysqli_fetch_array($resL))
   $nom = $rowL['nom'];
   $adress = $rowL['adress'];
   $description = $rowL['description'];
+  $description=substr($description,0,150)."...";
   $price=$rowL['prix'];
   $sup=$rowL['superficie'];
   $prix=$rowL['prix'];

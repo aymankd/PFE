@@ -247,7 +247,7 @@ if($type=="Appartement")
                          <a href='#' tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>
-                         <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
+                         <a id='".$j."'><i class='far fa-heart'></i> enregistrer</a>
                          <p></p>
                         </div>
                        </div>
@@ -275,7 +275,7 @@ if($type=="Appartement")
                          <a href='#' tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>   
-                        <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
+                        <a id='".$j."'><i class='far fa-heart'></i> enregistrer</a>
                          <p></p>
                         </div>
                        </div>
@@ -353,7 +353,7 @@ if($type=="Appartement")
                     <a href='#' tabindex='0'>".$prixC."DH</a>
                    </div>
                    <div class='prod-btn'>   
-                   <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
+                   <a id='".$j."'><i class='far fa-heart'></i> enregistrer</a>
                     <p></p>
                    </div>
                   </div>
@@ -380,7 +380,7 @@ if($type=="Appartement")
                          <a href='#' tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>   
-                          <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
+                          <a id='".$j."'><i class='far fa-heart'></i> enregistrer</a>
                          <p></p>
                         </div>
                        </div>
@@ -440,7 +440,7 @@ if($type=="Appartement")
                <a href='#' tabindex='0'>".$prixC."DH</a>
               </div>
               <div class='prod-btn'>   
-                <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
+                <a id='".$j."'><i class='far fa-heart'></i> enregistrer</a>
                <p></p>
               </div>
              </div>
@@ -498,7 +498,7 @@ if($type=="Appartement")
                <a href='#' tabindex='0'>".$prixC."DH</a>
               </div>
               <div class='prod-btn'>   
-              <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
+              <a id='".$j."'><i class='far fa-heart'></i> enregistrer</a>
                <p></p>
               </div>
              </div>
@@ -560,7 +560,7 @@ if($type=="Appartement")
               <a href='#' tabindex='0'>".$prixC."DH</a>
              </div>
              <div class='prod-btn'>   
-               <a id='".$jR."'><i class='far fa-heart'></i> Like this</a>
+               <a id='".$jR."'><i class='far fa-heart'></i> enregistrer</a>
               <p></p>
              </div>
             </div>
@@ -584,7 +584,7 @@ if($type=="Appartement")
               <a href='#' tabindex='0'>".$prixC."DH</a>
              </div>
              <div class='prod-btn'>   
-              <a id='".$jR."'><i class='far fa-heart'></i> Like this</a>
+              <a id='".$jR."'><i class='far fa-heart'></i> enregistrer</a>
               <p></p>
              </div>
             </div>
@@ -610,7 +610,7 @@ if($type=="Appartement")
                  <a href='#' tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                  <a id='".$jR."'><i class='far fa-heart'></i> Like this</a>
+                  <a id='".$jR."'><i class='far fa-heart'></i> enregistrer</a>
                  <p></p>
                 </div>
                </div>
@@ -634,7 +634,7 @@ if($type=="Appartement")
                  <a href='#' tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                  <a id='".$jR."'><i class='far fa-heart'></i> Like this</a>
+                  <a id='".$jR."'><i class='far fa-heart'></i> enregistrer</a>
                  <p></p>
                 </div>
                </div>
@@ -713,7 +713,7 @@ else if($type=="studio")
                            <a href='#' tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>
-                           <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
+                           <a id='".$j."'><i class='far fa-heart'></i> enregistrer</a>
                            <p></p>
                           </div>
                          </div>
@@ -741,7 +741,7 @@ else if($type=="studio")
                            <a href='#' tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>   
-                             <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
+                             <a id='".$j."'><i class='far fa-heart'></i> enregistrer</a>
                            <p></p>
                           </div>
                          </div>
@@ -818,7 +818,7 @@ else if($type=="studio")
                       <a href='#' tabindex='0'>".$prixC."DH</a>
                      </div>
                      <div class='prod-btn'>   
-                        <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
+                        <a id='".$j."'><i class='far fa-heart'></i> enregistrer</a>
                       <p></p>
                      </div>
                     </div>
@@ -845,7 +845,7 @@ else if($type=="studio")
                            <a href='#' tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>   
-                             <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
+                             <a id='".$j."'><i class='far fa-heart'></i> enregistrer</a>
                            <p></p>
                           </div>
                          </div>
@@ -904,7 +904,7 @@ else if($type=="studio")
                  <a href='#' tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                  <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
+                  <a id='".$j."'><i class='far fa-heart'></i> enregistrer</a>
                  <p></p>
                 </div>
                </div>
@@ -961,7 +961,7 @@ else if($type=="studio")
                  <a href='#' tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                   <a id='".$j."'><i class='far fa-heart'></i> Like this</a>
+                   <a id='".$j."'><i class='far fa-heart'></i> enregistrer</a>
                  <p></p>
                 </div>
                </div>
@@ -1022,7 +1022,7 @@ else if($type=="studio")
                 <a href='#' tabindex='0'>".$prixC."DH</a>
                </div>
                <div class='prod-btn'>   
-                   <a id='".$jR."'><i class='far fa-heart'></i> Like this</a>
+                   <a id='".$jR."'><i class='far fa-heart'></i> enregistrer</a>
                 <p></p>
                </div>
               </div>
@@ -1046,7 +1046,7 @@ else if($type=="studio")
                 <a href='#' tabindex='0'>".$prixC."DH</a>
                </div>
                <div class='prod-btn'>   
-                  <a id='".$jR."'><i class='far fa-heart'></i> Like this</a>
+                  <a id='".$jR."'><i class='far fa-heart'></i> enregistrer</a>
                 <p></p>
                </div>
               </div>
@@ -1072,7 +1072,7 @@ else if($type=="studio")
                    <a href='#' tabindex='0'>".$prixC."DH</a>
                   </div>
                   <div class='prod-btn'>   
-                  <a id='".$jR."'><i class='far fa-heart'></i> Like this</a>
+                  <a id='".$jR."'><i class='far fa-heart'></i> enregistrer</a>
                    <p></p>
                   </div>
                  </div>
@@ -1096,7 +1096,7 @@ else if($type=="studio")
                    <a href='#' tabindex='0'>".$prixC."DH</a>
                   </div>
                   <div class='prod-btn'>   
-                  <a id='".$jR."'><i class='far fa-heart'></i> Like this</a>
+                  <a id='".$jR."'><i class='far fa-heart'></i> enregistrer</a>
                    <p></p>
                   </div>
                  </div>
@@ -1851,9 +1851,12 @@ if(($rowSR=$resSR->fetch_assoc()))
                            </p>
                            
                            <p style="color:blue;"><i class="fas fa-ruler-combined" style="margin-right:9px;"></i>Superficie: <?=$sup?> m² <br>
-                           <i class="fas fa-door-open" style="margin-right:4px;"></i>Nombre de chambre: <?=$nbrC?>   <br>
-                               <i style="font-size:25px;margin-right:12px;" class="fas fa-male"></i>Nombre de locataire: <?=$nbrC?>  
+                           <?php if($type=='Appartement'){
+                              echo "<i class='fas fa-door-open' style='margin-right:4px;'></i>Nombre de chambre:$nbrC   <br>";
+                           }?>
+                                 <i style="font-size:25px;margin-right:12px;" class="fas fa-male"></i>Nombre de locataire: <?=$nbrP?>
                            </p>
+                           
 
                            <br>
                            <p><?=$colloc_info?></p>
@@ -2092,7 +2095,7 @@ if(($rowSR=$resSR->fetch_assoc()))
          </div>
          <br>
          <div class="avis">
-          <label for="comment" style="margin-top:20%; margin-left:0px;">Donner un avis</label>
+          <p for="comment" style="margin-top:20%; margin-left:0px;"><h4>Donner un avis<h4></p>
           <textarea id="comment" name="story" rows="5" cols="33" style="border: 1px solid black; "> </textarea>
           
          </div>
@@ -2343,6 +2346,7 @@ $(document).ready(function(){
                     $('#modalLikeThis2').modal('hide');                
                     document.getElementById('RTM').style.display='none';
                     document.getElementById('YRT').innerHTML='<h3>Vous avez évalué ceci '+Mrating+' Stars</h3>';
+                    window.location.reload();
 
                   }
                  });
@@ -2394,7 +2398,7 @@ $(document).ready(function(){
        }
        else if(saved=='N')
        {
-          $('#like-btn').empty().append("<i class='far fa-heart ff'></i> sauvegarde");
+          $('#like-btn').empty().append("<i class='far fa-heart ff'></i> enregistrer");
          }   
    $('#like-btn').click(function(){  
       if(saved=='N')
@@ -2414,7 +2418,7 @@ $(document).ready(function(){
        }   
       else if(saved=='Y')
        {
-          $('#like-btn').empty().append("<i class='far fa-heart ff'></i> sauvegarde");
+          $('#like-btn').empty().append("<i class='far fa-heart ff'></i> enregistrer");
           saved='N';
 
           $.ajax({  

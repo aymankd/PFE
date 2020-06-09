@@ -187,18 +187,18 @@ if(isset($_POST['EnrFrm']))
       </div>
                 <div class="form-row mt-4">
                     <div class="col">
-                      <input class="multisteps-form__input form-control" pattern="[A-Za-z0-9 ]" name="nomL" type="text" placeholder="Nom Logement"/>
+                      <input class="multisteps-form__input form-control" pattern="[A-Za-z0-9 ]+" name="nomL" type="text" placeholder="Nom Logement"/>
                     </div>
                   </div>
                   <div class="form-row mt-4">
-				  <textarea class="form-control" id="exampleFormControlTextarea1" pattern="[A-Za-z0-9 ]" name="Desc" rows="3" placeholder="Description"></textarea>
+				  <textarea class="form-control" id="exampleFormControlTextarea1" pattern="[A-Za-z0-9 ]+" name="Desc" rows="3" placeholder="Description"></textarea>
                   </div>
                   <div class="form-row mt-4">
                     <div class="col-12 col-sm-6">
-					<input type="text" class="form-control" name="prixL" pattern="[0-9]" id="exampleInputEmail2" placeholder="Prix">
+					<input type="text" class="form-control" name="prixL" pattern="[0-9]+" id="exampleInputEmail2" placeholder="Prix">
                     </div>
                     <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-					<input type="text" class="form-control" name="sprfc" pattern="[0-9]" id="exampleInputEmail2" placeholder="sprfc">
+					<input type="text" class="form-control" name="sprfc" pattern="[0-9]+" id="exampleInputEmail2" placeholder="sprfc">
                     </div>
                   </div>
 
@@ -218,19 +218,19 @@ if(isset($_POST['EnrFrm']))
 
 				   <div class="form-row mt-4">
 				    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-					   <input class="form-control" name="nbrloc" type="number" pattern="[0-9]"  placeholder="Nombre de locataire" />
+					   <input class="form-control" name="nbrloc" type="number" pattern="[0-9]+"  placeholder="Nombre de locataire" />
 					  </div>
             <div class="col-12 col-sm-6 " id="PieceInput">
-					   <input class="form-control" name="nbrP" type="number" pattern="[0-9]" placeholder="Nombre de piece" />
+					   <input class="form-control" name="nbrP" type="number" pattern="[0-9]+" placeholder="Nombre de piece" />
 				    </div> 
           </div>
 				
 				   <div class="form-row mt-4">
-					  <input class="form-control" type="text" name="AdrLo" pattern="[A-Za-z0-9 ]" placeholder="Adresse" />
+					  <input class="form-control" type="text" name="AdrLo" pattern="[A-Za-z0-9 ]+" placeholder="Adresse" />
 				   </div>
 
 				   <div class="form-row mt-4">
-				    <textarea class="form-control" id="exampleFormControlTextarea1" pattern="[A-Za-z0-9 ]" name="Reg" rows="3" placeholder="Reglement"></textarea>
+				    <textarea class="form-control" id="exampleFormControlTextarea1" pattern="[A-Za-z0-9 ]+" name="Reg" rows="3" placeholder="Reglement"></textarea>
            </div>                  
                   <div class="button-row d-flex mt-4">
                     <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>

@@ -386,7 +386,7 @@ $SupLog.="
   <div class="card">
 								<div class="card-body">
 									
-                <h4 class="card-title head">Localiser mon logement</h4>
+                <h4 class="card-title head"> ULTRA</h4>
               
 										<div class="h3div">
                       <h3  class="card-title">Recommandation sur la page acceuil</h3>
@@ -412,7 +412,7 @@ $SupLog.="
   <div class="card">
 								<div class="card-body">
 									
-                <h4 class="card-title head">Localiser mon logement</h4>
+                <h4 class="card-title head">SUPER</h4>
                 <div class="h3div">
                       <h3  class="card-title">Recommandation  dans les résultat de recherche</h3>
                       <h3  class="card-title">Ajout de 5 nouveaux photos de votre logement</h3>

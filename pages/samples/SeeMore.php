@@ -242,7 +242,7 @@ if($type=="Appartement")
                          <a  tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>
-                         <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                         <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                          <p>23 likes</p>
                         </div>
                        </div>
@@ -270,7 +270,7 @@ if($type=="Appartement")
                          <a tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>   
-                        <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                        <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                          <p>23 likes</p>
                         </div>
                        </div>
@@ -348,7 +348,7 @@ if($type=="Appartement")
                     <a  tabindex='0'>".$prixC."DH</a>
                    </div>
                    <div class='prod-btn'>   
-                   <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                   <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                     <p>23 likes</p>
                    </div>
                   </div>
@@ -375,7 +375,7 @@ if($type=="Appartement")
                          <a  tabindex='0'>".$prixC."DH</a>
                         </div>
                         <div class='prod-btn'>   
-                        <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                        <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                          <p>23 likes</p>
                         </div>
                        </div>
@@ -435,7 +435,7 @@ if($type=="Appartement")
                <a  tabindex='0'>".$prixC."DH</a>
               </div>
               <div class='prod-btn'>   
-                <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                <p>23 likes</p>
               </div>
              </div>
@@ -493,7 +493,7 @@ if($type=="Appartement")
                <a tabindex='0'>".$prixC."DH</a>
               </div>
               <div class='prod-btn'>   
-              <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+              <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                <p>23 likes</p>
               </div>
              </div>
@@ -555,7 +555,7 @@ if($type=="Appartement")
               <a  tabindex='0'>".$prixC."DH</a>
              </div>
              <div class='prod-btn'>   
-             <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+             <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
               <p>23 likes</p>
              </div>
             </div>
@@ -579,7 +579,7 @@ if($type=="Appartement")
               <a  tabindex='0'>".$prixC."DH</a>
              </div>
              <div class='prod-btn'>   
-             <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+             <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
               <p>23 likes</p>
              </div>
             </div>
@@ -605,7 +605,7 @@ if($type=="Appartement")
                  <a  tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                  <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                  <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -629,7 +629,7 @@ if($type=="Appartement")
                  <a  tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                  <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                  <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -708,7 +708,7 @@ else if($type=="studio")
                            <a  tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>
-                           <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                           <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                            <p>23 likes</p>
                           </div>
                          </div>
@@ -736,7 +736,7 @@ else if($type=="studio")
                            <a  tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>   
-                           <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                           <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                            <p>23 likes</p>
                           </div>
                          </div>
@@ -813,7 +813,7 @@ else if($type=="studio")
                       <a  tabindex='0'>".$prixC."DH</a>
                      </div>
                      <div class='prod-btn'>   
-                      <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                      <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                       <p>23 likes</p>
                      </div>
                     </div>
@@ -840,7 +840,7 @@ else if($type=="studio")
                            <a tabindex='0'>".$prixC."DH</a>
                           </div>
                           <div class='prod-btn'>   
-                           <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                           <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                            <p>23 likes</p>
                           </div>
                          </div>
@@ -899,7 +899,7 @@ else if($type=="studio")
                  <a  tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                 <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                 <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -956,7 +956,7 @@ else if($type=="studio")
                  <a  tabindex='0'>".$prixC."DH</a>
                 </div>
                 <div class='prod-btn'>   
-                 <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                 <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                  <p>23 likes</p>
                 </div>
                </div>
@@ -1017,7 +1017,7 @@ else if($type=="studio")
                 <a  tabindex='0'>".$prixC."DH</a>
                </div>
                <div class='prod-btn'>   
-                <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                 <p>23 likes</p>
                </div>
               </div>
@@ -1041,7 +1041,7 @@ else if($type=="studio")
                 <a  tabindex='0'>".$prixC."DH</a>
                </div>
                <div class='prod-btn'>   
-                <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                 <p>23 likes</p>
                </div>
               </div>
@@ -1067,7 +1067,7 @@ else if($type=="studio")
                    <a  tabindex='0'>".$prixC."DH</a>
                   </div>
                   <div class='prod-btn'>   
-                   <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                   <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                    <p>23 likes</p>
                   </div>
                  </div>
@@ -1091,7 +1091,7 @@ else if($type=="studio")
                    <a  tabindex='0'>".$prixC."DH</a>
                   </div>
                   <div class='prod-btn'>   
-                   <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> Like this</a>
+                   <a href='loginSV.php?smr=".$CodeL."'><i class='far fa-heart'></i> enregistrer</a>
                    <p>23 likes</p>
                   </div>
                  </div>
@@ -1698,9 +1698,12 @@ else{
                            </p>
                            
                            <p style="color:blue;"><i class="fas fa-ruler-combined" style="margin-right:9px;"></i>Superficie: <?=$sup?> m² <br>
-                           <i class="fas fa-door-open" style="margin-right:4px;"></i>Nombre de chambre: <?=$nbrC?>   <br>
-                               <i style="font-size:25px;margin-right:12px;" class="fas fa-male"></i>Nombre de locataire: <?=$nbrC?>  
+                           <?php if($type=='Appartement'){
+                              echo "<i class='fas fa-door-open' style='margin-right:4px;'></i>Nombre de chambre:$nbrC   <br>";
+                           }?>
+                                 <i style="font-size:25px;margin-right:12px;" class="fas fa-male"></i>Nombre de locataire: <?=$nbrP?>
                            </p>
+                           
 
                            <br>
                            <p><?=$colloc_info?></p>

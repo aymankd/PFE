@@ -192,6 +192,13 @@ $Vue = array();
 $Vue[1]=0; $Vue[2]=0; $Vue[3]=0; $Vue[4]=0;
 $Vue[5]=0; $Vue[6]=0; $Vue[7]=0; $Vue[8]=0;
 $Vue[9]=0;$Vue[10]=0;$Vue[11]=0;$Vue[12]=0;
+
+//logement Rec
+$Rec = array();
+$Rec[1]=0; $Rec[2]=0; $Rec[3]=0; $Rec[4]=0;
+$Rec[5]=0; $Rec[6]=0; $Rec[7]=0; $Rec[8]=0;
+$Rec[9]=0;$Rec[10]=0;$Rec[11]=0;$Rec[12]=0;
+
 $thisyear = date("Y");
 
 $reqP="SELECT * FROM logement where CodeP=?";
@@ -202,18 +209,31 @@ $resP=$statementP->get_result();
 while ( $rowP = mysqli_fetch_array($resP) )
   {
     $logementtochar=$rowP['CodeL'];
+
+
     $reqVue="SELECT COUNT(*) as sumres,MONTH(date) as mou FROM `log_vues` where YEAR(date) = ?
     and `idL`=? GROUP BY MONTH(date)";
     $statementVue=$conn->prepare($reqVue);
-    $statementVue->bind_param("ss",$thisyear,$logementtochar);
+    $statementVue->bind_param("si",$thisyear,$logementtochar);
     $statementVue->execute();
     $resVue=$statementVue->get_result();
     while ( $rowVue = mysqli_fetch_array($resVue) )
     {
       $Vue[$rowVue['mou']] = $Vue[$rowVue['mou']] + $rowVue['sumres'];
     }
-  }
 
+    $reqRec="SELECT COUNT(*) as sumres,MONTH(date) as mou FROM `log_recomm` where YEAR(date) = ?
+    and `idL`=? GROUP BY MONTH(date)";
+    $statement=$conn->prepare($reqRec);
+    $statement->bind_param("si",$thisyear,$logementtochar);
+    $statement->execute();
+    $resRec=$statement->get_result();
+    while ( $rowRec = mysqli_fetch_array($resRec) )
+    {
+      $Rec[$rowRec['mou']] = $Rec[$rowRec['mou']] + $rowRec['sumres'];
+    }
+
+  }
 
 
 
@@ -581,7 +601,7 @@ if($resN->num_rows!=0)
                         <div class="col-lg-6 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                            <h4 class="card-title">Line chart</h4>
+                            <h4 class="card-title">Statistiques des vues</h4>
                             <canvas id="lineChart" width="682" height="340" class="chartjs-render-monitor" style="display: block; height: 227px; width: 455px;"></canvas>
                             </div>
                         </div>
@@ -589,7 +609,7 @@ if($resN->num_rows!=0)
                         <div class="col-lg-6 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                            <h4 class="card-title">Bar chart</h4>
+                            <h4 class="card-title">Statistiques des recommandations</h4>
                             <canvas id="barChart" style="display: block; height: 227px; width: 455px;" width="682" height="340" class="chartjs-render-monitor"></canvas>
                             </div>
                         </div>
@@ -854,7 +874,9 @@ $(function() {
     labels: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aou", "Sept", "Oct", "Nov", "Dec"],
     datasets: [{
       label: '# of Votes',
-      data: [10, 19, 3, 5, 2, 3,10, 19, 3, 5, 2, 3],
+      data: [<?=$Rec[1] ;?>,<?=$Rec[2] ;?>,<?=$Rec[3] ;?>,<?=$Rec[4] ;?>, <?=$Rec[5] ;?>,
+        <?=$Rec[6] ;?>, <?=$Rec[7] ;?>, <?=$Rec[8] ;?>, <?=$Rec[9] ;?>, <?=$Rec[10] ;?>,
+        <?=$Rec[11] ;?>, <?=$Rec[12] ;?>],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
