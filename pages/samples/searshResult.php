@@ -23,6 +23,7 @@ $Srech=metaphone($_GET['rech']);
 
 
 $result="";
+$markers=array();
 $reqL = "SELECT * from logement where (status='valide') and (SL_adr_nom like '%$Srech%') ";
 $statementL=$conn->prepare($reqL);
 //$statement->bind_param("s",$Srech);
@@ -39,6 +40,8 @@ while ($rowL = mysqli_fetch_array($resL))
   $price=$rowL['prix'];
   $sup=$rowL['superficie'];
   $prix=$rowL['prix'];
+  $lat=$rowL['lat'];
+  $lng=$rowL['lng'];
 
 
 
@@ -82,7 +85,8 @@ while ($rowL = mysqli_fetch_array($resL))
 
 
 
-
+    $Aimg="<img src='$src' class='act_img'>";
+    array_push($markers,array($CodeL,$nom,$LogeType,$description,$prix,$lat,$lng,$Aimg,$adress));
        $result.='  <article >
        <a class="fill-div" href="SeeMore.php?smr='.$CodeL.'" >
     <!--Slidshow-->
@@ -217,6 +221,12 @@ while ($rowL = mysqli_fetch_array($resL))
  
   
 	<link rel="shortcut icon" href="../../Resourse/images/favicon.png" />
+
+
+  <!--leaflet css-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
 </head>
 <body>
 
@@ -461,6 +471,13 @@ while ($rowL = mysqli_fetch_array($resL))
 
           </ul>
        
+          <li  class="nav-item">
+          <div id='map_cntrl'>
+           <img id='map_cntrl_map'  src="map(2).png">  
+           <p>Open map</p> 
+          </div>    
+         </li>
+
          <li id="Drp_Rch" class="nav-item">
         
            <button  id="rf" class="btn btn-info">Rechercher</button>       
@@ -476,9 +493,14 @@ while ($rowL = mysqli_fetch_array($resL))
   </div>
   
   
-  <div class="grid" id="nC">
-    <?=$result ;?>
+  <div id="CNTR" class="containerR">
+    <div class="grids grid" id="nC">
+      <?=$result ;?>
     </div>
+    <div class="map" id="map">
+
+    </div>
+  </div>
 
 <!--Modal-->
 
@@ -669,9 +691,13 @@ while ($rowL = mysqli_fetch_array($resL))
 <script src="../../Resourse/vendors/base/vendor.bundle.base.js"></script>
     <script src="../../Resourse/js2/dashboard.js"></script>
 
+
+<!--MAP JavaScript-->   
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
    
 </html>
-
 
 
 <script>  
@@ -995,3 +1021,109 @@ $(window).on('resize', function() {
 
     
 </script>
+
+<!--MAP Loading JavaScreept-->
+<script>
+var markers = <?php echo json_encode($markers); ?>;
+var nbrM=<?php echo count($markers);?>;
+
+const here = {
+  apiKey:'gNAS-hI7AKsqytfacNxMU-WZqMQa_Zn-nunnoU2p6s4'
+}
+const style = 'normal.day';
+
+const hereTileUrl = `https://2.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/${style}/{z}/{x}/{y}/512/png8?apiKey=${here.apiKey}&ppi=320`;
+
+const map = L.map('map', {
+   center: [33.589886, -7.603869],
+   zoom: 8,
+   layers: [L.tileLayer(hereTileUrl)]
+});
+map.attributionControl.addAttribution('&copy; HERE 2019');
+for(var i=0;i<nbrM;i++)
+ {
+   if(markers[i][6]!=null)
+   { 
+    var icon = L.divIcon({
+        className: 'custom-div-icon',
+        html: "<button  id='"+i+"' class='marker-pin marker'> <i class='fas fa-home hm'></i> </button>"
+         
+    });
+     var marker = L.marker([markers[i][5], markers[i][6]],{ icon: icon }).addTo(map);
+     //marker.bindPopup("<h5>"+markers[i][1]+"</h5><br><p>"+markers[i][2]+"</p>");
+
+
+
+     marker.bindPopup( "<div class='pop_img'>"+markers[i][7]+"<div class='pop_title'><h3>"+markers[i][1]+"</h3></div><div class='pop_adrs'><i class='fas fa-map-marker-alt CA'></i>"+markers[i][8]+"</div><div class='pop_prix'><i class='fas fa-tags CA'></i>"+markers[i][4]+" DH</div></div>");
+   // marker.bindPopup( "<div class='carousel slide' data-ride='carousel'><div class='carousel-inner'>"+markers[i][7]+" </div></div><div class='card-body'><h5 class='card-title'>"+markers[i][1]+"</h5>  <br><p class='cpara'>"+markers[i][3]+"</p> <br> </div>");
+    
+    marker.bindTooltip(""+markers[i][4]+" DH", {className: 'price-tag'});
+    
+    }
+ }
+</script>
+
+
+<script>
+  var map_open="Y";
+ $(document).ready(function(){ /*
+$('.marker').mouseover(function() {
+   
+   document.getElementById(this.id).innerHTML ="<p class='map_pr'>"+markers[this.id][4]+"DH</p>";
+  });
+
+  $('.marker').mouseleave(function() {
+   
+   document.getElementById(this.id).innerHTML ="<i class='fas fa-home hm'></i>";
+  });*/
+
+  $('#map_cntrl').click(function() {
+    if(map_open=="Y")
+    {
+        document.getElementById('map').style.display='none'; 
+        $("#CNTR").attr('class', '');
+        $("#nC").attr('class', 'grid');
+        map_open="N";
+    }
+    else if(map_open=="N")
+    {
+      $("#CNTR").attr('class', 'containerR');
+        $("#nC").attr('class', 'grids grid');
+        document.getElementById('map').style.display='block'; 
+
+        map_open="Y";
+    }
+    
+   });
+
+});
+
+
+
+</script>
+
+<style>
+.marker{
+  font-size:17px;
+  border-radius:100%;
+  height: 40px;
+  width: 40px; 
+  background-color: whitesmoke;
+  border:0px;
+}
+.marker:hover{
+  height: 41px;
+  width: 41px;
+  font-size:18px;
+  background-color: black;
+  color: whitesmoke;
+  
+   
+}
+
+.map_pr{
+  margin-left:-7px;
+}
+
+
+</style>
