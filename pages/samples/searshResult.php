@@ -82,7 +82,8 @@ while ($rowL = mysqli_fetch_array($resL))
 
 
 
-       $result.='  <article>
+       $result.='  <article >
+       <a class="fill-div" href="SeeMore.php?smr='.$CodeL.'" >
     <!--Slidshow-->
       <div id="demo'.$CodeL.'" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
@@ -111,14 +112,18 @@ while ($rowL = mysqli_fetch_array($resL))
 
         <!--/slidshow-->
       <div class="card-body">
+    
         <h5 class="card-title">'.$nom.'</h5>
         <p class="card-text"> <i class="fas fa-tags CA"></i>'.$prix.'Dh  &nbsp;<i class="fas fa-bed CA"></i> '.$rooms.'  &nbsp;  <i class="fas fa-male CA"></i> '.$nbrP.'  &nbsp; <i class="fas fa-warehouse CA"></i>'.$sup.'  m²</p>
 
         <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> '.$adress.' </p>
-          <br>
+          
         <p class="cpara">'.$description.'</p> <br>
-          <a href="SeeMore.php?smr='.$CodeL.'" class="btn btn-primary">Voir plus</a>
+       
+          <a href="SeeMore.php?smr='.$CodeL.'"  id="buttonnnn" class="btn btn-primary edited">Voir plus</a>
+          
       </div>
+      </a>
   </article>';
     
 
@@ -133,7 +138,7 @@ while ($rowL = mysqli_fetch_array($resL))
     $nbrP=$row['nbrP'];
     
 
-   $result.='  <article>
+   $result.='  <article >
     <!--Slidshow-->
       <div id="demo'.$CodeL.'" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
@@ -144,7 +149,7 @@ while ($rowL = mysqli_fetch_array($resL))
         </ul>
 
         <!-- The slideshow -->
-        <div class="carousel-inner">
+        <div class="carousel-inner" >
         '.$img.'
         </div>
 
@@ -158,14 +163,16 @@ while ($rowL = mysqli_fetch_array($resL))
       </div>
 
         <!--/slidshow-->
-      <div class="card-body">
+      <div class="card-body"  >
+      <div class="hold">
         <h5 class="card-title">'.$nom.'</h5>
         <p class="card-text"> <i class="fas fa-tags CA"></i>'.$prix.'Dh  &nbsp;<i class="fas fa-male CA"></i> '.$nbrP.'  &nbsp; <i class="fas fa-warehouse CA"></i> '.$sup.'m²</p>
 
         <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> '.$adress.' </p>
           <br>
         <p class="cpara">'.$description.'</p> <br>
-        <a href="SeeMore.php?smr='.$CodeL.'" class="btn btn-primary">Voir plus</a>
+        </div>
+        <a href="SeeMore.php?smr='.$CodeL.'  " class="btn btn-primary edited">Voir plus</a>
       </div>
   </article>';
     

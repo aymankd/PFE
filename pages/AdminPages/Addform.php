@@ -761,28 +761,28 @@ if(isset($_POST['EnrFrm']))
 							<div id='dv_etab' class="form-group row" >
 									<div class="col-sm-9">
 									<label for="exampleInputPassword2" class="col-sm-3 col-form-label">Proche de quel établisement?</label>
-								    	<input type="text" class="form-control" name="etab" pattern="[A-Za-z0-9]" id="etab_proche " placeholder="établisement ">
+								    	<input type="text" class="form-control" name="etab"  id="etab_proche " placeholder="établisement ">
 									</div>
 								</div>
 							<div id="PieceInput">
 								<div class="form-group row" >
 									<div class="col-sm-9">
 									<label for="exampleInputPassword2" class="col-sm-3 col-form-label">Nombre de piece</label>
-										<input type="number" class="form-control" name="nbrP" pattern="[0-9]" id="nbr_piece" placeholder="nbr_piece">
+										<input type="number" class="form-control" name="nbrP"  id="nbr_piece" placeholder="nbr_piece">
 									</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-9">
 								<label for="exampleInputPassword2" class="col-sm-3 col-form-label">Nombre de locataire </label>
-								<input type="number" class="form-control" name="nbrloc" id="nbr_locataire " pattern="[0-9]" placeholder="nbr_locataire ">
+								<input type="number" class="form-control" name="nbrloc" id="nbr_locataire " placeholder="nbr_locataire ">
 								</div>
 							</div>
 							
 							<div class="form-group row">
 								<div class="col-sm-9">
 								<label for="exampleInputPassword2" class="col-sm-3 col-form-label"><i class="fas fa-map-marker-alt"></i>  Adresse </label>
-									<input type="text" class="form-control" name="AdrLo" id="adresse " pattern="[A-Za-z0-9 ]" placeholder="adresse ">
+									<input type="text" class="form-control" name="AdrLo" id="adresse "  placeholder="adresse ">
 								</div>
 							</div>
 
@@ -790,7 +790,7 @@ if(isset($_POST['EnrFrm']))
 								<div class="col-sm-9">
 								<label for="exampleInputPassword2" class="col-sm-3 col-form-label"><i class="fas fa-file-prescription"></i>  Règlement </label>
 
-									<input type="text" class="form-control" name="Reg" pattern="[A-Za-z0-9 ]" id="nbr_locataire " placeholder="règlement ">
+									<input type="text" class="form-control" name="Reg"  id="nbr_locataire " placeholder="règlement ">
 								</div>
 							</div>
 									
