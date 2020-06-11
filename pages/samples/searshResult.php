@@ -474,7 +474,7 @@ while ($rowL = mysqli_fetch_array($resL))
           <li  class="nav-item">
           <div id='map_cntrl'>
            <img id='map_cntrl_map'  src="map(2).png">  
-           <p>Open map</p> 
+           <p class="parag">Open map</p> 
           </div>    
          </li>
 
