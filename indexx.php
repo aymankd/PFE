@@ -307,6 +307,8 @@ while(($rowR1= mysqli_fetch_array($resR1)))
 	<!-- Modernizr JS -->
 	<script src="Resourse/newhome/js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
+
+	<link rel='stylesheet' href='https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'><link rel="stylesheet" >
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
@@ -375,9 +377,17 @@ while(($rowR1= mysqli_fetch_array($resR1)))
     Prix
   </button>
   <div id="price_drop"class="dropdown-menu" aria-labelledby="price_drop_button">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
+    
+  <div class="selector">
+    <div class="price-slider">
+        <div id="slider-range" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+            <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
+            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+        </div>
+        <span id="min-price" data-currency="€" class="slider-price">0</span> <span class="seperator">-</span> <span id="max-price" data-currency="€" data-max="3500"  class="slider-price">3500 +</span>
+    </div> 
+</div>
+	
   </div>
 </div>
 
@@ -387,9 +397,24 @@ while(($rowR1= mysqli_fetch_array($resR1)))
     Type
   </button>
   <div id="Type_drop"class="dropdown-menu" aria-labelledby="price_drop_button">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
+	 <div class="cage">
+  <label class="radio">Company
+  <input type="radio" checked="checked" name="is_company">
+  <span class="checkround"></span>
+</label>
+<label class="radio">Company
+  <input type="radio" name="is_company">
+  <span class="checkround"></span>
+</label>
+<label class="radio">Company
+  <input type="radio" name="is_company">
+  <span class="checkround"></span>
+</label>
+<label class="radio">Company
+  <input type="radio" name="is_company">
+  <span class="checkround"></span>
+</label>
+<div>
   </div>
 </div>
 							</div>
@@ -487,6 +512,12 @@ Vous ne manquerez donc jamais rien..</p>
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 	</div>
+
+
+
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+	<script src="Resourse/newhome/js/pricedropdown.js"></script>
+
 	
 	<!-- jQuery -->
 	<script src="Resourse/newhome/js/jquery.min.js"></script>
@@ -499,6 +530,8 @@ Vous ne manquerez donc jamais rien..</p>
 	<!-- Main -->
 	<script src="Resourse/newhome/js/main.js"></script>
 
+
+	
 
 <script>
 
