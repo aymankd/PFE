@@ -342,7 +342,9 @@ while(($rowR1= mysqli_fetch_array($resR1)))
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
+			
 				<div class="col-md-8 col-md-offset-2 text-center">
+
 					<div class="display-t">
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
 							
@@ -353,12 +355,35 @@ while(($rowR1= mysqli_fetch_array($resR1)))
 										<div class="form-group">
 											<input  class="form-control" id="email" type="text" name="rech" placeholder="Rechercher une location" required>
 											<button type="submit" class="btn btn-default"  methode="POST">Rechercher</button>
+										<!--<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
+-->
 										</div>
 									</div>
+									
 								</form>
+								<div class="dropdown" id="dropdown1Home">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
 							</div>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		</div>

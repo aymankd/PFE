@@ -22990,7 +22990,7 @@
     width: 100px; 
     text-decoration: none;
 }
-/*
+
 #map_cntrl {
   position:fixed;
  width:60px;
@@ -23011,7 +23011,7 @@
   margin-top:15.5px;
   margin-left:-1px !important;
 }
-*/
+
 
   }
 
@@ -23433,7 +23433,7 @@ h2 {
     display: none;
   }*/
 
- /*
+ 
  @media only screen and (min-width:1100px){
 .containerR{
   display: grid;
@@ -23456,7 +23456,7 @@ h2 {
   
 
 }
-}*/
+}
 /*
 .leaflet-tooltip.price-tag {
   display: inline-block;
