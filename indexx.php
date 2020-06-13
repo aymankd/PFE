@@ -308,7 +308,8 @@ while(($rowR1= mysqli_fetch_array($resR1)))
 	<script src="Resourse/newhome/js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
 
-	<link rel='stylesheet' href='https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'><link rel="stylesheet" >
+	<link rel='stylesheet' href='https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'>
+	
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
@@ -514,13 +515,10 @@ Vous ne manquerez donc jamais rien..</p>
 	</div>
 
 
-
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
-	<script src="Resourse/newhome/js/pricedropdown.js"></script>
-
-	
+   
 	<!-- jQuery -->
-	<script src="Resourse/newhome/js/jquery.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
 	<!-- jQuery Easing -->
 	<script src="Resourse/newhome/js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->
@@ -561,7 +559,41 @@ $(document).ready(function(){
     });    
 </script>
 
+<script>
+$(document).ready(function(){ 
 
+
+	document.getElementById("Type_drop").addEventListener('click', function (event) 
+         {  
+          event.stopPropagation(); 
+		 });
+
+	document.getElementById("price_drop").addEventListener('click', function (event) 
+         {  
+          event.stopPropagation(); 
+		 });
+		 
+
+
+$("#slider-range").slider({
+    range: true, 
+    min: 0,
+    max: 3500,
+    step: 50,
+    slide: function( event, ui ) {
+      $( "#min-price").html(ui.values[ 0 ]);
+      
+      console.log(ui.values[0])
+      
+      suffix = '';
+      if (ui.values[ 1 ] == $( "#max-price").data('max') ){
+         suffix = ' +';
+      }
+      $( "#max-price").html(ui.values[ 1 ] + suffix);         
+    }
+  });
+});
+</script>
 
 	</body>
 </html>
