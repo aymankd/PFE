@@ -1588,7 +1588,39 @@ h1, h2, h3, h4, h5, h6, figure {
 
 /*new toggle btns
  */
-#dropdown1Home{
-  margin-top: -60px !important;
-  margin-left: -300px !important;
+
+ 
+#price_drop_div{
+/*  width:50%;*/
+  margin-left: 4% ;
+  height: 100px;
+  width:120px;
 }
+
+#price_drop_button{
+margin-top:-418%
+  
+}
+#price_drop{
+margin-top:-35%;
+margin-left: 7% ;
+}
+
+
+#Type_drop_div{
+ 
+  margin-left: -11%;
+    height: 100px;
+    width:120px;
+  }
+
+  #Type_drop_button{
+   margin-top:-418%
+      
+    }
+
+    #Type_drop{
+      margin-top:-118%;
+      margin-left: 3% ;
+      }
+      

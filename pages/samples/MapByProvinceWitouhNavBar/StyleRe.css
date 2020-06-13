@@ -12602,6 +12602,8 @@
   
   .nav-link:hover, .nav-link:focus {
     text-decoration: none;
+    background-color:#464DEE;
+    color:white;
   }
   
   .nav-link.disabled {
@@ -23412,5 +23414,48 @@ h2 {
     height: unset;
     display: none;
   }*/
+/*
+  @media only screen and (min-width:1100px){
+    .containerR{
+      display: grid;
+      grid-template-columns:5fr 5fr;
+    }
+    
+    .grids{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .map{
+    
+      position:sticky !important;
+      top:0 !important;
+      right:0 !important;
+      left:0 !important;
+      height:100vh;
+      margin-top:20px;
+    
+      
+    
+    }
+    }*/
+    .map_svg{
+      width:100%;
+      float:left;
+    }
 
- 
+    
+.map_svg path,polygon{
+fill: #464dee ;
+stroke:white;
+stroke-width:1px;
+transition: fill 0.3s;
+}
+.map_svg path:hover,polygon:hover {
+  fill: #46eeae ;
+  
+  }
+
+  .shape_active {
+    fill: #46eeae !important;
+  }
+

@@ -370,11 +370,23 @@ while(($rowR1= mysqli_fetch_array($resR1)))
 									</div>
 									
 								</form>
-								<div class="dropdown" id="dropdown1Home">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
+<div class="dropdown" id="price_drop_div">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="price_drop_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Prix
   </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <div id="price_drop"class="dropdown-menu" aria-labelledby="price_drop_button">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
+
+
+<div class="dropdown" id="Type_drop_div">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="Type_drop_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Type
+  </button>
+  <div id="Type_drop"class="dropdown-menu" aria-labelledby="price_drop_button">
     <a class="dropdown-item" href="#">Action</a>
     <a class="dropdown-item" href="#">Another action</a>
     <a class="dropdown-item" href="#">Something else here</a>
