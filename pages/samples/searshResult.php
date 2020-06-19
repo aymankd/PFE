@@ -271,7 +271,34 @@
                   <span contentEditable="true" name='etable' id="etable" class="form-control" required></span>
                   </a>
                     
-                    
+                  <p class="mb-0 font-weight-medium float-left dropdown-header">Région</p> <br><br>
+
+<a class="dropdown-item">
+<select class="form-control" id="exampleFormControlSelect1">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+
+
+
+</a>
+<br>
+<p class="mb-0 font-weight-medium float-left dropdown-header">Province/Préfecture</p> <br><br>
+
+                  <a class="dropdown-item">
+
+                  <select class="form-control" id="exampleFormControlSelect1">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+                  </a>
+                  <br>
                 </div>
                 <div class="footer">
                  <button type="button" class="btn btn-dark">Fermer</button>

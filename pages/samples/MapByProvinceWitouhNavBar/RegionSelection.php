@@ -1,96 +1,4 @@
 
-<?php
-
-$rech=$_GET['rech'];
-$LGTP=$_GET['LGTP'];
-$RCMI=$_GET['RCMI'];
-$RCMA=$_GET['RCMA'];
-$servername = "localhost";
-$userservername = "root";
-$database = "pfe";
-
-
-// Create connection
-$conn = new mysqli($servername, $userservername,"", $database);
-
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-$nbrA_Tanga=0;
-$nbrA_Oriental=0;
-$nbrA_Fes=0;
-$nbrA_Rabat=0;
-$nbrA_BeniMelal=0;
-$nbrA_Casa=0;
-$nbrA_Marakech=0;
-$nbrA_Taafilalt=0;
-$nbrA_Sous=0;
-$nbrA_Guelmim=0;
-$nbrA_Laayoun=0;
-$nbrA_Dakhla=0;
-
-$req_nbrA="SELECT region,count(*) as nbrA FROM `logement` GROUP BY region  ";
-$statement_nbrA=$conn->prepare($req_nbrA);
-$statement_nbrA->execute();
-$res_nbrA=$statement_nbrA->get_result();                    
-while(($row_nbrA= mysqli_fetch_array($res_nbrA)))
-{
-   if($row_nbrA['region']=="Tanger-Tétouan-Al Hoceïma")
-   {
-    $nbrA_Tanga=$row_nbrA['nbrA'];
-   }
-   else if($row_nbrA['region']=="L'Oriental")
-   {
-    $nbrA_Oriental=$row_nbrA['nbrA'];
-   }
-   else if($row_nbrA['region']=="Fès- Meknès")
-   {
-    $nbrA_Fes=$row_nbrA['nbrA'];
-   }
-   else if($row_nbrA['region']=="Rabat-Salé-Kénitra")
-   {
-    $nbrA_Rabat=$row_nbrA['nbrA'];
-   }
-   else if($row_nbrA['region']=="Béni-Mellal-Khénifra")
-   {
-    $nbrA_BeniMelal=$row_nbrA['nbrA'];
-   }
-   else if($row_nbrA['region']=="Casablanca-Settat")
-   {
-    $nbrA_Casa=$row_nbrA['nbrA'];
-   }
-   else if($row_nbrA['region']=="Marrakech-Safi")
-   {
-    $nbrA_Marakech=$row_nbrA['nbrA'];
-   }
-   else if($row_nbrA['region']=="Drâa-Tafilalet")
-   {
-    $nbrA_Taafilalt=$row_nbrA['nbrA'];
-   }
-   else if($row_nbrA['region']=="Souss-Massa")
-   {
-    $nbrA_Sous=$row_nbrA['nbrA'];
-   }
-   else if($row_nbrA['region']=="Guelmim-Oued Noun")
-   {
-    $nbrA_Guelmim=$row_nbrA['nbrA'];
-   }
-   else if($row_nbrA['region']=="Laâyoune-Sakia El Hamra")
-   {
-    $nbrA_Laayoun=$row_nbrA['nbrA'];
-   }
-   else if($row_nbrA['region']=="Dakhla-Oued Ed-Dahab")
-   {
-    $nbrA_Dakhla=$row_nbrA['nbrA'];
-   }
-
-}
-
-
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -131,8 +39,9 @@ while(($row_nbrA= mysqli_fetch_array($res_nbrA)))
      
       <div class="main-panel">
 				<div class="content-wrapper">
-          <div class="row">
-
+        
+          <div class="row"> 
+            
             <div class="col-lg-6 grid-margin stretch-card">
 
               <div id="map_lst" class="nav flex-column nav-pills map_lst" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -148,23 +57,32 @@ while(($row_nbrA= mysqli_fetch_array($res_nbrA)))
                 <a class="nav-link" id="a10" data-toggle="pill" href="#a10" role="tab" aria-controls="a10" aria-selected="false">Guelmim-Oued Noun    (<?=$nbrA_Guelmim?> Logements)         </a>
                 <a class="nav-link" id="a11" data-toggle="pill" href="#a11" role="tab" aria-controls="a11" aria-selected="false">Laâyoune-Sakia El Hamra    (<?=$nbrA_Laayoun?> Logements)   </a>
                 <a class="nav-link" id="a12" data-toggle="pill" href="#a12" role="tab" aria-controls="a12" aria-selected="false">Dakhla-Oued Ed-Dahab    (<?=$nbrA_Dakhla?> Logements)      </a>
-              </div>
+              </div>  
               <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
                 <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
               </div>
+              
               <nav aria-label="breadcrumb">
+              
+              
               <ol class="breadcrumb">
-              <li class="breadcrumb-item active" aria-current="page">Choisissez une préfecture/province</li>
+              
+              <li class="breadcrumb-item active" aria-current="page">Choisissez une préfecture/province</li> 
+              
               </ol>
-              </nav>
-
-            </div>
+            
+              </nav> 
+              
+            </div> 
             <div class="col-lg-6 grid-margin stretch-card">
 
               <div class="card">
-                <div id="map_card" class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+              
+               
+               <div id="map_card" class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+               <button type="button" class="btn btn-primary">afficher les resultat dans tous les regions</button> &nbsp;
                 <div id="map_svg" class="map_svg">
                 <svg  xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewbox="0 0 597 920">
 
