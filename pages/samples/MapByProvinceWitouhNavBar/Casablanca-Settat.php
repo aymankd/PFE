@@ -1,4 +1,73 @@
+<?php
 
+$rech=$_GET['rech'];
+$LGTP=$_GET['LGTP'];
+$RCMI=$_GET['RCMI'];
+$RCMA=$_GET['RCMA'];
+$region=$_GET['region'];
+$servername = "localhost";
+$userservername = "root";
+$database = "pfe";
+
+
+// Create connection
+$conn = new mysqli($servername, $userservername,"", $database);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+$nbrA_Settat=0;
+$nbrA_ElJadida=0;
+$nbrA_SidiBennour=0;
+$nbrA_Berrechid=0;
+$nbrA_Mohammédia=0;
+$nbrA_Benslimane=0;
+$nbrA_Casablanca=0;
+
+
+
+$req_nbrA="SELECT `province-prefecture`,count(*) as nbrA FROM `logement` GROUP BY `province-prefecture`  ";
+$statement_nbrA=$conn->prepare($req_nbrA);
+$statement_nbrA->execute();
+$res_nbrA=$statement_nbrA->get_result();                    
+while(($row_nbrA= mysqli_fetch_array($res_nbrA)))
+{
+   if($row_nbrA['province-prefecture']=="Province de Settat")
+   {
+    $nbrA_Settat=$row_nbrA['nbrA'];
+   }
+   else if($row_nbrA['province-prefecture']=="Province d'El Jadida")
+   {
+    $nbrA_ElJadida=$row_nbrA['nbrA'];
+   }
+   else if($row_nbrA['province-prefecture']=="Province de Sidi Bennour")
+   {
+    $nbrA_SidiBennour=$row_nbrA['nbrA'];
+   }
+   else if($row_nbrA['province-prefecture']=="Province de Berrechid")
+   {
+    $nbrA_Berrechid=$row_nbrA['nbrA'];
+   }
+   else if($row_nbrA['province-prefecture']=="Préfecture de Mohammédia")
+   {
+    $nbrA_Mohammédia=$row_nbrA['nbrA'];
+   }
+   else if($row_nbrA['province-prefecture']=="Province de Benslimane")
+   {
+    $nbrA_Benslimane=$row_nbrA['nbrA'];
+   }
+   else if($row_nbrA['province-prefecture']=="Préfecture de Casablanca")
+   {
+    $nbrA_Casablanca=$row_nbrA['nbrA'];
+   }
+
+}
+
+
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,13 +114,13 @@
             <div class="col-lg-6 grid-margin stretch-card">
 
               <div id="map_lst" class="nav flex-column nav-pills map_lst" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link" id="a01" data-toggle="pill" href="#a01" role="tab" aria-controls="a01" aria-selected="true"> Province de Settat         </a>
-                <a class="nav-link" id="a02" data-toggle="pill" href="#a02" role="tab" aria-controls="a02" aria-selected="false">Province d'El Jadida          </a>
-                <a class="nav-link" id="a03" data-toggle="pill" href="#a03" role="tab" aria-controls="a03" aria-selected="false">Province de Sidi Bennour             </a>
-                <a class="nav-link" id="a04" data-toggle="pill" href="#a04" role="tab" aria-controls="a04" aria-selected="false">Province de Berrechid </a>
-                <a class="nav-link" id="a05" data-toggle="pill" href="#a05" role="tab" aria-controls="a05" aria-selected="false">Préfecture de Casablanca        </a>
-                <a class="nav-link" id="a06" data-toggle="pill" href="#a06" role="tab" aria-controls="a06" aria-selected="false">Préfecture de Mohammédia          </a>
-                <a class="nav-link" id="a07" data-toggle="pill" href="#a07" role="tab" aria-controls="a07" aria-selected="false">Province de Benslimane            </a>
+                <a class="nav-link" id="a01" href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Casablanca-Settat&province=Province de Settat"       role="tab" aria-controls="a01" aria-selected="true"> Province de Settat         </a>
+                <a class="nav-link" id="a02" href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Casablanca-Settat&province=Province d'El Jadida"     role="tab" aria-controls="a02" aria-selected="false">Province d'El Jadida          </a>
+                <a class="nav-link" id="a03" href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Casablanca-Settat&province=Province de Sidi Bennour" role="tab" aria-controls="a03" aria-selected="false">Province de Sidi Bennour             </a>
+                <a class="nav-link" id="a04" href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Casablanca-Settat&province=Province de Berrechid"    role="tab" aria-controls="a04" aria-selected="false">Province de Berrechid    </a>
+                <a class="nav-link" id="a05" href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Casablanca-Settat&province=Préfecture de Casablanca" role="tab" aria-controls="a05" aria-selected="false">Préfecture de Casablanca        </a>
+                <a class="nav-link" id="a06" href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Casablanca-Settat&province=Préfecture de Mohammédia" role="tab" aria-controls="a06" aria-selected="false">Préfecture de Mohammédia          </a>
+                <a class="nav-link" id="a07" href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Casablanca-Settat&province=Province de Benslimane"   role="tab" aria-controls="a07" aria-selected="false">Province de Benslimane            </a>
 
                
               </div>
@@ -76,13 +145,13 @@
 
 	                <g>
                     
-                      <a  xlink:title="Préfecture de Marrakech         "  xlink:href=""       ><path    id="REG-01" d="M466,701v48l64,118,54,11,30,63,30,30,87-16,11,37s139,118,124-116l-19-27,32-127,17,1,13-99,13-7-23-23-9,6-37,5s-29,27-63,23l-25-16-14,6v34l-50,12-3,14-11,14-6-7V669l-11-3-2-14H656l-2-3v-9l-57-2-3,18,12,7-21,21,5,20-22,4-18-18-7,9-24,2-2,10-13-12Z" transform="translate(-86 -349)"/>                                                                                                 
-	                    <a  xlink:title="Province de Chichaoua           "  xlink:href=""       ><path    id="REG-02" d="M462,808l20.1-29.32L466,749V679l-13-13V648l-15-11,15-9,4-15,25-3V587l15,12,9-3,5-30-4-7-10-47-10-6-43,26-60,6-66,60-37-16s-47,48-45,95L119,780l31,56,27-15,18,15h19V817l25,12,26-8V804l14-7,41,1,11-29,34-10,8,8,27-1v25l28,3,8,11Z" transform="translate(-86 -349)"/>
-	                    <a  xlink:title="Province d'Al Haouz             "  xlink:href=""       ><polygon id="REG-03" points="33 431 0 461 30 507 11 522 10 542 52 573 144 568 168 599 168 633 187 669 252 655 261 626 301 616 380 556 352 512 375 496 376 459 350 456 342 445 314 442 314 417 287 417 279 410 245 420 234 449 193 448 179 455 179 472 153 480 128 468 128 487 109 487 91 472 64 487 33 431"/> 
-	                    <a  xlink:title="Province d'El Kelaâ des Sraghna "  xlink:href=""       ><path    id="REG-04" d="M531,483l-44,23,10,6,10,47,4,7-5,30-9,3-15-12v23l-25,3-4,15-15,9,15,11v18l13,13v22l38-2,13,12,2-10,24-2,7-9,18,18,22-4-5-20,21-21-12-7,3-18,57,2v9l2,3h12l2,14,11,3v16l6,7,11-14,3-14,50-12V618l14-6,10.53,6.74L787,594l-37-25,7-11,2-21-34-3-6-21-49,10,1,29-19,4,3,30h-7l-49-27-2-27,13-14-23-17S524,497,531,483Z" transform="translate(-86 -349)"/>
-                      <a  xlink:title="Province d'Essaouira            "  xlink:href=""       ><path    id="REG-05" d="M587,449l-56,34s-13,13,56,18l23,17-13,14,2,27,49,27h7l-3-30,19-4V523l48-10V496l26-1,2-38,21-34-26-29-27,17,1,21-43,31-3,11-18,1-9,12-28,3S619,454,587,449Z" transform="translate(-86 -349)"/>
-                      <a  xlink:title="Province de Rehamna             "  xlink:href=""       ><path    id="REG-06" d="M611,437l-24,12s29,1,28,41l28-3,9-12,18-1,3-11,43-31-1-21-52,26Z" transform="translate(-86 -349)"/>
-                      <a  xlink:title="Province de Safi                "  xlink:href=""       ><path    id="REG-07" d="M944,562v44l-22,11-23-23-9,6-37,5s-33,29-63,23l-14-9h0l11-25-37-25,7-11,2-21-34-3-6-21V496l26-1,2-38,21-34-26-29,39-45h56l11,6,22,99,14,3,26-11,18,17,38,2,4-2-24,43S974,531,944,562Z" transform="translate(-86 -349)"/>
+                      <a  xlink:title="Préfecture de Marrakech         "  xlink:href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Casablanca-Settat&province=Province de Settat"             ><path    id="REG-01" d="M466,701v48l64,118,54,11,30,63,30,30,87-16,11,37s139,118,124-116l-19-27,32-127,17,1,13-99,13-7-23-23-9,6-37,5s-29,27-63,23l-25-16-14,6v34l-50,12-3,14-11,14-6-7V669l-11-3-2-14H656l-2-3v-9l-57-2-3,18,12,7-21,21,5,20-22,4-18-18-7,9-24,2-2,10-13-12Z" transform="translate(-86 -349)"/>                                                                                                 
+	                    <a  xlink:title="Province de Chichaoua           "  xlink:href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Casablanca-Settat&province=Province d'El Jadida"           ><path    id="REG-02" d="M462,808l20.1-29.32L466,749V679l-13-13V648l-15-11,15-9,4-15,25-3V587l15,12,9-3,5-30-4-7-10-47-10-6-43,26-60,6-66,60-37-16s-47,48-45,95L119,780l31,56,27-15,18,15h19V817l25,12,26-8V804l14-7,41,1,11-29,34-10,8,8,27-1v25l28,3,8,11Z" transform="translate(-86 -349)"/>
+	                    <a  xlink:title="Province d'Al Haouz             "  xlink:href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Casablanca-Settat&province=Province de Sidi Bennour"       ><polygon id="REG-03" points="33 431 0 461 30 507 11 522 10 542 52 573 144 568 168 599 168 633 187 669 252 655 261 626 301 616 380 556 352 512 375 496 376 459 350 456 342 445 314 442 314 417 287 417 279 410 245 420 234 449 193 448 179 455 179 472 153 480 128 468 128 487 109 487 91 472 64 487 33 431"/> 
+	                    <a  xlink:title="Province d'El Kelaâ des Sraghna "  xlink:href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Casablanca-Settat&province=Province de Berrechid"          ><path    id="REG-04" d="M531,483l-44,23,10,6,10,47,4,7-5,30-9,3-15-12v23l-25,3-4,15-15,9,15,11v18l13,13v22l38-2,13,12,2-10,24-2,7-9,18,18,22-4-5-20,21-21-12-7,3-18,57,2v9l2,3h12l2,14,11,3v16l6,7,11-14,3-14,50-12V618l14-6,10.53,6.74L787,594l-37-25,7-11,2-21-34-3-6-21-49,10,1,29-19,4,3,30h-7l-49-27-2-27,13-14-23-17S524,497,531,483Z" transform="translate(-86 -349)"/>
+                      <a  xlink:title="Province d'Essaouira            "  xlink:href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Casablanca-Settat&province=Préfecture de Casablanca"       ><path    id="REG-05" d="M587,449l-56,34s-13,13,56,18l23,17-13,14,2,27,49,27h7l-3-30,19-4V523l48-10V496l26-1,2-38,21-34-26-29-27,17,1,21-43,31-3,11-18,1-9,12-28,3S619,454,587,449Z" transform="translate(-86 -349)"/>
+                      <a  xlink:title="Province de Rehamna             "  xlink:href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Casablanca-Settat&province=Préfecture de Mohammédia"       ><path    id="REG-06" d="M611,437l-24,12s29,1,28,41l28-3,9-12,18-1,3-11,43-31-1-21-52,26Z" transform="translate(-86 -349)"/>
+                      <a  xlink:title="Province de Safi                "  xlink:href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Casablanca-Settat&province=Province de Benslimane"         ><path    id="REG-07" d="M944,562v44l-22,11-23-23-9,6-37,5s-33,29-63,23l-14-9h0l11-25-37-25,7-11,2-21-34-3-6-21V496l26-1,2-38,21-34-26-29,39-45h56l11,6,22,99,14,3,26-11,18,17,38,2,4-2-24,43S974,531,944,562Z" transform="translate(-86 -349)"/>
 	                                                                                                                                                          
 	                
 	

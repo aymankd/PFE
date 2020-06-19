@@ -19,14 +19,38 @@ if ($conn->connect_error) {
 
 $Srech=metaphone($_GET['rech']);
 //$Srech="'%".$Srech."%'";
+$LGTP=$_GET['LGTP'];
+$RCMI=$_GET['RCMI'];
+$RCMA=$_GET['RCMA'];
+$region=$_GET['region'];
+$province=$_GET['province'];
 
+//echo $LGTP.",".$RCMI.",".$RCMA.",".$region.",".$province;
 
 
 $result="";
 $markers=array();
-$reqL = "SELECT * from logement where (status='valide') and (SL_adr_nom like '%$Srech%') ";
+$reqL = "SELECT * from logement where (status='valide') and (SL_adr_nom like '%$Srech%') and (region=?) and (`province-prefecture`=?)";
+if($RCMA!="3500+")
+{
+  $RCMAD=floatval($RCMA);
+  $RCMID=floatval($RCMI);
+  $reqL.="and (prix between $RCMID and $RCMAD)";
+}
+else if($RCMA=="3500+")
+{
+  $reqL.="and (prix > $RCMID)";
+}
+
+if($LGTP=="OptS"){
+  $reqL.="and (type='Studio')";
+}
+else if($LGTP=="OptA"){
+ $reqL.="and (type='Appartement')";
+}
+
 $statementL=$conn->prepare($reqL);
-//$statement->bind_param("s",$Srech);
+$statementL->bind_param("ss",$region,$province);
 $statementL->execute();
 $resL=$statementL->get_result();
 while ($rowL = mysqli_fetch_array($resL)) 
@@ -142,7 +166,8 @@ while ($rowL = mysqli_fetch_array($resL))
     $row=$res->fetch_assoc();
     $nbrP=$row['nbrP'];
     
-
+    $Aimg="<img src='$src' class='act_img'>";
+    array_push($markers,array($CodeL,$nom,$LogeType,$description,$prix,$lat,$lng,$Aimg,$adress));
    $result.='  <article >
     <!--Slidshow-->
       <div id="demo'.$CodeL.'" class="carousel slide" data-ride="carousel">
@@ -700,7 +725,10 @@ while ($rowL = mysqli_fetch_array($resL))
 </html>
 
 
-<script>  
+<script>   
+           var sliderMin=<?=$RCMI;?>;
+           var sliderMax=<?=$RCMA;?>;
+           var lgtp='<?=$LGTP;?>';
            var Min ; 
            var Max;
            var Nbr_pr;
@@ -710,8 +738,30 @@ while ($rowL = mysqli_fetch_array($resL))
            var colloc;
            var etu_prch;
            var etabli;
+           var region='<?=$region?>';
+           var province='<?=$province?>';
  $(document).ready(function(){  
-      $('#rf').click(function(){  
+             $('#Imin').val(sliderMin);
+             $('#Imax').val(sliderMax);
+             $('#IminS').val(sliderMin);
+             $('#ImaxS').val(sliderMax);
+             if(lgtp=="OptT")
+              {
+                $("#radio-Oee").prop("checked", true);
+                $("#radio-OeeS").prop("checked", true);
+              }
+             else if(lgtp=="OptA")
+              {
+                $("#radio-fin").prop("checked", true);
+                $("#radio-finS").prop("checked", true);
+              }
+             else if(lgtp=="OptS")
+              {
+                $("#radio-Oe").prop("checked", true);
+                $("#radio-OeS").prop("checked", true);
+              }
+
+             $('#rf').click(function(){  
              Max = document.getElementById("Imax").value; 
              Min = document.getElementById("Imin").value; 
              Nbr_pr=document.querySelector('#NPM input[name="switch-two"]:checked').value;
@@ -741,10 +791,45 @@ while ($rowL = mysqli_fetch_array($resL))
                       search:srch,
                       colloc:colloc,
                       etu_prch:etu_prch,
-                      etab:etabli
-                      },  
-                success:function(data){  
-                     $('#nC').html(data);  
+                      etab:etabli,
+                      region:region,
+                      province:province
+                      },
+                dataType : 'json',        
+                success:function(response){  
+                  markers = response.markers;
+
+                  for(i=0;i<markers_on_map.length;i++) {
+                     map.removeLayer(markers_on_map[i]);
+                     }  
+                     for(var i=0;i<markers.length;i++)
+                      {
+                        if(markers[i][6]!=null)
+                        { 
+                         var icon = L.divIcon({
+                             className: 'custom-div-icon',
+                             html: "<button  id='"+i+"' class='marker-pin marker'> <i class='fas fa-home hm'></i> </button>"
+                              
+                         });
+                          var marker = L.marker([markers[i][5], markers[i][6]],{ icon: icon }).addTo(map);
+                          //marker.bindPopup("<h5>"+markers[i][1]+"</h5><br><p>"+markers[i][2]+"</p>");
+                     
+                     
+                     
+                          marker.bindPopup( "<div class='pop_img'>"+markers[i][7]+"<div class='pop_title'><h3>"+markers[i][1]+"</h3></div><div class='pop_adrs'><i class='fas fa-map-marker-alt CA'></i>"+markers[i][8]+"</div><div class='pop_prix'><i class='fas fa-tags CA'></i>"+markers[i][4]+" DH</div></div>");
+                        // marker.bindPopup( "<div class='carousel slide' data-ride='carousel'><div class='carousel-inner'>"+markers[i][7]+" </div></div><div class='card-body'><h5 class='card-title'>"+markers[i][1]+"</h5>  <br><p class='cpara'>"+markers[i][3]+"</p> <br> </div>");
+                          markers_on_map.push(marker);
+                         marker.bindTooltip(""+markers[i][4]+" DH", {className: 'price-tag'});
+                         
+                         }
+                      }
+
+
+
+                    
+
+
+                     $('#nC').html(response.result);  
 
                      if(Nbr_pr=='All')
                        $("#radio-OS").prop("checked", true);
@@ -805,7 +890,7 @@ while ($rowL = mysqli_fetch_array($resL))
 
                     $("#IminS").val(Min);  
                     $("#ImaxS").val(Max); 
-
+                   
                 }  
            });  
       });  
@@ -1024,6 +1109,7 @@ $(window).on('resize', function() {
 
 <!--MAP Loading JavaScreept-->
 <script>
+var markers_on_map=[];  
 var markers = <?php echo json_encode($markers); ?>;
 var nbrM=<?php echo count($markers);?>;
 
@@ -1056,7 +1142,7 @@ for(var i=0;i<nbrM;i++)
 
      marker.bindPopup( "<div class='pop_img'>"+markers[i][7]+"<div class='pop_title'><h3>"+markers[i][1]+"</h3></div><div class='pop_adrs'><i class='fas fa-map-marker-alt CA'></i>"+markers[i][8]+"</div><div class='pop_prix'><i class='fas fa-tags CA'></i>"+markers[i][4]+" DH</div></div>");
    // marker.bindPopup( "<div class='carousel slide' data-ride='carousel'><div class='carousel-inner'>"+markers[i][7]+" </div></div><div class='card-body'><h5 class='card-title'>"+markers[i][1]+"</h5>  <br><p class='cpara'>"+markers[i][3]+"</p> <br> </div>");
-    
+     markers_on_map.push(marker);
     marker.bindTooltip(""+markers[i][4]+" DH", {className: 'price-tag'});
     
     }

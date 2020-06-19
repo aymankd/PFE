@@ -6,6 +6,8 @@ session_start();
   $database = "pfe";
   $msg="";
    $result="";
+   $markers=array();
+   
 
 // Create connection
 $conn = new mysqli($servername, $userservername,"", $database);
@@ -25,9 +27,12 @@ $TL=$_POST['TL'];
 $CLC=$_POST['colloc'];
 $EPR=$_POST['etu_prch'];
 $ETB=$_POST['etab'];
+$region=$_POST['region'];
+
+$province=$_POST['province'];
 //echo "Min:$Pmin ,  MAX:$Pmax  , NP:$NP  , NC:$NC ,TL:$TL, CLC:$CLC , EPR:$EPR  , ETB:$ETB ";
 
-$reqR="SELECT * from logement where (`status`='valide') and (`SL_adr_nom` like '%$rech%') and (`prix` between $Pmin and $Pmax)";
+$reqR="SELECT * from logement where (`status`='valide') and (`SL_adr_nom` like '%$rech%') and (`prix` between $Pmin and $Pmax) and (`region`=?) and (`province-prefecture`=?) ";
 
     if($NP!="All")
     {
@@ -79,7 +84,7 @@ $reqR="SELECT * from logement where (`status`='valide') and (`SL_adr_nom` like '
     
      
 $statementR=$conn->prepare($reqR);
-//$statement->bind_param("s",$Srech);
+$statementR->bind_param("ss",$region,$province);
 $statementR->execute();
 $resR=$statementR->get_result();
 while($rowR = mysqli_fetch_array($resR))
@@ -93,6 +98,8 @@ while($rowR = mysqli_fetch_array($resR))
   $price=$rowR['prix'];
   $sup=$rowR['superficie'];
   $prix=$rowR['prix'];
+  $lat=$rowR['lat'];
+  $lng=$rowR['lng'];
 
 
 
@@ -136,7 +143,8 @@ while($rowR = mysqli_fetch_array($resR))
 
 
 
-
+    $Aimg="<img src='$src' class='act_img'>";
+    array_push($markers,array($CodeL,$nom,$LogeType,$description,$prix,$lat,$lng,$Aimg,$adress));
     $result.='  <article>
     <!--Slidshow-->
       <div id="demo'.$CodeL.'" class="carousel slide" data-ride="carousel">
@@ -188,7 +196,8 @@ while($rowR = mysqli_fetch_array($resR))
     $row=$res->fetch_assoc();
     $nbrP=$row['nbrP'];
     
-
+    $Aimg="<img src='$src' class='act_img'>";
+    array_push($markers,array($CodeL,$nom,$LogeType,$description,$prix,$lat,$lng,$Aimg,$adress));
    $result.='  <article>
     <!--Slidshow-->
       <div id="demo'.$CodeL.'" class="carousel slide" data-ride="carousel">
@@ -227,13 +236,7 @@ while($rowR = mysqli_fetch_array($resR))
     
   }
   }
-
+  $response=array('result'=>$result,"markers"=>$markers);
+  echo json_encode($response);
 ?>
 
-<html>
-
-
-<?=$result;?>
-
-
-</html>

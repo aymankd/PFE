@@ -1,4 +1,78 @@
+<?php
 
+$rech=$_GET['rech'];
+$LGTP=$_GET['LGTP'];
+$RCMI=$_GET['RCMI'];
+$RCMA=$_GET['RCMA'];
+$region=$_GET['region'];
+$servername = "localhost";
+$userservername = "root";
+$database = "pfe";
+
+
+// Create connection
+$conn = new mysqli($servername, $userservername,"", $database);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+$nbrA_Assilah=0;
+$nbrA_Fahs_Anjra=0;
+$nbrA_MdiqFnideq=0;
+$nbrA_Tetouan=0;
+$nbrA_Larache=0;
+$nbrA_Ouezzane=0;
+$nbrA_Chefchaouen=0;
+$nbrA_Hoceima=0;
+
+
+
+$req_nbrA="SELECT `province-prefecture`,count(*) as nbrA FROM `logement` GROUP BY `province-prefecture`  ";
+$statement_nbrA=$conn->prepare($req_nbrA);
+$statement_nbrA->execute();
+$res_nbrA=$statement_nbrA->get_result();                    
+while(($row_nbrA= mysqli_fetch_array($res_nbrA)))
+{
+   if($row_nbrA['province-prefecture']=="Préfecture de Tanger-Assilah")
+   {
+    $nbrA_Assilah=$row_nbrA['nbrA'];
+   }
+   else if($row_nbrA['province-prefecture']=="Province de Fahs-Anjra")
+   {
+    $nbrA_Fahs_Anjra=$row_nbrA['nbrA'];
+   }
+   else if($row_nbrA['province-prefecture']=="Préfecture de M'diq-Fnideq")
+   {
+    $nbrA_MdiqFnideq=$row_nbrA['nbrA'];
+   }
+   else if($row_nbrA['province-prefecture']=="Province de Tétouan")
+   {
+    $nbrA_Tetouan=$row_nbrA['nbrA'];
+   }
+   else if($row_nbrA['province-prefecture']=="Province de Larache")
+   {
+    $nbrA_Larache=$row_nbrA['nbrA'];
+   }
+   else if($row_nbrA['province-prefecture']=="Province d'Ouezzane")
+   {
+    $nbrA_Ouezzane=$row_nbrA['nbrA'];
+   }
+   else if($row_nbrA['province-prefecture']=="Province de Chefchaouen")
+   {
+    $nbrA_Chefchaouen=$row_nbrA['nbrA'];
+   }
+   else if($row_nbrA['province-prefecture']=="Province d'Al Hoceïma")
+   {
+    $nbrA_Hoceima=$row_nbrA['nbrA'];
+   }
+
+}
+
+
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,14 +119,14 @@
             <div class="col-lg-6 grid-margin stretch-card">
 
               <div id="map_lst" class="nav flex-column nav-pills map_lst" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link" id="a01" data-toggle="pill" href="#a01" role="tab" aria-controls="a01" aria-selected="true"> Préfecture de Tanger-Assilah </a>
-                <a class="nav-link" id="a02" data-toggle="pill" href="#a02" role="tab" aria-controls="a02" aria-selected="false">Province de Fahs-Anjra       </a>
-                <a class="nav-link" id="a03" data-toggle="pill" href="#a03" role="tab" aria-controls="a03" aria-selected="false">Préfecture de M'diq-Fnideq   </a>
-                <a class="nav-link" id="a04" data-toggle="pill" href="#a04" role="tab" aria-controls="a04" aria-selected="false">Province de Tétouan          </a>
-                <a class="nav-link" id="a05" data-toggle="pill" href="#a05" role="tab" aria-controls="a05" aria-selected="false">Province de Larache          </a>
-                <a class="nav-link" id="a06" data-toggle="pill" href="#a06" role="tab" aria-controls="a06" aria-selected="false">Province d'Ouezzane          </a>
-                <a class="nav-link" id="a07" data-toggle="pill" href="#a07" role="tab" aria-controls="a07" aria-selected="false">Province de Chefchaouen      </a>
-                <a class="nav-link" id="a08" data-toggle="pill" href="#a08" role="tab" aria-controls="a08" aria-selected="false">Province d'Al Hoceïma        </a>
+                <a class="nav-link" id="a01" href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Tanger-Tétouan-Al Hoceïma&province=Préfecture de Tanger-Assilah" role="tab" aria-controls="a01" aria-selected="true"> Préfecture de Tanger-Assilah </a>
+                <a class="nav-link" id="a02" href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Tanger-Tétouan-Al Hoceïma&province=Province de Fahs-Anjra"       role="tab" aria-controls="a02" aria-selected="false">Province de Fahs-Anjra       </a>
+                <a class="nav-link" id="a03" href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Tanger-Tétouan-Al Hoceïma&province=Préfecture de M'diq-Fnideq"   role="tab" aria-controls="a03" aria-selected="false">Préfecture de M'diq-Fnideq   </a>
+                <a class="nav-link" id="a04" href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Tanger-Tétouan-Al Hoceïma&province=Province de Tétouan"          role="tab" aria-controls="a04" aria-selected="false">Province de Tétouan          </a>
+                <a class="nav-link" id="a05" href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Tanger-Tétouan-Al Hoceïma&province=Province de Larache"          role="tab" aria-controls="a05" aria-selected="false">Province de Larache          </a>
+                <a class="nav-link" id="a06" href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Tanger-Tétouan-Al Hoceïma&province=Province d'Ouezzane"          role="tab" aria-controls="a06" aria-selected="false">Province d'Ouezzane          </a>
+                <a class="nav-link" id="a07" href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Tanger-Tétouan-Al Hoceïma&province=Province de Chefchaouen"      role="tab" aria-controls="a07" aria-selected="false">Province de Chefchaouen      </a>
+                <a class="nav-link" id="a08" href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Tanger-Tétouan-Al Hoceïma&province=Province d'Al Hoceïma"        role="tab" aria-controls="a08" aria-selected="false">Province d'Al Hoceïma        </a>
                
               </div>
               <div class="tab-content" id="v-pills-tabContent">
@@ -76,14 +150,14 @@
 
 	                <g>
                     
-                      <a  xlink:title="Préfecture de Tanger-Assilah"  xlink:href=""       ><path    id="REG-01" d="M186.54,870.65s48.53-157.47,56.08-197.38l57.16,14-5.39,28L314.88,725,317,783.28v4.32l-4.31,1.08h-4.32c-1.08,0-16.18,2.15-16.18,2.15L276.06,821l-43.15,7.55,19.42,21.57-6.47,32.36-22.65-18.34" transform="translate(-138 -620.42)"/></a> 
-	                  <a  xlink:title="Province de Fahs-Anjra      "  xlink:href=""       ><path    id="REG-02" d="M449.7,634.44l-14-14-47.45,8.63-27,35.59-36.67-6.47-24.81,29.12-5.39,28L314.88,725l1.25,33.71,21.4,6.2,34.52-27,19.41,15.1s2.16-17.25,14-28l-5.39-51.77,18.34,5.39-4.32-31.28,35.59-11.86Z" transform="translate(-138 -620.42)"/></a>  
-	                  <a  xlink:title="Préfecture de M'diq-Fnideq  "  xlink:href=""       ><path    id="REG-03" d="M449.7,718.57s-6.45-52.85-6.46-51.77S467,630.13,467,630.13L414.12,646.3l4.31,31.28-18.33-5.39L405.48,724l7.55,8.63,6.47,2.16,30.2-15.1Z" transform="translate(-138 -620.42)"/></a>  
-	                  <a  xlink:title="Province de Tétouan         "  xlink:href=""       ><path    id="REG-04" d="M414.11,919.18l31.28-11.86,23.73,7.55,14-7.55-1.08-30.2L499.32,848l35.59-27L500.4,783.28l-29.12-37.75L449.7,719.65l-30.2,15.1-5.39-1.8L405.48,725s-12.94,11.86-14,28L372.05,738l-34.52,27L316,758.48,317,787.6l-24.81,3.23L276.06,821l15.1,27,37.75,4.31L363.42,834l34.51,16.18-3.23,17.26,11.86,18.34Z" transform="translate(-138 -620.42)"/></a>  
-	                  <a  xlink:title="Province de Larache         "  xlink:href=""       ><polygon id="REG-05" points="244.83 389.36 257.78 373.18 239.44 341.9 240.52 294.45 253.46 287.98 268.79 266.31 256.7 246.99 259.93 229.73 225.42 213.56 190.91 231.89 153.16 227.58 138.06 200.61 94.91 208.16 114.33 229.73 107.86 262.09 85.21 243.75 48.53 250.23 0 379.65 72.26 378.57 105.7 393.68 162.86 407.7 187.67 409.85 182.28 385.05 208.16 386.13 202.77 368.87 244.83 389.36"/></a>  
-                      <a  xlink:title="Province d'Ouezzane         "  xlink:href=""       ><path    id="REG-06" d="M414.11,1188.82l28,16.18,46.38-20.49-5.39-42.07,10.79-59.32L490.69,1054l-58.24-60.4H395.78l-12.95,16.18-42.06-20.49,5.39,17.25-25.88-1.07,5.39,24.8v1.08H303s-5.39,28-5.39,31.28,2.15,24.81,2.15,25.89,2.16,17.25,2.16,17.25l1.08,4.32,15.1,9.7,12.94-16.17,1.08-1.08L417.35,1164Z" transform="translate(-138 -620.42)"/></a> 
-                      <a  xlink:title="Province de Chefchaouen     "  xlink:href=""       ><polygon id="REG-07" points="257.78 373.18 294.45 373.18 352.69 433.58 355.93 462.7 424.95 465.94 483.2 444.37 530.65 395.83 545.75 412.01 565.17 405.54 599.68 357 587.82 308.47 462.7 264.25 396.91 200.61 361.32 227.58 344.06 256.7 345.14 286.9 331.12 294.45 307.39 286.9 276.11 298.76 268.56 266.4 253.46 287.98 240.52 294.45 239.44 341.9 257.78 373.18"/></a>  
-	                  <a  xlink:title="Province d'Al Hoceïma       "  xlink:href=""       ><polygon id="REG-08" points="484.43 443.1 502.61 496.14 601.84 515.55 638.51 493.98 657.92 456.23 677.34 482.12 701.07 478.88 733.42 445.45 775.49 447.6 810 421.72 810 296.61 769.01 264.25 649.29 312.78 587.82 308.47 599.68 357 565.17 405.54 545.75 412.01 530.65 395.83 484.43 443.1"/></a>  
+                      <a  xlink:title="Préfecture de Tanger-Assilah"  xlink:href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Tanger-Tétouan-Al Hoceïma&province=Préfecture de Tanger-Assilah"><path    id="REG-01" d="M186.54,870.65s48.53-157.47,56.08-197.38l57.16,14-5.39,28L314.88,725,317,783.28v4.32l-4.31,1.08h-4.32c-1.08,0-16.18,2.15-16.18,2.15L276.06,821l-43.15,7.55,19.42,21.57-6.47,32.36-22.65-18.34" transform="translate(-138 -620.42)"/></a> 
+	                    <a  xlink:title="Province de Fahs-Anjra      "  xlink:href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Tanger-Tétouan-Al Hoceïma&province=Province de Fahs-Anjra"      ><path    id="REG-02" d="M449.7,634.44l-14-14-47.45,8.63-27,35.59-36.67-6.47-24.81,29.12-5.39,28L314.88,725l1.25,33.71,21.4,6.2,34.52-27,19.41,15.1s2.16-17.25,14-28l-5.39-51.77,18.34,5.39-4.32-31.28,35.59-11.86Z" transform="translate(-138 -620.42)"/></a>  
+	                    <a  xlink:title="Préfecture de M'diq-Fnideq  "  xlink:href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Tanger-Tétouan-Al Hoceïma&province=Préfecture de M'diq-Fnideq"  ><path    id="REG-03" d="M449.7,718.57s-6.45-52.85-6.46-51.77S467,630.13,467,630.13L414.12,646.3l4.31,31.28-18.33-5.39L405.48,724l7.55,8.63,6.47,2.16,30.2-15.1Z" transform="translate(-138 -620.42)"/></a>  
+	                    <a  xlink:title="Province de Tétouan         "  xlink:href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Tanger-Tétouan-Al Hoceïma&province=Province de Tétouan"         ><path    id="REG-04" d="M414.11,919.18l31.28-11.86,23.73,7.55,14-7.55-1.08-30.2L499.32,848l35.59-27L500.4,783.28l-29.12-37.75L449.7,719.65l-30.2,15.1-5.39-1.8L405.48,725s-12.94,11.86-14,28L372.05,738l-34.52,27L316,758.48,317,787.6l-24.81,3.23L276.06,821l15.1,27,37.75,4.31L363.42,834l34.51,16.18-3.23,17.26,11.86,18.34Z" transform="translate(-138 -620.42)"/></a>  
+	                    <a  xlink:title="Province de Larache         "  xlink:href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Tanger-Tétouan-Al Hoceïma&province=Province de Larache"         ><polygon id="REG-05" points="244.83 389.36 257.78 373.18 239.44 341.9 240.52 294.45 253.46 287.98 268.79 266.31 256.7 246.99 259.93 229.73 225.42 213.56 190.91 231.89 153.16 227.58 138.06 200.61 94.91 208.16 114.33 229.73 107.86 262.09 85.21 243.75 48.53 250.23 0 379.65 72.26 378.57 105.7 393.68 162.86 407.7 187.67 409.85 182.28 385.05 208.16 386.13 202.77 368.87 244.83 389.36"/></a>  
+                      <a  xlink:title="Province d'Ouezzane         "  xlink:href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Tanger-Tétouan-Al Hoceïma&province=Province d'Ouezzane"         ><path    id="REG-06" d="M414.11,1188.82l28,16.18,46.38-20.49-5.39-42.07,10.79-59.32L490.69,1054l-58.24-60.4H395.78l-12.95,16.18-42.06-20.49,5.39,17.25-25.88-1.07,5.39,24.8v1.08H303s-5.39,28-5.39,31.28,2.15,24.81,2.15,25.89,2.16,17.25,2.16,17.25l1.08,4.32,15.1,9.7,12.94-16.17,1.08-1.08L417.35,1164Z" transform="translate(-138 -620.42)"/></a> 
+                      <a  xlink:title="Province de Chefchaouen     "  xlink:href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Tanger-Tétouan-Al Hoceïma&province=Province de Chefchaouen"     ><polygon id="REG-07" points="257.78 373.18 294.45 373.18 352.69 433.58 355.93 462.7 424.95 465.94 483.2 444.37 530.65 395.83 545.75 412.01 565.17 405.54 599.68 357 587.82 308.47 462.7 264.25 396.91 200.61 361.32 227.58 344.06 256.7 345.14 286.9 331.12 294.45 307.39 286.9 276.11 298.76 268.56 266.4 253.46 287.98 240.52 294.45 239.44 341.9 257.78 373.18"/></a>  
+	                    <a  xlink:title="Province d'Al Hoceïma       "  xlink:href="../SearshResult.php?rech=<?=$rech?>&LGTP=<?=$LGTP?>&RCMI=<?=$RCMI?>&RCMA=<?=$RCMA?>&region=Tanger-Tétouan-Al Hoceïma&province=Province d'Al Hoceïma"       ><polygon id="REG-08" points="484.43 443.1 502.61 496.14 601.84 515.55 638.51 493.98 657.92 456.23 677.34 482.12 701.07 478.88 733.42 445.45 775.49 447.6 810 421.72 810 296.61 769.01 264.25 649.29 312.78 587.82 308.47 599.68 357 565.17 405.54 545.75 412.01 530.65 395.83 484.43 443.1"/></a>  
 	                  
 	
                 	</g>

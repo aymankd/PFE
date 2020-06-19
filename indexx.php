@@ -353,71 +353,66 @@ while(($rowR1= mysqli_fetch_array($resR1)))
 							
 							<h1 style="line-height: 1.1;font-size: 31px;letter-spacing: -0.076em;font-weight: 500;">Nous vous aiderons à trouver un endroit que vous aimerez.</h1> <br>
 							<div class="row">
-								<form class="form-inline" id="fh5co-header-subscribe"  action="pages/samples/searshResult.php" methode="POST">
+								<form class="form-inline" id="fh5co-header-subscribe"  action="pages\samples\MapByProvinceWitouhNavBar\RegionSelection.php" methode="POST">
 									<div class="col-md-8 col-md-offset-2">
 										<div class="form-group">
 											<input  class="form-control" id="email" type="text" name="rech" placeholder="Rechercher une location" required>
 											<button type="submit" class="btn btn-default"  methode="POST">Rechercher</button>
-										<!--<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
--->
+										
 										</div>
 									</div>
 									
-								</form>
-<div class="dropdown" id="price_drop_div">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="price_drop_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Prix
-  </button>
-  <div id="price_drop"class="dropdown-menu" aria-labelledby="price_drop_button">
-    
-  <div class="selector">
-    <div class="price-slider">
-        <div id="slider-range" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
-            <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
-            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-        </div>
-        <span id="min-price" data-currency="€" class="slider-price">0</span> <span class="seperator">-</span> <span id="max-price" data-currency="€" data-max="3500"  class="slider-price">3500 +</span>
-    </div> 
-</div>
-	
-  </div>
-</div>
-
-
-<div class="dropdown" id="Type_drop_div">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="Type_drop_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Type
-  </button>
-  <div id="Type_drop"class="dropdown-menu" aria-labelledby="price_drop_button">
-	 <div class="cage">
-  <label class="radio">Company
-  <input type="radio" checked="checked" name="is_company">
-  <span class="checkround"></span>
-</label>
-<label class="radio">Company
-  <input type="radio" name="is_company">
-  <span class="checkround"></span>
-</label>
-<label class="radio">Company
-  <input type="radio" name="is_company">
-  <span class="checkround"></span>
-</label>
-<label class="radio">Company
-  <input type="radio" name="is_company">
-  <span class="checkround"></span>
-</label>
-<div>
-  </div>
-</div>
+								
+                                       <div class="dropdown" id="price_drop_div">
+                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="price_drop_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                           Prix
+                                         </button>
+                                         <div id="price_drop"class="dropdown-menu" aria-labelledby="price_drop_button">
+                                           
+                                           <div class="selector">
+                                               <div class="price-slider">
+                                                   <div id="slider-range" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                                                       <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
+                                                        <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                                                       </div>
+													   <span id="min-price" data-currency="DH"  class="slider-price">0</span> 
+													   <span class="seperator">-</span> 
+													   <span id="max-price" data-currency="DH" data-max="3500"  class="slider-price">3500 +</span>
+                                                   </div> 
+                                               </div>
+                                       	
+                                           </div>
+                                       </div>
+									   <div class="dropdown" id="Type_drop_div">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="Type_drop_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          Type
+                                        </button>
+                                          <div id="Type_drop"class="dropdown-menu" aria-labelledby="price_drop_button">
+                                      	    <div class="cage">
+                                                 <label class="radio">Tous
+                                                  <input type="radio" checked="checked" name="LGTP" value="OptT">
+                                                  <span class="checkround"></span>
+                                                 </label>
+                                                 <label class="radio">Appartement
+                                                   <input type="radio" name="LGTP" value="OptA">
+                                                   <span class="checkround"></span>
+                                                 </label>
+                                                  <label class="radio">Studio
+                                                   <input type="radio" name="LGTP" value="OptS">
+                                                   <span class="checkround"></span>
+                                                 </label>
+                                      
+                                              <div>
+                                          </div>
+									  </div>
+									   <input id="hidden_min" type="text" name="RCMI" style="display:none;" value="0"/>
+									   <input id="hidden_max" type="text" name="RCMA" style="display:none;" value="3500+"/>
+									   
+								
+								
+									</form>
+                           
+                                      
 							</div>
 						</div>
 					</div>
@@ -581,7 +576,9 @@ $("#slider-range").slider({
     max: 3500,
     step: 50,
     slide: function( event, ui ) {
-      $( "#min-price").html(ui.values[ 0 ]);
+	  $( "#min-price").html(ui.values[ 0 ]);
+	  $("#hidden_min").val(ui.values[ 0 ]);
+	  
       
       console.log(ui.values[0])
       
@@ -589,10 +586,15 @@ $("#slider-range").slider({
       if (ui.values[ 1 ] == $( "#max-price").data('max') ){
          suffix = ' +';
       }
-      $( "#max-price").html(ui.values[ 1 ] + suffix);         
+	  $( "#max-price").html(ui.values[ 1 ] + suffix); 
+	  $("#hidden_max").val(ui.values[ 1 ] + suffix);
+	       
     }
   });
 });
+
+//document.getElementById("max-price").textContent prix max
+//document.getElementById("min-price").textContent prix min
 </script>
 
 	</body>
