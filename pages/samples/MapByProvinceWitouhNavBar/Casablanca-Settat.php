@@ -140,6 +140,8 @@ while(($row_nbrA= mysqli_fetch_array($res_nbrA)))
 
               <div class="card">
                 <div id="map_card" class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                <button type="button" class="btn btn-primary">Voir les logements dans tous les provinces/prefectures</button> &nbsp;
+
                 <div id="map_svg" class="map_svg">
                 <svg  xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewbox="0 0 1012 726">
 
