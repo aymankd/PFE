@@ -1891,8 +1891,24 @@ else{
                </div>
                <div class="col-md-3 col-sm-12">
                   <div id="price-box" class="price-box-right">
+                  <div class="lheaaaad">
+                  <div class="media">
+  <img class="mr-3 pic" src="../../Resourse/images/dashboard/face29.png" alt="Generic placeholder image">
+
+</div>
+                  <h3 id="namednem">Username</h3>
+                  </div>
+                  <div class="btnsss">
+                  <button type="button" class="btn btn-primary hided">06977</button>
+                  <button type="button" class="btn btn-primary showbtn">Afficher le numéro</button><br></br>
+                  <button type="button" class="btn btn-primary hided">user@</button>
+                  <button type="button" class="btn btn-primary showbtn">Afficher l'émail</button>
+               </div>
+               <hr>
+                     <div class="prixdh">
                      <h4>Prix</h4>
-                     <h3><?=$prix?> Dh</h3><hr>
+                     <h3><?=$prix?> Dh</h3> </div>
+                     
                      <a href="loginRT.php?smr=<?=$CodeL?>&act=CH" class="badge badge-primary">Contacter Hote</a>
                   </div>
                </div>        

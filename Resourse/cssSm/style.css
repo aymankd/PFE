@@ -3305,6 +3305,8 @@ html .ui-button.ui-state-disabled:active {
 	font-size: 21px;
 	color: #092749;
 	padding-bottom: 16px;
+	margin-left: 100px;
+	margin-top: -31px;
 }
 
 .price-box-right h3 span {
@@ -3322,7 +3324,7 @@ html .ui-button.ui-state-disabled:active {
 	-webkit-box-shadow: 0 6px 10px -5px rgba(0, 0, 0, 0.1);
 	box-shadow: 0 6px 10px -5px rgba(0, 0, 0, 0.1);
 	padding: 45px;
-	height: 300px;
+	height: 350px;
 	width: 300px;
 	border:1px solid rgb(214, 214, 214) !important;
 
@@ -3384,7 +3386,7 @@ html .ui-button.ui-state-disabled:active {
 	border: 1px solid #0058cb;
 	padding: 12px 0px;
 	display: block;
-	margin-top: 18px;
+	/*! margin-top: 18px; */
 	border-radius: 3px;
 	text-align: center;
 }
@@ -3605,4 +3607,32 @@ margin-top: 12px;
 #no-map-img
 {
 	margin-left: 35%;
+}
+
+.prixdh {
+    margin-top: 20px;
+    margin-left: 30px;
+}
+.btn.btn-primary.showbtn {
+    color: #fff;
+    background-color: #092749;
+	border-color: #092749;
+	margin-left: -40px;
+border-radius: 30px;
+width: 160px;
+}
+.btn.btn-primary.hided {
+    border-radius: 30px;
+    background-color: #0053bf !important;
+}
+.lheaaaad {
+	margin-left: 80px;
+	margin-top: -30px;
+}
+#namednem {
+    margin-left: -20px;
+    margin-top: 5px;
+}
+.btnsss {
+    margin-left: 15px;
 }
