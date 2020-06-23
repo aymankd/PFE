@@ -7,8 +7,16 @@ session_start();
   $msg="";
    $result="";
    $markers=array();
-   
-
+   /*
+   $reqR="SELECT * from logement where (`status`='valide') and (`SL_adr_nom` like '%$rech%') and (`prix` between $Pmin and $Pmax) ";
+   if($region!="ALL")
+   {
+    $reqR.= "and (`region`=$region) ";
+   }
+   if($province!="ALL")
+   {
+    $reqR.="and (`province-prefecture`=$province)";
+   }*/
 // Create connection
 $conn = new mysqli($servername, $userservername,"", $database);
 
@@ -30,10 +38,17 @@ $ETB=$_POST['etab'];
 $region=$_POST['region'];
 
 $province=$_POST['province'];
-//echo "Min:$Pmin ,  MAX:$Pmax  , NP:$NP  , NC:$NC ,TL:$TL, CLC:$CLC , EPR:$EPR  , ETB:$ETB ";
+//$result= "Min:$Pmin ,  MAX:$Pmax  , NP:$NP  , NC:$NC ,TL:$TL, CLC:$CLC , EPR:$EPR  , ETB:$ETB , region:$region , province:$province";
 
-$reqR="SELECT * from logement where (`status`='valide') and (`SL_adr_nom` like '%$rech%') and (`prix` between $Pmin and $Pmax) and (`region`=?) and (`province-prefecture`=?) ";
-
+$reqR="SELECT * from logement where (`status`='valide') and (`SL_adr_nom` like '%$rech%') and (`prix` between $Pmin and $Pmax) ";
+if($region!="ALL")
+   {
+    $reqR.= "and (`region`='$region') ";
+   }
+   if($province!="ALL")
+   {
+    $reqR.="and (`province-prefecture`='$province')";
+   }
     if($NP!="All")
     {
       $reqR=$reqR." AND ( (CodeL in (SELECT CodeS from studio where nbrP=$NP )) or (CodeL in (SELECT Codeapp from appartement where nbrP=$NP)))";
@@ -84,7 +99,7 @@ $reqR="SELECT * from logement where (`status`='valide') and (`SL_adr_nom` like '
     
      
 $statementR=$conn->prepare($reqR);
-$statementR->bind_param("ss",$region,$province);
+//$statementR->bind_param("ss",$region,$province);
 $statementR->execute();
 $resR=$statementR->get_result();
 while($rowR = mysqli_fetch_array($resR))
@@ -143,9 +158,9 @@ while($rowR = mysqli_fetch_array($resR))
 
 
 
-    $Aimg="<img src='$src' class='act_img'>";
+    $Aimg="<img id='smrP".$CodeL."' src='$src' class='act_img'>";
     array_push($markers,array($CodeL,$nom,$LogeType,$description,$prix,$lat,$lng,$Aimg,$adress));
-    $result.='  <article>
+    $result.='  <article id="card-'.$CodeL.'" class="displayed-item" >
     <!--Slidshow-->
       <div id="demo'.$CodeL.'" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
@@ -196,9 +211,9 @@ while($rowR = mysqli_fetch_array($resR))
     $row=$res->fetch_assoc();
     $nbrP=$row['nbrP'];
     
-    $Aimg="<img src='$src' class='act_img'>";
+    $Aimg="<img id='smrP".$CodeL."' src='$src' class='act_img'>";
     array_push($markers,array($CodeL,$nom,$LogeType,$description,$prix,$lat,$lng,$Aimg,$adress));
-   $result.='  <article>
+   $result.='  <article id="card-'.$CodeL.'" class="displayed-item" >
     <!--Slidshow-->
       <div id="demo'.$CodeL.'" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->

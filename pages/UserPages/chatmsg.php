@@ -15,8 +15,28 @@ $text = null;
 $sender = isset($_GET['sender']) ? $_GET['sender'] : null;
 $reciever = isset($_GET['reciever']) ? $_GET['reciever'] : null;
 
+$reqP="SELECT * from utilisateur where CodeU=?";
+$statementP=$conn->prepare($reqP);
+$statementP->bind_param("i",$reciever);
+$statementP->execute();
+$resP=$statementP->get_result();
+$rowP=$resP->fetch_assoc();
+$LU=$rowP["username"];
 
-$req = "SELECT * FROM `messages` WHERE (`Codesender` = ? AND `Codereciever` = ?) OR (`Codesender` = ? AND `Codereciever` = ?) ";
+$srcP="";
+if($rowP['imageP']!=NULL)
+      {
+        $srcP="profilpic.php?UN=$LU";
+        
+      }
+    else
+      {
+        $srcP="../../Resourse/imgs/ProfileHolder.jpg";
+       
+      }
+
+      
+$req = "SELECT * FROM `messages` WHERE (`Codesender` = ? AND `Codereciever` = ?) OR (`Codesender` = ? AND `Codereciever` = ?) order by `datemsg`  ";
 $statement=$conn->prepare($req);
 $statement->bind_param("iiii",$sender,$reciever,$reciever,$sender);
 $statement->execute();
@@ -27,6 +47,13 @@ while ( $row = mysqli_fetch_array($res) )
     $msg = $row['Msg'];
     $from = $row['Codesender'];
     $status = $row['vue'];
+    $timestamp=$row['datemsg'];
+    $date=new DateTime($timestamp);
+    $date->format("H:i");
+    /*$datetime = explode(" ",$timestamp);
+    $date = $datetime[0];
+     $time = $datetime[1];*/
+    //$time = date('Gi.s', $timestamp);
     if($from == $sender)
     {
         $text = $text.'<div class="message message-personal">'.$msg.'<div class="checkmark-sent-delivered">✓</div>';
@@ -54,10 +81,10 @@ while ( $row = mysqli_fetch_array($res) )
         $text = $text.
         '
         <div class="message'.$val.'">
-        <figure class="avatar"><img src="Proprofile.php?id='.$reciever.'"></figure>
+        <figure class="avatar"><img src="'.$srcP.'"></figure>
         '.$msg.'
         '.$audio.'
-        <div class="timestamp">15:22</div>
+        
         </div>
         ';
 

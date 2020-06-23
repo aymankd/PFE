@@ -45,6 +45,16 @@ $statementIU->bind_param("s",$USN);
 $statementIU->execute();
 $resIU=$statementIU->get_result();
 $rowIU=$resIU->fetch_assoc();
+
+$reqIU="SELECT * FROM logement WHERE CodeP=?";
+$statementIU=$conn->prepare($reqIU);
+$statementIU->bind_param("s",$rowIU['CodeU']);
+$statementIU->execute();
+$resIU=$statementIU->get_result();
+$rowIUss=$resIU->fetch_assoc();
+$CodeL=$rowIUss['CodeL'];
+
+
 if($rowIU['imageP']!=NULL)
 {
   	$src="../Samples/profilpic.php?UN=$USN";
@@ -458,8 +468,65 @@ if($resN->num_rows!=0)
       ';
     }
 
+$liste_locat="";
+$reqSRS="SELECT *  from `liste_locataire` where CodeL=? ";
+  $statementSRS=$conn->prepare($reqSRS);
+  $statementSRS->bind_param("i",$CodeL);
+  $statementSRS->execute();
+  $resSRS=$statementSRS->get_result();
+  while(($rowSRS=mysqli_fetch_array($resSRS)))
+
+  {
+   $CodeSRSU=$rowSRS['Code_Locataire'];
+   $reqSRS="SELECT *  from `utilisateur` where CodeU=? ";
+   $statementSRS=$conn->prepare($reqSRS);
+   $statementSRS->bind_param("i",$CodeSRSU);
+   $statementSRS->execute();
+   $resSRS1=$statementSRS->get_result();
+   $rowSRS1=$resSRS1->fetch_assoc();
+   $UserSRS1=$rowSRS1['username'];
+   
+   if($rowSRS1['imageP']!=NULL)
+      {
+        $srcSRS1="../UserPages/profilpic.php?UN=$UserSRS1";
+        $ProfilePSRS1="<img src='".$srcSRS1."' class='img img-rounded img-fluid'/>";
+      }
+    else
+      {
+        $srcSRS1="../../Resourse/imgs/ProfileHolder.jpg";
+        $ProfilePSRS1="<img src='".$srcSRS1."' class='img img-rounded img-fluid'/>";
+      }
+      $liste_locat.= "<li class='user-item'>
+     <span class='avatar'>
+         $ProfilePSRS1
+     </span>
+     <h5>".$UserSRS1."</h5>
+     <h6>".$UserSRS1."</h6>";
+     if($rowSRS1['CodeU']!=$codeU)
+     {
+      $liste_locat.=  "<a  class='btn-fllw' id='remove".$CodeSRSU."' ><i class='fas fa-user-times'></i></a>
+        </li>";
+      }
+      else{
+         $liste_locat.=  "</li>";
+      }
+}
+
+$option_loge="";
+$reqSRS="SELECT *  from `logement` where CodeP=? ";
+   $statementSRS=$conn->prepare($reqSRS);
+   $statementSRS->bind_param("i",$codeU);
+   $statementSRS->execute();
+   $resSRS=$statementSRS->get_result();
+   while(($rowSRS=mysqli_fetch_array($resSRS)))
+   {
+    $option_loge.="<option>".$rowSRS['nom']."</option>";
+   }
+  
+
 
 ?>
+
 
 
 <!DOCTYPE html>
@@ -585,6 +652,10 @@ if($resN->num_rows!=0)
                       <i class="mdi mdi-logout text-primary"></i>
                       Logout
                       </button>
+                      <a id="loca_gst" class="dropdown-item " data-toggle='modal' data-target='#modalLikeThis2' >
+                           <i class="fas fa-users-cog text-primary"></i>
+                      Liste des locatires
+                    </a>
                     </form>
                   </li>
               </ul>
@@ -627,6 +698,34 @@ if($resN->num_rows!=0)
 
 		  <!-- page-body-wrapper ends -->
     </div>
+    <div class='modal' id='modalLikeThis2' tabindex='-1' role='dialog' >
+                      
+                      <div class='modal-dialog-centered' role='document' style='width:40%;margin-left:30%;margin-top:2%;'>
+      
+                        <div class='modal-content'>
+                           
+                          <div class='modal-body' >
+                            
+                           <div id='the_list' class='the_list'> 
+                            <?=$liste_locat;?>
+                           </div>
+                           <div id='adding_list' class='adding_list'> 
+                            
+                           </div>
+                          <hr style="margin-bottom: 0px;" class="hrAddUser">
+			                    <i style="color: blue;margin-left: 97%;" class="fas fa-plus-circle addUser" id="addUser"></i>
+                             
+                          </div>
+                          <div class='modal-footer'>
+                            <button type='submit' id='env_avis' type='button' class='btn btn-primary'>Envoyer</button>
+                            <button type='cls_avis' class='btn btn-secondary' data-dismiss='modal'>Annuler</button>
+                          </div>
+                             
+                          </div>
+                        </div>
+                        
+    </div>
+                    
     <?=$chatboxs; ?>
     
 
@@ -1001,3 +1100,255 @@ $(function() {
 	</footer>
 </body>
 </html>
+
+<script>
+var entery_num=1;
+var selected_loge="";
+var selected_user="";
+
+$(document).ready(function(){  
+
+
+
+  $('#addUser').click(function(){
+    
+    
+    if(entery_num!=1)
+    {
+      
+    document.getElementById('#addUser').disabled=true;
+    }
+    
+    else{
+    document.getElementById('adding_list').insertAdjacentHTML("beforeend","<li class='user-item'><select  class='add_slct ' name='random' id='slct"+entery_num+"'><?=$option_loge?></select>&nbsp;<br><input type='text' class='form-control add_input' id='input"+entery_num+"' placeholder='username'></input><div class='err_add' id='err"+entery_num+"'></div> <button class='add_bttn' id='cnfrm"+entery_num+"'>Confirmer</button></li>");
+    
+    $('#cnfrm'+entery_num).click(function(){
+      
+     
+      selected_loge=document.querySelector('#slct'+entery_num).value;
+      selected_user=document.querySelector('#input'+entery_num).value;
+      $.ajax({  
+                url:"addLocataire.php",  
+                method:"POST",  
+                data:{logement:selected_loge,
+                      user:selected_user
+
+                      },
+                dataType : 'json',
+                success:function(response){
+                  //alert(response.result+"--->"+response.display)
+
+                   if(response.result=="found")
+                    {
+                      document.getElementById('the_list').insertAdjacentHTML("beforeend",response.display)
+                      $("#adding_list").html("");
+                    }
+                   else 
+                    {
+                      $("#err"+entery_num).html("");
+                      document.getElementById('err'+entery_num).insertAdjacentHTML("beforeend",'<i class="fas fa-exclamation-circle"></i>'+response.display)
+                    }
+                  
+                  
+                 }   
+            });           
+
+          });
+  
+          entery_num=entery_num+1;
+          $('#addUser').css("color","grey");}
+  });
+  
+});  
+</script>
+
+
+
+<style>
+  .err_add{
+    color:red;
+  }
+  .add_input{
+    width:30%;
+    height:30px;
+
+
+  }
+
+  .add_slct{
+    margin-bottom:3%;
+    background-color: white;
+  border: thin solid blue;
+  border-radius: 4px;
+  display: inline-block;
+  font: inherit;
+  line-height: 1.5em;
+  padding: 0.5em 3.5em 0.5em 1em;
+
+  /* reset */
+
+    
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, gray 50%),
+    linear-gradient(135deg, gray 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position:
+    calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    calc(100% - 2.5em) 0.5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+  background-repeat: no-repeat;
+  }
+
+  .add_slct:focus{
+    background-image:
+    linear-gradient(45deg, green 50%, transparent 50%),
+    linear-gradient(135deg, transparent 50%, green 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position:
+    calc(100% - 15px) 1em,
+    calc(100% - 20px) 1em,
+    calc(100% - 2.5em) 0.5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+  background-repeat: no-repeat;
+  
+  outline: 0;
+  
+  }
+  select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .user-list {
+	position: relative;
+	list-style: none;
+	overflow-y: scroll;
+	width: 100%;
+	height: 298px;
+	height: 328px;
+	margin: 40px auto;
+	border: 2px solid #ededed;
+  }
+  .user-list:before {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: 3;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background: #fff;
+  }
+  .user-list:after {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: 3;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background: #fff;
+  }
+  
+  .user-item {
+	position: relative;
+	overflow: hidden;
+	padding: 10px 10px 12px;
+	border-bottom: 2px solid #fafafa;
+  }
+  .user-item:last-child {
+	border-bottom: 0;
+  }
+  .user-item:last-child:after {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: 30;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background: #fff;
+  }
+  .user-item .avatar {
+	display: block;
+	position: relative;
+	width: 50px;
+	height: 50px;
+	border-radius: 5px;
+	overflow: hidden;
+	float: left;
+	margin-right: 1em;
+  }
+  .user-item .avatar:after {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.15);
+	border-radius: 5.5px;
+  }
+  .user-item .avatar img {
+	display: block;
+	width: 100%;
+	height: auto;
+  }
+  .user-item h5 {
+	font-size: 1.5em;
+	color: #555;
+  }
+  .user-item h6 {
+	font-size: 1em;
+	color: #888;
+  }
+  .user-item .btn-fllw {
+	position: absolute;
+	top: 14px;
+	right: 14px;
+	line-height: 40px;
+	font-size: 0.875em;
+	font-weight: bold;
+
+  }
+  .user-item .btn-fllw:hover {
+	color: #fff;
+	background-color: #55bad9;
+	border: 2px solid #46a1bd;
+	text-decoration: none;
+  }
+</style>

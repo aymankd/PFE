@@ -1597,14 +1597,17 @@ h1, h2, h3, h4, h5, h6, figure {
   width:120px;
 }
 
-
+*/
 #price_drop{
-margin-top:-35%;
-margin-left: 7% ;
-}*/
+  
+    margin-left: 4.9%;
+    margin-top: 7.5%;
+}
 #price_drop_button{
  /* margin-top:-418%*/
- margin-right: -15%;
+ margin-right: 81%;
+  /* margin-top:-418%*/
+  
   }
 /*
 #Type_drop_div{
@@ -1613,17 +1616,18 @@ margin-left: 7% ;
     height: 100px;
     width:120px;
   }
-
+*/
   #Type_drop_button{
-   margin-top:-418%
+    margin-right: 94.6%;
+    
       
     }
 
     #Type_drop{
-      margin-top:-118%;
-      margin-left: 3% ;
+      margin-top:7.5%;
+      margin-left: -9.9% ;
       }
-      */
+      
 
 
 
@@ -1738,7 +1742,7 @@ margin-left: 7% ;
         width: 90%;
         margin-bottom: 30px;
         border: none;
-        background: #6551f2;
+        background: #d7d7d7;
         height: 3px;
         margin-left: 8px;
         margin-right: 8px
@@ -1769,7 +1773,7 @@ margin-left: 7% ;
     }
     
     .selector .ui-slider-range {
-        background-color: #d7d7d7
+        background-color: #6551f2
     }
     
     .selector .slider-price {

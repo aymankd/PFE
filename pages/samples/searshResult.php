@@ -1,4 +1,304 @@
+<?php
+session_start();
+if( isset($_SESSION['username']))
+{
+  header("location:../../homeP.php");
+}
+  $servername = "localhost";
+  $userservername = "root";
+  $database = "pfe";
+  $msg="";
 
+// Create connection
+$conn = new mysqli($servername, $userservername,"", $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$Srech=metaphone($_GET['rech']);
+//$Srech="'%".$Srech."%'";
+$LGTP="";
+$RCMI="";
+$RCMA="";
+$region="";
+$province="";
+
+if(isset($_GET['LGTP']))
+{
+  $LGTP=$_GET['LGTP'];
+}
+else{
+  $LGTP="OptT";
+}
+
+if(isset($_GET['RCMI']))
+{
+  $RCMI=$_GET['RCMI'];
+}
+else{
+  $RCMI="0";
+}
+
+if(isset($_GET['RCMA']))
+{
+  $RCMA=$_GET['RCMA'];
+}
+else{
+  $RCMA="3500";
+}
+
+if(isset($_GET['region']))
+{
+  $region=$_GET['region'];
+}
+else{
+  $region="ALL";
+}
+
+
+if(isset($_GET['province']))
+{
+  $province=$_GET['province'];
+}
+else{
+  $province="ALL";
+}
+
+//echo $LGTP.",".$RCMI.",".$RCMA.",".$region.",".$province;
+
+
+$result="";
+$markers=array();
+$reqL = "SELECT * from logement where (status='valide') and (SL_adr_nom like '%$Srech%')";
+if($region!="ALL")
+{
+ $reqL.= "and (`region`='$region') ";
+}
+if($province!="ALL")
+{
+ $reqL.="and (`province-prefecture`='$province')";
+}
+ if($RCMA!="3500")
+{
+  $RCMAD=floatval($RCMA);
+  $RCMID=floatval($RCMI);
+  $reqL.="and (prix between $RCMID and $RCMAD)";
+}
+else if($RCMA=="3500")
+{
+  $RCMID=3500;
+  $reqL.="and (prix > $RCMID or prix < $RCMID)";
+}
+
+if($LGTP=="OptS"){
+  $reqL.="and (type='Studio')";
+}
+else if($LGTP=="OptA"){
+ $reqL.="and (type='Appartement')";
+}
+
+$statementL=$conn->prepare($reqL);
+//$statementL->bind_param("ss",$region,$province);
+$statementL->execute();
+$resL=$statementL->get_result();
+while ($rowL = mysqli_fetch_array($resL)) 
+{
+  $LogeType = $rowL['type'];
+  $CodeL = $rowL['CodeL'];
+  $nom = $rowL['nom'];
+  $adress = $rowL['adress'];
+  $description = $rowL['description'];
+  $description=substr($description,0,150)."...";
+  $price=$rowL['prix'];
+  $sup=$rowL['superficie'];
+  $prix=$rowL['prix'];
+  $lat=$rowL['lat'];
+  $lng=$rowL['lng'];
+
+
+
+  $req = "SELECT * FROM image where CodeL=?";
+  $statement=$conn->prepare($req);
+  $statement->bind_param("i",$CodeL);
+  $statement->execute();
+  $res=$statement->get_result();
+  $i=0;
+  $img="";
+  $active="active";
+  while ( ($row = mysqli_fetch_array($res)) && ($i < 3) ) 
+  {
+    $id=$row['CodeImg'];
+    $src="genere_image.php?id=$id";
+    if($i!=0)
+    $active="";
+
+    $img.=
+  "
+    <div class='carousel-item  $active'>
+    <img src='$src' class='d-block w-100'>
+    </div>
+  ";
+    $i = $i + 1;
+  }
+
+
+
+  if($LogeType=="Appartement")
+  {//appartement
+    $req = "SELECT * FROM appartement where Codeapp=?";
+    $statement=$conn->prepare($req);
+    $statement->bind_param("i",$CodeL);
+    $statement->execute();
+    $res=$statement->get_result();
+    $row=$res->fetch_assoc();
+    $rooms=$row['nbrC'];
+    $nbrP=$row['nbrP'];
+
+
+
+
+    $Aimg="<img id='smrP".$CodeL."' src='$src' class='act_img ssss'>";
+    array_push($markers,array($CodeL,$nom,$LogeType,$description,$prix,$lat,$lng,$Aimg,$adress));
+       $result.='  <article id="card-'.$CodeL.'" class="displayed-item" >
+       <a class="fill-div" href="SeeMore.php?smr='.$CodeL.'" >
+    <!--Slidshow-->
+      <div id="demo'.$CodeL.'" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+          <li data-target="#demo'.$CodeL.'" data-slide-to="0" class="active"></li>
+          <li data-target="#demo'.$CodeL.'" data-slide-to="1"></li>
+          <li data-target="#demo'.$CodeL.'" data-slide-to="2"></li>
+        </ul>
+        <!-- The slideshow -->
+        <div class="carousel-inner">
+        '.$img.'
+        </div>
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#demo'.$CodeL.'" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo'.$CodeL.'" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
+      </div>
+        <!--/slidshow-->
+      <div  class="card-body">
+    
+        <h5 class="card-title">'.$nom.'</h5>
+        <p class="card-text"> <i class="fas fa-tags CA"></i>'.$prix.'Dh  &nbsp;<i class="fas fa-bed CA"></i> '.$rooms.'  &nbsp;  <i class="fas fa-male CA"></i> '.$nbrP.'  &nbsp; <i class="fas fa-warehouse CA"></i>'.$sup.'  m²</p>
+        <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> '.$adress.' </p>
+          
+        <p class="cpara">'.$description.'</p> <br>
+       
+          <a href="SeeMore.php?smr='.$CodeL.'"  id="buttonnnn" class="btn btn-primary edited">Voir plus</a>
+          
+      </div>
+      </a>
+  </article>';
+    
+
+  }else if($LogeType=="Studio")
+  {//studio
+    $req = "SELECT * FROM studio where CodeS=?";
+    $statement=$conn->prepare($req);
+    $statement->bind_param("i",$CodeL);
+    $statement->execute();
+    $res=$statement->get_result();
+    $row=$res->fetch_assoc();
+    $nbrP=$row['nbrP'];
+    
+    $Aimg="<img id='smrP".$CodeL."' src='$src' class='act_img'>";
+    array_push($markers,array($CodeL,$nom,$LogeType,$description,$prix,$lat,$lng,$Aimg,$adress));
+   $result.='  <article id="card-'.$CodeL.'" class="displayed-item" >
+    <!--Slidshow-->
+      <div id="demo'.$CodeL.'" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+          <li data-target="#demo'.$CodeL.'" data-slide-to="0" class="active"></li>
+          <li data-target="#demo'.$CodeL.'" data-slide-to="1"></li>
+          <li data-target="#demo'.$CodeL.'" data-slide-to="2"></li>
+        </ul>
+        <!-- The slideshow -->
+        <div class="carousel-inner" >
+        '.$img.'
+        </div>
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#demo'.$CodeL.'" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo'.$CodeL.'" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
+      </div>
+        <!--/slidshow-->
+        <div id="card-'.$CodeL.'" class="card-body displayed-item">
+      <div class="hold">
+        <h5 class="card-title">'.$nom.'</h5>
+        <p class="card-text"> <i class="fas fa-tags CA"></i>'.$prix.'Dh  &nbsp;<i class="fas fa-male CA"></i> '.$nbrP.'  &nbsp; <i class="fas fa-warehouse CA"></i> '.$sup.'m²</p>
+        <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> '.$adress.' </p>
+          <br>
+        <p class="cpara">'.$description.'</p> <br>
+        </div>
+        <a href="SeeMore.php?smr='.$CodeL.'  " class="btn btn-primary edited">Voir plus</a>
+      </div>
+  </article>';
+    
+  }
+
+}
+$province_options="";
+$RSK="<option value='ALL'>Tous les provinces</option>";
+$CS="<option value='ALL'>Tous les provinces</option>";
+$MS="<option value='ALL'>Tous les provinces</option>";
+$TTA="<option value='ALL'>Tous les provinces</option>";
+$region_options="<option value='ALL'>Tous les régions</option>";
+$region_codes=array();
+$reqRO = "SELECT * FROM regions ";
+$statementRO=$conn->prepare($reqRO);
+$statementRO->execute();
+$resRO=$statementRO->get_result();
+while ( ($rowRO = mysqli_fetch_array($resRO))) 
+{
+  
+  $region_options.="<option value='".$rowRO['Nom_Reg']."'>".$rowRO['Nom_Reg']."</option>";
+  array_push($region_codes,array($rowRO['id_Reg'],$rowRO['Nom_Reg']));
+}
+
+for($i=0;$i<sizeof($region_codes);$i++)
+{
+  $id_Reg=$region_codes[$i][0];
+  $Nom_Reg=$region_codes[$i][1];
+  $reqRO = "SELECT * FROM provinces where id_Reg='$id_Reg'";
+  $statementRO=$conn->prepare($reqRO);
+  $statementRO->execute();
+  $resRO=$statementRO->get_result();
+  while ( ($rowRO = mysqli_fetch_array($resRO))) 
+   {
+
+    
+      if($Nom_Reg=="Rabat-Salé-Kénitra")
+       {
+        $RSK.="<option value='".$rowRO['Nom_Pro']."'>".$rowRO['Nom_Pro']."</option>";
+       }
+      else if($Nom_Reg=="Casablanca-Settat")
+       {
+        $CS.="<option value='".$rowRO['Nom_Pro']."'>".$rowRO['Nom_Pro']."</option>";
+       }  
+      else if($Nom_Reg=="Marrakech-Safi")
+       {
+        $MS.="<option value='".$rowRO['Nom_Pro']."'>".$rowRO['Nom_Pro']."</option>";
+       }  
+      else if($Nom_Reg=="Tanger-Tétouan-Al Hoceïma")
+       {
+        
+        $TTA.="<option value='".$rowRO['Nom_Pro']."'>".$rowRO['Nom_Pro']."</option>";
+       } 
+   }
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -273,30 +573,21 @@
                     
                   <p class="mb-0 font-weight-medium float-left dropdown-header">Région</p> <br><br>
 
-<a class="dropdown-item">
-<select class="form-control" id="exampleFormControlSelect1">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-    </select>
-
-
-
-</a>
-<br>
-<p class="mb-0 font-weight-medium float-left dropdown-header">Province/Préfecture</p> <br><br>
-
                   <a class="dropdown-item">
 
-                  <select class="form-control" id="exampleFormControlSelect1">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-    </select>
+                    <select class="form-control" id="Select_Region">
+                      <?=$region_options?>
+                    </select>
+
+                  </a>
+                  <br>
+                  <p id="Select_Province_ttl" class="mb-0 font-weight-medium float-left dropdown-header">Province/Préfecture</p> <br><br>
+                       
+                  <a class="dropdown-item">
+                       
+                    <select class="form-control"  id="Select_Province">
+                      <?=$province_options?>
+                    </select>
                   </a>
                   <br>
                 </div>
@@ -555,7 +846,19 @@
            var etabli;
            var region='<?=$region?>';
            var province='<?=$province?>';
+
+           /*var regionSelect="";
+           var provinceSelect="";*/
+
+
+           var resultsss="non";
  $(document).ready(function(){  
+  $('.act_img').click(function() {
+
+alert(this.id);
+});
+             
+
              $('#Imin').val(sliderMin);
              $('#Imax').val(sliderMax);
              $('#IminS').val(sliderMin);
@@ -585,6 +888,8 @@
              srch=document.querySelector('#SR input[name="q"]').value;
              colloc=document.querySelector('#MrM input[name="switch-Collo"]:checked').value;
              etu_prch=document.querySelector('#MrM input[name="switch-Etu"]:checked').value;
+             province=$('#Select_Province').val();
+             region=$('#Select_Region').val();
             
            if(etu_prch!='non')
             {
@@ -621,30 +926,36 @@
                       {
                         if(markers[i][6]!=null)
                         { 
+                          codeLsss=markers[i][0];
                          var icon = L.divIcon({
                              className: 'custom-div-icon',
-                             html: "<button  id='"+i+"' class='marker-pin marker'> <i class='fas fa-home hm'></i> </button>"
+                             html: "<button  id='MR"+markers[i][0]+"' class='marker-pin marker'> <i class='fas fa-home hm'></i> </button>"
                               
                          });
                           var marker = L.marker([markers[i][5], markers[i][6]],{ icon: icon }).addTo(map);
-                          //marker.bindPopup("<h5>"+markers[i][1]+"</h5><br><p>"+markers[i][2]+"</p>");
-                     
-                     
-                     
-                          marker.bindPopup( "<div class='pop_img'>"+markers[i][7]+"<div class='pop_title'><h3>"+markers[i][1]+"</h3></div><div class='pop_adrs'><i class='fas fa-map-marker-alt CA'></i>"+markers[i][8]+"</div><div class='pop_prix'><i class='fas fa-tags CA'></i>"+markers[i][4]+" DH</div></div>");
-                        // marker.bindPopup( "<div class='carousel slide' data-ride='carousel'><div class='carousel-inner'>"+markers[i][7]+" </div></div><div class='card-body'><h5 class='card-title'>"+markers[i][1]+"</h5>  <br><p class='cpara'>"+markers[i][3]+"</p> <br> </div>");
-                          markers_on_map.push(marker);
-                         marker.bindTooltip(""+markers[i][4]+" DH", {className: 'price-tag'});
-                         
+                          
+                          var popupContent ="<div  class='pop_img'>"+markers[i][7]+"<div class='pop_title'><h3>"+markers[i][1]+"</h3></div><div class='pop_adrs'><i class='fas fa-map-marker-alt CA'></i>"+markers[i][8]+"</div><div class='pop_prix'><i class='fas fa-tags CA'></i>"+markers[i][4]+" DH</div></div>";
+                           marker.bindPopup( popupContent);
+                          
+markers_on_map.push(marker);
+marker.bindTooltip(""+markers[i][4]+" DH", {className: 'price-tag'});
+                        
                          }
                       }
+                      map.on('popupopen', function() {  
+  $('.act_img').click(function(e){
+   var clicked=this.id.replace("smrP","");
+   window.location.href="SeeMore.php?smr="+clicked;
 
+  });
+});
 
 
                     
 
 
                      $('#nC').html(response.result);  
+                     resultsss=response.result;
 
                      if(Nbr_pr=='All')
                        $("#radio-OS").prop("checked", true);
@@ -705,6 +1016,27 @@
 
                     $("#IminS").val(Min);  
                     $("#ImaxS").val(Max); 
+                    $('.displayed-item').mouseover(function() {
+  var current=this.id;
+   current=current.replace('card-','MR');
+   //current="MR"+current;
+   
+   $("#"+current).css("font-size","18px"); 
+   $("#"+current).css("background-color","black"); 
+   $("#"+current).css("color","whitesmoke"); 
+
+  });
+
+  $('.displayed-item').mouseleave(function() {
+  var current=this.id;
+   current=current.replace('card-','MR');
+   //current="MR"+current;
+   
+   $("#"+current).css("font-size","18px"); 
+   $("#"+current).css("background-color","whitesmoke"); 
+   $("#"+current).css("color","black"); 
+
+  });
                    
                 }  
            });  
@@ -927,6 +1259,8 @@ $(window).on('resize', function() {
 var markers_on_map=[];  
 var markers = <?php echo json_encode($markers); ?>;
 var nbrM=<?php echo count($markers);?>;
+var codeLsss;
+
 
 const here = {
   apiKey:'gNAS-hI7AKsqytfacNxMU-WZqMQa_Zn-nunnoU2p6s4'
@@ -945,24 +1279,34 @@ for(var i=0;i<nbrM;i++)
  {
    if(markers[i][6]!=null)
    { 
+    codeLsss=markers[i][0];
     var icon = L.divIcon({
         className: 'custom-div-icon',
-        html: "<button  id='"+i+"' class='marker-pin marker'> <i class='fas fa-home hm'></i> </button>"
+        html: "<button  id='MR"+markers[i][0]+"' class='marker-pin marker'> <i class='fas fa-home hm'></i> </button>"
          
     });
      var marker = L.marker([markers[i][5], markers[i][6]],{ icon: icon }).addTo(map);
-     //marker.bindPopup("<h5>"+markers[i][1]+"</h5><br><p>"+markers[i][2]+"</p>");
-
-
-
-     marker.bindPopup( "<div class='pop_img'>"+markers[i][7]+"<div class='pop_title'><h3>"+markers[i][1]+"</h3></div><div class='pop_adrs'><i class='fas fa-map-marker-alt CA'></i>"+markers[i][8]+"</div><div class='pop_prix'><i class='fas fa-tags CA'></i>"+markers[i][4]+" DH</div></div>");
-   // marker.bindPopup( "<div class='carousel slide' data-ride='carousel'><div class='carousel-inner'>"+markers[i][7]+" </div></div><div class='card-body'><h5 class='card-title'>"+markers[i][1]+"</h5>  <br><p class='cpara'>"+markers[i][3]+"</p> <br> </div>");
+ 
+      
+     var popupContent = "<div  class='pop_img'>"+markers[i][7]+"<div class='pop_title'><h3>"+markers[i][1]+"</h3></div><div class='pop_adrs'><i class='fas fa-map-marker-alt CA'></i>"+markers[i][8]+"</div><div class='pop_prix'><i class='fas fa-tags CA'></i>"+markers[i][4]+" DH</div></div>";
+     
+     marker.bindPopup( popupContent);
+  
+ 
      markers_on_map.push(marker);
     marker.bindTooltip(""+markers[i][4]+" DH", {className: 'price-tag'});
     
     }
  }
+ map.on('popupopen', function() {  
+  $('.act_img').click(function(e){
+   var clicked=this.id.replace("smrP","");
+   window.location.href="SeeMore.php?smr="+clicked;
+
+  });
+});
 </script>
+
 
 
 <script>
@@ -977,6 +1321,30 @@ $('.marker').mouseover(function() {
    
    document.getElementById(this.id).innerHTML ="<i class='fas fa-home hm'></i>";
   });*/
+
+
+
+ $('.displayed-item').mouseover(function() {
+  var current=this.id;
+   current=current.replace('card-','MR');
+   //current="MR"+current;
+   
+   $("#"+current).css("font-size","18px"); 
+   $("#"+current).css("background-color","black"); 
+   $("#"+current).css("color","whitesmoke"); 
+
+  });
+
+  $('.displayed-item').mouseleave(function() {
+  var current=this.id;
+   current=current.replace('card-','MR');
+   //current="MR"+current;
+   
+   $("#"+current).css("font-size","18px"); 
+   $("#"+current).css("background-color","whitesmoke"); 
+   $("#"+current).css("color","black"); 
+
+  });
 
   $('#map_cntrl').click(function() {
     if(map_open=="Y")
@@ -996,10 +1364,93 @@ $('.marker').mouseover(function() {
     }
     
    });
-
 });
 
 
+
+</script>
+<script>
+  var CS="<?php echo $CS; ?>";
+  var MS="<?php echo $MS; ?>";
+  var RSK="<?php echo $RSK; ?>";
+  var TTA="<?php echo $TTA; ?>";
+  var valSelect;
+$(document).ready(function(){
+  
+  if(region=="ALL")
+  {
+     document.getElementById('Select_Province').style.display='none';
+     document.getElementById('Select_Province_ttl').style.display='none';
+  }
+  else if(region=="Rabat-Salé-Kénitra")
+  {       
+    $('#Select_Province').html(RSK);  
+  }
+  else if(region=="Casablanca-Settat")
+  {
+   $('#Select_Province').html(CS); 
+  }  
+  else if(region=="Marrakech-Safi")
+  {
+    $('#Select_Province').html(MS); 
+  }  
+  else if(region=="Tanger-Tétouan-Al Hoceïma")
+  {
+    $('#Select_Province').html(TTA); 
+  }
+  $("#Select_Region").val('<?=$region?>');
+             
+  $("#Select_Province").val('<?=$province?>');
+  
+  
+  
+  
+  $('#Select_Region').change(function(){
+    valSelect=$(this).val();
+    if(valSelect!="ALL")
+    {
+      document.getElementById('Select_Province').style.display='block';
+      document.getElementById('Select_Province_ttl').style.display='block';
+      if(valSelect=="Rabat-Salé-Kénitra")
+       {
+         $('#Select_Province').html(RSK);  
+       }
+      else if(valSelect=="Casablanca-Settat")
+       {
+        $('#Select_Province').html(CS); 
+       }  
+      else if(valSelect=="Marrakech-Safi")
+       {
+        $('#Select_Province').html(MS); 
+       }  
+      else if(valSelect=="Tanger-Tétouan-Al Hoceïma")
+       {
+        $('#Select_Province').html(TTA); 
+       }    
+      else
+      {
+        $('#Select_Province').html("<option>Province non disponibles!!</option>");
+      }
+    }
+    else
+    {
+      document.getElementById('Select_Province').style.display='none';
+      document.getElementById('Select_Province_ttl').style.display='none';
+    }
+    
+      
+   });
+});
+</script>
+
+<script>/*
+$(document).ready(function(){
+  map.on('dragend',function(e){
+  //alert(map.getCenter());
+  alert(" East:"+map.getBounds().getEast()+" West:"+map.getBounds().getWest()+" North:"+map.getBounds().getNorth()+" South:"+map.getBounds().getSouth());
+});
+});
+*/
 
 </script>
 

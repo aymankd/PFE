@@ -75,6 +75,8 @@ $img=array();
 
 if(isset($_POST['EnrFrm']))
 {
+	$region=$_POST['Select1'];
+	$province=$_POST['Select2'];
 	$AccType=$_POST['rad1'];
 	$colloc=$_POST['radColloc'];
 	$LogeType=$_POST['logetype'];
@@ -290,9 +292,9 @@ if(isset($_POST['EnrFrm']))
 				$datetoreq = $datenow->format('Y-m-d');
 				//creation logement [creation Studio || Apparetement()],creation images,creation file
 				$Forseatch=metaphone($nomL).' '.metaphone($Desc).' '.metaphone($adresseL);
-				$req = "INSERT INTO `logement`(`CodeP`, `nom`, `adress`, `description`, `reglement`,`prix`,`superficie`,`collocation`,`pour_etudiant`,`etabe_proche`,`SL_adr_nom`, `type`, `status`, `date`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,'valide',?)";
+				$req = "INSERT INTO `logement`(`CodeP`, `nom`, `adress`, `description`, `reglement`,`prix`,`superficie`,`collocation`,`pour_etudiant`,`etabe_proche`,`SL_adr_nom`, `type`, `status`, `date`,`region`,`province-prefecture`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,'valide',?,?,?)";
 			    $statement=$conn->prepare($req);
-			    $statement->bind_param("issssdissssss",$CodeU,$nomL,$adresseL,$Desc,$reglement,$prix,$sprfc,$colloc,$pour_etu,$etab,$Forseatch,$LogeType,$datetoreq);
+			    $statement->bind_param("issssdissssssss",$CodeU,$nomL,$adresseL,$Desc,$reglement,$prix,$sprfc,$colloc,$pour_etu,$etab,$Forseatch,$LogeType,$datetoreq,$region,$province);
 			    $statement->execute();
 				$reqI = "SELECT CodeL FROM logement where nom=? ";
 			    $statementI=$conn->prepare($reqI);
@@ -375,6 +377,57 @@ if(isset($_POST['EnrFrm']))
 			}
 
 }
+$province_options="<option selected disabled>choisissez une région d'abbord</option>";
+$region_options="<option selected disabled>Choisissez votre région</option>";
+$RSK="";
+$CS="";
+$MS="";
+$TTA="";
+$region_codes=array();
+$reqRO = "SELECT * FROM regions ";
+$statementRO=$conn->prepare($reqRO);
+$statementRO->execute();
+$resRO=$statementRO->get_result();
+while ( ($rowRO = mysqli_fetch_array($resRO))) 
+{
+  
+  //$region_options.="<option value='".$rowRO['Nom_Reg']."'>".$rowRO['Nom_Reg']."</option>";
+  $region_options.='<option value="'.$rowRO['Nom_Reg'].'">'.$rowRO['Nom_Reg'].'</option>';
+  array_push($region_codes,array($rowRO['id_Reg'],$rowRO['Nom_Reg']));
+}
+
+for($i=0;$i<sizeof($region_codes);$i++)
+{
+  $id_Reg=$region_codes[$i][0];
+  $Nom_Reg=$region_codes[$i][1];
+  $reqRO = "SELECT * FROM provinces where id_Reg='$id_Reg'";
+  $statementRO=$conn->prepare($reqRO);
+  $statementRO->execute();
+  $resRO=$statementRO->get_result();
+  while ( ($rowRO = mysqli_fetch_array($resRO))) 
+   {
+
+    
+      if($Nom_Reg=="Rabat-Salé-Kénitra")
+       {
+        $RSK.="<option value='".$rowRO['Nom_Pro']."'>".$rowRO['Nom_Pro']."</option>";
+       }
+      else if($Nom_Reg=="Casablanca-Settat")
+       {
+        $CS.="<option value='".$rowRO['Nom_Pro']."'>".$rowRO['Nom_Pro']."</option>";
+       }  
+      else if($Nom_Reg=="Marrakech-Safi")
+       {
+        $MS.="<option value='".$rowRO['Nom_Pro']."'>".$rowRO['Nom_Pro']."</option>";
+       }  
+      else if($Nom_Reg=="Tanger-Tétouan-Al Hoceïma")
+       {
+        
+        $TTA.="<option value='".$rowRO['Nom_Pro']."'>".$rowRO['Nom_Pro']."</option>";
+       } 
+   }
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -553,14 +606,14 @@ if(isset($_POST['EnrFrm']))
 							<div class="form-group row">
 							<div class="col-sm-9">
 							<label for="exampleInputUsername2" class="col-sm-3 col-form-label"><i class="fas fa-user"></i>  Nom</label>
-								<input type="text" class="form-control" name="nomP" id="exampleInputUsername2" pattern="[A-Za-z ]+" placeholder="Nom">
+								<input type="text" class="form-control" name="nomP" id="exampleInputUsername2"  placeholder="Nom">
 							</div>
 							</div>
 						
 							<div class="form-group row">
 							<div class="col-sm-9">
 							<label for="exampleInputEmail2" class="col-sm-3 col-form-label"> <i class="fas fa-user"></i>  Prenom</label>
-								<input type="text" class="form-control" name="PrenomP" id="exampleInputEmail2" pattern="[A-Za-z ]" placeholder="Prenom">
+								<input type="text" class="form-control" name="PrenomP" id="exampleInputEmail2"  placeholder="Prenom">
 							</div>
 							</div>
 
@@ -568,7 +621,7 @@ if(isset($_POST['EnrFrm']))
 							<div class="col-sm-9">
 							<label for="exampleInputMobile" class="col-sm-3 col-form-label"><i class="fas fa-fingerprint"></i>  CIN</label>
 
-								<input  type="text" class="form-control" name="CIN" pattern="[A-Za-z0-9 ]" id="exampleInputMobile" placeholder="CIN">
+								<input  type="text" class="form-control" name="CIN"  id="exampleInputMobile" placeholder="CIN">
 							</div>
 							</div>
 
@@ -576,7 +629,7 @@ if(isset($_POST['EnrFrm']))
 							<div class="col-sm-9">
 							<label for="exampleInputPassword2" class="col-sm-3 col-form-label"><i class="fas fa-phone"></i>  Tel</label>
 
-								<input type="text" class="form-control" name="Tel" pattern="[0-9]" id="exampleInputPassword2" placeholder="Tel">
+								<input type="text" class="form-control" name="Tel"  id="exampleInputPassword2" placeholder="Tel">
 							</div>
 							</div>
 
@@ -584,7 +637,7 @@ if(isset($_POST['EnrFrm']))
 								<div class="col-sm-9">
 								<label for="exampleInputPassword2" class="col-sm-3 col-form-label"><i class="fas fa-map-marker-alt"></i>  Adresse</label>
 
-								<input type="text" class="form-control" pattern="[A-Za-z0-9 ]" name="Adr" id="exampleInputPassword2" placeholder="Adresse">
+								<input type="text" class="form-control"  name="Adr" id="exampleInputPassword2" placeholder="Adresse">
 								</div>
 							</div>
 
@@ -601,7 +654,7 @@ if(isset($_POST['EnrFrm']))
 							<div class="form-group row" >
 								<div class="col-sm-9">
 								<label for="exampleInputUsername2" class="col-sm-3 col-form-label"><i class="fas fa-user"></i>  Username</label>
-								<input type="text" class="form-control" name="Username" pattern="[A-Za-z0-9 ]" id="exampleInputUsername2" placeholder="Username">
+								<input type="text" class="form-control" name="Username"  id="exampleInputUsername2" placeholder="Username">
 								</div>
 							</div>
 						</div>
@@ -641,28 +694,28 @@ if(isset($_POST['EnrFrm']))
 							<div class="form-group row">
 							<div class="col-sm-9">
 							<label for="exampleInputEmail2" class="col-sm-3 col-form-label"><i class="fas fa-user"></i>  Nom</label><br>
-								<input type="text" class="form-control" name="nomL" id="exampleInputEmail2" pattern="[A-Za-z ]" placeholder="Nom">
+								<input type="text" class="form-control" name="nomL" id="exampleInputEmail2"  placeholder="Nom">
 							</div>
 							</div>
 
 							<div class="form-group row">
 							<div class="col-sm-9">
 							<label for="exampleTextarea1" class="col-sm-3 col-form-label"><i class="fas fa-comment"></i>  Description</label><br>
-								<textarea class="form-control" name="Desc" pattern="[A-Za-z0-9 ]" id="exampleTextarea1" rows="4"></textarea>
+								<textarea class="form-control" name="Desc"  id="exampleTextarea1" rows="4"></textarea>
 							</div>
 							</div>
 
 							<div class="form-group row">
 							<div class="col-sm-9">
 							<label for="exampleInputEmail2" class="col-sm-3 col-form-label"><i class="fas fa-tag"></i> Prix</label><br>
-								<input type="text" class="form-control" name="prixL" pattern="[0-9]" id="exampleInputEmail2" placeholder="Prix">
+								<input type="text" class="form-control" name="prixL"  id="exampleInputEmail2" placeholder="Prix">
 							</div>
 							</div>
 
 							<div class="form-group row">
 							<div class="col-sm-9">
 							<label for="exampleInputEmail2" class="col-sm-3 col-form-label"><i class="fas fa-user"></i>  Superficie</label><br>
-								<input type="text" class="form-control" name="sprfc" pattern="[0-9]" id="exampleInputEmail2" placeholder="sprfc">
+								<input type="text" class="form-control" name="sprfc"  id="exampleInputEmail2" placeholder="sprfc">
 							</div>
 							</div>
 
@@ -785,6 +838,27 @@ if(isset($_POST['EnrFrm']))
 									<input type="text" class="form-control" name="AdrLo" id="adresse "  placeholder="adresse ">
 								</div>
 							</div>
+
+
+                            <div class="form-group row">
+								<div class="col-sm-9">
+								<label for="exampleInputPassword2" class="col-sm-3 col-form-label"><i class="fas fa-map-marker-alt"></i>  Région </label>
+							     	<select class="form-control" name="Select1" id="Select_Region">
+                                       <?=$region_options?>
+                                    </select>
+								</div>
+							</div>
+
+
+							<div class="form-group row">
+								<div class="col-sm-9">
+								<label for="exampleInputPassword2" class="col-sm-3 col-form-label"><i class="fas fa-map-marker-alt"></i>  Province/Prefecture </label>
+								 <select class="form-control"  name="Select2" id="Select_Province">
+                                    <?=$province_options?>
+                                 </select>
+								</div>
+							</div>
+
 
 							<div class="form-group row">
 								<div class="col-sm-9">
@@ -1015,6 +1089,72 @@ $(document).ready(function(){
 			
 		});
 });	*/
+</script>
+
+<script>
+  var CS="<?php echo "<option selected disabled>choisissez une province ou prefecture</option>".$CS; ?>";
+  var MS="<?php echo "<option selected disabled>choisissez une province ou prefecture</option>".$MS; ?>";
+  var RSK="<?php echo "<option selected disabled>choisissez une province ou prefecture</option>".$RSK; ?>";
+  var TTA="<?php echo "<option selected disabled>choisissez une province ou prefecture</option>".$TTA; ?>";
+  
+  var valSelect;
+  var region;
+$(document).ready(function(){
+/*
+ if(region=="Rabat-Salé-Kénitra")
+  {       
+    $('#Select_Province').html(RSK);  
+  }
+  else if(region=="Casablanca-Settat")
+  {
+   $('#Select_Province').html(CS); 
+  }  
+  else if(region=="Marrakech-Safi")
+  {
+    $('#Select_Province').html(MS); 
+  }  
+  else if(region=="Tanger-Tétouan-Al Hoceïma")
+  {
+    $('#Select_Province').html(TTA); 
+  }*/
+
+  
+
+  
+  
+  
+  
+  $('#Select_Region').change(function(){
+	
+    valSelect=$(this).val();
+
+      
+      if(valSelect=="Rabat-Salé-Kénitra")
+       {
+         $('#Select_Province').html(RSK);  
+       }
+      else if(valSelect=="Casablanca-Settat")
+       {
+        $('#Select_Province').html(CS); 
+       }  
+      else if(valSelect=="Marrakech-Safi")
+       {
+        $('#Select_Province').html(MS); 
+       }  
+      else if(valSelect=="Tanger-Tétouan-Al Hoceïma")
+       {
+        $('#Select_Province').html(TTA); 
+       }    
+      else
+      {
+        $('#Select_Province').html("<option>Provinces non disponibles!!</option>");
+      }
+   
+
+    
+      
+   });
+});
 </script>
 
 

@@ -18,13 +18,15 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 //recuperation du code du logement
-$act='no';
+$act="no";
 $CodeL=$_GET["smr"];
 if(isset($_GET["act"]))
 $act=$_GET["act"];
 ////////////////System de vues////////////
-$datenow = new DateTime(date('Y-m-d'));
-$dateNow = $datenow->format('Y-m-d');
+$datenow = new DateTime();
+$dateNow=$datenow->getTimestamp();
+/*$datenow = new DateTime(date('Y-m-d'));
+$dateNow = $datenow->format('Y-m-d');*/
 
 $reqV = "INSERT INTO `log_vues`(`idL`, `date`) VALUES (?,?)";
 $statementV=$conn->prepare($reqV);
@@ -153,6 +155,9 @@ $rowP=$resP->fetch_assoc();
 
 $Pnom=$rowP["nom"];
 $Pprenom=$rowP["prenom"];
+$numeroP=$rowP['tel'];
+$numeroP_full=$numeroP;
+$numeroP=substr($numeroP, 0, 3)."*******";
 
 
 $reqP="SELECT * from utilisateur where CodeU=?";
@@ -162,6 +167,21 @@ $statementP->execute();
 $resP=$statementP->get_result();
 $rowP=$resP->fetch_assoc();
 $LU=$rowP["username"];
+$emailP=$rowP['email'];
+$email_full=$emailP;
+$emailP=substr($emailP, 0, 3)."*******";
+
+$srcP="";
+if($rowP['imageP']!=NULL)
+      {
+        $srcP="profilpic.php?UN=$LU";
+        
+      }
+    else
+      {
+        $srcP="../../Resourse/imgs/ProfileHolder.jpg";
+       
+      }
 
 //Selection des 4 logements similaires
 $srcC="";
@@ -1116,6 +1136,7 @@ else if($type=="studio")
 $msg = "";
 $userCode = $_SESSION['usercode'];
 
+
 //checking if user has rated this article
 $rt1="";
 $rt2="";
@@ -1693,6 +1714,155 @@ if(($rowSR=$resSR->fetch_assoc()))
      } 
   }
 
+
+
+  
+  $liste_locat="";
+  $chatboxs="";
+  $openclosejs=" checked = null;";
+  $ScriptMsg="";
+  $UISc='setInterval(function() {
+   showdata="";';
+   $jsScript="";
+
+   $i=1;
+   
+  $reqSRS="SELECT *  from `liste_locataire` where CodeL=? ";
+  $statementSRS=$conn->prepare($reqSRS);
+  $statementSRS->bind_param("i",$CodeL);
+  $statementSRS->execute();
+  $resSRS=$statementSRS->get_result();
+  $users_found=$resSRS->num_rows;
+  while(($rowSRS=mysqli_fetch_array($resSRS)))
+
+  {
+   
+   $CodeSRSU=$rowSRS['Code_Locataire'];
+   $reqSRS="SELECT *  from `utilisateur` where CodeU=? ";
+   $statementSRS=$conn->prepare($reqSRS);
+   $statementSRS->bind_param("i",$CodeSRSU);
+   $statementSRS->execute();
+   $resSRS1=$statementSRS->get_result();
+   $rowSRS1=$resSRS1->fetch_assoc();
+   $UserSRS1=$rowSRS1['username'];
+   
+   if($rowSRS1['imageP']!=NULL)
+      {
+        $srcSRS1="profilpic.php?UN=$UserSRS1";
+        $ProfilePSRS1="<img src='".$srcSRS1."' class='img img-rounded img-fluid'/>";
+      }
+    else
+      {
+        $srcSRS1="../../Resourse/imgs/ProfileHolder.jpg";
+        $ProfilePSRS1="<img src='".$srcSRS1."' class='img img-rounded img-fluid'/>";
+      }
+
+     $liste_locat.= "<li class='user-item'>
+     <span class='avatar'>
+         $ProfilePSRS1
+     </span>
+     <h5>".$UserSRS1."</h5>
+     <h6>".$UserSRS1."</h6>";
+     if($rowSRS1['CodeU']!=$userCode)
+     {
+      $liste_locat.=  "<a  class='btn-fllw' id='a".$CodeSRSU."' >Contacter</a>
+        </li>";
+      }
+      else{
+         $liste_locat.=  "</li>";
+      }
+
+    
+
+   $chatboxs=$chatboxs.
+   '
+   <section class="avenue-messenger" id="Chat'.$CodeSRSU.'" style="display:none">
+   <div class="menu">
+      <div class="button" id="CloseChat'.$CodeSRSU.'" title="End Chat">&#10005;</div> 
+   </div>
+   <div class="agent-face">
+      <div class="half">
+      <img class="agent circle" src="'.$srcSRS1.'" >
+      </div>
+   </div>
+   <div class="chat" >
+      <div class="chat-title">
+      <h1>'.$UserSRS1.'
+      </div>
+      <div class="messages" >
+      <div id="'.$CodeSRSU.'" class="messages-content mCustomScrollbar _mCS_1 mCS_no_scrollbar" >
+ 
+      </div>
+      </div>
+      <div class="message-box">
+         <textarea type="text" id="input'.$CodeSRSU.'" class="message-input" placeholder="Type message..."></textarea>
+         <button type="submit" id="send'.$CodeSRSU.'" class="message-submit">Send</button>
+      </div>
+   </div>
+ </section>
+   ';
+   $openclosejs = $openclosejs.
+  "
+  $('#a".$CodeSRSU."').click(function(){
+    if(checked!=null)
+      checked.style='display:none';
+      document.getElementById('Chat').style.display='none';
+      document.getElementById('Chat".$CodeSRSU."').style='display:block';
+      checked=document.getElementById('Chat".$CodeSRSU."');
+      updateScrollbar();
+    });
+    $('#CloseChat".$CodeSRSU."').click(function(){
+      document.getElementById('Chat".$CodeSRSU."').style='display:none';
+      checked=null;
+    });
+  ";
+
+  $ScriptMsg = $ScriptMsg.
+  '
+
+  $("#send'.$CodeSRSU.'").click(function() {
+    $msgtosend=$("#input'.$CodeSRSU.'").val();
+    insertMessage("'.$CodeSRSU.'");
+    $.ajax({  
+          url:"chatbox.php",  
+          method:"GET",  
+          data:{message:$msgtosend,sender:'.$userCode.',reciever:'.$CodeSRSU.'}
+          });
+ });
+
+  ';
+
+  $i=$i+1;
+  $mCSB_container="'#mCSB_".$i."_container'";
+  
+  
+  $UISc=$UISc.
+  '
+  $.ajax({  
+    url:"chatmsg.php",  
+    method:"GET",  
+    data:{sender:'.$userCode.',reciever:'.$CodeSRSU.'},  
+    success:function(data){
+      if(showdata!=data)
+      {
+        showdata=data;
+        $('.$mCSB_container.').html(data);
+      }
+    }  
+  });
+  ';
+
+
+
+  }
+
+  $Msgclass='"message message-personal"';
+
+
+$UISc = $UISc.'updateScrollbar(); 
+}, 1000);';
+$jsScript = "<script>".$openclosejs.$ScriptMsg."</script>";
+
 ?>
 
 <!DOCTYPE HTML>
@@ -1832,11 +2002,26 @@ if(($rowSR=$resSR->fetch_assoc()))
                         </div> 
 
                         <div class="btn-dit-list clearfix">
-                           <div class="left-dit-p">
+                           <div style="margin-left: 1;margin-right: 30%;" class="left-dit-p">
                               <div class="prod-btn">
                                  <?=$rt2?>
                                  <a id="like-btn"><i class="far fa-heart ff"></i> save this</a>
                                  <p><?=$nbrsaves?> personnes ont enregistrer cet logement </p>
+                                <!-- <a style="margin-left:50px">Liste des locataires</a>-->
+                                 
+                                 <div class="dropdown" id="liste_drop_div">
+                                          <a style="margin-left: 110%;margin-top: -12%;" class="btn btn-secondary dropdown-toggle" type="button" id="Type_drop_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          Liste des locataires
+                                          </a>
+                                          <div style='margin-left: 110%;margin-top:-4% ;width:400px;'id='liste_drop'class='dropdown-menu' aria-labelledby='price_drop_button'>
+                                             <div class='cage'>
+                                               <ul class='user-list'>
+                                                 <?=$liste_locat?>
+                                                </ul> 
+                                             <div>
+
+                                           </div>
+									      </div>
                               </div>
                               <div id="RtBlock">
                                 <div>
@@ -1852,7 +2037,7 @@ if(($rowSR=$resSR->fetch_assoc()))
                         </div>
                      </div>
                      <div class="description-box">
-                        <div class="dex-a">
+                        <div style="margin-top:11%" class="dex-a">
                            <h4>Description</h4>
                            <p>
                            <?=$desc?>
@@ -2043,8 +2228,23 @@ if(($rowSR=$resSR->fetch_assoc()))
                </div>
                <div class="col-md-3 col-sm-12">
                   <div id="price-box" class="price-box-right">
-                     <h4>Prix</h4>
-                     <h3><?=$prix?> Dh</h3><hr>
+                  <div class="lheaaaad" style="margin-right: 30%;">
+                  <div class="media">
+  <img class="mr-3 pic" src="<?=$srcP?>" alt="Generic placeholder image">
+
+</div>
+                  <h3  id="namednem"><?=$LU?></h3>
+                  </div>
+                  <div class="btnsss">
+                  <button type="button" id="num_btn" class="btn btn-primary hided" ><p style=" white-space:nowrap; width:40px;height:20px; overflow:hidden;text-overflow:ellipsis;"><?=$numeroP?></p></button>
+                  <button type="button" id="show_num" class="btn btn-primary showbtn">Afficher le numéro</button><br></br>
+                  <button type="button" id="email_btn" class="btn btn-primary hided"><p style=" white-space:nowrap; width:40px;height:20px; overflow:hidden;text-overflow:ellipsis;"><?=$emailP?></p></button>
+                  <button type="button" id="show_email" class="btn btn-primary showbtn">Afficher l'émail</button>
+               </div>
+               <hr>
+                     <div class="prixdh">
+                     <h4 style="margin-left: 4%;">Prix</h4>
+                     <h3 style="margin-left: 24%;"><?=$prix?> Dh</h3> </div>
                   
                      <a class="badge badge-primary ChatPro">Contacter Hote</a>
                   </div>
@@ -2174,13 +2374,13 @@ if(($rowSR=$resSR->fetch_assoc()))
          </div>
          <div class="agent-face">
             <div class="half">
-            <img class="agent circle" src="Proprofile.php?id=<?=$Codepro ?>" alt="profile">
+            <img class="agent circle" src='<?=$srcP?>' >
             </div>
          </div>
          <div class="chat" >
             <div class="chat-title">
             <h1><?=$Pnom?> <?=$Pprenom?> (<?=$LU?>)</h1>
-            <h2>RE/MAX</h2>
+           
             </div>
             <div class="messages" >
             <div class="messages-content mCustomScrollbar _mCS_1 mCS_no_scrollbar" >
@@ -2188,8 +2388,8 @@ if(($rowSR=$resSR->fetch_assoc()))
             </div>
             </div>
             <div class="message-box">
-               <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
-               <button type="submit" id="send" class="message-submit">Send</button>
+               <textarea id="msg_input1" type="text" class="message-input" placeholder="Type message..."></textarea>
+               <button type="submit" id="msg_send1" class="message-submit">Send</button>
             </div>
          </div>
 
@@ -2197,7 +2397,7 @@ if(($rowSR=$resSR->fetch_assoc()))
 
       
 
-
+      <?=$chatboxs; ?>
    </body>
    
  
@@ -2217,7 +2417,48 @@ if(($rowSR=$resSR->fetch_assoc()))
       <!--custom js--> 
       <script src="../../Resourse/js3/custom.js"></script>
 
-      
+      <script>
+    var $MsgCont = $('.messages-content');
+    function updateScrollbar() {
+      $MsgCont.mCustomScrollbar('scrollTo', 'bottom');
+      }
+
+    function insertMessage(messages) {
+      var varI='#input'+messages;
+      msg = $(varI).val();
+        if(msg!=null){
+          $('<div class="message message-personal" >' + msg + '</div>').appendTo('#'+messages+' .mCSB_container');
+          $(varI).val(null);
+          updateScrollbar();
+          msg=null;
+        }
+      }
+
+
+
+      <?=$UISc; ?>
+      /* 
+            setInterval(function() {
+      showdata="";
+      $.ajax({  
+                url:"chatmsg.php",  
+                method:"GET",  
+                data:{sender,reciever:},  
+                success:function(data){
+                   if(showdata!=data)
+                   {
+                     showdata=data;
+                     $('.mCSB_container').html(data);
+                   }
+                }  
+           });
+                 updateScrollbar(); 
+   }, 1000);
+      */
+
+    
+    </script>
+    <?=$jsScript; ?>   
      
 
 <script>
@@ -2241,8 +2482,8 @@ i = 0;
    updateScrollbar();
    }
 
-   $('.message-submit').click(function() {
-      msg = $('.message-input').val();
+   $('#msg_send1').click(function() {
+      msg = $('#msg_input1').val();
       if(msg!="")
       {
       insertMessage();
@@ -2282,7 +2523,7 @@ i = 0;
                    if(showdata!=data)
                    {
                      showdata=data;
-                     $('.mCSB_container').html(data);
+                     $('#mCSB_1_container').html(data);
                    }
                 }  
            });
@@ -2794,6 +3035,56 @@ $(window).on('resize', function() {
 </script>
 
 
+<script>
+var act='<?=$act?>';
+$(document).ready(function(){ 
+
+   
+  $('#show_num').click(function(){
+     document.getElementById('show_num').style.display='none';
+         $('#num_btn').html("<?=$numeroP_full?>");
+   
+             $('#num_btn').css("margin-left","15%");
+      });
+      $('#show_email').click(function(){
+         document.getElementById('show_email').style.display='none'; 
+   $('#email_btn').html("<?=$email_full?>");
+      });
+  if(act=="show_email")
+  {
+   document.getElementById('show_email').style.display='none'; 
+   $('#email_btn').html("<?=$email_full?>");
+   //$('#email_btn').attr('value', '<?=$email_full?>');
+   
+  }
+  if(act=="show_num")
+  {
+   document.getElementById('show_num').style.display='none'; 
+   $('#num_btn').html("<?=$numeroP_full?>");
+   
+   $('#num_btn').css("margin-left","15%");
+   
+   
+  }  
 
 
+
+});
+</script>
+
+
+<script>
+var users_found=<?=$users_found?>;
+$(document).ready(function(){
+
+    if(users_found==0)
+    {
+      $('#Type_drop_button').click(function(){
+         $("#Type_drop_button").removeAttr("data-toggle");
+ alert("Liste des locataires vide");
+});
+    }
+ });
+
+</script>
 </html>

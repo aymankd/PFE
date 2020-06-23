@@ -153,6 +153,9 @@ $rowP=$resP->fetch_assoc();
 
 $Pnom=$rowP["nom"];
 $Pprenom=$rowP["prenom"];
+$numeroP=$rowP['tel'];
+$numeroP=substr($numeroP, 0, 3)."*******";
+
 
 
 $reqP="SELECT * from utilisateur where CodeU=?";
@@ -162,6 +165,21 @@ $statementP->execute();
 $resP=$statementP->get_result();
 $rowP=$resP->fetch_assoc();
 $LU=$rowP["username"];
+$emailP=$rowP['email'];
+$emailP=substr($emailP, 0, 3)."*******";
+
+
+$srcP="";
+if($rowP['imageP']!=NULL)
+      {
+        $srcP="profilpic.php?UN=$LU";
+        
+      }
+    else
+      {
+        $srcP="../../Resourse/imgs/ProfileHolder.jpg";
+       
+      }
 //Selection des 4 logements similaires
 $srcC="";
 $CodeO1=0;
@@ -1686,9 +1704,13 @@ else{
                            <div class="left-dit-p">
 
                               <div class="prod-btn"> 
-                                 <a href="loginRT.php?smr=<?=$CodeL?>$act='EVL'"><i class="far fa-star"></i> Évaluer</a>                               
+                                 <a href="loginRT.php?smr=<?=$CodeL?>&act='EVL'"><i class="far fa-star"></i> Évaluer</a>                               
                                  <a href="loginSV.php?smr=<?=$CodeL?>&act='ENR'"><i class="far fa-heart"></i> Enregister</a>                               
                                  <p><?=$nbrsaves?> personnes ont enregistrer cet logement </p>
+
+                                 <a href="loginRT.php?smr=<?=$CodeL?>&act=random" style="margin-left: 80%;margin-top: -10%;" class="btn btn-secondary " type="button" id="Type_drop_button" aria-expanded="false">
+                                          Liste des locataires
+                                          </a>
                               </div>                             
                            </div>
                         </div>
@@ -1891,23 +1913,23 @@ else{
                </div>
                <div class="col-md-3 col-sm-12">
                   <div id="price-box" class="price-box-right">
-                  <div class="lheaaaad">
+                  <div class="lheaaaad" style="margin-right: 30%;">
                   <div class="media">
-  <img class="mr-3 pic" src="../../Resourse/images/dashboard/face29.png" alt="Generic placeholder image">
+  <img class="mr-3 pic" src="<?=$srcP?>" alt="Generic placeholder image">
 
 </div>
-                  <h3 id="namednem">Username</h3>
+                  <h3 style="margin-left: 0.1%;" id="namednem"><?=$LU?></h3>
                   </div>
                   <div class="btnsss">
-                  <button type="button" class="btn btn-primary hided">06977</button>
-                  <button type="button" class="btn btn-primary showbtn">Afficher le numéro</button><br></br>
-                  <button type="button" class="btn btn-primary hided">user@</button>
-                  <button type="button" class="btn btn-primary showbtn">Afficher l'émail</button>
+                  <button type="button" class="btn btn-primary hided" ><p style=" white-space:nowrap; width:40px;height:20px; overflow:hidden;text-overflow:ellipsis;"><?=$numeroP?></p></button>
+                  <button type="button" id="show_num" class="btn btn-primary showbtn">Afficher le numéro</button><br></br>
+                  <button type="button" class="btn btn-primary hided"><p style=" white-space:nowrap; width:40px;height:20px; overflow:hidden;text-overflow:ellipsis;"><?=$emailP?></p></button>
+                  <button type="button" id="show_email" class="btn btn-primary showbtn">Afficher l'émail</button>
                </div>
                <hr>
                      <div class="prixdh">
-                     <h4>Prix</h4>
-                     <h3><?=$prix?> Dh</h3> </div>
+                     <h4 style="margin-left: 4%;">Prix</h4>
+                     <h3 style="margin-left: 24%;"><?=$prix?> Dh</h3> </div>
                      
                      <a href="loginRT.php?smr=<?=$CodeL?>&act=CH" class="badge badge-primary">Contacter Hote</a>
                   </div>
@@ -2137,6 +2159,12 @@ function initMap(){
 <script>
    var nbr_cmt=<?=$nbrCMT?>;
    $(document).ready(function(){ 
+      $('#show_num').click(function(){
+         window.location.href='loginRT.php?smr=<?=$CodeL?>&act=show_num';
+      });
+      $('#show_email').click(function(){
+         window.location.href='loginRT.php?smr=<?=$CodeL?>&act=show_email';
+      });
    if(nbr_cmt==0)
     {
       document.getElementById('comments').style.display='block'; 

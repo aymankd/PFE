@@ -19,13 +19,88 @@ if ($conn->connect_error) {
 
 $Srech=metaphone($_GET['rech']);
 //$Srech="'%".$Srech."%'";
+$LGTP="";
+$RCMI="";
+$RCMA="";
+$region="";
+$province="";
 
+if(isset($_GET['LGTP']))
+{
+$LGTP=$_GET['LGTP'];
+}
+else{
+$LGTP="OptT";
+}
+
+if(isset($_GET['RCMI']))
+{
+$RCMI=$_GET['RCMI'];
+}
+else{
+$RCMI="0";
+}
+
+if(isset($_GET['RCMA']))
+{
+$RCMA=$_GET['RCMA'];
+}
+else{
+$RCMA="3500";
+}
+
+if(isset($_GET['region']))
+{
+$region=$_GET['region'];
+}
+else{
+$region="ALL";
+}
+
+
+if(isset($_GET['province']))
+{
+$province=$_GET['province'];
+}
+else{
+$province="ALL";
+}
+
+//echo $LGTP.",".$RCMI.",".$RCMA.",".$region.",".$province;
 
 
 $result="";
-$reqL = "SELECT * from logement where (status='valide') and (SL_adr_nom like '%$Srech%') ";
+$markers=array();
+$reqL = "SELECT * from logement where (status='valide') and (SL_adr_nom like '%$Srech%')";
+if($region!="ALL")
+{
+$reqL.= "and (`region`='$region') ";
+}
+if($province!="ALL")
+{
+$reqL.="and (`province-prefecture`='$province')";
+}
+if($RCMA!="3500")
+{
+$RCMAD=floatval($RCMA);
+$RCMID=floatval($RCMI);
+$reqL.="and (prix between $RCMID and $RCMAD)";
+}
+else if($RCMA=="3500")
+{
+$RCMID=3500;
+$reqL.="and (prix > $RCMID or prix < $RCMID)";
+}
+
+if($LGTP=="OptS"){
+$reqL.="and (type='Studio')";
+}
+else if($LGTP=="OptA"){
+$reqL.="and (type='Appartement')";
+}
+
 $statementL=$conn->prepare($reqL);
-//$statement->bind_param("s",$Srech);
+//$statementL->bind_param("ss",$region,$province);
 $statementL->execute();
 $resL=$statementL->get_result();
 while ($rowL = mysqli_fetch_array($resL)) 
@@ -39,6 +114,8 @@ $description=substr($description,0,150)."...";
 $price=$rowL['prix'];
 $sup=$rowL['superficie'];
 $prix=$rowL['prix'];
+$lat=$rowL['lat'];
+$lng=$rowL['lng'];
 
 
 
@@ -82,8 +159,10 @@ if($LogeType=="Appartement")
 
 
 
-
-     $result.='  <article>
+  $Aimg="<img id='smrP".$CodeL."' src='$src' class='act_img ssss'>";
+  array_push($markers,array($CodeL,$nom,$LogeType,$description,$prix,$lat,$lng,$Aimg,$adress));
+     $result.='  <article id="card-'.$CodeL.'" class="displayed-item" >
+     <a class="fill-div" href="SeeMore.php?smr='.$CodeL.'" >
   <!--Slidshow-->
     <div id="demo'.$CodeL.'" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
@@ -92,15 +171,10 @@ if($LogeType=="Appartement")
         <li data-target="#demo'.$CodeL.'" data-slide-to="1"></li>
         <li data-target="#demo'.$CodeL.'" data-slide-to="2"></li>
       </ul>
-
       <!-- The slideshow -->
       <div class="carousel-inner">
-
       '.$img.'
-
-
       </div>
-
       <!-- Left and right controls -->
       <a class="carousel-control-prev" href="#demo'.$CodeL.'" data-slide="prev">
         <span class="carousel-control-prev-icon"></span>
@@ -109,17 +183,19 @@ if($LogeType=="Appartement")
         <span class="carousel-control-next-icon"></span>
       </a>
     </div>
-
       <!--/slidshow-->
-    <div class="card-body">
+    <div  class="card-body">
+  
       <h5 class="card-title">'.$nom.'</h5>
       <p class="card-text"> <i class="fas fa-tags CA"></i>'.$prix.'Dh  &nbsp;<i class="fas fa-bed CA"></i> '.$rooms.'  &nbsp;  <i class="fas fa-male CA"></i> '.$nbrP.'  &nbsp; <i class="fas fa-warehouse CA"></i>'.$sup.'  m²</p>
-
       <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> '.$adress.' </p>
-        <br>
+        
       <p class="cpara">'.$description.'</p> <br>
-        <a href="SeeMore.php?smr='.$CodeL.'" class="btn btn-primary">Voir plus</a>
+     
+        <a href="SeeMore.php?smr='.$CodeL.'"  id="buttonnnn" class="btn btn-primary edited">Voir plus</a>
+        
     </div>
+    </a>
 </article>';
   
 
@@ -133,8 +209,9 @@ if($LogeType=="Appartement")
   $row=$res->fetch_assoc();
   $nbrP=$row['nbrP'];
   
-
- $result.='  <article>
+  $Aimg="<img id='smrP".$CodeL."' src='$src' class='act_img'>";
+  array_push($markers,array($CodeL,$nom,$LogeType,$description,$prix,$lat,$lng,$Aimg,$adress));
+ $result.='  <article id="card-'.$CodeL.'" class="displayed-item" >
   <!--Slidshow-->
     <div id="demo'.$CodeL.'" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
@@ -143,12 +220,10 @@ if($LogeType=="Appartement")
         <li data-target="#demo'.$CodeL.'" data-slide-to="1"></li>
         <li data-target="#demo'.$CodeL.'" data-slide-to="2"></li>
       </ul>
-
       <!-- The slideshow -->
-      <div class="carousel-inner">
+      <div class="carousel-inner" >
       '.$img.'
       </div>
-
       <!-- Left and right controls -->
       <a class="carousel-control-prev" href="#demo'.$CodeL.'" data-slide="prev">
         <span class="carousel-control-prev-icon"></span>
@@ -157,21 +232,70 @@ if($LogeType=="Appartement")
         <span class="carousel-control-next-icon"></span>
       </a>
     </div>
-
       <!--/slidshow-->
-    <div class="card-body">
+      <div id="card-'.$CodeL.'" class="card-body displayed-item">
+    <div class="hold">
       <h5 class="card-title">'.$nom.'</h5>
       <p class="card-text"> <i class="fas fa-tags CA"></i>'.$prix.'Dh  &nbsp;<i class="fas fa-male CA"></i> '.$nbrP.'  &nbsp; <i class="fas fa-warehouse CA"></i> '.$sup.'m²</p>
-
       <p class="card-text">  <i class="fas fa-map-marker-alt CA"></i> '.$adress.' </p>
         <br>
       <p class="cpara">'.$description.'</p> <br>
-      <a href="SeeMore.php?smr='.$CodeL.'" class="btn btn-primary">Voir plus</a>
+      </div>
+      <a href="SeeMore.php?smr='.$CodeL.'  " class="btn btn-primary edited">Voir plus</a>
     </div>
 </article>';
   
 }
 
+}
+$province_options="";
+$RSK="<option value='ALL'>Tous les provinces</option>";
+$CS="<option value='ALL'>Tous les provinces</option>";
+$MS="<option value='ALL'>Tous les provinces</option>";
+$TTA="<option value='ALL'>Tous les provinces</option>";
+$region_options="<option value='ALL'>Tous les régions</option>";
+$region_codes=array();
+$reqRO = "SELECT * FROM regions ";
+$statementRO=$conn->prepare($reqRO);
+$statementRO->execute();
+$resRO=$statementRO->get_result();
+while ( ($rowRO = mysqli_fetch_array($resRO))) 
+{
+
+$region_options.="<option value='".$rowRO['Nom_Reg']."'>".$rowRO['Nom_Reg']."</option>";
+array_push($region_codes,array($rowRO['id_Reg'],$rowRO['Nom_Reg']));
+}
+
+for($i=0;$i<sizeof($region_codes);$i++)
+{
+$id_Reg=$region_codes[$i][0];
+$Nom_Reg=$region_codes[$i][1];
+$reqRO = "SELECT * FROM provinces where id_Reg='$id_Reg'";
+$statementRO=$conn->prepare($reqRO);
+$statementRO->execute();
+$resRO=$statementRO->get_result();
+while ( ($rowRO = mysqli_fetch_array($resRO))) 
+ {
+
+  
+    if($Nom_Reg=="Rabat-Salé-Kénitra")
+     {
+      $RSK.="<option value='".$rowRO['Nom_Pro']."'>".$rowRO['Nom_Pro']."</option>";
+     }
+    else if($Nom_Reg=="Casablanca-Settat")
+     {
+      $CS.="<option value='".$rowRO['Nom_Pro']."'>".$rowRO['Nom_Pro']."</option>";
+     }  
+    else if($Nom_Reg=="Marrakech-Safi")
+     {
+      $MS.="<option value='".$rowRO['Nom_Pro']."'>".$rowRO['Nom_Pro']."</option>";
+     }  
+    else if($Nom_Reg=="Tanger-Tétouan-Al Hoceïma")
+     {
+      
+      $TTA.="<option value='".$rowRO['Nom_Pro']."'>".$rowRO['Nom_Pro']."</option>";
+     } 
+ }
 }
 
 ?>
@@ -210,6 +334,12 @@ if($LogeType=="Appartement")
 
 
 <link rel="shortcut icon" href="../../Resourse/images/favicon.png" />
+
+
+<!--leaflet css-->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+ integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+ crossorigin=""/>
 </head>
 <body>
 
@@ -221,13 +351,16 @@ if($LogeType=="Appartement")
         <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between">
         
           <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-              <a class="navbar-brand brand-logo" href="dash.html"><img src="../../Resourse/images/logo-1.png" alt="logo"/></a>
+              <a class="navbar-brand brand-logo" href="#"><img src="../../Resourse/images/logo-1.png" alt="logo"/></a>
           </div>
           <ul class="navbar-nav navbar-nav-right">
              
               <li class="nav-item nav-profile dropdown">
               <div class="rightSh">
-        
+          <a href="register.php" class="itemXE">Devenez hôte</a>
+          <a href="#" class="itemXE">Aide</a>
+          <a href="register.php" class="itemXE">Inscription</a>
+          <a href="login.php"  class="itemXE" >Connexion</a>
          
           </div>
                
@@ -432,13 +565,31 @@ if($LogeType=="Appartement")
                  <label for="radio-Lnon">NON</label>
                 </a>
                 <br>
-                <p id='titre_etable' class="mb-0 font-weight-medium float-left dropdown-header">proche de quelle etablisement</p> <br><br>
+                <p id='titre_etable' class="mb-0 font-weight-medium float-left dropdown-header">proche de quel etablisement</p> <br><br>
 
                 <a class="dropdown-item">
-                <span contentEditable="true" name='etable' id="etable" class="form-control"></span>
+                <span contentEditable="true" name='etable' id="etable" class="form-control" required></span>
                 </a>
                   
-                  
+                <p class="mb-0 font-weight-medium float-left dropdown-header">Région</p> <br><br>
+
+                <a class="dropdown-item">
+
+                  <select class="form-control" id="Select_Region">
+                    <?=$region_options?>
+                  </select>
+
+                </a>
+                <br>
+                <p id="Select_Province_ttl" class="mb-0 font-weight-medium float-left dropdown-header">Province/Préfecture</p> <br><br>
+                     
+                <a class="dropdown-item">
+                     
+                  <select class="form-control"  id="Select_Province">
+                    <?=$province_options?>
+                  </select>
+                </a>
+                <br>
               </div>
               <div class="footer">
                <button type="button" class="btn btn-dark">Fermer</button>
@@ -451,6 +602,13 @@ if($LogeType=="Appartement")
 
         </ul>
      
+        <li  class="nav-item">
+        <div id='map_cntrl'>
+         <img id='map_cntrl_map'  src="map(2).png">  
+         <p class="parag">Open map</p> 
+        </div>    
+       </li>
+
        <li id="Drp_Rch" class="nav-item">
       
          <button  id="rf" class="btn btn-info">Rechercher</button>       
@@ -466,9 +624,14 @@ if($LogeType=="Appartement")
 </div>
 
 
-<div class="grid" id="nC">
-  <?=$result ;?>
+<div id="CNTR" class="containerR">
+  <div class="grids grid" id="nC">
+    <?=$result ;?>
   </div>
+  <div class="map" id="map">
+
+  </div>
+</div>
 
 <!--Modal-->
 
@@ -578,10 +741,10 @@ if($LogeType=="Appartement")
                     <label for="CollocEtuMN">NON</label>
                   </a>
                   <br>
-                  <p id="etable_mdl_ttl" class="mb-0 font-weight-medium float-left dropdown-header">proche de quelle etablisement</p> <br><br>
+                  <p id="etable_mdl_ttl" class="mb-0 font-weight-medium float-left dropdown-header">proche de quel etablisement</p> <br><br>
 
                   <a class="dropdown-item">
-                   <span contentEditable="true" id="etable_mdl" name="etable_mdl" class="form-control"></span>
+                   <span contentEditable="true" id="etable_mdl" name="etable_mdl" class="form-control" required></span>
                    <br>
                   </a>
 
@@ -597,7 +760,6 @@ if($LogeType=="Appartement")
   </div>
 </div>
 </div>
-
 
 
 
@@ -660,16 +822,19 @@ if($LogeType=="Appartement")
 <script src="../../Resourse/vendors/base/vendor.bundle.base.js"></script>
   <script src="../../Resourse/js2/dashboard.js"></script>
 
+
+<!--MAP JavaScript-->   
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+ integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+ crossorigin=""></script>
  
-
-
-
-  
 </html>
 
 
-
-<script>  
+<script>   
+         var sliderMin=<?=$RCMI;?>;
+         var sliderMax=<?=$RCMA;?>;
+         var lgtp='<?=$LGTP;?>';
          var Min ; 
          var Max;
          var Nbr_pr;
@@ -679,8 +844,42 @@ if($LogeType=="Appartement")
          var colloc;
          var etu_prch;
          var etabli;
+         var region='<?=$region?>';
+         var province='<?=$province?>';
+
+         /*var regionSelect="";
+         var provinceSelect="";*/
+
+
+         var resultsss="non";
 $(document).ready(function(){  
-    $('#rf').click(function(){  
+$('.act_img').click(function() {
+
+alert(this.id);
+});
+           
+
+           $('#Imin').val(sliderMin);
+           $('#Imax').val(sliderMax);
+           $('#IminS').val(sliderMin);
+           $('#ImaxS').val(sliderMax);
+           if(lgtp=="OptT")
+            {
+              $("#radio-Oee").prop("checked", true);
+              $("#radio-OeeS").prop("checked", true);
+            }
+           else if(lgtp=="OptA")
+            {
+              $("#radio-fin").prop("checked", true);
+              $("#radio-finS").prop("checked", true);
+            }
+           else if(lgtp=="OptS")
+            {
+              $("#radio-Oe").prop("checked", true);
+              $("#radio-OeS").prop("checked", true);
+            }
+
+           $('#rf').click(function(){  
            Max = document.getElementById("Imax").value; 
            Min = document.getElementById("Imin").value; 
            Nbr_pr=document.querySelector('#NPM input[name="switch-two"]:checked').value;
@@ -689,6 +888,8 @@ $(document).ready(function(){
            srch=document.querySelector('#SR input[name="q"]').value;
            colloc=document.querySelector('#MrM input[name="switch-Collo"]:checked').value;
            etu_prch=document.querySelector('#MrM input[name="switch-Etu"]:checked').value;
+           province=$('#Select_Province').val();
+           region=$('#Select_Region').val();
           
          if(etu_prch!='non')
           {
@@ -710,10 +911,51 @@ $(document).ready(function(){
                     search:srch,
                     colloc:colloc,
                     etu_prch:etu_prch,
-                    etab:etabli
-                    },  
-              success:function(data){  
-                   $('#nC').html(data);  
+                    etab:etabli,
+                    region:region,
+                    province:province
+                    },
+              dataType : 'json',        
+              success:function(response){  
+                markers = response.markers;
+
+                for(i=0;i<markers_on_map.length;i++) {
+                   map.removeLayer(markers_on_map[i]);
+                   }  
+                   for(var i=0;i<markers.length;i++)
+                    {
+                      if(markers[i][6]!=null)
+                      { 
+                        codeLsss=markers[i][0];
+                       var icon = L.divIcon({
+                           className: 'custom-div-icon',
+                           html: "<button  id='MR"+markers[i][0]+"' class='marker-pin marker'> <i class='fas fa-home hm'></i> </button>"
+                            
+                       });
+                        var marker = L.marker([markers[i][5], markers[i][6]],{ icon: icon }).addTo(map);
+                        
+                        var popupContent ="<div  class='pop_img'>"+markers[i][7]+"<div class='pop_title'><h3>"+markers[i][1]+"</h3></div><div class='pop_adrs'><i class='fas fa-map-marker-alt CA'></i>"+markers[i][8]+"</div><div class='pop_prix'><i class='fas fa-tags CA'></i>"+markers[i][4]+" DH</div></div>";
+                         marker.bindPopup( popupContent);
+                        
+markers_on_map.push(marker);
+marker.bindTooltip(""+markers[i][4]+" DH", {className: 'price-tag'});
+                      
+                       }
+                    }
+                    map.on('popupopen', function() {  
+$('.act_img').click(function(e){
+ var clicked=this.id.replace("smrP","");
+ window.location.href="SeeMore.php?smr="+clicked;
+
+});
+});
+
+
+                  
+
+
+                   $('#nC').html(response.result);  
+                   resultsss=response.result;
 
                    if(Nbr_pr=='All')
                      $("#radio-OS").prop("checked", true);
@@ -749,42 +991,53 @@ $(document).ready(function(){
                    else if(TL_Type=='Apartement') 
                      $("#radio-finS").prop("checked", true);  
 
-                     if(colloc=='All')
-                     $("#CollocRadMA").prop("checked", true);
-                   else if(colloc=='oui') 
-                     $("#CollocRadMO").prop("checked", true); 
-                   else if(colloc=='non') 
-                     $("#CollocRadMN").prop("checked", true);
-
-                  
-                     
-
                      if(etu_prch=='All')
-                      {
-                       $("#CollocEtuMA").prop("checked", true);
-                       document.getElementById('etable_mdl').style.display='none';
-                       document.getElementById('etable_mdl_ttl').style.display='none';
-                      } 
-                     else if(etu_prch=='oui') 
-                      {
-                       $("#CollocEtuMO").prop("checked", true); 
-                       document.getElementById('etable_mdl').style.display='block';
-                       document.getElementById('etable_mdl_ttl').style.display='block';
-                      } 
-                   else if(etu_prch=='non') 
                     {
-                     $("#CollocEtuMN").prop("checked", true);
+                     $("#CollocEtuMA").prop("checked", true);
                      document.getElementById('etable_mdl').style.display='none';
-                       document.getElementById('etable_mdl_ttl').style.display='none';
+                     document.getElementById('etable_mdl_ttl').style.display='none';
+                    } 
+                   else if(etu_prch=='oui') 
+                    {
+                     $("#CollocEtuMO").prop("checked", true); 
+                     document.getElementById('etable_mdl').style.display='block';
+                     document.getElementById('etable_mdl_ttl').style.display='block';
+                    } 
+                 else if(etu_prch=='non') 
+                  {
+                   $("#CollocEtuMN").prop("checked", true);
+                   document.getElementById('etable_mdl').style.display='none';
+                     document.getElementById('etable_mdl_ttl').style.display='none';
 
-                    }
+                  }
 
 
                      
 
                   $("#IminS").val(Min);  
                   $("#ImaxS").val(Max); 
+                  $('.displayed-item').mouseover(function() {
+var current=this.id;
+ current=current.replace('card-','MR');
+ //current="MR"+current;
+ 
+ $("#"+current).css("font-size","18px"); 
+ $("#"+current).css("background-color","black"); 
+ $("#"+current).css("color","whitesmoke"); 
 
+});
+
+$('.displayed-item').mouseleave(function() {
+var current=this.id;
+ current=current.replace('card-','MR');
+ //current="MR"+current;
+ 
+ $("#"+current).css("font-size","18px"); 
+ $("#"+current).css("background-color","whitesmoke"); 
+ $("#"+current).css("color","black"); 
+
+});
+                 
               }  
          });  
     });  
@@ -846,7 +1099,7 @@ $(document).ready(function(){
                     etu_prch:etu_prchS,
                     etab:etabliS},  
               success:function(data){ 
-                $('#modalEquip').modal('hide'); 
+                 
                    $('#nC').html(data); 
 
                    if(Nbr_prS=='All')
@@ -884,86 +1137,345 @@ $(document).ready(function(){
                      $("#radio-fin").prop("checked", true);  
 
 
-                   if(collocS=='All')
-                     $("#allC").prop("checked", true);
-                   else if(collocS=='oui') 
-                     $("#Cradio-Oui").prop("checked", true); 
-                   else if(collocS=='non') 
-                     $("#Cradio-non").prop("checked", true);
-
-                  
-                     
-
-                    if(etu_prchS=='All')
-                     {
-                       $("#allEtu").prop("checked", true);
-                       document.getElementById('etable').style.display='none';
-                       document.getElementById('titre_etable').style.display='none';
-                     }  
-                   else if(etu_prchS=='oui') 
-                     {
-                      $("#radio-LOui").prop("checked", true); 
-                      document.getElementById('etable').style.display='block';
-                      document.getElementById('titre_etable').style.display='block';
-                     }
-                   else if(etu_prchS=='non') 
-                    {
-                     $("#radio-Lnon").prop("checked", true);
+                   
+                  if(etu_prchS=='All')
+                   {
+                     $("#allEtu").prop("checked", true);
                      document.getElementById('etable').style.display='none';
                      document.getElementById('titre_etable').style.display='none';
-                    } 
+                   }  
+                 else if(etu_prchS=='oui') 
+                   {
+                    $("#radio-LOui").prop("checked", true); 
+                    document.getElementById('etable').style.display='block';
+                    document.getElementById('titre_etable').style.display='block';
+                   }
+                 else if(etu_prchS=='non') 
+                  {
+                   $("#radio-Lnon").prop("checked", true);
+                   document.getElementById('etable').style.display='none';
+                   document.getElementById('titre_etable').style.display='none';
+                  } 
 
                   $("#Imin").val(MinS);  
-                  $("#Imax").val(MaxS);  
+                  $("#Imax").val(MaxS);
+                  $('#modalEquip').modal('hide');
               }  
          });
     });
   });  
 </script>
 
+<script>
+ /*
+orgW=$(window).width();
+var width = $(window).width();
 
+document.getElementById('filters_show').style.display='none'; 
+
+$(window).on('resize', function() {
+if ($(this).width() != width) {
+  width = $(this).width();
+  document.getElementById('Drp_prix').style.display='none'; 
+  document.getElementById('Drp_nbrP').style.display='none'; 
+  document.getElementById('Drp_nbrCh').style.display='none'; 
+  document.getElementById('Drp_TL').style.display='none'; 
+  document.getElementById('Drp_Plus').style.display='none'; 
+  document.getElementById('Drp_Rch').style.display='none'; 
+
+  document.getElementById('filters_show').style.display='block'; 
+       $('#logoo').css('width','6em');
+       $('#logoo').css('margin-top','1em');
+       $('#logoo').css('margin-left','1em');    
+}
+
+if ($(this).width() == orgW) {
+  width = $(this).width();
+  document.getElementById('Drp_prix').style.display='block'; 
+  document.getElementById('Drp_nbrP').style.display='block'; 
+  document.getElementById('Drp_nbrCh').style.display='block'; 
+  document.getElementById('Drp_TL').style.display='block'; 
+  document.getElementById('Drp_Plus').style.display='block'; 
+  document.getElementById('Drp_Rch').style.display='block'; 
+  document.getElementById('filters_show').style.display='none'; 
+  
+}
+
+});
+
+*/
+</script>
 
 <script>
 $(document).ready(function(){  
-        document.getElementById('etable').style.display='none';
-        document.getElementById('titre_etable').style.display='none';
+      document.getElementById('etable').style.display='none';
+      document.getElementById('titre_etable').style.display='none';
 
-        document.getElementById('etable_mdl').style.display='none';
-        document.getElementById('etable_mdl_ttl').style.display='none';
-
-
-
-      $('#radio-Lnon').click(function(){
-        document.getElementById('etable').style.display='none';
-        document.getElementById('titre_etable').style.display='none';
-      });
-
-      $('#radio-LOui').click(function(){
-        document.getElementById('etable').style.display='block';
-        document.getElementById('titre_etable').style.display='block';
-      });
-
-      $('#allEtu').click(function(){
-        document.getElementById('etable').style.display='none';
-        document.getElementById('titre_etable').style.display='none';
-      });
+      document.getElementById('etable_mdl').style.display='none';
+      document.getElementById('etable_mdl_ttl').style.display='none';
 
 
 
+    $('#radio-Lnon').click(function(){
+      document.getElementById('etable').style.display='none';
+      document.getElementById('titre_etable').style.display='none';
+    });
 
-      $('#CollocEtuMN').click(function(){
-        document.getElementById('etable_mdl').style.display='none';
-        document.getElementById('etable_mdl_ttl').style.display='none';
-      });
+    $('#radio-LOui').click(function(){
+      document.getElementById('etable').style.display='block';
+      document.getElementById('titre_etable').style.display='block';
+    });
 
-      $('#CollocEtuMO').click(function(){
-        document.getElementById('etable_mdl').style.display='block';
-        document.getElementById('etable_mdl_ttl').style.display='block';
-      });
+    $('#allEtu').click(function(){
+      document.getElementById('etable').style.display='none';
+      document.getElementById('titre_etable').style.display='none';
+    });
 
-      $('#CollocEtuMA').click(function(){
-        document.getElementById('etable_mdl').style.display='none';
-        document.getElementById('etable_mdl_ttl').style.display='none';
-      });
-    });    
+
+
+
+    $('#CollocEtuMN').click(function(){
+      document.getElementById('etable_mdl').style.display='none';
+      document.getElementById('etable_mdl_ttl').style.display='none';
+    });
+
+    $('#CollocEtuMO').click(function(){
+      document.getElementById('etable_mdl').style.display='block';
+      document.getElementById('etable_mdl_ttl').style.display='block';
+    });
+
+    $('#CollocEtuMA').click(function(){
+      document.getElementById('etable_mdl').style.display='none';
+      document.getElementById('etable_mdl_ttl').style.display='none';
+    });
+  });    
+
+
+  
 </script>
+
+<!--MAP Loading JavaScreept-->
+<script>
+var markers_on_map=[];  
+var markers = <?php echo json_encode($markers); ?>;
+var nbrM=<?php echo count($markers);?>;
+var codeLsss;
+
+
+const here = {
+apiKey:'gNAS-hI7AKsqytfacNxMU-WZqMQa_Zn-nunnoU2p6s4'
+}
+const style = 'normal.day';
+
+const hereTileUrl = `https://2.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/${style}/{z}/{x}/{y}/512/png8?apiKey=${here.apiKey}&ppi=320`;
+
+const map = L.map('map', {
+ center: [33.589886, -7.603869],
+ zoom: 8,
+ layers: [L.tileLayer(hereTileUrl)]
+});
+map.attributionControl.addAttribution('&copy; HERE 2019');
+for(var i=0;i<nbrM;i++)
+{
+ if(markers[i][6]!=null)
+ { 
+  codeLsss=markers[i][0];
+  var icon = L.divIcon({
+      className: 'custom-div-icon',
+      html: "<button  id='MR"+markers[i][0]+"' class='marker-pin marker'> <i class='fas fa-home hm'></i> </button>"
+       
+  });
+   var marker = L.marker([markers[i][5], markers[i][6]],{ icon: icon }).addTo(map);
+
+    
+   var popupContent = "<div  class='pop_img'>"+markers[i][7]+"<div class='pop_title'><h3>"+markers[i][1]+"</h3></div><div class='pop_adrs'><i class='fas fa-map-marker-alt CA'></i>"+markers[i][8]+"</div><div class='pop_prix'><i class='fas fa-tags CA'></i>"+markers[i][4]+" DH</div></div>";
+   
+   marker.bindPopup( popupContent);
+
+
+   markers_on_map.push(marker);
+  marker.bindTooltip(""+markers[i][4]+" DH", {className: 'price-tag'});
+  
+  }
+}
+map.on('popupopen', function() {  
+$('.act_img').click(function(e){
+ var clicked=this.id.replace("smrP","");
+ window.location.href="SeeMore.php?smr="+clicked;
+
+});
+});
+</script>
+
+
+
+<script>
+var map_open="Y";
+$(document).ready(function(){ /*
+$('.marker').mouseover(function() {
+ 
+ document.getElementById(this.id).innerHTML ="<p class='map_pr'>"+markers[this.id][4]+"DH</p>";
+});
+
+$('.marker').mouseleave(function() {
+ 
+ document.getElementById(this.id).innerHTML ="<i class='fas fa-home hm'></i>";
+});*/
+
+
+
+$('.displayed-item').mouseover(function() {
+var current=this.id;
+ current=current.replace('card-','MR');
+ //current="MR"+current;
+ 
+ $("#"+current).css("font-size","18px"); 
+ $("#"+current).css("background-color","black"); 
+ $("#"+current).css("color","whitesmoke"); 
+
+});
+
+$('.displayed-item').mouseleave(function() {
+var current=this.id;
+ current=current.replace('card-','MR');
+ //current="MR"+current;
+ 
+ $("#"+current).css("font-size","18px"); 
+ $("#"+current).css("background-color","whitesmoke"); 
+ $("#"+current).css("color","black"); 
+
+});
+
+$('#map_cntrl').click(function() {
+  if(map_open=="Y")
+  {
+      document.getElementById('map').style.display='none'; 
+      $("#CNTR").attr('class', '');
+      $("#nC").attr('class', 'grid');
+      map_open="N";
+  }
+  else if(map_open=="N")
+  {
+    $("#CNTR").attr('class', 'containerR');
+      $("#nC").attr('class', 'grids grid');
+      document.getElementById('map').style.display='block'; 
+
+      map_open="Y";
+  }
+  
+ });
+});
+
+
+
+</script>
+<script>
+var CS="<?php echo $CS; ?>";
+var MS="<?php echo $MS; ?>";
+var RSK="<?php echo $RSK; ?>";
+var TTA="<?php echo $TTA; ?>";
+var valSelect;
+$(document).ready(function(){
+
+if(region=="ALL")
+{
+   document.getElementById('Select_Province').style.display='none';
+   document.getElementById('Select_Province_ttl').style.display='none';
+}
+else if(region=="Rabat-Salé-Kénitra")
+{       
+  $('#Select_Province').html(RSK);  
+}
+else if(region=="Casablanca-Settat")
+{
+ $('#Select_Province').html(CS); 
+}  
+else if(region=="Marrakech-Safi")
+{
+  $('#Select_Province').html(MS); 
+}  
+else if(region=="Tanger-Tétouan-Al Hoceïma")
+{
+  $('#Select_Province').html(TTA); 
+}
+$("#Select_Region").val('<?=$region?>');
+           
+$("#Select_Province").val('<?=$province?>');
+
+
+
+
+$('#Select_Region').change(function(){
+  valSelect=$(this).val();
+  if(valSelect!="ALL")
+  {
+    document.getElementById('Select_Province').style.display='block';
+    document.getElementById('Select_Province_ttl').style.display='block';
+    if(valSelect=="Rabat-Salé-Kénitra")
+     {
+       $('#Select_Province').html(RSK);  
+     }
+    else if(valSelect=="Casablanca-Settat")
+     {
+      $('#Select_Province').html(CS); 
+     }  
+    else if(valSelect=="Marrakech-Safi")
+     {
+      $('#Select_Province').html(MS); 
+     }  
+    else if(valSelect=="Tanger-Tétouan-Al Hoceïma")
+     {
+      $('#Select_Province').html(TTA); 
+     }    
+    else
+    {
+      $('#Select_Province').html("<option>Province non disponibles!!</option>");
+    }
+  }
+  else
+  {
+    document.getElementById('Select_Province').style.display='none';
+    document.getElementById('Select_Province_ttl').style.display='none';
+  }
+  
+    
+ });
+});
+</script>
+
+<script>/*
+$(document).ready(function(){
+map.on('dragend',function(e){
+//alert(map.getCenter());
+alert(" East:"+map.getBounds().getEast()+" West:"+map.getBounds().getWest()+" North:"+map.getBounds().getNorth()+" South:"+map.getBounds().getSouth());
+});
+});
+*/
+
+</script>
+
+<style>
+.marker{
+font-size:17px;
+border-radius:100%;
+height: 40px;
+width: 40px; 
+background-color: whitesmoke;
+border:0px;
+}
+.marker:hover{
+height: 41px;
+width: 41px;
+font-size:18px;
+background-color: black;
+color: whitesmoke;
+
+ 
+}
+
+.map_pr{
+margin-left:-7px;
+}
+
+
+</style>

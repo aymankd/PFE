@@ -6,7 +6,17 @@ session_start();
   $database = "pfe";
   $msg="";
    $result="";
-
+   $markers=array();
+   /*
+   $reqR="SELECT * from logement where (`status`='valide') and (`SL_adr_nom` like '%$rech%') and (`prix` between $Pmin and $Pmax) ";
+   if($region!="ALL")
+   {
+    $reqR.= "and (`region`=$region) ";
+   }
+   if($province!="ALL")
+   {
+    $reqR.="and (`province-prefecture`=$province)";
+   }*/
 // Create connection
 $conn = new mysqli($servername, $userservername,"", $database);
 
@@ -25,10 +35,20 @@ $TL=$_POST['TL'];
 $CLC=$_POST['colloc'];
 $EPR=$_POST['etu_prch'];
 $ETB=$_POST['etab'];
-//echo "Min:$Pmin ,  MAX:$Pmax  , NP:$NP  , NC:$NC ,TL:$TL, CLC:$CLC , EPR:$EPR  , ETB:$ETB ";
+$region=$_POST['region'];
 
-$reqR="SELECT * from logement where (`status`='valide') and (`SL_adr_nom` like '%$rech%') and (`prix` between $Pmin and $Pmax)";
+$province=$_POST['province'];
+//$result= "Min:$Pmin ,  MAX:$Pmax  , NP:$NP  , NC:$NC ,TL:$TL, CLC:$CLC , EPR:$EPR  , ETB:$ETB , region:$region , province:$province";
 
+$reqR="SELECT * from logement where (`status`='valide') and (`SL_adr_nom` like '%$rech%') and (`prix` between $Pmin and $Pmax) ";
+if($region!="ALL")
+   {
+    $reqR.= "and (`region`='$region') ";
+   }
+   if($province!="ALL")
+   {
+    $reqR.="and (`province-prefecture`='$province')";
+   }
     if($NP!="All")
     {
       $reqR=$reqR." AND ( (CodeL in (SELECT CodeS from studio where nbrP=$NP )) or (CodeL in (SELECT Codeapp from appartement where nbrP=$NP)))";
@@ -79,7 +99,7 @@ $reqR="SELECT * from logement where (`status`='valide') and (`SL_adr_nom` like '
     
      
 $statementR=$conn->prepare($reqR);
-//$statement->bind_param("s",$Srech);
+//$statementR->bind_param("ss",$region,$province);
 $statementR->execute();
 $resR=$statementR->get_result();
 while($rowR = mysqli_fetch_array($resR))
@@ -93,6 +113,8 @@ while($rowR = mysqli_fetch_array($resR))
   $price=$rowR['prix'];
   $sup=$rowR['superficie'];
   $prix=$rowR['prix'];
+  $lat=$rowR['lat'];
+  $lng=$rowR['lng'];
 
 
 
@@ -136,8 +158,9 @@ while($rowR = mysqli_fetch_array($resR))
 
 
 
-
-    $result.='  <article>
+    $Aimg="<img id='smrP".$CodeL."' src='$src' class='act_img'>";
+    array_push($markers,array($CodeL,$nom,$LogeType,$description,$prix,$lat,$lng,$Aimg,$adress));
+    $result.='  <article id="card-'.$CodeL.'" class="displayed-item" >
     <!--Slidshow-->
       <div id="demo'.$CodeL.'" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
@@ -188,8 +211,9 @@ while($rowR = mysqli_fetch_array($resR))
     $row=$res->fetch_assoc();
     $nbrP=$row['nbrP'];
     
-
-   $result.='  <article>
+    $Aimg="<img id='smrP".$CodeL."' src='$src' class='act_img'>";
+    array_push($markers,array($CodeL,$nom,$LogeType,$description,$prix,$lat,$lng,$Aimg,$adress));
+   $result.='  <article id="card-'.$CodeL.'" class="displayed-item" >
     <!--Slidshow-->
       <div id="demo'.$CodeL.'" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
@@ -227,13 +251,7 @@ while($rowR = mysqli_fetch_array($resR))
     
   }
   }
-
+  $response=array('result'=>$result,"markers"=>$markers);
+  echo json_encode($response);
 ?>
 
-<html>
-
-
-<?=$result;?>
-
-
-</html>
